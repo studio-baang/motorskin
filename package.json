@@ -1,0 +1,13 @@
+{
+  "name": "motorskin",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "watch": "yarn parcel watch develop/css/custom.scss develop/js/app.js --dist-dir ./css --dist-dir ./dist"
+  },
+  "dependencies": {
+    "gsap": "file:///Users/imac/gsap-shockingly-green/npm-install-this/package",
+    "lodash": "^4.17.21",
+    "parcel": "^2.13.0"
+  }
+}
