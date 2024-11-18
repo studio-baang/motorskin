@@ -611,6 +611,7 @@ parcelHelpers.defineInteropFlag(exports);
 var _swiper = require("swiper");
 var _swiperDefault = parcelHelpers.interopDefault(_swiper);
 var _modules = require("swiper/modules");
+var _swiperCss = require("swiper/swiper.css");
 class Packages {
     constructor(){
         const packageSlider = new (0, _swiperDefault.default)('.package-slider', {
@@ -624,7 +625,7 @@ class Packages {
 }
 exports.default = Packages;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","swiper":"iM6UL","swiper/modules":"9ktz6"}],"gkKU3":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","swiper":"iM6UL","swiper/modules":"9ktz6","swiper/swiper.css":"dGmMB"}],"gkKU3":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -8714,6 +8715,6 @@ function EffectCards(_ref) {
     });
 }
 
-},{"../shared/create-shadow.mjs":"bWkQq","../shared/effect-init.mjs":"88TTi","../shared/effect-target.mjs":"3jkAD","../shared/effect-virtual-transition-end.mjs":"dzFvU","../shared/utils.mjs":"9mU7V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["8OJEu","f6Hfm"], "f6Hfm", "parcelRequire94c2")
+},{"../shared/create-shadow.mjs":"bWkQq","../shared/effect-init.mjs":"88TTi","../shared/effect-target.mjs":"3jkAD","../shared/effect-virtual-transition-end.mjs":"dzFvU","../shared/utils.mjs":"9mU7V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dGmMB":[function() {},{}]},["8OJEu","f6Hfm"], "f6Hfm", "parcelRequire94c2")
 
 //# sourceMappingURL=app.js.map
