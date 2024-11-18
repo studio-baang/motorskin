@@ -585,6 +585,22 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"f6Hfm":[function(require,module,exports,__globalThis) {
+class App {
+    constructor(){
+        this.body = document.querySelector('body');
+        this.pageId = {
+            packages: "page-id-15"
+        };
+        this.init();
+    }
+    containsId(id) {
+        return this.body.classList.contains(id);
+    }
+    init() {
+        if (this.containsId(this.pageId.packages)) console.log('wow');
+    }
+}
+new App();
 
 },{}]},["8OJEu","f6Hfm"], "f6Hfm", "parcelRequire94c2")
 
