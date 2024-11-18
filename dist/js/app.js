@@ -613,7 +613,7 @@ var _swiperDefault = parcelHelpers.interopDefault(_swiper);
 var _modules = require("swiper/modules");
 class Packages {
     constructor(){
-        const packageSlider = new (0, _swiperDefault.default)('package-slider', {
+        const packageSlider = new (0, _swiperDefault.default)('.package-slider', {
             slidesPerView: 3.5,
             spaceBetween: 30,
             centeredSlides: true,
