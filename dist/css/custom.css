@@ -1,0 +1,22 @@
+.footer {
+  background-color: #f5f5f5;
+  padding: 120px 0;
+  line-height: 2;
+}
+
+.footer > .ct-section-inner-wrap {
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 13px;
+  display: flex;
+}
+
+.footer__title {
+  margin-bottom: .5em;
+  font-size: 1.2em;
+}
+
+.footer__column > * {
+  margin: 2em 0;
+}
+/*# sourceMappingURL=custom.css.map */

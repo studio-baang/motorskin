@@ -9,5 +9,8 @@
     "gsap": "file:///Users/imac/gsap-shockingly-green/npm-install-this/package",
     "lodash": "^4.17.21",
     "parcel": "^2.13.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "2.13.0"
   }
 }
