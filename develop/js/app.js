@@ -1,3 +1,5 @@
+import Packages from "./pages/packages";
+
 class App {
     constructor() {
         this.body = document.querySelector('body');
@@ -15,7 +17,7 @@ class App {
 
     init() {
         if (this.containsId(this.pageId.packages)) {
-            console.log('wow');
+            new Packages();
         }
     }
 }
