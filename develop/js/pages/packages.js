@@ -6,7 +6,7 @@ import 'swiper/swiper.min.css';
 class Packages {
     constructor() {
         const packageSlider = new Swiper('.package-slider', {
-            slidesPerView: 3.5,
+            slidesPerView: 'auto',
             spaceBetween: 30,
             centeredSlides: true,
             observeSlideChildren: true,
