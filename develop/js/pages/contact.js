@@ -3,6 +3,8 @@ class Contact {
 
     }
     onLoad() {
+        console.log('전개!');
+
         const urlParams = new URLSearchParams(window.location.search);
         const model = urlParams.get('model'); // 'promo' 파라미터 값 가져오기
 
