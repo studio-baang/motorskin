@@ -18,12 +18,11 @@ class Contact {
                 for (const option of selectElement.options) {
                     if (option.value === decodeModel) { // 공백이 정상적으로 처리된 값과 비교
                         option.selected = true; // 해당 옵션 선택
-                        console.log('야발!');
                         break;
                     }
                 }
             }
-        }, 500);
+        }, 100);
     }
 }
 

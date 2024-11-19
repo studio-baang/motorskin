@@ -32,7 +32,9 @@ class App {
     }
 
     onLoad() {
-        document.addEventListener("DOMContentLoaded", this.activePage.onLoad.bind());
+        if (this.activePage.onLoad) {
+            document.addEventListener("DOMContentLoaded", this.activePage.onLoad.bind());
+        }
     }
 }
 new App();
