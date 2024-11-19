@@ -8,8 +8,8 @@ Requires PHP: 7.4
 */
 
 function wpdocs_theme_name_scripts() {
-    wp_enqueue_style( 'motorskin-style', plugin_dir_url( __FILE__ ).'/dist/js/app.css' );
-	wp_enqueue_style( 'motorskin-style', plugin_dir_url( __FILE__ ).'/dist/css/custom.css' );
+    wp_enqueue_style( 'motorskin-custom-style', plugin_dir_url( __FILE__ ).'/dist/js/app.css' );
+	wp_enqueue_style( 'motorskin-script-style', plugin_dir_url( __FILE__ ).'/dist/css/custom.css' );
 	wp_enqueue_script( 'motorskin-script', plugin_dir_url( __FILE__ ). '/dist/js/app.js', array(), '1.0.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts' );
