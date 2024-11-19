@@ -19,3 +19,34 @@ add_filter('big_image_size_threshold', '__return_false');
 	wp_dequeue_style("oxygen");
 }
 add_action( 'oxygen_enqueue_scripts', 'lit_dequeue_scripts' );
+
+function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {  
+    if ( $scanned_tag['name'] != 'promotion-1' )  
+        return $scanned_tag;
+
+    $rows = get_posts(
+    	array ( 
+	        'post_type' => 'promotion-1',  
+	        'numberposts' => -1,  
+	        'orderby' => 'date',
+            'order'   => 'DESC', 
+        )
+    );  
+  
+    if ( ! $rows )  
+        return $scanned_tag;
+
+    foreach ( $rows as $row ) {  
+        $scanned_tag['raw_values'][] = $row->post_title . '|' . $row->post_title;
+    }
+
+    $pipes = new WPCF7_Pipes($scanned_tag['raw_values']);
+
+    $scanned_tag['values'] = $pipes->collect_befores();
+    $scanned_tag['labels'] = $pipes->collect_afters();
+    $scanned_tag['pipes'] = $pipes;
+  
+    return $scanned_tag;  
+}  
+
+add_filter( 'wpcf7_form_tag', 'pine_dynamic_select_field_values', 10, 2);  
