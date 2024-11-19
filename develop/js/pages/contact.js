@@ -3,8 +3,6 @@ class Contact {
 
     }
     onLoad() {
-        console.log('전개!');
-
         const urlParams = new URLSearchParams(window.location.search);
         const model = urlParams.get('model'); // 'promo' 파라미터 값 가져오기
 
@@ -19,6 +17,7 @@ class Contact {
             for (const option of selectElement.options) {
                 if (option.value === decodeModel) { // 공백이 정상적으로 처리된 값과 비교
                     option.selected = true; // 해당 옵션 선택
+                    console.log('야발!');
                     break;
                 }
             }
