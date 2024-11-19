@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "watch": "yarn parcel watch develop/css/custom.scss develop/js/app.js --dist-dir ./css --dist-dir ./dist",
-    "build": "yarn parcel build develop/css/custom.scss develop/js/app.js --dist-dir ./css --dist-dir ./dist"
+    "watch": "parcel watch develop/css/custom.scss develop/js/app.js --dist-dir ./css --dist-dir ./dist",
+    "build": "parcel build develop/css/custom.scss develop/js/app.js --dist-dir ./css --dist-dir ./dist"
   },
   "dependencies": {
     "gsap": "file:///Users/imac/gsap-shockingly-green/npm-install-this/package",

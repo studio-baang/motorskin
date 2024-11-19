@@ -63,3 +63,6 @@ function add_query_arg_to_link_wrapper() {
 
     return add_query_arg( 'model', $model, $contact_page_url );
 }
+
+// dequeue oxygen css
+require_once plugin_dir_url( __FILE__ ).'dequeue-oxygen-css.php';
