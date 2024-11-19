@@ -1,7 +1,7 @@
 import Swiper from "swiper";
 import { Navigation, Pagination } from 'swiper/modules';
 
-import 'swiper/swiper.css';
+import 'swiper/swiper.min.css';
 
 class Packages {
     constructor() {
