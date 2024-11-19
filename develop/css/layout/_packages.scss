@@ -2,6 +2,9 @@
 
 .package-slider {
 	&__card {
-		color: #ffffff;
+		width: 540px;
+		a {
+			color: #ffffff;
+		}
 	}
 }
