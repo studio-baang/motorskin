@@ -52,9 +52,7 @@ function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {
 add_filter( 'wpcf7_form_tag', 'pine_dynamic_select_field_values', 10, 2);  
 
 // promotion-1 custom link 생성
-function add_query_arg_to_link_wrapper($data) {
+function add_query_arg_to_link_wrapper($model) {
     $contact_page_url = site_url( '/contact' );
-    // 현재 변수값을 URL 파라미터로 추가
-    $model = urlencode( $data ); // 안전한 URL 인코딩
-    return add_query_arg( 'model', $model, $contact_page_url );
+    return add_query_arg( 'model', urlencode( $model ), $contact_page_url );
 }
