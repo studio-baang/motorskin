@@ -52,7 +52,19 @@ function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {
 add_filter( 'wpcf7_form_tag', 'pine_dynamic_select_field_values', 10, 2);  
 
 // promotion-1 custom link 생성
-function add_query_arg_to_link_wrapper($model) {
-    $contact_page_url = site_url( '/contact' );
-    return add_query_arg( 'model', urlencode( $model ), $contact_page_url );
+
+function add_title_to_repeater_link( $attributes ) {
+    // 현재 Repeater에서 처리 중인지 확인
+    if ( is_admin() || ! isset( $attributes['class'] ) || strpos( $attributes['class'], 'package-slider__card' ) === false ) {
+        return $attributes;
+    }
+
+    // 현재 포스트의 제목 가져오기
+    global $post;
+    if ( $post ) {
+        $attributes['href'] = add_query_arg( 'model', urlencode( $post->post_title ), site_url( '/contact' ) );
+    }
+
+    return $attributes;
 }
+add_filter( 'oxy_link_wrapper_attributes', 'add_title_to_repeater_link' );
