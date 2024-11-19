@@ -65,4 +65,4 @@ function add_query_arg_to_link_wrapper() {
 }
 
 // dequeue oxygen css
-require_once plugin_dir_url( __FILE__ ).'dequeue-oxygen-css.php';
+require_once plugin_dir_path( __FILE__ ).'dequeue-oxygen-css.php';
