@@ -54,5 +54,5 @@ add_filter( 'wpcf7_form_tag', 'pine_dynamic_select_field_values', 10, 2);
 // promotion-1 custom link 생성
 function add_query_arg_to_link_wrapper($model) {
     $contact_page_url = site_url( '/contact' );
-    return add_query_arg( 'model', urlencode( $model_name ), $contact_page_url );
+    return add_query_arg( 'model', urlencode( $model ), $contact_page_url );
 }
