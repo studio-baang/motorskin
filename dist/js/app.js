@@ -586,46 +586,64 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"f6Hfm":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _contact = require("./pages/contact");
+var _contactDefault = parcelHelpers.interopDefault(_contact);
 var _packages = require("./pages/packages");
 var _packagesDefault = parcelHelpers.interopDefault(_packages);
 class App {
     constructor(){
         this.body = document.querySelector('body');
         this.pageId = {
-            packages: "page-id-15"
+            packages: 15,
+            contact: 38
         };
+        this.activePage = null;
         this.init();
+        this.onLoad();
     }
     containsId(id) {
-        return this.body.classList.contains(id);
+        return this.body.classList.contains("page-id-" + id);
     }
     init() {
-        if (this.containsId(this.pageId.packages)) new (0, _packagesDefault.default)();
+        if (this.containsId(this.pageId.packages)) {
+            this.activePage = new (0, _packagesDefault.default)();
+            return false;
+        }
+        if (this.containsId(this.pageId.contact)) {
+            this.activePage = new (0, _contactDefault.default)();
+            return false;
+        }
+    }
+    onLoad() {
+        document.addEventListener("DOMContentLoaded", this.activePage.onLoad.bind());
     }
 }
 new App();
 
-},{"./pages/packages":"XUcw4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"XUcw4":[function(require,module,exports,__globalThis) {
+},{"./pages/contact":"aqqov","./pages/packages":"XUcw4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aqqov":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _swiper = require("swiper");
-var _swiperDefault = parcelHelpers.interopDefault(_swiper);
-var _modules = require("swiper/modules");
-var _swiperCss = require("swiper/swiper.css");
-class Packages {
-    constructor(){
-        const packageSlider = new (0, _swiperDefault.default)('.package-slider', {
-            slidesPerView: 3.5,
-            spaceBetween: 30,
-            centeredSlides: true,
-            observeSlideChildren: true,
-            loop: true
-        });
+class Contact {
+    constructor(){}
+    onLoad() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const promo = urlParams.get('promo'); // 'promo' 파라미터 값 가져오기
+        if (promo) {
+            // 파라미터 값의 공백 처리 (디코딩)
+            const decodedPromo = decodeURIComponent(promo.trim());
+            // <select> 요소 선택
+            const selectElement = document.querySelector('select[name="model"]');
+            // <select>에서 해당 값을 가진 옵션 선택
+            for (const option of selectElement.options)if (option.value === decodedPromo) {
+                option.selected = true; // 해당 옵션 선택
+                break;
+            }
+        }
     }
 }
-exports.default = Packages;
+exports.default = Contact;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","swiper":"iM6UL","swiper/modules":"9ktz6","swiper/swiper.css":"dGmMB"}],"gkKU3":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -655,7 +673,27 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"iM6UL":[function(require,module,exports,__globalThis) {
+},{}],"XUcw4":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _swiper = require("swiper");
+var _swiperDefault = parcelHelpers.interopDefault(_swiper);
+var _modules = require("swiper/modules");
+var _swiperCss = require("swiper/swiper.css");
+class Packages {
+    constructor(){
+        const packageSlider = new (0, _swiperDefault.default)('.package-slider', {
+            slidesPerView: 3.5,
+            spaceBetween: 30,
+            centeredSlides: true,
+            observeSlideChildren: true,
+            loop: true
+        });
+    }
+}
+exports.default = Packages;
+
+},{"swiper":"iM6UL","swiper/modules":"9ktz6","swiper/swiper.css":"dGmMB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iM6UL":[function(require,module,exports,__globalThis) {
 /**
  * Swiper 11.1.14
  * Most modern mobile touch slider and framework with hardware accelerated transitions

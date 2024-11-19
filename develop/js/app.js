@@ -1,3 +1,4 @@
+import Contact from "./pages/contact";
 import Packages from "./pages/packages";
 
 class App {
@@ -5,21 +6,33 @@ class App {
         this.body = document.querySelector('body');
 
         this.pageId = {
-            packages: "page-id-15",
+            packages: 15,
+            contact: 38
         }
 
+        this.activePage = null;
+
         this.init();
+        this.onLoad();
     }
 
     containsId(id) {
-        return this.body.classList.contains(id);
+        return this.body.classList.contains("page-id-" + id);
     }
 
     init() {
         if (this.containsId(this.pageId.packages)) {
-            new Packages();
+            this.activePage = new Packages();
+            return false;
+        }
+        if (this.containsId(this.pageId.contact)) {
+            this.activePage = new Contact();
+            return false;
         }
     }
-}
 
+    onLoad() {
+        document.addEventListener("DOMContentLoaded", this.activePage.onLoad.bind());
+    }
+}
 new App();
