@@ -1,9 +1,9 @@
 @use "../utils" as *;
 
-.wrapper {
+.main {
 	color: #ffffff;
 	background-color: #141414;
-	.main > .ct-section-inner-wrap {
+	& > .ct-section-inner-wrap {
 		width: 100%;
 		padding: 0;
 	}
