@@ -1,5 +1,6 @@
 import Contact from "./pages/contact";
 import Packages from "./pages/packages";
+import RemoveDefaultClass from "./utils/removeDefaultClass";
 
 class App {
     constructor() {
@@ -32,9 +33,12 @@ class App {
     }
 
     onLoad() {
-        if (this.activePage.onLoad) {
-            document.addEventListener("DOMContentLoaded", this.activePage.onLoad.bind());
-        }
+        document.addEventListener("DOMContentLoaded", () => {
+            new RemoveDefaultClass;
+            if (this.activePage.onLoad) {
+                this.activePage.onLoad();
+            }
+        })
     }
 }
 new App();
