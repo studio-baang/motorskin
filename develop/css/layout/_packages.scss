@@ -3,8 +3,17 @@
 .package-slider {
 	&__card {
 		width: 540px;
+		background-color: #ffffff;
 		a {
-			color: #ffffff;
+			color: #111111;
+		}
+		h3 {
+			@include heading-2();
+		}
+	}
+	.price-tag {
+		&__item {
+			display: flex;
 		}
 	}
 }

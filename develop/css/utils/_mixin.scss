@@ -78,3 +78,10 @@
 @mixin font-monument {
 	font-family: "PPMonument-extended";
 }
+
+@mixin heading-2 {
+	text-transform: capitalize;
+	@include font-monument();
+	font-weight: 700;
+	font-size: 28px;
+}
