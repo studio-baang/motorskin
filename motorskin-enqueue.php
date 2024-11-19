@@ -23,7 +23,6 @@ function lit_dequeue_scripts() {
 add_filter('wpcf7_form_tag_data_option', function($data, $options, $args) {
 	$data = [];
 	foreach ($options as $option) {
-		…
 		if ($option === 'latest_posts') {
 			$titles = array_map(function($post) {
 				return $post->post_title;
