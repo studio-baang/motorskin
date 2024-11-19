@@ -21,7 +21,7 @@ add_filter('big_image_size_threshold', '__return_false');
 add_action( 'oxygen_enqueue_scripts', 'lit_dequeue_scripts' );
 
 function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {  
-    if ( $scanned_tag['name'] != 'promotion-1' )  
+    if ( $scanned_tag['name'] != 'model' )  
         return $scanned_tag;
 
     $rows = get_posts(
@@ -50,3 +50,11 @@ function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {
 }  
 
 add_filter( 'wpcf7_form_tag', 'pine_dynamic_select_field_values', 10, 2);  
+
+// promotion-1 custom link 생성
+function add_query_arg_to_link_wrapper($data) {
+    $contact_page_url = site_url( '/contact' );
+    // 현재 변수값을 URL 파라미터로 추가
+    $model = urlencode( $data ); // 안전한 URL 인코딩
+    return add_query_arg( 'model', $model, $contact_page_url );
+}
