@@ -8,8 +8,9 @@ class Packages {
         this.packageSlider = new Swiper('.package-slider', {
             slidesPerView: 'auto',
             spaceBetween: 30,
-            observer: true,
+            centeredSlides: true,
             observeSlideChildren: true,
+            loop: true,
         });
 
         this.filterWrapper = document.querySelector('.filter-model');
@@ -36,7 +37,7 @@ class Packages {
         });
 
         this.packageSlider.updateSlides();
-        this.packageSlider.slideTo(0);
+        this.packageSlider.slideTo(1);
     }
 
     onClick(e) {
