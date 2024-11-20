@@ -36,7 +36,7 @@ class App {
 	onLoad() {
 		document.addEventListener("DOMContentLoaded", () => {
 			new RemoveDefaultClass();
-			toggleGnbAnim();
+			this.toggleGnbAnim();
 			if (this.activePage.onLoad) {
 				this.activePage.onLoad();
 			}
