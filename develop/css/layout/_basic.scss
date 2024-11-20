@@ -21,10 +21,8 @@ input,
 button,
 ul,
 li {
-	font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont,
-		system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
-		"Segoe UI Symbol", sans-serif;
+	font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 ul,
@@ -32,6 +30,20 @@ ol {
 	padding: 0;
 	margin: 0;
 	list-style: none;
+}
+
+.header {
+	width: 100%;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	background-color: #ffffff;
+	&#header {
+		&.oxy-pro-menu-mobile-open-icon {
+			@include flex();
+			@include calc-column-width(12);
+		}
+	}
 }
 
 // footer
