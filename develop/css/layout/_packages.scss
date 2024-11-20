@@ -12,9 +12,17 @@
 			@include heading-2();
 		}
 	}
-	.price-tag {
-		&__item {
-			display: flex;
-		}
+}
+
+.filter-model {
+	list-style: none;
+	@include calc-column-width(10);
+	@include flex();
+	gap: 14px;
+}
+
+.price-tag {
+	&__item {
+		@include flex();
 	}
 }
