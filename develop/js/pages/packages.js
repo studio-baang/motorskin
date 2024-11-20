@@ -31,10 +31,8 @@ class Packages {
         const cards = document.querySelectorAll('.package-slider__card');
 
         cards.forEach(card => {
-            console.log(card.dataset.model, data);
-
             card.classList.add('package-slider__card--inactive');
-            if (card.dataset.model == data) {
+            if (card.dataset.model === data) {
                 card.classList.remove('package-slider__card--inactive');
             }
         });
@@ -45,7 +43,7 @@ class Packages {
     onClick(e) {
         const target = e.target;
         if (!target.classList.contains(this.filterActiveItemName)) {
-            const data = target.dataset.model;
+            const data = target.dataset.filterName;
 
             this.updateSlide(data);
             this.updateActiveClass(e.target);
