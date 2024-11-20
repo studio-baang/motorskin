@@ -33,7 +33,7 @@ function add_dynamic_menu_css() {
     $dynamic_css = '';
     foreach ($menu_items as $menu_item) {
         if (!empty($menu_item->description)) {
-            $dynamic_css .= "li.menu-item-{$menu_item->ID}::after { content: '" . esc_js($menu_item->description) . "'; }\n";
+            $dynamic_css .= "li.menu-item-{$menu_item->ID}>a::after { content: '" . esc_js($menu_item->description) . "'; }\n";
         }
     }
 
