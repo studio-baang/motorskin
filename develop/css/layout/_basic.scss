@@ -40,7 +40,9 @@ ol {
 	line-height: 2;
 	color: #eeeeee;
 	background-color: #222222;
-	padding: 90px 0;
+	& > .ct-section-inner-wrap {
+		padding: 90px 0;
+	}
 }
 
 // utility class
