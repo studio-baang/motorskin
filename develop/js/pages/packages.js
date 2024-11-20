@@ -13,27 +13,41 @@ class Packages {
             loop: true,
         });
 
-
         this.filterWrapper = document.querySelector('.filter-model');
         this.filterItems = this.filterWrapper.querySelectorAll('.filter-model__item');
+        this.filterActiveItemName = 'filter-model__item--active';
 
         this.filterWrapper.addEventListener('click', this.onClick.bind(this));
     }
 
     updateActiveClass(target) {
         this.filterItems.forEach(item => {
-            item.classList.remove('filter-model__item--active');
+            item.classList.remove(this.filterActiveItemName);
         });
-        target.classList.add('filter-model__item--active');
+        target.classList.add(this.filterActiveItemName);
     }
 
-    onClick(event) {
-        console.log(event.target);
-        updateActiveClass(event.target);
-    }
+    updateSlide(data) {
+        const cards = document.querySelectorAll('.package-slider__card');
 
-    updateSlide() {
+        cards.forEach(card => {
+            card.classList.add('package-slider__card--inactive');
+            if (card.dataset.model == data) {
+                card.classList.remove('package-slider__card--inactive');
+            }
+        });
+
         this.packageSlider.update();
+    }
+
+    onClick(e) {
+        const target = e.target;
+        if (!target.classList.contains(this.filterActiveItemName)) {
+            const data = target.dataset.model;
+
+            this.updateSlide(data);
+            this.updateActiveClass(e.target);
+        }
     }
 }
 

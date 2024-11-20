@@ -4,6 +4,9 @@
 	&__card {
 		width: 540px;
 		background-color: #ffffff;
+		&--inactive {
+			display: none;
+		}
 		a {
 			color: #111111;
 		}
