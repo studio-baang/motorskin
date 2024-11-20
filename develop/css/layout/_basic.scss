@@ -58,6 +58,10 @@ ol {
 	}
 }
 
+.video-background {
+	pointer-events: none;
+}
+
 .headline-box {
 	@include calc-column-width(6);
 	margin-right: auto;
