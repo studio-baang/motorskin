@@ -15,6 +15,8 @@ class App {
 		this.activePage = null;
 
 		this.init();
+
+		this.onLoad();
 	}
 
 	containsId(id) {
@@ -30,7 +32,6 @@ class App {
 			this.activePage = new Contact();
 			return false;
 		}
-		this.onLoad();
 	}
 
 	onLoad() {
