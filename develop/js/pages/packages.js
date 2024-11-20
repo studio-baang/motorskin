@@ -29,10 +29,10 @@ class Packages {
 
     updateSlide(data) {
         const cards = document.querySelectorAll('.package-slider__card');
-
         cards.forEach(card => {
+            console.log(card.dataset.model, data);
             card.classList.add('package-slider__card--inactive');
-            if (card.dataset.model === data) {
+            if (card.dataset.model === data || data === "all") {
                 card.classList.remove('package-slider__card--inactive');
             }
         });
