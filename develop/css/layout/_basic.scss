@@ -50,6 +50,11 @@ ol {
 			width: 100%;	
 		}
 	}
+	li.menu-item>a::after {
+		font-size: 16px;
+		font-weight: 400;
+		padding-left: 1em;
+	}
 }
 
 // footer
