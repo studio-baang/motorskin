@@ -8,9 +8,8 @@ class Packages {
         this.packageSlider = new Swiper('.package-slider', {
             slidesPerView: 'auto',
             spaceBetween: 30,
-            centeredSlides: true,
+            observer: true,
             observeSlideChildren: true,
-            loop: true,
         });
 
         this.filterWrapper = document.querySelector('.filter-model');
