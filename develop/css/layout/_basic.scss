@@ -33,11 +33,6 @@ ol {
 }
 
 .header {
-	width: 100%;
-	position: sticky;
-	top: 0;
-	z-index: 100;
-	background-color: #ffffff;
 	&#header {
 		& .oxy-pro-menu-mobile-open-icon {
 			@include flex();
