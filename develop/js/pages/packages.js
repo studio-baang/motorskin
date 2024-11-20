@@ -42,7 +42,7 @@ class Packages {
 
     onClick(e) {
         const target = e.target;
-        if (!target.classList.contains(this.filterActiveItemName)) {
+        if (!target.classList.contains(this.filterActiveItemName) && target.dataset.filterName) {
             const data = target.dataset.filterName;
 
             this.updateSlide(data);
