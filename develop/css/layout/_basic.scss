@@ -1,15 +1,30 @@
 @use "../utils" as *;
 
 body {
-	font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont,
-		system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
-		"Segoe UI Symbol", sans-serif;
 	@include body-1;
 	letter-spacing: -0.025em;
 	word-break: keep-all;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+input,
+button,
+ul,
+li {
+	font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont,
+		system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol", sans-serif !important;
 }
 
 .main {
@@ -25,14 +40,14 @@ body {
 .section {
 	& > .ct-section-inner-wrap {
 		@include flex($direction: column);
-		@include calc-column-width(8);
+		@include calc-column-width(10);
 		margin: 0 auto;
 		padding: 160px 0;
 	}
 }
 
 .headline-box {
-	@include calc-column-width(5);
+	@include calc-column-width(6);
 	margin-right: auto;
 	&__index {
 		color: $primary-color;
