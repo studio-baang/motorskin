@@ -54,7 +54,7 @@ class App {
 				paused: true,
 				duration: 0.2,
 				x: 20,
-				ease: "power2.inOut",
+				ease: "power1.inOut",
 			});
 
 			item.addEventListener("mouseenter", () => animation.play());
