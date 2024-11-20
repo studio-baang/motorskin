@@ -12,6 +12,7 @@ class Packages {
             observeSlideChildren: true,
             loop: true,
         });
+        this.packageSlider.slideTo(2);
 
         this.filterWrapper = document.querySelector('.filter-model');
         this.filterItems = this.filterWrapper.querySelectorAll('.filter-model__item');
@@ -37,7 +38,7 @@ class Packages {
         });
 
         this.packageSlider.updateSlides();
-        this.packageSlider.slideTo(1);
+        this.packageSlider.slideTo(2);
     }
 
     onClick(e) {
