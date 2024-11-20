@@ -42,6 +42,13 @@ ol {
 		& .oxy-pro-menu-mobile-open-icon {
 			@include flex();
 			@include calc-column-width(12);
+			margin: 0 auto;
+		}
+	}
+	&.oxy-pro-menu.oxy-pro-menu-open>.oxy-pro-menu-container {
+		width: 50%;
+		@include media-mobile {
+			width: 100%;	
 		}
 	}
 }
