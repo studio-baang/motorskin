@@ -52,7 +52,7 @@ ol {
 	}
 	li.menu-item>a{
 		transform: translate3d(0px,0px,0px);
-		transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+		transition: transform 0.2s cubic-bezier(0.6, 0, 0.4, 1);
 		will-change: transform;
 		&:hover{
 			transform: translate3d(20px, 0px, 0px);
