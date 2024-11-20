@@ -12,13 +12,23 @@
 			@include heading-2();
 		}
 	}
+	&__controllers {
+		@include calc-column-width(10);
+		@include flex($justify: "space-between");
+		margin: 0 auto;
+		padding-bottom: 80px;
+	}
 }
 
 .filter-model {
-	list-style: none;
-	@include calc-column-width(10);
 	@include flex();
 	gap: 14px;
+	&__item {
+		font-size: 18px;
+		&--active {
+			font-weight: bold;
+		}
+	}
 }
 
 .price-tag {
