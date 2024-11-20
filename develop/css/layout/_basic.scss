@@ -21,8 +21,18 @@ body {
 	}
 }
 
+.section {
+	& > .ct-section-inner-wrap {
+		@include flex($direction: column);
+		@include calc-column-width(8);
+		margin: 0 auto;
+		padding: 160px 0;
+	}
+}
+
 .headline-box {
-	@include column(8);
+	@include calc-column-width(5);
+	margin-right: auto;
 	&__index {
 		@include font-monument;
 	}

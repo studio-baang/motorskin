@@ -1,10 +1,13 @@
-@mixin flex($justify, $align) {
+@mixin flex($justify, $align, $direction) {
 	display: flex;
 	@if $justify {
 		justify-content: $justify;
 	}
 	@if $align {
 		align-items: $align;
+	}
+	@if $direction {
+		flex-direction: $direction;
 	}
 }
 
@@ -95,7 +98,7 @@
 	line-height: 1.6em;
 }
 
-@mixin column($number) {
+@mixin calc-column-width($number) {
 	$col: 65px;
 	$gap: 30px;
 	$margin: 15px;
@@ -103,9 +106,6 @@
 	$calc-width: $number * $col + ($number - 1) * $gap;
 	$calc-media-max-width: $calc-width + $margin * 2;
 
-	width: $calc-width;
-	margin: 0 auto;
-	@media screen and (max-width: $calc-media-max-width) {
-		width: calc(100% - ($margin * 2));
-	}
+	width: calc(100% - ($margin * 2));
+	max-width: $calc-width;
 }
