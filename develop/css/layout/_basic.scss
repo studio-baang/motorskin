@@ -38,6 +38,10 @@ ol {
 }
 
 .header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background-color: white;
 	&#header {
 		& .oxy-pro-menu-mobile-open-icon {
 			@include flex();
@@ -53,7 +57,7 @@ ol {
 	}
 	.oxy-pro-menu-list {
 		max-height: 90vh;
-		gap: 54px;
+		gap: 36px;
 	}
 	li.menu-item > a::after {
 		font-size: 16px;
