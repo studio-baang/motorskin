@@ -25,11 +25,8 @@ function add_dynamic_menu_css() {
     wp_register_style($handle, false);
 
     // 메뉴 데이터 가져오기
-    $locations = get_nav_menu_locations();
-    if (!isset($locations['gnb'])) return;
-
-    $menu = wp_get_nav_menu_object($locations['gnb']);
-    $menu_items = wp_get_nav_menu_items($menu->term_id);
+    $locations = wp_get_nav_menus();
+    $menu_items = wp_get_nav_menu_items($locations[0]->name);
     if (!$menu_items) return;
 
     // 동적 CSS 생성
