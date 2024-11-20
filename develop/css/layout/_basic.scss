@@ -8,7 +8,6 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	&.oxy-nav-menu-prevent-overflow {
 		overflow-y: visible;
-		height: auto;
 	}
 }
 
@@ -53,7 +52,6 @@ ol {
 		}
 	}
 	.oxy-pro-menu-list {
-		overflow-y: hidden;
 		max-height: 90vh;
 		gap: 54px;
 	}
