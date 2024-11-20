@@ -43,6 +43,9 @@ ol {
 	z-index: 10;
 	background-color: white;
 	&#header {
+		&.oxy-pro-menu-open .oxy-pro-menu-mobile-open-icon {
+			display: flex;
+		}
 		& .oxy-pro-menu-mobile-open-icon {
 			@include flex();
 			@include calc-column-width(12);
