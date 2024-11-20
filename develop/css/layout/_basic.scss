@@ -23,4 +23,15 @@ body {
 
 .headline-box {
 	@include column(8);
+	&__index {
+		@include font-monument;
+	}
+	&__head {
+		font-size: 48px;
+		font-weight: bold;
+		line-height: 1.3;
+	}
+	&__body {
+		@include body-1;
+	}
 }
