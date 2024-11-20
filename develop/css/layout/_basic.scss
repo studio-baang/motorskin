@@ -39,7 +39,7 @@ ol {
 	z-index: 100;
 	background-color: #ffffff;
 	&#header {
-		&.oxy-pro-menu-mobile-open-icon {
+		& .oxy-pro-menu-mobile-open-icon {
 			@include flex();
 			@include calc-column-width(12);
 		}
