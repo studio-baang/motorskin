@@ -85,3 +85,8 @@
 	font-weight: 700;
 	font-size: 28px;
 }
+
+@mixin body-1 {
+	font-size: 16px;
+	line-height: 1.6em;
+}
