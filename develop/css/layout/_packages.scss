@@ -24,9 +24,11 @@
 	@include flex();
 	gap: 14px;
 	&__item {
+		opacity: 0.7;
+		font-weight: bold;
 		font-size: 18px;
 		&--active {
-			font-weight: bold;
+			opacity: 1;
 		}
 	}
 }
