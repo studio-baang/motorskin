@@ -17,7 +17,7 @@ class Packages {
         this.filterWrapper = document.querySelector('.filter-model');
         this.filterItems = this.filterWrapper.querySelectorAll('.filter-model__item');
 
-        this.filterWrapper.addEventListener('click', this.onClick.bind(e));
+        this.filterWrapper.addEventListener('click', this.onClick.bind(this));
     }
 
     updateActiveClass(target) {
