@@ -20,3 +20,7 @@ body {
 		padding: 0;
 	}
 }
+
+.headline-box {
+	@include column(8);
+}
