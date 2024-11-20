@@ -1,4 +1,9 @@
-@mixin flex($justify: flex-start, $align: center, $direction: row) {
+@mixin flex(
+	$justify: flex-start,
+	$align: center,
+	$direction: row,
+	$gap: initial
+) {
 	display: flex;
 	@if $justify {
 		justify-content: $justify;
@@ -8,6 +13,9 @@
 	}
 	@if $direction {
 		flex-direction: $direction;
+	}
+	@if $gap {
+		gap: $gap;
 	}
 }
 
