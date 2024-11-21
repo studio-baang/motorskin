@@ -40,13 +40,19 @@
 			font-size: 16px;
 			@include flex($direction: column, $gap: 3em 30px, $align: space-between);
 			input[type="text"],
-			input[type="tel"],
-			textarea {
-				font-weight: 700;
-				font-size: 20px;
-				background-color: initial;
-				border: 0;
-				border-bottom: 1px solid #141414;
+			input[type="tel"] {
+				&,
+				textarea {
+					font-weight: 700;
+					font-size: 20px;
+					background-color: initial;
+					padding: 0.5em 0;
+					border: 0;
+					border-bottom: 1px solid #141414;
+					&:focus {
+						border: 1px solid $primary-color;
+					}
+				}
 			}
 			[type="radio"] {
 				display: none;

@@ -24,6 +24,16 @@ class Contact {
             }
         }, 100);
     }
+
+    autoHeightTextarea() {
+        const textarea = document.querySelector('.wpcf7-textarea');
+        textarea.addEventListener('input', this.handleResizeHeight.bind(this));
+    }
+
+    handleResizeHeight = (event) => {
+        event..style.height = 'auto'; //height 초기화
+        event..style.height = event.scrollHeight + 'px';
+    };
 }
 
 export default Contact;
