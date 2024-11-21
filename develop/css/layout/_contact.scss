@@ -53,6 +53,7 @@
 			optgroup,
 			select,
 			textarea {
+				width: 100%;
 				font-weight: 700;
 				font-size: 20px;
 				background-color: initial;
@@ -75,6 +76,9 @@
 					color: #ffffff;
 					background-color: #525252;
 				}
+			}
+			&-control-wrap {
+				flex: 1 0 100%;
 			}
 		}
 	}
