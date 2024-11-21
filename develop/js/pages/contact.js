@@ -1,6 +1,7 @@
 
 class Contact {
     constructor() {
+        this.init();
     }
     onLoad() {
         setTimeout(() => {
@@ -24,6 +25,11 @@ class Contact {
             }
         }, 100);
     }
+
+    init() {
+        this.autoHeightTextarea();
+    }
+
 
     autoHeightTextarea() {
         const textarea = document.querySelector('.wpcf7-textarea');

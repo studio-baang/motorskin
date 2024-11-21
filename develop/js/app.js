@@ -46,8 +46,6 @@ class App {
 
 	toggleGnbAnim() {
 		const items = document.querySelectorAll(".header .menu-item");
-		console.log(items);
-
 		items.forEach((item) => {
 			const animTarget = item.querySelector("a");
 			const animation = gsap.to(animTarget, {
