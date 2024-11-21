@@ -29,6 +29,13 @@
 			padding-bottom: 16px;
 			text-align: center;
 		}
+		&__input-wrapper {
+			@include flex($direction: column);
+		}
+		&__label {
+			font-weight: 400;
+			color: #525252;
+		}
 		.wpcf7-form {
 			font-size: 16px;
 			@include flex($direction: column, $gap: 3em 30px, $align: space-between);
@@ -40,6 +47,14 @@
 				background-color: initial;
 				border: 0;
 				border-bottom: 1px solid #141414;
+			}
+			[type="radio"] {
+				display: none;
+				border: 1px solid #525252;
+				&:checked + .wpcf7-list-item-label {
+					color: #ffffff;
+					background-color: #525252;
+				}
 			}
 		}
 	}
