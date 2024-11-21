@@ -79,7 +79,7 @@ ol {
 		padding: 90px 0;
 	}
 	&__cols {
-		@include flex($gap: 30px);
+		@include flex($align: center, $gap: 30px);
 	}
 	&__info {
 		@include flex();

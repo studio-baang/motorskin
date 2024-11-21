@@ -17,7 +17,7 @@
 	}
 	&__controllers {
 		@include calc-column-width(10);
-		@include flex($justify: space-between);
+		@include flex($justify: space-between, $align: center);
 		margin: 0 auto;
 		padding-bottom: 80px;
 	}
@@ -38,6 +38,6 @@
 
 .price-tag {
 	&__item {
-		@include flex();
+		@include flex($align: center);
 	}
 }
