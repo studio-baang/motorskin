@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 @mixin flex($justify: normal, $align: normal, $direction: row, $gap: initial) {
 	display: flex;
 	@if $justify {
@@ -102,9 +104,9 @@
 }
 
 @mixin calc-column-width($number) {
-	$col: 65px;
-	$gap: 30px;
-	$margin: 15px;
+	$col: $pc-layout-col;
+	$gap: $pc-layout-gap;
+	$margin: $layout-margin;
 
 	$calc-width: $number * $col + ($number - 1) * $gap;
 	$calc-media-max-width: $calc-width + $margin * 2;

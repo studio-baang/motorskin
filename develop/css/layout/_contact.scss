@@ -63,15 +63,15 @@
 				background-color: initial;
 				padding: 0.5em;
 				border: 0;
+				&:focus {
+					background-color: #ffffff;
+					outline: none;
+				}
 			}
 			input[type="text"],
 			input[type="tel"],
 			textarea {
 				border-bottom: 1px solid #141414;
-				&:focus {
-					background-color: #ffffff;
-					outline: none;
-				}
 			}
 			[type="radio"] {
 				display: none;
@@ -80,6 +80,9 @@
 					color: #ffffff;
 					background-color: #525252;
 				}
+			}
+			.wpcf7-radio {
+				@include flex($gap: 30px);
 			}
 		}
 	}
