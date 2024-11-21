@@ -69,7 +69,7 @@ ol {
 		gap: 36px;
 	}
 	li.menu-item {
-		&.current-menu-item {
+		&.current-menu-item > a {
 			pointer-events: none;
 		}
 		& > a::after {
