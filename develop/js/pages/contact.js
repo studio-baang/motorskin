@@ -31,8 +31,8 @@ class Contact {
     }
 
     handleResizeHeight = (event) => {
-        event..style.height = 'auto'; //height 초기화
-        event..style.height = event.scrollHeight + 'px';
+        event.style.height = 'auto'; //height 초기화
+        event.style.height = event.scrollHeight + 'px';
     };
 }
 
