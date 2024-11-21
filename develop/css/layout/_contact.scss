@@ -47,7 +47,8 @@
 		}
 		.wpcf7-form {
 			font-size: 16px;
-			@include flex($direction: column, $gap: 3em 30px, $align: space-between);
+			@include flex($direction: column, $gap: 3em 30px);
+			@include calc-column-width(6);
 			button,
 			input,
 			optgroup,
@@ -78,7 +79,7 @@
 				}
 			}
 			&-control-wrap {
-				flex: 1 0 100%;
+				flex: 0 0 auto;
 			}
 		}
 	}
