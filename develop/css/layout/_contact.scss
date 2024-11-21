@@ -16,13 +16,14 @@
 		color: #525252;
 		background-color: #f4f4f4;
 		&--form {
+			height: auto;
 			@include flex(
 				$align: center,
 				$justify: center,
 				$direction: column,
 				$gap: 64px
 			);
-			padding: 160px $layout-margin;
+			@include section-padding($layout-margin);
 		}
 	}
 	&-form {
