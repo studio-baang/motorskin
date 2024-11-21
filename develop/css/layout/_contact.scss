@@ -1,0 +1,11 @@
+@use "../utils" as *;
+
+.contact {
+	& > .ct-section-inner-wrap {
+		@include flex();
+		width: 100%;
+	}
+	&__col {
+		flex: 1 0 0;
+	}
+}
