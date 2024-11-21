@@ -111,8 +111,7 @@ ol {
 	& > .ct-section-inner-wrap {
 		@include flex($direction: column);
 		@include calc-column-width(12);
-		@include section-padding;
-		margin: 0 auto;
+		@include section-padding();
 	}
 	&__cols-10 {
 		& > .ct-section-inner-wrap {
