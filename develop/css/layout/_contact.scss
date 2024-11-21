@@ -12,7 +12,12 @@
 		color: #525252;
 		background-color: #f4f4f4;
 		&--form {
-			@include flex($align: center, $direction: column);
+			@include flex(
+				$align: center,
+				$justify: center,
+				$direction: column,
+				$gap: 64px
+			);
 			@include section-padding;
 		}
 	}
@@ -22,6 +27,10 @@
 			font-size: 32px;
 			color: #141414;
 			padding-bottom: 16px;
+		}
+		.wpcf7-form {
+			font-size: 16px;
+			@include flex($direction: column, $gap: 3em 30px, $align: space-between);
 		}
 	}
 	.ct-slide {
