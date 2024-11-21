@@ -12,11 +12,10 @@
 	&__col {
 		flex: 1 0 0;
 		@include flex();
-		min-height: 400px;
+		width: 100%;
 		color: #525252;
 		background-color: #f4f4f4;
 		&--form {
-			height: auto;
 			@include flex(
 				$align: center,
 				$justify: center,
@@ -146,6 +145,7 @@
 	.ct-slide {
 		background: center center / cover no-repeat;
 		filter: grayscale(1);
+		min-height: 400px;
 	}
 }
 
