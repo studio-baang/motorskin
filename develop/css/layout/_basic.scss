@@ -68,10 +68,15 @@ ol {
 		max-height: 90vh;
 		gap: 36px;
 	}
-	li.menu-item > a::after {
-		font-size: 16px;
-		font-weight: 400;
-		padding-left: 1em;
+	li.menu-item {
+		&.current-menu-item {
+			pointer-events: none;
+		}
+		& > a::after {
+			font-size: 16px;
+			font-weight: 400;
+			padding-left: 1em;
+		}
 	}
 }
 
