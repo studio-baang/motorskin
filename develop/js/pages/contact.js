@@ -3,6 +3,9 @@ class Contact {
     constructor() {
         this.textarea = document.querySelector('.wpcf7-textarea');
 
+        this.modal = document.querySelector('.agreement-modal');
+        this.openModalBtn = document.querySelector('.contact-form__open-modal');
+
         this.init();
     }
     onLoad() {
@@ -29,13 +32,15 @@ class Contact {
     }
 
     init() {
-        this.autoHeightTextarea();
-    }
-
-
-    autoHeightTextarea() {
         this.textarea.addEventListener('input', this.handleResizeHeight.bind(this));
+        this.openModalBtn.addEventListener('click', this.toggleModal.bind());
+        this.modal.addEventListener('click', this.toggleModal.bind());
     }
+
+    toggleModal() {
+        this.modal.classList.toggle('agreement-modal--open');
+    }
+
 
     handleResizeHeight = () => {
         this.textarea.style.height = 'auto'; //height 초기화
