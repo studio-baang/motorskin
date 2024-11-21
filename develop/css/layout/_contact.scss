@@ -5,10 +5,14 @@
 		@include flex($align: stretch);
 		max-width: 100%;
 		min-height: 100vh;
+		@include media-laptop {
+			flex-direction: column;
+		}
 	}
 	&__col {
 		flex: 1 0 0;
 		@include flex();
+		min-height: 400px;
 		color: #525252;
 		background-color: #f4f4f4;
 		&--form {
@@ -43,6 +47,12 @@
 			@include flex($direction: row, $gap: $pc-layout-gap);
 			&--inner {
 				gap: 0.5em;
+			}
+			&--media-laptop {
+				@include media-laptop {
+					flex-direction: column;
+					gap: 3em;
+				}
 			}
 			& > * {
 				flex: 1 1 0;
