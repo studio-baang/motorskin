@@ -1,6 +1,8 @@
 
 class Contact {
     constructor() {
+        this.textarea = document.querySelector('.wpcf7-textarea');
+
         this.init();
     }
     onLoad() {
@@ -32,13 +34,12 @@ class Contact {
 
 
     autoHeightTextarea() {
-        const textarea = document.querySelector('.wpcf7-textarea');
-        textarea.addEventListener('input', this.handleResizeHeight.bind(this));
+        this.textarea.addEventListener('input', this.handleResizeHeight.bind(this));
     }
 
-    handleResizeHeight = (event) => {
-        event.style.height = 'auto'; //height 초기화
-        event.style.height = event.scrollHeight + 'px';
+    handleResizeHeight = () => {
+        this.textarea.style.height = 'auto'; //height 초기화
+        this.textarea.style.height = this.textarea.scrollHeight + 'px';
     };
 }
 
