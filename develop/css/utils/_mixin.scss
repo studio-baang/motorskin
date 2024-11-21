@@ -112,3 +112,10 @@
 	width: calc(100% - ($margin * 2));
 	max-width: $calc-width;
 }
+
+@mixin section-padding {
+	padding: 160px 0;
+	@mixin media-tablet {
+		padding: 80px 0;
+	}
+}
