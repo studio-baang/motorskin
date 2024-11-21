@@ -33,8 +33,8 @@ class Contact {
 
     init() {
         this.textarea.addEventListener('input', this.handleResizeHeight.bind(this));
-        this.openModalBtn.addEventListener('click', this.toggleModal.bind());
-        this.modal.addEventListener('click', this.toggleModal.bind());
+        this.openModalBtn.addEventListener('click', this.toggleModal.bind(this));
+        this.modal.addEventListener('click', this.toggleModal.bind(this));
     }
 
     toggleModal() {

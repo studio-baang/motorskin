@@ -6,9 +6,6 @@
 		max-width: 100%;
 		min-height: 100vh;
 	}
-	&__head {
-		text-align: center;
-	}
 	&__col {
 		flex: 1 0 0;
 		@include flex();
@@ -25,6 +22,9 @@
 		}
 	}
 	&-form {
+		&__head {
+			text-align: center;
+		}
 		&__title {
 			@include font-monument;
 			font-size: 32px;
