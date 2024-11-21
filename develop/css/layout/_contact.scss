@@ -18,7 +18,7 @@
 				$direction: column,
 				$gap: 64px
 			);
-			@include section-padding;
+			padding: 160px $layout-margin;
 		}
 	}
 	&-form {
@@ -62,7 +62,7 @@
 		.wpcf7-form {
 			font-size: 16px;
 			@include flex($direction: column, $gap: 3em $pc-layout-gap);
-			@include calc-column-width(8);
+			@include calc-column-width(8, $wide-width: true);
 
 			@mixin default-input-style() {
 				font-size: 16px;

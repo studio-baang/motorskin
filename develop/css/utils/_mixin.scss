@@ -103,7 +103,7 @@
 	line-height: 1.6em;
 }
 
-@mixin calc-column-width($number) {
+@mixin calc-column-width($number, $wide-width: false) {
 	$col: $pc-layout-col;
 	$gap: $pc-layout-gap;
 	$margin: $layout-margin;
@@ -111,7 +111,11 @@
 	$calc-width: $number * $col + ($number - 1) * $gap;
 	$calc-media-max-width: $calc-width + $margin * 2;
 
-	width: calc(100% - ($margin * 2));
+	@if ($wide-width) {
+		width: 100%;
+	} @else {
+		width: calc(100% - ($margin * 2));
+	}
 	max-width: $calc-width;
 }
 

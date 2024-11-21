@@ -75,7 +75,8 @@ ol {
 		&.current-menu-item {
 			pointer-events: none;
 			& > a::before {
-				content: ">";
+				content: "\2192";
+				padding-right: 0.2em;
 			}
 		}
 		& > a::after {
