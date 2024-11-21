@@ -27,10 +27,18 @@
 			font-size: 32px;
 			color: #141414;
 			padding-bottom: 16px;
+			text-align: center;
 		}
 		.wpcf7-form {
 			font-size: 16px;
 			@include flex($direction: column, $gap: 3em 30px, $align: space-between);
+			input[type="text"],
+			input[type="tel"],
+			textarea {
+				background-color: initial;
+				border: 0;
+				border-bottom: 1px solid #141414;
+			}
 		}
 	}
 	.ct-slide {
