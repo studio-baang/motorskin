@@ -72,8 +72,11 @@ ol {
 		gap: 36px;
 	}
 	li.menu-item {
-		&.current-menu-item > a {
+		&.current-menu-item {
 			pointer-events: none;
+			& > a::before {
+				content: ">";
+			}
 		}
 		& > a::after {
 			font-size: 16px;

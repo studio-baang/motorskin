@@ -56,6 +56,9 @@
 			color: #525252;
 			margin-bottom: 10px;
 		}
+		&__open-modal {
+			text-decoration: underline;
+		}
 		.wpcf7-form {
 			font-size: 16px;
 			@include flex($direction: column, $gap: 3em $pc-layout-gap);
@@ -136,16 +139,15 @@
 }
 
 .agreement-modal {
-	display: block;
+	@include flex($align: center, $justify: center);
 	position: fixed;
 	top: 0;
 	z-index: -1;
 	width: 100%;
 	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	visibility: hidden;
+	background: #000000ef;
+	line-height: 2;
 	&--open {
 		visibility: visible;
 		z-index: 10;
