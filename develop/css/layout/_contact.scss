@@ -8,6 +8,15 @@
 	}
 	&__col {
 		flex: 1 0 0;
-		@include flex($align: center);
+		@include flex();
+		color: #525252;
+		background-color: #f4f4f4;
+		&--form {
+			@include flex($align: center);
+		}
+	}
+	.ct-slide {
+		background: center center / cover no-repeat;
+		filter: grayscale(1);
 	}
 }

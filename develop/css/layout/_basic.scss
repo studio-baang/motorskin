@@ -53,10 +53,11 @@ ol {
 		}
 	}
 	&.oxy-pro-menu.oxy-pro-menu-open > .oxy-pro-menu-container {
-		width: 50%;
-		@include media-mobile {
-			width: 100%;
-		}
+		width: 100%;
+		@include flex();
+	}
+	.menu-gnb-container {
+		flex: 1 0 50%;
 	}
 	.oxy-pro-menu-list {
 		max-height: 90vh;
