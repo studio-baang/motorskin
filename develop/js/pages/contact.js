@@ -1,6 +1,18 @@
+import Swiper from "swiper";
+import { Autoplay } from "swiper/modules";
+
 class Contact {
     constructor() {
-
+        const swiper = new Swiper('.contact-swiper', {
+            modules: [Autoplay],
+            loop: true,
+            autoplay: {
+                delay: 3000,
+            },
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            speed: 300,
+        })
     }
     onLoad() {
         setTimeout(() => {
