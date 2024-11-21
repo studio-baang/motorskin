@@ -12,7 +12,15 @@
 		color: #525252;
 		background-color: #f4f4f4;
 		&--form {
-			@include flex($align: center);
+			@include flex($align: center, $direction: column);
+		}
+	}
+	&-form {
+		&__title {
+			@include font-monument;
+			font-size: 32px;
+			color: #141414;
+			padding-bottom: 16px;
 		}
 	}
 	.ct-slide {
