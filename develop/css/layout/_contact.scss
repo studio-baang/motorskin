@@ -5,7 +5,7 @@
 		@include flex($align: stretch);
 		max-width: 100%;
 		min-height: 100vh;
-		@include media-laptop {
+		@include media-tablet {
 			flex-direction: column;
 		}
 	}
