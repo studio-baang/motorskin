@@ -33,7 +33,7 @@
 			@include flex($direction: column);
 		}
 		&__2cols {
-			@include flex($direction: row, $gap: 30px);
+			@include flex($direction: row, $gap: $pc-layout-gap);
 			&--inner {
 				gap: 0.5em;
 			}
@@ -50,7 +50,7 @@
 		}
 		.wpcf7-form {
 			font-size: 16px;
-			@include flex($direction: column, $gap: 3em 30px);
+			@include flex($direction: column, $gap: 3em $pc-layout-gap);
 			@include calc-column-width(8);
 			button,
 			input,
@@ -82,7 +82,7 @@
 				}
 			}
 			.wpcf7-radio {
-				@include flex($gap: 30px);
+				@include flex($gap: $pc-layout-gap);
 			}
 		}
 	}
