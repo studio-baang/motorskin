@@ -8,12 +8,19 @@
     "build": "yarn run build:css && yarn run build:js"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.20",
     "gsap": "3.10.4",
     "lodash": "^4.17.21",
     "parcel": "^2.13.0",
+    "postcss": "^8.4.49",
     "swiper": "^11.1.14"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "2.13.0"
-  }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead"
+  ]
 }
