@@ -37,6 +37,9 @@
 			&--inner {
 				gap: 0.5em;
 			}
+			& > * {
+				flex: 1 0 0;
+			}
 			.wpcf7-not-valid-tip {
 				@include absolute($left: 0, $top: 2em);
 			}
@@ -77,9 +80,6 @@
 					color: #ffffff;
 					background-color: #525252;
 				}
-			}
-			&-control-wrap {
-				flex: 0 0 auto;
 			}
 		}
 	}
