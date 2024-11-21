@@ -81,8 +81,28 @@
 					background-color: #525252;
 				}
 			}
+			.wpcf7-date,
+			.wpcf7-select {
+				text-align: center;
+				border: 1px solid #525252;
+				border-radius: 4px;
+			}
 			.wpcf7-radio {
 				@include flex($gap: $pc-layout-gap);
+				margin-top: 10px;
+				.wpcf7-list-item {
+					flex: 1 1 0;
+					margin: 0;
+				}
+				.wpcf7-list-item-label {
+					display: block;
+					width: 100%;
+					font-weight: 700;
+					text-align: center;
+					padding: 0.5em;
+					border: 1px solid #525252;
+					border-radius: 30px;
+				}
 			}
 		}
 	}
