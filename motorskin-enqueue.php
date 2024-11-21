@@ -46,7 +46,7 @@ function add_dynamic_menu_css() {
 add_action('wp_enqueue_scripts', 'add_dynamic_menu_css');
 
 // contact 7 custom 관련 func 호출
-require_once(plugin_dir_url( __FILE__ ). '/wpcf7.php');
+require_once(plugin_dir_path( __FILE__ ). '/wpcf7.php');
 
 // promotion-1 custom link 생성
 function add_query_arg_to_link_wrapper() {
