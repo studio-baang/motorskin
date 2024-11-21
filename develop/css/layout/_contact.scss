@@ -2,11 +2,12 @@
 
 .contact {
 	& > .ct-section-inner-wrap {
-		@include flex();
+		@include flex($align: stretch);
 		max-width: 100%;
 		min-height: 100vh;
 	}
 	&__col {
 		flex: 1 0 0;
+		@include flex($align: center);
 	}
 }
