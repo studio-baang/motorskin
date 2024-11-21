@@ -32,10 +32,13 @@
 		&__input-wrapper {
 			@include flex($direction: column);
 		}
-		&__2-cols {
+		&__2cols {
 			@include flex($direction: row, $gap: 30px);
 			&--inner {
 				gap: 0.5em;
+			}
+			.wpcf7-not-valid-tip {
+				@include absolute($left: 0, $top: 2em);
 			}
 		}
 		&__label {
@@ -53,7 +56,7 @@
 				font-weight: 700;
 				font-size: 20px;
 				background-color: initial;
-				padding: 0.5em 0;
+				padding: 0.5em;
 				border: 0;
 			}
 			input[type="text"],
