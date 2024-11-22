@@ -2,18 +2,20 @@
 
 .review {
 	&-document {
-		.kboard-document-wrap {
-			background-color: initial;
-		}
-		.kboard-detail {
-			border-top: 0;
-			background-color: initial;
-			.detail-attr {
-				.detail-name {
-					color: #f0f0f0;
-				}
-				.detail-value {
-					color: #f5f5f5;
+		&#kboard-default-document {
+			.kboard-document-wrap {
+				background-color: initial;
+			}
+			.kboard-detail {
+				border-top: 0;
+				background-color: initial;
+				.detail-attr {
+					.detail-name {
+						color: #f0f0f0;
+					}
+					.detail-value {
+						color: #f5f5f5;
+					}
 				}
 			}
 		}
