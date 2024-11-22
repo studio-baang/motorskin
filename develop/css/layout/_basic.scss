@@ -10,36 +10,6 @@ body {
 	}
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-a,
-input,
-textarea,
-select,
-option,
-button,
-ul,
-li {
-	font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont,
-		system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
-		"Segoe UI Symbol", sans-serif;
-	letter-spacing: -0.025em;
-}
-
-ul,
-ol {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-
 .header {
 	position: sticky;
 	top: 0;
