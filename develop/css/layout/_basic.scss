@@ -35,6 +35,9 @@ body {
 		background-color: #f2f2f2;
 		margin: 0 !important;
 		@include flex($justify: center, $align: center);
+		@include media-laptop {
+			flex: 0 1 100%;
+		}
 	}
 	.oxy-pro-menu-list {
 		flex: 0 1 60%;

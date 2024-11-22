@@ -38,10 +38,17 @@ class App {
 		document.addEventListener("DOMContentLoaded", () => {
 			new RemoveDefaultClass();
 			this.toggleGnbAnim();
-			if (this.activePage.onLoad) {
-				this.activePage.onLoad();
-			}
 		});
+	}
+
+	closeMenu() {
+		const menu = document.querySelector('.oxy-pro-menu');
+
+		menu.classList.remove('oxy-pro-menu-open');
+		document.querySelector('.oxy-pro-menu-container').classList.remove('.oxy-pro-menu-open-container');
+		document.querySelector('.oxy-nav-menu-prevent-overflow').classList.remove('.oxy-nav-menu-prevent-overflow');
+
+		oxygen_pro_menu_unset_static_width(menu);
 	}
 
 	toggleGnbAnim() {
