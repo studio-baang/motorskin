@@ -2,20 +2,20 @@
 
 .review {
 	&-document {
-		&#kboard-default-document {
-			.kboard-document-wrap {
-				background-color: initial;
-			}
-			.kboard-detail {
-				border-top: 0;
-				background-color: initial;
-				.detail-attr {
-					.detail-name {
-						color: #f0f0f0;
-					}
-					.detail-value {
-						color: #f5f5f5;
-					}
+		.kboard-document-wrap {
+			background-color: initial;
+		}
+		.kboard-detail {
+			@include flex($justify: space-between);
+			border-bottom: 1px solid #ffffff;
+			padding: 1em 0;
+			.detail-attr {
+				@include flex($gap: 1em);
+				.detail-name {
+					color: #f0f0f0;
+				}
+				.detail-value {
+					color: #f5f5f5;
 				}
 			}
 		}
@@ -23,6 +23,9 @@
 			color: #ffffff;
 			font-size: 32px;
 			line-height: 1.3;
+		}
+		.kboard-control {
+			@include flex($justify: space-between);
 		}
 	}
 	&__list {
