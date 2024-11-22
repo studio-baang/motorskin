@@ -106,6 +106,8 @@ ol {
 
 // utility class
 .main {
+	color: #ffffff;
+	background-color: #141414;
 	& > .ct-section-inner-wrap {
 		width: 100%;
 	}
@@ -117,7 +119,16 @@ ol {
 		@include calc-column-width(12);
 		@include section-padding();
 	}
-	&__cols-10 {
+	&--review {
+		color: rgba(64, 64, 64, 1);
+		background-color: #ffffff;
+	}
+	&--bottom-0 {
+		& > .ct-section-inner-wrap {
+			padding-bottom: 0;
+		}
+	}
+	&--cols-10 {
 		& > .ct-section-inner-wrap {
 			@include calc-column-width(10);
 		}
