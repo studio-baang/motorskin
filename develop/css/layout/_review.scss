@@ -1,5 +1,9 @@
+@use "../utils" as *;
+
 .review {
 	&__list {
 		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 3em $pc-layout-gap;
 	}
 }
