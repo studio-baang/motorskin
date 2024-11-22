@@ -21,7 +21,8 @@ class Contact {
 
                 // <select>에서 해당 값을 가진 옵션 선택
                 for (const option of selectElement.options) {
-                    if (option.value === decodeModel) { // 공백이 정상적으로 처리된 값과 비교
+                    if (option.value == decodeModel) { // 공백이 정상적으로 처리된 값과 비교
+                        console.log(`${option.value} : ${decodeModel}`);
                         option.selected = true; // 해당 옵션 선택
                     }
                 }
