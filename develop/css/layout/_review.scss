@@ -45,5 +45,11 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 3em $pc-layout-gap;
+		@include media-tablet {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@include media-mobile {
+			grid-template-columns: 1fr;
+		}
 	}
 }
