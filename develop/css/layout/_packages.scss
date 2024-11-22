@@ -2,7 +2,7 @@
 
 .package-slider {
 	&__card {
-		width: 540px;
+		width: 27.5%;
 		aspect-ratio: 2 / 1;
 		padding: 28px;
 		background-color: #ffffff;
@@ -17,6 +17,7 @@
 			text-align: left;
 			gap: 1em;
 			height: 100%;
+			background-image: linear-gradient(90deg, #ffffff, transparent);
 		}
 		a {
 			color: #111111;
@@ -24,6 +25,7 @@
 		h3,
 		& h3 > span {
 			@include heading-2();
+			width: 75%;
 		}
 	}
 	&__controllers {
