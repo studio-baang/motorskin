@@ -5,9 +5,6 @@ body {
 	word-break: keep-all;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	&.oxy-nav-menu-prevent-overflow {
-		overflow-y: visible;
-	}
 }
 
 .header {
