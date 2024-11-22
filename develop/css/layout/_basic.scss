@@ -161,10 +161,10 @@ ol {
 	aspect-ratio: 8 /5;
 	background: center center / cover no-repeat #222222;
 	&__wrapper {
-		@include flex($direction: column);
-		color: #ffffff;
+		@include flex($direction: column, $justify: flex-end);
 		width: 100%;
 		height: 100%;
+		padding: 2em;
 		background-image: linear-gradient(
 			180deg,
 			rgba(17, 17, 17, 0) 0%,
@@ -172,6 +172,10 @@ ol {
 		);
 	}
 	&__date {
+		color: #dbdbdb;
+	}
+	&__title {
 		@include body-2;
+		color: #ffffff;
 	}
 }
