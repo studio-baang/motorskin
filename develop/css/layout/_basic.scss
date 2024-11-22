@@ -119,10 +119,6 @@ ol {
 		@include calc-column-width(12);
 		@include section-padding();
 	}
-	&--review {
-		color: rgba(64, 64, 64, 1);
-		background-color: #ffffff;
-	}
 	&--bottom-0 {
 		& > .ct-section-inner-wrap {
 			padding-bottom: 0;
@@ -159,12 +155,12 @@ ol {
 
 .gallery-card {
 	aspect-ratio: 8 /5;
-	background: center center / cover no-repeat #222222;
+	background: center center / cover no-repeat #ccc;
 	&__wrapper {
 		@include flex($direction: column, $justify: flex-end);
 		width: 100%;
 		height: 100%;
-		padding: 2em;
+		padding: 1.5em;
 		background-image: linear-gradient(
 			180deg,
 			rgba(17, 17, 17, 0) 0%,
