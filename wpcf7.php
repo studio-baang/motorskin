@@ -37,7 +37,7 @@ function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {
     return $scanned_tag;  
 }  
 
-
+add_filter( 'wpcf7_form_tag', 'pine_dynamic_select_field_values', 10, 2); 
 
 // remove p tag
 add_filter('wpcf7_autop_or_not', '__return_false');
