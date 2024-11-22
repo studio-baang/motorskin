@@ -38,17 +38,25 @@ class App {
 		document.addEventListener("DOMContentLoaded", () => {
 			new RemoveDefaultClass();
 			this.toggleGnbAnim();
+			this.closeMenu();
 		});
 	}
 
+
 	closeMenu() {
-		const menu = document.querySelector('.oxy-pro-menu');
+		const menuContainer = document.querySelector('.oxy-pro-menu-container');
 
-		menu.classList.remove('oxy-pro-menu-open');
-		document.querySelector('.oxy-pro-menu-container').classList.remove('.oxy-pro-menu-open-container');
-		document.querySelector('.oxy-nav-menu-prevent-overflow').classList.remove('.oxy-nav-menu-prevent-overflow');
+		menuContainer.addEventListener('click', e => {
+			if (e.target.classList('oxy-pro-menu-container')) {
+				const menu = document.querySelector('.oxy-pro-menu');
 
-		oxygen_pro_menu_unset_static_width(menu);
+				menu.classList.remove('oxy-pro-menu-open');
+				document.querySelector('.oxy-pro-menu-container').classList.remove('.oxy-pro-menu-open-container');
+				document.querySelector('.oxy-nav-menu-prevent-overflow').classList.remove('.oxy-nav-menu-prevent-overflow');
+
+				oxygen_pro_menu_unset_static_width(menu);
+			}
+		})
 	}
 
 	toggleGnbAnim() {
