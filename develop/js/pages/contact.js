@@ -12,7 +12,6 @@ class Contact {
         setTimeout(() => {
             const urlParams = new URLSearchParams(window.location.search);
             const model = urlParams.get('model'); // 'promo' 파라미터 값 가져오기
-            console.log('뭐여 시벌');
             if (model) {
                 // 파라미터 값의 공백 처리 (디코딩)
                 const decodeModel = decodeURIComponent(model.trim());
@@ -24,7 +23,6 @@ class Contact {
                 for (const option of selectElement.options) {
                     if (option.value === decodeModel) { // 공백이 정상적으로 처리된 값과 비교
                         option.selected = true; // 해당 옵션 선택
-                        break;
                     }
                 }
             }
