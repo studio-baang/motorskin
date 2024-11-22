@@ -3,6 +3,7 @@
 .package-slider {
 	&__card {
 		width: 540px;
+		aspect-ratio: 2 / 1;
 		padding: 28px;
 		background-color: #ffffff;
 		background-position: center right;
@@ -11,9 +12,11 @@
 		&--inactive {
 			display: none;
 		}
-		&-wrapper {
+		.package-slider__card-wrapper {
 			align-items: flex-start;
 			text-align: left;
+			gap: 1em;
+			height: 100%;
 		}
 		a {
 			color: #111111;
@@ -46,6 +49,10 @@
 
 .price-tag {
 	&__item {
-		@include flex($align: center);
+		@include flex($align: center, $gap: 0.8em);
+	}
+	&__title {
+		@include font-monument;
+		font-weight: 700;
 	}
 }
