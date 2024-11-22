@@ -47,7 +47,8 @@ class App {
 		const menuContainer = document.querySelector('.oxy-pro-menu-container');
 
 		menuContainer.addEventListener('click', e => {
-			if (e.target.classList('oxy-pro-menu-container')) {
+			const target = e.target;
+			if (e.target.classList.contains('oxy-pro-menu-container')) {
 				const menu = document.querySelector('.oxy-pro-menu');
 
 				menu.classList.remove('oxy-pro-menu-open');
