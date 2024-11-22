@@ -37,5 +37,6 @@ html,
 body {
 	&.oxy-nav-menu-prevent-overflow {
 		overflow-y: visible;
+		height: auto;
 	}
 }
