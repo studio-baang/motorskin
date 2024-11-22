@@ -31,7 +31,7 @@ function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {
 
     foreach ( $scanned_tag['values'] as $key => $value ) {
         if ( $value === $current_model ) {
-            $scanned_tag['options'][] = 'default:' . $key; // 해당 인덱스를 기본 선택값으로 설정
+            $scanned_tag['options'][] = 'default:' . $key + 1; // 해당 인덱스를 기본 선택값으로 설정
         }
     }
     return $scanned_tag;  
