@@ -45,15 +45,18 @@ class App {
 
 	closeMenu() {
 		const menuContainer = document.querySelector('.oxy-pro-menu-container');
+		const menu = document.querySelector('.oxy-pro-menu');
 
 		menuContainer.addEventListener('click', e => {
 			const target = e.target;
 			if (e.target.classList.contains('oxy-pro-menu-container')) {
-				const menu = document.querySelector('.oxy-pro-menu');
 
 				menu.classList.remove('oxy-pro-menu-open');
 				document.querySelector('.oxy-pro-menu-container').classList.remove('oxy-pro-menu-open-container');
-				document.querySelector('.oxy-nav-menu-prevent-overflow').classList.remove('oxy-nav-menu-prevent-overflow');
+				const preventOverflows = document.querySelectorAll('.oxy-nav-menu-prevent-overflow');
+				for (preventOverflows of item) {
+					item.classList.remove('oxy-nav-menu-prevent-overflow');
+				}
 
 				oxygen_pro_menu_unset_static_width(menu);
 			}

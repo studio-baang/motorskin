@@ -33,6 +33,9 @@ ol {
 
 // reset oxgen style
 
-.oxy-nav-menu-prevent-overflow {
-	overflow-y: visible;
+html,
+body {
+	&.oxy-nav-menu-prevent-overflow {
+		overflow-y: visible;
+	}
 }
