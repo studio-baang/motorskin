@@ -12,7 +12,7 @@ function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {
 	        'post_type' => 'promotion-1',  
 	        'numberposts' => -1,  
 	        'orderby' => 'date',
-            'order'   => 'DESC', 
+            'order'   => 'ASC', 
         )
     );  
   

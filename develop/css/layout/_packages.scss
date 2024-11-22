@@ -28,6 +28,9 @@
 			width: 75%;
 		}
 	}
+	&__label {
+		color: #666;
+	}
 	&__controllers {
 		@include calc-column-width(10);
 		@include flex($justify: space-between, $align: center);
@@ -50,8 +53,10 @@
 }
 
 .price-tag {
+	color: 333;
 	&__item {
 		@include flex($align: center, $gap: 0.8em);
+		opacity: 0.7;
 	}
 	&__title {
 		@include font-monument;
