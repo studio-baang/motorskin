@@ -52,5 +52,8 @@
 		@include media-mobile {
 			grid-template-columns: 1fr;
 		}
+		.kboard-pagination-pages {
+			text-align: center;
+		}
 	}
 }
