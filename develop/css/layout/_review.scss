@@ -45,6 +45,7 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 3em $pc-layout-gap;
+		margin-bottom: 3em;
 		@include media-laptop {
 			grid-template-columns: repeat(2, 1fr);
 		}
