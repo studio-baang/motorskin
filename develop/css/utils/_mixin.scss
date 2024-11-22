@@ -16,12 +16,7 @@
 	}
 }
 
-@mixin absolute(
-	$top: initial,
-	$left: initial,
-	$bottom: initial,
-	$right: initial
-) {
+@mixin absolute($top: initial, $left: initial, $bottom: initial, $right: initial) {
 	position: absolute;
 	@if $top {
 		top: $top;
@@ -84,17 +79,15 @@
 }
 
 @mixin font-monument {
-	font-family: "PPMonumentExtended", -apple-system, BlinkMacSystemFont,
-		system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
-		"Segoe UI Symbol", sans-serif;
+	font-family: "PPMonumentExtended", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+		"Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 @mixin heading-2 {
-	text-transform: capitalize;
-	@include font-monument();
 	font-weight: 700;
+	@include font-monument();
 	font-size: 28px;
+	line-height: 1.3;
 }
 
 @mixin body-1 {

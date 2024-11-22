@@ -8,8 +8,10 @@ class Packages {
 		this.packageSlider = new Swiper(".package-slider", {
 			slidesPerView: "auto",
 			spaceBetween: 30,
+			centeredSlides: true,
 			observeSlideChildren: true,
 		});
+		this.packageSlider.slideTo(2);
 
 		this.filterWrapper = document.querySelector(".filter-model");
 		this.filterItems = this.filterWrapper.querySelectorAll(".filter-model__item");
@@ -41,9 +43,8 @@ class Packages {
 		});
 
 		this.packageSlider.updateSlides();
-		this.packageSlider.slideTo(0);
+		this.packageSlider.slideTo(2);
 	}
-
 	onClick(e) {
 		const target = e.target;
 		if (!target.classList.contains(this.filterActiveItemName) && target.dataset.filterName) {
