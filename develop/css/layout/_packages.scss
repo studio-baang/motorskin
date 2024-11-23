@@ -88,6 +88,11 @@
 			border-radius: 64px;
 		}
 	}
+	&-contact {
+		@include font-monument;
+		font-weight: 700;
+		font-size: 80px;
+	}
 }
 
 .filter-model {
