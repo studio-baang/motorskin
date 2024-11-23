@@ -8,7 +8,7 @@ Requires PHP: 7.4
 */
 
 function wpdocs_theme_name_scripts() {
-    $customcsspath = plugin_dir_url( __FILE__ ) . 'dist/css/custom.css';
+    $customcsspath = plugin_dir_path( __FILE__ ).'dist/css/custom.css';
 
     wp_enqueue_style( 'motorskin-script-style', plugin_dir_url( __FILE__ ).'dist/js/app.css' );
 	wp_enqueue_style( 'motorskin-custom-style', plugin_dir_url( __FILE__ ).'dist/css/custom.css', array(), filemtime($customcsspath) );
