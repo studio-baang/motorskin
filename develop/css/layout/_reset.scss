@@ -1,11 +1,5 @@
 // only reset default
 
-main,
-header,
-footer,
-aside,
-section,
-div,
 h1,
 h2,
 h3,
@@ -23,10 +17,10 @@ button,
 ul,
 ol,
 li {
-	color: currentColor;
 	font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
 		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 	letter-spacing: -0.025em;
+	color: currentColor;
 }
 
 ul,

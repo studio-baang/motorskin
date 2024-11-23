@@ -1,6 +1,9 @@
 @use "../utils" as *;
 
 body {
+	font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+	letter-spacing: -0.025em;
 	@include body-1;
 	word-break: keep-all;
 	-webkit-font-smoothing: antialiased;
