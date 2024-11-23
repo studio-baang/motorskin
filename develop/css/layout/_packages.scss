@@ -89,9 +89,25 @@
 		}
 	}
 	&-contact {
+		$button-height: 1.3em;
 		@include font-monument;
 		font-weight: 700;
 		font-size: 80px;
+		line-height: $button-height;
+		&:hover {
+			.ct-link {
+				transform: translate3d(0, $button-height * -1, 0);
+			}
+		}
+		.ct-link {
+			flex-wrap: nowrap;
+			flex-direction: column;
+			justify-content: flex-start;
+			overflow: hidden;
+		}
+		.ct-text-block {
+			height: $button-height;
+		}
 	}
 }
 
