@@ -106,20 +106,23 @@ body {
 }
 
 .headline-box {
-	@include calc-column-width(6);
-	margin-right: auto;
-	&__index {
-		color: $primary-color;
-		@include font-monument;
-	}
-	&__head {
-		font-size: 48px;
-		font-weight: bold;
-		line-height: 1.3;
-		padding: 0.5em 0;
-	}
-	&__body {
-		@include body-1;
+	@include calc-column-width(10);
+	&__wrapper {
+		@include calc-column-width(6);
+		margin-right: auto;
+		&__index {
+			color: $primary-color;
+			@include font-monument;
+		}
+		&__head {
+			font-size: 48px;
+			font-weight: bold;
+			line-height: 1.3;
+			padding: 0.5em 0;
+		}
+		&__body {
+			@include body-1;
+		}
 	}
 }
 
