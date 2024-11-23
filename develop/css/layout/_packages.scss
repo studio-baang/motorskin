@@ -48,15 +48,26 @@
 			box-shadow: 0 10px 20px #4d4d4d63;
 			.ct-headline {
 				@include font-monument;
+				font-weight: 400;
 				font-size: 32px;
+				margin-bottom: 1em;
 			}
 		}
 		&__table {
 			@include flex($direction: column, $gap: 2em);
-		}
-		&__row {
-			.ct-text-block {
-				max-width: 60%;
+			&-row {
+				@include flex($justify: space-between);
+				&--discount {
+					font-weight: 700;
+					padding: 1em;
+					background-color: #fff;
+					.ct-text-block {
+						font-size: 20px;
+					}
+				}
+				.ct-text-block {
+					max-width: 60%;
+				}
 			}
 		}
 	}
