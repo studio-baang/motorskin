@@ -52,10 +52,8 @@ class App {
 				menu.classList.remove("oxy-pro-menu-open");
 				document.querySelector(".oxy-pro-menu-container").classList.remove("oxy-pro-menu-open-container");
 				const preventOverflows = document.querySelectorAll(".oxy-nav-menu-prevent-overflow");
-				if (preventOverflows) {
-					for (preventOverflows of item) {
-						item.classList.remove("oxy-nav-menu-prevent-overflow");
-					}
+				for (const item of preventOverflows) {
+					item.classList.remove("oxy-nav-menu-prevent-overflow");
 				}
 
 				oxygen_pro_menu_unset_static_width(menu);
