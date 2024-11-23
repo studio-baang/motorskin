@@ -42,25 +42,25 @@ class App {
 		});
 	}
 
-
 	closeMenu() {
-		const menuContainer = document.querySelector('.oxy-pro-menu-container');
-		const menu = document.querySelector('.oxy-pro-menu');
+		const menuContainer = document.querySelector(".oxy-pro-menu-container");
+		const menu = document.querySelector(".oxy-pro-menu");
 
-		menuContainer.addEventListener('click', e => {
+		menuContainer.addEventListener("click", (e) => {
 			const target = e.target;
-			if (e.target.classList.contains('oxy-pro-menu-container')) {
-
-				menu.classList.remove('oxy-pro-menu-open');
-				document.querySelector('.oxy-pro-menu-container').classList.remove('oxy-pro-menu-open-container');
-				const preventOverflows = document.querySelectorAll('.oxy-nav-menu-prevent-overflow');
-				for (preventOverflows of item) {
-					item.classList.remove('oxy-nav-menu-prevent-overflow');
+			if (e.target.classList.contains("oxy-pro-menu-container")) {
+				menu.classList.remove("oxy-pro-menu-open");
+				document.querySelector(".oxy-pro-menu-container").classList.remove("oxy-pro-menu-open-container");
+				const preventOverflows = document.querySelectorAll(".oxy-nav-menu-prevent-overflow");
+				if (preventOverflows) {
+					for (preventOverflows of item) {
+						item.classList.remove("oxy-nav-menu-prevent-overflow");
+					}
 				}
 
 				oxygen_pro_menu_unset_static_width(menu);
 			}
-		})
+		});
 	}
 
 	toggleGnbAnim() {

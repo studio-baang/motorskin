@@ -108,6 +108,10 @@ body {
 
 .headline-box {
 	@include calc-column-width(10);
+	margin: 0 auto;
+	&--with-content {
+		@include flex($justify: space-between);
+	}
 	&__wrapper {
 		@include calc-column-width(6);
 		margin-right: auto;

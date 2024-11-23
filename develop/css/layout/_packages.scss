@@ -77,6 +77,16 @@
 			text-decoration: line-through;
 		}
 	}
+	&-option {
+		@include calc-column-width(3);
+		@include flex($gap: 1.5em);
+		.ct-text-block {
+			flex: 1 0 0;
+			padding: 1em;
+			border: 1px solid #fff;
+			border-radius: 64px;
+		}
+	}
 }
 
 .filter-model {

@@ -1,4 +1,5 @@
 @use "./variables" as *;
+@use "./media" as *;
 
 @mixin flex($justify: normal, $align: normal, $direction: row, $gap: initial) {
 	display: flex;
@@ -45,36 +46,6 @@
 	}
 	@if $right {
 		right: $right;
-	}
-}
-
-@mixin media-mobile {
-	@media screen and (max-width: 600px) {
-		@content;
-	}
-}
-
-@mixin media-tablet {
-	@media screen and (max-width: 782px) {
-		@content;
-	}
-}
-
-@mixin media-laptop {
-	@media screen and (max-width: 1280px) {
-		@content;
-	}
-}
-
-@mixin display-none-on-mobile {
-	@include media-mobile {
-		display: none;
-	}
-}
-
-@mixin display-none-on-table {
-	@include media-tablet {
-		display: none;
 	}
 }
 
