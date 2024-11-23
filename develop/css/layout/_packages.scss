@@ -94,6 +94,8 @@
 		font-weight: 700;
 		font-size: 80px;
 		line-height: $button-height;
+		overflow: hidden;
+		transition: transform 0.5s;
 		&:hover {
 			.ct-link {
 				transform: translate3d(0, $button-height * -1, 0);
