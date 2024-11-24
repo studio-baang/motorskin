@@ -84,7 +84,6 @@
 	$margin: $layout-margin;
 
 	$calc-width: $number * $col + ($number - 1) * $gap;
-	$calc-media-max-width: $calc-width + $margin * 2;
 
 	@if ($wide-width) {
 		width: 100%;

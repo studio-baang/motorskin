@@ -52,7 +52,6 @@ class Packages {
 
 		this.packageSlider.updateSlides();
 		this.packageSlider.slideTo(1);
-		this.packageSlider.start();
 	}
 	onClick(e) {
 		const target = e.target;

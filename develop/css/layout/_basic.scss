@@ -115,6 +115,7 @@ body {
 		@include flex($justify: space-between);
 	}
 	&--center-text {
+		max-width: 100%;
 		.headline-box__wrapper {
 			text-align: center;
 			margin: 0 auto;
