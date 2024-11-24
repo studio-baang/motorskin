@@ -106,6 +106,21 @@ body {
 }
 .video-background {
 	pointer-events: none;
+	& > .oxygen-vsb-responsive-video-wrapper {
+		@include flex($justify: center, $align: center);
+		overflow: hidden;
+	}
+	&--cinematic {
+		iframe {
+			aspect-ratio: 21/9;
+		}
+	}
+	iframe {
+		position: relative;
+		width: auto;
+		height: 100vh;
+		aspect-ratio: 16/9;
+	}
 }
 
 .headline-box {
