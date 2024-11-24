@@ -2,22 +2,12 @@
 
 body {
 	font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif !important;
+		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 	letter-spacing: -0.025em;
 	@include body-1;
 	word-break: keep-all;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: "Montserrat", "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif !important;
 }
 
 .header {
@@ -197,10 +187,16 @@ h6 {
 
 .title-box {
 	text-align: center;
-	padding: 210px 0;
+	@include section-padding;
+	&--package {
+		background: center bottom / contain no-repeat #000;
+		height: 930px;
+	}
 	.ct-headline {
 		font-weight: 500;
 		font-size: 64px;
+		line-height: 1.3;
+		margin-bottom: 0.5em;
 		b {
 			font-weight: 700;
 		}
