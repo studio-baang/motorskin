@@ -1,20 +1,25 @@
 import Swiper from "swiper";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay, Mousewheel } from "swiper/modules";
 
 import "swiper/swiper.min.css";
 
 class Packages {
 	constructor() {
 		this.packageSlider = new Swiper(".package-slider", {
-			modules: [Autoplay],
+			modules: [Autoplay, Mousewheel],
 			slidesPerView: "auto",
 			spaceBetween: 30,
 			observeSlideChildren: true,
+			centeredSlides: true,
 			autoplay: {
 				delay: 5000,
+				pauseOnMouseEnter: true,
+			},
+			mousewheel: {
+				enabled: true,
 			},
 		});
-		this.packageSlider.slideTo(0);
+		this.packageSlider.slideTo(11);
 
 		this.filterWrapper = document.querySelector(".filter-model");
 		this.filterItems = this.filterWrapper.querySelectorAll(".filter-model__item");
@@ -46,7 +51,8 @@ class Packages {
 		});
 
 		this.packageSlider.updateSlides();
-		this.packageSlider.slideTo(0);
+		this.packageSlider.slideTo(1);
+		this.packageSlider.start();
 	}
 	onClick(e) {
 		const target = e.target;
