@@ -113,14 +113,16 @@ body {
 		}
 	}
 }
-.video-background {
-	--background-height: 90vh;
-
+.media-background {
 	position: relative;
-	height: var(--background-height);
 	overflow: hidden;
+
+	&--video {
+		--background-height: 90vh;
+		height: var(--background-height);
+	}
 	&--cinematic {
-		& .video-background__background > .oxygen-vsb-responsive-video-wrapper > iframe {
+		& .media-background__background > .oxygen-vsb-responsive-video-wrapper > iframe {
 			aspect-ratio: 21/9;
 			@media (min-aspect-ratio: 16/9) {
 				width: auto;

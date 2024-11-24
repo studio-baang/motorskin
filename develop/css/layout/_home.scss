@@ -28,6 +28,7 @@
 	&-booth-gallery {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
+		gap: 30px;
 		&__item {
 			&--expand {
 				grid-column: 1/4;
