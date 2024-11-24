@@ -79,19 +79,25 @@ body {
 
 // utility class
 .main {
-	color: #454545;
-	background-color: #fff;
 	& > .ct-section-inner-wrap {
 		width: 100%;
 	}
 }
 
 .section {
+	color: #454545;
+	background-color: #fff;
 	overflow: hidden;
 	& > .ct-section-inner-wrap {
 		@include flex($direction: column, $gap: 80px $pc-layout-gap);
 		@include calc-column-width(12);
 		@include section-padding();
+	}
+	&--wide {
+		& > .ct-section-inner-wrap {
+			max-width: 100%;
+			padding: 160px;
+		}
 	}
 	&--bottom-0 {
 		& > .ct-section-inner-wrap {
@@ -158,6 +164,9 @@ body {
 	&--with-content {
 		@include flex($justify: space-between);
 	}
+	&--wide {
+		max-width: 100%;
+	}
 	&--center-text {
 		max-width: 100%;
 		.headline-box__wrapper {
@@ -173,12 +182,21 @@ body {
 	&__index {
 		color: $primary-color;
 		@include font-monument;
+		&--montserrat {
+			@include font-montserrat;
+		}
 	}
 	&__head {
 		font-size: 48px;
 		font-weight: bold;
 		line-height: 1.3;
 		padding: 0.5em 0;
+		&--montserrat {
+			@include font-montserrat;
+		}
+		&--monument {
+			@include font-monument;
+		}
 	}
 	&__body {
 		@include body-1;

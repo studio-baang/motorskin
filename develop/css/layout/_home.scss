@@ -4,19 +4,25 @@
 	&-intro {
 		@include flex($direction: column, $justify: center, $align: center);
 		text-align: center;
+		backdrop-filter: blur(5px);
 		.ct-image {
-			height: 120px;
+			height: 7.5rem;
+			margin-bottom: 3rem;
 		}
 		.ct-headline {
 			color: $primary-color;
-			font-size: 36px;
+			font-size: 2.25rem;
+			line-height: 1.3;
 			@include font-monument;
 			b {
-				font-size: 48px;
+				color: #fff;
+				font-size: 3rem;
 			}
 		}
 		.ct-headline {
 			@include font-montserrat;
+			text-transform: uppercase;
+			font-size: 1.25rem;
 		}
 	}
 }

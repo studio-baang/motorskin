@@ -13,7 +13,7 @@ class Packages {
 			centeredSlides: true,
 			centeredSlidesBounds: true,
 			autoplay: {
-				delay: 5000,
+				delay: 2500,
 				pauseOnMouseEnter: true,
 			},
 			mousewheel: {

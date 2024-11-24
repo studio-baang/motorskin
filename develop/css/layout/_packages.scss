@@ -1,12 +1,14 @@
 @use "../utils" as *;
 
-.page-id-15 .main {
+.page-id-15 .section {
 	color: #ffffff;
 	background-color: #141414;
 }
 
 .package {
 	&-slider {
+		color: #ffffff;
+		background-color: #141414;
 		&__card {
 			width: 27.5%;
 			aspect-ratio: 2 / 1;
@@ -42,9 +44,6 @@
 			@include flex($justify: space-between, $align: center);
 			margin: 0 auto;
 			padding-bottom: 80px;
-		}
-		.swiper-wrapper {
-			padding: 0 30px;
 		}
 	}
 	&-receipt {
