@@ -1,14 +1,18 @@
 import Swiper from "swiper";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 import "swiper/swiper.min.css";
 
 class Packages {
 	constructor() {
 		this.packageSlider = new Swiper(".package-slider", {
+			modules: [Autoplay],
 			slidesPerView: "auto",
 			spaceBetween: 30,
 			observeSlideChildren: true,
+			autoplay: {
+				delay: 5000,
+			},
 		});
 		this.packageSlider.slideTo(0);
 

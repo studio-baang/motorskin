@@ -2,12 +2,22 @@
 
 body {
 	font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif !important;
 	letter-spacing: -0.025em;
 	@include body-1;
 	word-break: keep-all;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Montserrat", "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+		"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif !important;
 }
 
 .header {
@@ -89,7 +99,7 @@ body {
 .section {
 	overflow: hidden;
 	& > .ct-section-inner-wrap {
-		@include flex($direction: column, $gap: 120px $pc-layout-gap);
+		@include flex($direction: column, $gap: 80px $pc-layout-gap);
 		@include calc-column-width(12);
 		@include section-padding();
 	}
@@ -164,9 +174,10 @@ body {
 	@include font-monument;
 	font-weight: 700;
 	font-size: 80px;
+	width: fit-content;
 	height: $button-height;
+	margin: 0 auto;
 	overflow: hidden;
-
 	&:hover {
 		.ct-link {
 			transform: translate3d(0, $button-height * -1, 0);
@@ -180,6 +191,18 @@ body {
 		overflow: hidden;
 	}
 	.ct-text-block {
-		height: $button-height;
+		line-height: $button-height;
+	}
+}
+
+.title-box {
+	text-align: center;
+	padding: 210px 0;
+	.ct-headline {
+		font-weight: 500;
+		font-size: 64px;
+		b {
+			font-weight: 700;
+		}
 	}
 }

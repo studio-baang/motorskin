@@ -11,6 +11,7 @@ function wpdocs_theme_name_scripts() {
     $customcsspath = plugin_dir_path( __FILE__ ).'dist/css/custom.css';
 
     wp_enqueue_style( 'motorskin-script-style', plugin_dir_url( __FILE__ ).'dist/js/app.css' );
+    wp_enqueue_style( 'motorskin-montserrat', 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
 	wp_enqueue_style( 'motorskin-custom-style', plugin_dir_url( __FILE__ ).'dist/css/custom.css', array(), filemtime($customcsspath) );
 	wp_enqueue_script( 'motorskin-script', plugin_dir_url( __FILE__ ). 'dist/js/app.js', array(), '1.0.0', true );
 }
