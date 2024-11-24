@@ -114,13 +114,11 @@ body {
 	}
 }
 .media-background {
+	--background-height: 90vh;
+	height: var(--background-height);
 	position: relative;
 	overflow: hidden;
 
-	&--video {
-		--background-height: 90vh;
-		height: var(--background-height);
-	}
 	&--cinematic {
 		& .media-background__background > .oxygen-vsb-responsive-video-wrapper > iframe {
 			aspect-ratio: 21/9;
