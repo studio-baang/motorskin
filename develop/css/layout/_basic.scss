@@ -105,24 +105,41 @@ body {
 	}
 }
 .video-background {
-	pointer-events: none;
-	height: 100%;
+	--background-height: 90vh;
+
+	position: absolute;
+	height: var(--background-height);
 	overflow: hidden;
 	&--cinematic {
 		& .video-background__background > .oxygen-vsb-responsive-video-wrapper > iframe {
 			aspect-ratio: 21/9;
+			@media (min-aspect-ratio: 16/9) {
+				width: auto;
+				height: calc(var(--background-height) * 1.05);
+			}
+			@media (min-aspect-ratio: 21/9) {
+				width: 105vw;
+				height: auto;
+			}
 		}
 	}
 	&__background {
+		pointer-events: none;
+		position: absolute;
+		height: 100%;
 		& > .oxygen-vsb-responsive-video-wrapper {
 			@include flex($justify: center, $align: center);
-			overflow: hidden;
+			height: 100%;
 			padding: 0 !important;
 			& > iframe {
 				position: relative;
 				width: auto;
 				height: 110vh;
 				aspect-ratio: 16/9;
+				@media (min-aspect-ratio: 16/9) {
+					width: 105vw;
+					height: calc(var(--background-height) * 1.05);
+				}
 			}
 		}
 	}
