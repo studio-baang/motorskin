@@ -11,6 +11,7 @@ class Packages {
 			spaceBetween: 30,
 			observeSlideChildren: true,
 			centeredSlides: true,
+			centeredSlidesBounds: true,
 			autoplay: {
 				delay: 5000,
 				pauseOnMouseEnter: true,

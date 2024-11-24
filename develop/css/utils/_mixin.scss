@@ -1,7 +1,7 @@
 @use "./variables" as *;
 @use "./media" as *;
 
-@mixin flex($justify: normal, $align: normal, $direction: row, $gap: initial) {
+@mixin flex($justify: normal, $align: normal, $direction: row, $gap: initial, $wrap: nowrap) {
 	display: flex;
 	@if $justify {
 		justify-content: $justify;
@@ -14,6 +14,9 @@
 	}
 	@if $gap {
 		gap: $gap;
+	}
+	@if $wrap {
+		flex-wrap: $wrap;
 	}
 }
 
