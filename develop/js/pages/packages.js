@@ -41,8 +41,6 @@ class Packages {
 		cards.forEach((card) => {
 			const modelDataArr = card.dataset.model.split(", ");
 			card.classList.add("package-slider__card--inactive");
-
-			console.log(modelDataArr);
 			modelDataArr.forEach((e) => {
 				if (e === data || data === "all") {
 					card.classList.remove("package-slider__card--inactive");
