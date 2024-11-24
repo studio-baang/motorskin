@@ -264,7 +264,7 @@ body {
 	@include section-padding;
 	&--sema {
 		justify-content: flex-end;
-		@include section-padding(80px);
+		padding: 80px 160px;
 	}
 	&--package {
 		text-align: center;
