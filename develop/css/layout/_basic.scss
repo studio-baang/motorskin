@@ -158,3 +158,28 @@ body {
 		color: #ffffff;
 	}
 }
+
+.contact-button {
+	$button-height: 1.3em;
+	@include font-monument;
+	font-weight: 700;
+	font-size: 120px;
+	height: $button-height;
+	overflow: hidden;
+
+	&:hover {
+		.ct-link {
+			transform: translate3d(0, $button-height * -1, 0);
+		}
+	}
+	.ct-link {
+		transition: transform 0.5s;
+		flex-wrap: nowrap;
+		flex-direction: column;
+		justify-content: flex-start;
+		overflow: hidden;
+	}
+	.ct-text-block {
+		height: $button-height;
+	}
+}
