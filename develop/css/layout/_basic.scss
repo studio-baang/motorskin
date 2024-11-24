@@ -260,11 +260,11 @@ body {
 }
 
 .title-box {
+	@include flex($direction: column);
 	@include section-padding;
 	&--sema {
-		.ct-headline {
-			margin-top: 8rem;
-		}
+		justify-content: flex-end;
+		@include section-padding(80px);
 	}
 	&--package {
 		text-align: center;
