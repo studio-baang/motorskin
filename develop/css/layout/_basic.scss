@@ -79,8 +79,8 @@ body {
 
 // utility class
 .main {
-	color: #ffffff;
-	background-color: #141414;
+	color: #454545;
+	background-color: #fff;
 	& > .ct-section-inner-wrap {
 		width: 100%;
 	}
@@ -107,7 +107,7 @@ body {
 .video-background {
 	--background-height: 90vh;
 
-	position: absolute;
+	position: relative;
 	height: var(--background-height);
 	overflow: hidden;
 	&--cinematic {

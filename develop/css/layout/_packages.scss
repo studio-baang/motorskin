@@ -1,5 +1,10 @@
 @use "../utils" as *;
 
+.page-id-15 .main {
+	color: #ffffff;
+	background-color: #141414;
+}
+
 .package {
 	&-slider {
 		&__card {
