@@ -62,13 +62,6 @@ body {
 
 // footer
 .footer {
-	font-size: 12px;
-	line-height: 2;
-	color: #eeeeee;
-	background-color: #222222;
-	& > .ct-section-inner-wrap {
-		padding: 90px 0;
-	}
 	&__cols {
 		@include flex($align: center, $gap: 30px);
 	}
@@ -107,6 +100,16 @@ body {
 	&--cols-10 {
 		& > .ct-section-inner-wrap {
 			@include calc-column-width(10);
+		}
+	}
+	&--footer {
+		font-size: 12px;
+		line-height: 2;
+		color: #eeeeee;
+		background-color: #222222;
+		& > .ct-section-inner-wrap {
+			padding: 90px 0;
+			gap: 3em;
 		}
 	}
 }
@@ -252,6 +255,7 @@ body {
 	text-align: center;
 	@include section-padding;
 	&--package {
+		color: #ffffff;
 		background: center bottom / contain no-repeat #000;
 		height: 930px;
 	}

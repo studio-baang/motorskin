@@ -19,10 +19,19 @@
 				font-size: 3rem;
 			}
 		}
-		.ct-headline {
+		.ct-text-block {
 			@include font-montserrat;
 			text-transform: uppercase;
 			font-size: 1.25rem;
+		}
+	}
+	&-booth-gallery {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		&__item {
+			&--expand {
+				grid-column: 1/4;
+			}
 		}
 	}
 }
