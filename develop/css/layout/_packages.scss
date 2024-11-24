@@ -1,6 +1,6 @@
 @use "../utils" as *;
 
-.page-id-15 .section {
+.page-id-15 .section:not(.footer) {
 	color: #ffffff;
 	background-color: #141414;
 }
