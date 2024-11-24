@@ -1,0 +1,22 @@
+@use "../utils" as *;
+
+.home {
+	&-intro {
+		@include flex($direction: column, $justify: center, $align: center);
+		text-align: center;
+		.ct-image {
+			height: 120px;
+		}
+		.ct-headline {
+			color: $primary-color;
+			font-size: 36px;
+			@include font-monument;
+			b {
+				font-size: 48px;
+			}
+		}
+		.ct-headline {
+			@include font-montserrat;
+		}
+	}
+}

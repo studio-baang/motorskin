@@ -43,6 +43,9 @@
 			margin: 0 auto;
 			padding-bottom: 80px;
 		}
+		.swiper-wrapper {
+			padding: 0 30px;
+		}
 	}
 	&-receipt {
 		@include flex($gap: $pc-layout-gap);
