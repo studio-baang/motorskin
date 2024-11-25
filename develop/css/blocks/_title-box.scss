@@ -14,7 +14,8 @@
 		text-align: center;
 		color: #ffffff;
 		background: center bottom / contain no-repeat #000;
-		height: 930px;
+		padding-bottom: min(500px, 34vw);
+		gap: 2em;
 	}
 	.ct-headline {
 		font-weight: 500;
