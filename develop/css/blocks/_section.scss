@@ -1,0 +1,41 @@
+@use "../utils" as *;
+
+.section {
+	color: #454545;
+	background-color: #fff;
+	overflow: hidden;
+	& > .ct-section-inner-wrap {
+		@include flex($direction: column, $gap: 80px $pc-layout-gap);
+		@include calc-column-width(12);
+		@include section-padding();
+	}
+	&--wide {
+		& > .ct-section-inner-wrap {
+			max-width: calc(100% - ($layout-margin * 2));
+			padding: 160px;
+			@include media-tablet {
+				padding: 80px 0;
+			}
+		}
+	}
+	&--bottom-0 {
+		& > .ct-section-inner-wrap {
+			padding-bottom: 0;
+		}
+	}
+	&--cols-10 {
+		& > .ct-section-inner-wrap {
+			@include calc-column-width(10);
+		}
+	}
+	&--footer {
+		font-size: 12px;
+		line-height: 2;
+		color: #eeeeee;
+		background-color: #222222;
+		& > .ct-section-inner-wrap {
+			padding: 90px 0;
+			gap: 3em;
+		}
+	}
+}

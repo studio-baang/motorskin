@@ -1,0 +1,27 @@
+@use "../utils" as *;
+
+.title-box {
+	@include flex($direction: column);
+	@include section-padding;
+	&--sema {
+		justify-content: flex-end;
+		padding: 80px 160px;
+		.ct-headline {
+			margin-top: 3em;
+		}
+	}
+	&--package {
+		text-align: center;
+		color: #ffffff;
+		background: center bottom / contain no-repeat #000;
+		height: 930px;
+	}
+	.ct-headline {
+		font-weight: 500;
+		font-size: 4rem;
+		line-height: 1.3;
+		b {
+			font-weight: 700;
+		}
+	}
+}

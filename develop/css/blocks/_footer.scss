@@ -1,0 +1,10 @@
+@use "../utils" as *;
+
+.footer {
+	&__cols {
+		@include flex($align: center, $gap: 30px);
+	}
+	&__info {
+		@include flex();
+	}
+}

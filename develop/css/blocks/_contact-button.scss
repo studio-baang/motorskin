@@ -1,0 +1,27 @@
+@use "../utils" as *;
+
+.contact-button {
+	$button-height: 1.3em;
+	@include font-monument;
+	font-weight: 700;
+	font-size: 80px;
+	width: fit-content;
+	height: $button-height;
+	margin: 0 auto;
+	overflow: hidden;
+	&:hover {
+		.ct-link {
+			transform: translate3d(0, $button-height * -1, 0);
+		}
+	}
+	.ct-link {
+		transition: transform 0.5s;
+		flex-wrap: nowrap;
+		flex-direction: column;
+		justify-content: flex-start;
+		overflow: hidden;
+	}
+	.ct-text-block {
+		line-height: $button-height;
+	}
+}

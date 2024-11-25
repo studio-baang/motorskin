@@ -1,0 +1,14 @@
+@use "../utils" as *;
+
+.flex-layout {
+	@include flex($align: center, $gap: $pc-layout-gap);
+	@include media-laptop {
+		flex-direction: column;
+	}
+	&--align-top {
+		align-items: flex-start;
+	}
+	&__item {
+		flex: 1 0 0;
+	}
+}
