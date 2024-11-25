@@ -91,7 +91,7 @@
 	@if ($wide-width) {
 		width: min(100%, $calc-width);
 	} @else {
-		width: min(calc(100% - ($margin * 2)), $calc-width);
+		width: min($max-width, $calc-width);
 	}
 }
 

@@ -3,3 +3,5 @@ $primary-color: #d91a83;
 $pc-layout-col: 65px;
 $pc-layout-gap: 30px;
 $layout-margin: 15px;
+
+$max-width: calc(100% - ($layout-margin * 2));
