@@ -4,10 +4,10 @@
 	@include calc-column-width(10);
 	margin: 0 auto;
 	&--wide {
-		width: $max-width;
+		width: 100%;
 	}
 	&--center-text {
-		width: $max-width;
+		width: 100%;
 		.headline-box__wrapper {
 			width: $max-width;
 			text-align: center;

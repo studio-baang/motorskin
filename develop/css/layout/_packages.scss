@@ -10,7 +10,8 @@
 		color: #ffffff;
 		background-color: #141414;
 		&__card {
-			width: 27.5%;
+			flex-wrap: nowrap;
+			width: min(40vw, 540px);
 			aspect-ratio: 2 / 1;
 			padding: 28px;
 			background-color: #ffffff;

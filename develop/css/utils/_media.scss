@@ -12,6 +12,12 @@
 	}
 }
 
+@mixin media-tablet-landscape {
+	@media screen and (max-width: 1160px) {
+		@content;
+	}
+}
+
 @mixin media-laptop {
 	@media screen and (max-width: 1280px) {
 		@content;
