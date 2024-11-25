@@ -131,8 +131,6 @@ $aspect-ratio-21-9: 2.3333333333;
 .media-background {
 	position: relative;
 	overflow: hidden;
-	container-type: inline-size;
-	container-name: video-ratio;
 
 	&--cinematic {
 		& .media-background__background > .oxygen-vsb-responsive-video-wrapper > iframe {
@@ -170,6 +168,8 @@ $aspect-ratio-21-9: 2.3333333333;
 			width: 100%;
 			height: 100%;
 			padding: 0 !important;
+			container-name: video-ratio;
+			container-type: inline-size;
 			& > iframe {
 				position: relative;
 				aspect-ratio: 16/9;
