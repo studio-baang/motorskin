@@ -207,7 +207,7 @@ $aspect-ratio-21-9: 2.3333333333;
 	&__wrapper {
 		@include calc-column-width(6);
 		margin-right: auto;
-		& > *:first-of-type {
+		& > *:first-child {
 			padding-top: 0;
 		}
 	}
