@@ -3,10 +3,15 @@
 .footer {
 	&__logo {
 		width: 175px;
+		margin-bottom: 2em;
+		@include media-tablet {
+			margin-bottom: 0;
+		}
 	}
 	&__sns-links {
+		@include flex($justify: flex-end, $gap: 1.5em);
 		.ct-image {
-			width: 2rem;
+			width: 2em;
 		}
 	}
 }

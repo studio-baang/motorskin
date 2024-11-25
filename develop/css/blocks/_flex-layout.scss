@@ -11,10 +11,5 @@
 	&__item {
 		width: 100%;
 		flex: 1 0 0;
-		&--float-right {
-			width: auto;
-			margin-left: auto;
-			flex: 0 1 0;
-		}
 	}
 }
