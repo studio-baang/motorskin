@@ -169,7 +169,7 @@ $aspect-ratio-21-9: 2.3333333333;
 			height: 100%;
 			padding: 0 !important;
 			container-name: video-ratio;
-			container-type: inline-size;
+			container-type: size;
 			& > iframe {
 				position: relative;
 				aspect-ratio: 16/9;
