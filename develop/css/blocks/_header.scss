@@ -1,5 +1,15 @@
 @use "../utils" as *;
 
+.admin-bar .header {
+	top: 32px;
+	@media screen and (max-width: 782px) {
+		top: 46px;
+	}
+	@media screen and (max-width: 600px) {
+		top: 0px;
+	}
+}
+
 .header {
 	position: sticky;
 	top: 0;

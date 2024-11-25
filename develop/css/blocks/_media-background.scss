@@ -47,7 +47,7 @@
 			@include calc-video-ratio(21, 9);
 		}
 		&--video-full-screen {
-			@include calc-video-ratio(4, 3);
+			@include calc-video-ratio(3.5, 3);
 		}
 	}
 	&__content {
