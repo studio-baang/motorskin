@@ -89,11 +89,10 @@
 	$calc-width: $number * $col + ($number - 1) * $gap;
 
 	@if ($wide-width) {
-		width: 100%;
+		width: min(100%, $calc-width);
 	} @else {
-		width: calc(100% - ($margin * 2));
+		width: min(calc(100% - ($margin * 2)), $calc-width);
 	}
-	max-width: $calc-width;
 }
 
 @mixin section-padding($side-padding: 0) {

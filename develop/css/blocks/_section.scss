@@ -11,8 +11,8 @@
 	}
 	&--wide {
 		& > .ct-section-inner-wrap {
-			max-width: calc(100% - ($layout-margin * 2));
-			padding: 160px;
+			width: calc(100% - ($layout-margin * 2));
+			padding: min(9vw, 160px);
 			@include media-tablet {
 				padding: 80px 0;
 			}
