@@ -36,4 +36,11 @@
 			}
 		}
 	}
+	&-product {
+		@include flex($direction: column, $gap: 2em);
+		.ct-headline {
+			color: $primary-color;
+			font-size: 2em;
+		}
+	}
 }
