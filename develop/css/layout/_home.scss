@@ -44,8 +44,9 @@
 		}
 	}
 	&-industry {
-		@include flex($direction: center, $align: center);
+		@include flex($justify center, $align: center);
 		.ct-headline {
+			color: #fff;
 			position: absolute;
 			font-size: 48px;
 			@include font-monument;

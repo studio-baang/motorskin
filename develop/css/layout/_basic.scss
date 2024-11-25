@@ -8,6 +8,7 @@ body {
 	word-break: keep-all;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	overscroll-behavior: none;
 }
 
 .header {
@@ -139,16 +140,19 @@ body {
 		width: 100%;
 		height: 100%;
 		background: center center / cover no-repeat;
+		z-index: -1;
+		@include flex($justify: center, $align: center);
 		&--primary-color {
 			.media-background__content {
 				background-color: #d91a837a;
 			}
 		}
 		&--fixed {
-			background-attachment: fixed;
-			top: 0;
-			left: 0;
-			z-index: -1;
+			.ct-image {
+				position: fixed;
+				top: 0;
+				left: 0;
+			}
 		}
 		& > .oxygen-vsb-responsive-video-wrapper {
 			@include flex($justify: center, $align: center);
