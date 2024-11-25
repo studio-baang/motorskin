@@ -47,7 +47,7 @@
 		@include flex($direction: center, $align: center);
 		.ct-headline {
 			position: absolute;
-			font-size: max(7.5vw, 48px);
+			font-size: 48px;
 			@include font-monument;
 		}
 	}
