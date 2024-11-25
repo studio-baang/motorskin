@@ -48,7 +48,7 @@
 		.ct-headline {
 			color: #fff;
 			position: absolute;
-			font-size: 48px;
+			font-size: min(2.5em, 48px);
 			@include font-monument;
 		}
 	}

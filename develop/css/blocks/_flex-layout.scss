@@ -2,7 +2,7 @@
 
 .flex-layout {
 	@include flex($align: center, $gap: $pc-layout-gap);
-	@include media-tablet-landscape {
+	@include media-tablet {
 		flex-direction: column;
 	}
 	&--align-top {
