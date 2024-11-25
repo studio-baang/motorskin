@@ -8,13 +8,18 @@ class Packages {
 		this.packageSlider = new Swiper(".package-slider", {
 			modules: [Autoplay, Mousewheel],
 			slidesPerView: "auto",
-			spaceBetween: 30,
+			spaceBetween: 15,
 			observeSlideChildren: true,
 			centeredSlides: true,
 			centeredSlidesBounds: true,
 			autoplay: {
 				delay: 2500,
 				pauseOnMouseEnter: true,
+			},
+			breakpoints: {
+				658: {
+					spaceBetween: 30,
+				},
 			},
 			mousewheel: {
 				enabled: true,
