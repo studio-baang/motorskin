@@ -3,7 +3,7 @@
 .contact {
 	& > .ct-section-inner-wrap {
 		@include flex($align: stretch);
-		width: 100%;
+		max-width: 100%;
 		min-height: 100vh;
 		@include media-tablet {
 			flex-direction: column;
