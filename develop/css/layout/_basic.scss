@@ -172,7 +172,10 @@ body {
 	@include calc-column-width(10);
 	margin: 0 auto;
 	&--with-content {
-		@include flex($justify: space-between);
+		@include flex($justify: space-between, $align: center, $gap: $pc-layout-gap);
+		@include media-tablet {
+			flex-direction: column;
+		}
 	}
 	&--wide {
 		max-width: 100%;
