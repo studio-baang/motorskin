@@ -4,8 +4,7 @@
 	&-intro {
 		@include flex($direction: column, $justify: center, $align: center);
 		text-align: center;
-		height: 90vh;
-		backdrop-filter: blur(5px);
+		height: min(80vh, 864px);
 		.ct-image {
 			height: 7.5rem;
 			margin-bottom: 3rem;
