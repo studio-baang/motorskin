@@ -4,6 +4,13 @@
 	&-card {
 		@include flex;
 		height: 450px;
+		&-wrapper {
+			padding: 80px 0;
+			@include flex($gap: 120px);
+		}
+		&__content {
+			z-index: 1;
+		}
 		&__container {
 			position: relative;
 			width: min(80%, 890px);
