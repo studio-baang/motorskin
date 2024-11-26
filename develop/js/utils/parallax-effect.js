@@ -57,11 +57,11 @@ class Parallax {
 					tl.fromTo(
 						ct,
 						{
-							y: -150,
+							yPercent: -15,
 							ease: "none",
 						},
 						{
-							y: 150,
+							yPercent: 15,
 							ease: "none",
 						},
 						"<"
