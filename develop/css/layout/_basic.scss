@@ -47,7 +47,7 @@ html.lenis body {
 	}
 }
 
-.remove-rwd-table {
+.remove-rwd-tablet {
 	@include media-tablet {
 		display: none;
 	}
