@@ -23,14 +23,14 @@
 			overflow: hidden;
 			border-radius: 4em;
 		}
-	}
-	&--align-right {
-		.aftercare-card {
-			&__conttainer {
-				margin-left: auto;
-			}
-			&__background {
-				right: 0;
+		&--align-right {
+			.aftercare-card {
+				&__conttainer {
+					margin-left: auto;
+				}
+				&__background {
+					right: 0;
+				}
 			}
 		}
 	}
