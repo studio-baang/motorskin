@@ -54,14 +54,10 @@ class Parallax {
 				}
 
 				if (ct) {
-					tl.fromTo(
+					tl.to(
 						ct,
 						{
-							yPercent: -15,
-							ease: "none",
-						},
-						{
-							yPercent: 15,
+							yPercent: -100,
 							ease: "none",
 						},
 						"<"
