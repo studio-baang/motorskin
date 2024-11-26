@@ -14,6 +14,15 @@
 			margin: 0 auto;
 		}
 	}
+	&--right-text {
+		width: 100%;
+		.headline-box__wrapper {
+			width: 100%;
+			text-align: right;
+			margin-right: 0;
+			margin-left: auto;
+		}
+	}
 	&__wrapper {
 		@include calc-column-width(6);
 		margin-right: auto;
@@ -22,6 +31,9 @@
 		}
 		& > *:last-child {
 			padding-bottom: 0;
+		}
+		&--wide {
+			width: 100%;
 		}
 	}
 	&__index {
