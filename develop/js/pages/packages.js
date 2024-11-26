@@ -9,6 +9,8 @@ class Packages {
 			modules: [Autoplay, Mousewheel],
 			slidesPerView: "auto",
 			spaceBetween: 15,
+			slidesOffsetBefore: 15,
+			slidesOffsetAfter: 15,
 			observeSlideChildren: true,
 			centeredSlides: true,
 			centeredSlidesBounds: true,
@@ -19,6 +21,8 @@ class Packages {
 			breakpoints: {
 				658: {
 					spaceBetween: 30,
+					slidesOffsetBefore: 30,
+					slidesOffsetAfter: 30,
 				},
 			},
 			mousewheel: {
