@@ -13,7 +13,7 @@
 			flex-direction: column;
 		}
 	}
-	&--rmd-laptop {
+	&--rwd-laptop {
 		@include media-laptop {
 			flex-direction: column;
 		}

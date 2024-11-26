@@ -5,6 +5,7 @@
 		@include flex($direction: column, $justify: center, $align: center, $gap: 0.5em);
 		text-align: center;
 		height: min(80vh, 864px);
+		container-type: inline-size;
 		.ct-image {
 			height: min(120px, 15vw);
 			margin-bottom: 3rem;
