@@ -5,6 +5,7 @@
 	background-color: #fff;
 	overflow: hidden;
 	& > .ct-section-inner-wrap {
+		container: section-container / inline-size;
 		max-width: $max-width;
 		@include flex($direction: column, $gap: 80px $pc-layout-gap);
 		@include calc-column-width(12);
