@@ -28,7 +28,7 @@
 			@include font-montserrat;
 			text-transform: uppercase;
 			font-size: 1.25rem;
-			@include ($align: center, $gap: 1em);
+			@include flex($align: center, $gap: 1em);
 			@container (max-width: 550px) {
 				font-size: 1em;
 				gap: 0;
