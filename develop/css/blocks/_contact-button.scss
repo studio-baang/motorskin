@@ -4,7 +4,7 @@
 	$button-height: 1.3em;
 	@include font-monument;
 	font-weight: 700;
-	font-size: 80px;
+	font-size: min(80px, 9vw);
 	width: fit-content;
 	height: $button-height;
 	margin: 0 auto;

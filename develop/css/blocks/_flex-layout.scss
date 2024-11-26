@@ -8,6 +8,9 @@
 	&--align-top {
 		align-items: flex-start;
 	}
+	&--text {
+		gap: 0;
+	}
 	&__item {
 		width: 100%;
 		flex: 1 0 0;

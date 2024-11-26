@@ -2,11 +2,11 @@
 
 .home {
 	&-intro {
-		@include flex($direction: column, $justify: center, $align: center);
+		@include flex($direction: column, $justify: center, $align: center, $gap: 0);
 		text-align: center;
 		height: min(80vh, 864px);
 		.ct-image {
-			height: 7.5rem;
+			height: min(120px, 15vw);
 			margin-bottom: 3rem;
 		}
 		.ct-headline {
