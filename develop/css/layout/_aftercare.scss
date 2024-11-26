@@ -6,7 +6,7 @@
 		height: 450px;
 		&-wrapper {
 			padding: 80px 0;
-			@include flex($gap: 120px);
+			@include flex($gap: 120px, $direction: column);
 		}
 		&__content {
 			z-index: 1;
