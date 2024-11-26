@@ -1230,6 +1230,11 @@ json5@^2.2.0, json5@^2.2.1:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
+lenis@^1.1.17:
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/lenis/-/lenis-1.1.17.tgz#c6aa21763fe0318371bae8bd9b1580bc8b3a9b34"
+  integrity sha512-22XhWvjoJynQdfguMp1V+5ZbGUdGkJ4rtQy8x+w52NKxYb+OIZhGXC9Fo2PQTWzKDbYNDUb/O1CIbeEQHkZbag==
+
 lightningcss-darwin-arm64@1.28.1:
   version "1.28.1"
   resolved "https://registry.yarnpkg.com/lightningcss-darwin-arm64/-/lightningcss-darwin-arm64-1.28.1.tgz#043c30e2d22ee68beb7f8782e96390821ba8ab34"

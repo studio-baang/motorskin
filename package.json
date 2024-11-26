@@ -1,26 +1,27 @@
 {
-  "name": "motorskin",
-  "version": "1.0.0",
-  "license": "MIT",
-  "scripts": {
-    "build:css": "parcel build develop/css/custom.scss --dist-dir ./dist/css --no-cache",
-    "build:js": "parcel build develop/js/app.js --dist-dir ./dist/js --no-cache",
-    "build": "yarn run build:css && yarn run build:js"
-  },
-  "dependencies": {
-    "autoprefixer": "^10.4.20",
-    "gsap": "3.10.4",
-    "lodash": "^4.17.21",
-    "parcel": "^2.13.0",
-    "postcss": "^8.4.49",
-    "swiper": "^11.1.14"
-  },
-  "devDependencies": {
-    "@parcel/transformer-sass": "2.13.0"
-  },
-  "browserslist": [
-    "last 2 versions",
-    "> 1%",
-    "not dead"
-  ]
+	"name": "motorskin",
+	"version": "1.0.0",
+	"license": "MIT",
+	"scripts": {
+		"build:css": "parcel build develop/css/custom.scss --dist-dir ./dist/css --no-cache",
+		"build:js": "parcel build develop/js/app.js --dist-dir ./dist/js --no-cache",
+		"build": "yarn run build:css && yarn run build:js"
+	},
+	"dependencies": {
+		"autoprefixer": "^10.4.20",
+		"gsap": "3.10.4",
+		"lenis": "^1.1.17",
+		"lodash": "^4.17.21",
+		"parcel": "^2.13.0",
+		"postcss": "^8.4.49",
+		"swiper": "^11.1.14"
+	},
+	"devDependencies": {
+		"@parcel/transformer-sass": "2.13.0"
+	},
+	"browserslist": [
+		"last 2 versions",
+		"> 1%",
+		"not dead"
+	]
 }

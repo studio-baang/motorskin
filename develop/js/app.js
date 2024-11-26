@@ -3,6 +3,7 @@ import Packages from "./pages/packages";
 import { headerContor } from "./pages/header";
 import { removeDefaultClass } from "./utils/removeDefaultClass";
 import { aftercareParallax } from "./pages/aftercare";
+import { smoothScroll } from "./utils/smooth-scroll";
 
 class App {
 	constructor() {
@@ -30,6 +31,7 @@ class App {
 		} else if (this.containsId(this.pageId.aftercare)) {
 			aftercareParallax();
 		}
+		smoothScroll();
 	}
 
 	onLoad() {
