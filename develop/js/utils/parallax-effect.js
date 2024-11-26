@@ -18,7 +18,7 @@ class Parallax {
 	 */
 	constructor(selectors) {
 		this.data = {
-			container: selectors.target,
+			container: selectors.container,
 			background: selectors.background,
 			content: selectors.content,
 		};
