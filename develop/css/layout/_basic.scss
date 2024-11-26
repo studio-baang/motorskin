@@ -41,6 +41,18 @@ html.lenis body {
 	pointer-events: none;
 }
 
+.remove-rwd-mobile {
+	@include media-mobile {
+		display: none;
+	}
+}
+
+.remove-rwd-table {
+	@include media-tablet {
+		display: none;
+	}
+}
+
 // reset oxygen class
 .main {
 	& > .ct-section-inner-wrap {
