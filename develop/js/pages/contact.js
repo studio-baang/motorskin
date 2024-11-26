@@ -1,29 +1,42 @@
-
 class Contact {
-    constructor() {
-        this.textarea = document.querySelector('.wpcf7-textarea');
+	constructor() {
+		this.textarea = document.querySelector(".wpcf7-textarea");
+		this.modal = document.querySelector(".agreement-modal");
+		this.openModalBtn = document.querySelector(".contact-form__open-modal");
 
-        this.modal = document.querySelector('.agreement-modal');
-        this.openModalBtn = document.querySelector('.contact-form__open-modal');
+		this.init();
+	}
 
-        this.init();
-    }
+	init() {
+		if (this.textarea) {
+			this.textarea.addEventListener("input", this.handleResizeHeight);
+		}
 
-    init() {
-        this.textarea.addEventListener('input', this.handleResizeHeight.bind(this));
-        this.openModalBtn.addEventListener('click', this.toggleModal.bind(this));
-        this.modal.addEventListener('click', this.toggleModal.bind(this));
-    }
+		if (this.openModalBtn) {
+			this.openModalBtn.addEventListener("click", this.toggleModal);
+		}
 
-    toggleModal() {
-        this.modal.classList.toggle('agreement-modal--open');
-    }
+		if (this.modal) {
+			this.modal.addEventListener("click", (e) => {
+				if (e.target.classList.contains("agreement-modal")) {
+					this.toggleModal();
+				}
+			});
+		}
+	}
 
+	toggleModal = () => {
+		if (this.modal) {
+			this.modal.classList.toggle("agreement-modal--open");
+		}
+	};
 
-    handleResizeHeight = () => {
-        this.textarea.style.height = 'auto'; //height 초기화
-        this.textarea.style.height = this.textarea.scrollHeight + 'px';
-    };
+	handleResizeHeight = () => {
+		if (this.textarea) {
+			this.textarea.style.height = "auto"; // 초기화
+			this.textarea.style.height = `${this.textarea.scrollHeight}px`;
+		}
+	};
 }
 
 export default Contact;
