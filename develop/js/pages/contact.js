@@ -67,7 +67,7 @@ class Contact {
 				// 번호 포맷팅
 				if (filterInput.length <= 3) {
 					// 3자리 이하
-					input.value = input;
+					input.value = filterInput;
 				} else if (filterInput.length <= 7) {
 					// 3-7자리
 					input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3);
