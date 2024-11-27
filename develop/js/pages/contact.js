@@ -23,6 +23,7 @@ class Contact {
 				}
 			});
 		}
+		this.allowPhoneNumber();
 	}
 
 	toggleModal = () => {
@@ -39,12 +40,13 @@ class Contact {
 	};
 
 	allowPhoneNumber = () => {
-		document.addEventListener("input", function (e) {
-			const input = e.target;
-			if (input.name === "tel") {
+		const tel = document.querySelector("input[name='tel']");
+		if (tel) {
+			tel.addEventListener("input", function (e) {
+				const input = e.target;
 				input.value = input.value.replace(/[^0-9\-]/g, "");
-			}
-		});
+			});
+		}
 	};
 }
 
