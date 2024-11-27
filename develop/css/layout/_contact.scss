@@ -15,6 +15,7 @@
 		width: 100%;
 		color: #525252;
 		background-color: #f4f4f4;
+		overflow: hidden;
 		&--form {
 			@include flex($align: center, $justify: center, $direction: column, $gap: 64px);
 			@include section-padding($layout-margin);

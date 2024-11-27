@@ -36,7 +36,7 @@ class Contact {
 			fadeEffect: {
 				crossFade: true,
 			},
-			Autoplay: {
+			autoplay: {
 				delay: 5000,
 			},
 		});
