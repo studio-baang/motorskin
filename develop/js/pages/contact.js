@@ -69,10 +69,10 @@ class Contact {
 					input.value = input;
 				} else if (filterInput.length <= 7) {
 					// 3-7자리
-					input.value = input.slice(0, 3) + "-" + input.slice(3);
+					input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3);
 				} else {
 					// 8자리 이상
-					input.value = input.slice(0, 3) + "-" + input.slice(3, 7) + "-" + input.slice(7, 11);
+					input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3, 7) + "-" + input.slice(7, 11);
 				}
 			});
 		}
