@@ -50,7 +50,7 @@
 	&-booth-gallery {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 30px;
+		gap: min(3vw, 30px);
 		@include media-tablet {
 			grid-template-columns: repeat(2, 1fr);
 		}
