@@ -73,7 +73,7 @@ class Contact {
 					input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3);
 				} else {
 					// 8자리 이상
-					input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3, 7) + "-" + input.slice(7, 11);
+					input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3, 7) + "-" + filterInput.slice(7, 11);
 				}
 			});
 		}
