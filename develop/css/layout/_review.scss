@@ -34,6 +34,9 @@
 			@include flex($justify: space-between);
 			margin: 1em;
 		}
+		.kboard-pagination-pages {
+			@include flex($gap: 1em, $justify: center);
+		}
 		&__more {
 			font-size: 20px;
 			font-weight: 700;
@@ -55,5 +58,25 @@
 		.kboard-pagination {
 			text-align: center;
 		}
+	}
+}
+
+.content-view {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-block-start: 1em;
+		margin-block-end: 1em;
+	}
+	p {
+		margin: 1em;
+	}
+	ul,
+	ol {
+		list-style: initial;
+		padding-inline-start: 1em;
 	}
 }
