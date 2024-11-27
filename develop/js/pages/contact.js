@@ -45,6 +45,18 @@ class Contact {
 			tel.addEventListener("input", function (e) {
 				const input = e.target;
 				input.value = input.value.replace(/[^0-9\-]/g, "");
+
+				// 번호 포맷팅
+				if (input.length <= 3) {
+					// 3자리 이하
+					tel.value = input;
+				} else if (input.length <= 7) {
+					// 3-7자리
+					tel.value = input.slice(0, 3) + "-" + input.slice(3);
+				} else {
+					// 8자리 이상
+					tel.value = input.slice(0, 3) + "-" + input.slice(3, 7) + "-" + input.slice(7, 11);
+				}
 			});
 		}
 	};
