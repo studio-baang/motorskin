@@ -144,7 +144,7 @@
 	.swiper-slide {
 		background: center center / cover no-repeat;
 		filter: grayscale(1);
-		min-height: 400px;
+		pointer-events: none;
 	}
 }
 
