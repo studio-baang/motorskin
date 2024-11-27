@@ -10,9 +10,8 @@
 		color: #ffffff;
 		background-color: #141414;
 		&__card {
-			flex-wrap: nowrap;
+			container-type: inline-size;
 			width: min(40vw, 540px);
-			aspect-ratio: 2 / 1;
 			padding: 28px;
 			background-color: #ffffff;
 			background-position: center right;
@@ -22,11 +21,16 @@
 				display: none;
 			}
 			.package-slider__card-wrapper {
+				flex-wrap: nowrap;
 				align-items: flex-start;
 				text-align: left;
 				gap: 1em;
 				height: 100%;
 				background-image: linear-gradient(90deg, #ffffff, transparent);
+				aspect-ratio: 2 / 1;
+				@container (max-width: 40vw) {
+					aspect-ratio: 0.5;
+				}
 			}
 			a {
 				color: #111111;

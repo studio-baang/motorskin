@@ -37,6 +37,15 @@ class Contact {
 			this.textarea.style.height = `${this.textarea.scrollHeight}px`;
 		}
 	};
+
+	allowPhoneNumber = () => {
+		document.addEventListener("input", function (e) {
+			const input = e.target;
+			if (input.name === "tel") {
+				input.value = input.value.replace(/[^0-9\-]/g, "");
+			}
+		});
+	};
 }
 
 export default Contact;

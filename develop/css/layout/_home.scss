@@ -51,9 +51,15 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 30px;
+		@include media-tablet {
+			grid-template-columns: repeat(2, 1fr);
+		}
 		&__item {
 			&--expand {
 				grid-column: 1/4;
+				@include media-tablet {
+					grid-column: 1/3;
+				}
 			}
 		}
 	}
