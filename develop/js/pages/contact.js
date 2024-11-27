@@ -36,8 +36,9 @@ class Contact {
 			fadeEffect: {
 				crossFade: true,
 			},
+			speed: 500,
 			autoplay: {
-				delay: 5000,
+				delay: 2500,
 			},
 		});
 		this.allowPhoneNumber();
