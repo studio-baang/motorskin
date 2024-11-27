@@ -124,6 +124,7 @@
 .price-tag {
 	color: #333;
 	&__item {
+		font-size: min(3.5vw, 16px);
 		@include font-montserrat;
 		@include flex($align: center, $gap: 0.5em);
 	}
