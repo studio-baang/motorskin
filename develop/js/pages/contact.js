@@ -1,3 +1,8 @@
+import Swiper from "swiper";
+import "swiper/modules/effect-fade.min.css";
+import { Autoplay, EffectFade } from "swiper/modules";
+import { delay } from "lodash";
+
 class Contact {
 	constructor() {
 		this.textarea = document.querySelector(".wpcf7-textarea");
@@ -23,6 +28,18 @@ class Contact {
 				}
 			});
 		}
+
+		new Swiper(".contact-swiper", {
+			modules: [Autoplay, EffectFade],
+			loop: true,
+			effect: "fade",
+			fadeEffect: {
+				crossFade: true,
+			},
+			Autoplay: {
+				delay: 5000,
+			},
+		});
 		this.allowPhoneNumber();
 	}
 
@@ -44,18 +61,18 @@ class Contact {
 		if (tel) {
 			tel.addEventListener("input", function (e) {
 				const input = e.target;
-				input.value = input.value.replace(/[^0-9\-]/g, "");
+				const filterInput = input.value.replace(/\D/g, "");
 
 				// 번호 포맷팅
-				if (input.length <= 3) {
+				if (filterInput.length <= 3) {
 					// 3자리 이하
-					tel.value = input;
-				} else if (input.length <= 7) {
+					input.value = input;
+				} else if (filterInput.length <= 7) {
 					// 3-7자리
-					tel.value = input.slice(0, 3) + "-" + input.slice(3);
+					input.value = input.slice(0, 3) + "-" + input.slice(3);
 				} else {
 					// 8자리 이상
-					tel.value = input.slice(0, 3) + "-" + input.slice(3, 7) + "-" + input.slice(7, 11);
+					input.value = input.slice(0, 3) + "-" + input.slice(3, 7) + "-" + input.slice(7, 11);
 				}
 			});
 		}
