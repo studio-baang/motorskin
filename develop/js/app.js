@@ -35,7 +35,6 @@ class App {
 
 	onLoad() {
 		document.addEventListener("DOMContentLoaded", () => {
-			removeDefaultClass();
 			headerContor();
 			smoothScroll();
 		});
