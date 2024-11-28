@@ -40,6 +40,9 @@
 		}
 		&__2cols {
 			@include flex($direction: row, $gap: $pc-layout-gap);
+			@include media-laptop {
+				gap: 0.5em;
+			}
 			&--inner {
 				gap: 0.5em;
 			}
