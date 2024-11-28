@@ -16,5 +16,4 @@ function removeSectionClass() {
 }
 export function removeDefaultClass() {
 	removeDivClass();
-	removeSectionClass();
 }

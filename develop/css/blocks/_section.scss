@@ -4,7 +4,7 @@
 	color: #454545;
 	background-color: #fff;
 	overflow: hidden;
-	& > .ct-section-inner-wrap {
+	&.ct-section > .ct-section-inner-wrap {
 		container: section-container / inline-size;
 		max-width: $max-width;
 		@include flex($direction: column, $gap: 80px $pc-layout-gap);
@@ -12,7 +12,7 @@
 		@include section-padding();
 	}
 	&--wide {
-		& > .ct-section-inner-wrap {
+		&.ct-section > .ct-section-inner-wrap {
 			width: $max-width;
 			padding: min(9vw, 160px);
 			@include media-tablet {
@@ -21,12 +21,12 @@
 		}
 	}
 	&--bottom-0 {
-		& > .ct-section-inner-wrap {
+		&.ct-section > .ct-section-inner-wrap {
 			padding-bottom: 0;
 		}
 	}
 	&--cols-10 {
-		& > .ct-section-inner-wrap {
+		&.ct-section > .ct-section-inner-wrap {
 			@include calc-column-width(10);
 		}
 	}
@@ -35,7 +35,7 @@
 		line-height: 2;
 		color: #eeeeee;
 		background-color: #222222;
-		& > .ct-section-inner-wrap {
+		&.ct-section > .ct-section-inner-wrap {
 			padding: 90px 0;
 			gap: 3em;
 		}
