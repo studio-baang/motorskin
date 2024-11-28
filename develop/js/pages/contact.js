@@ -33,10 +33,7 @@ class Contact {
 			modules: [Autoplay, EffectFade],
 			loop: true,
 			effect: "fade",
-			fadeEffect: {
-				crossFade: true,
-			},
-			speed: 500,
+			speed: 750,
 			autoplay: {
 				delay: 2500,
 			},
