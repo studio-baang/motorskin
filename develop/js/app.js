@@ -31,13 +31,13 @@ class App {
 		} else if (this.containsId(this.pageId.aftercare)) {
 			aftercareParallax();
 		}
-		smoothScroll();
 	}
 
 	onLoad() {
 		document.addEventListener("DOMContentLoaded", () => {
 			removeDefaultClass();
 			headerContor();
+			smoothScroll();
 		});
 	}
 }
