@@ -1,9 +1,11 @@
 @use "../utils" as *;
 
 .title-box {
-	background: center center / cover no-repeat #000;
-	@include flex($direction: column);
-	@include section-padding;
+	&.ct-div-block {
+		background: center center / cover no-repeat #000;
+		@include flex($direction: column);
+		@include section-padding;
+	}
 	&--sema {
 		justify-content: flex-end;
 		padding: 80px min(8vw, 160px);

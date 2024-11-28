@@ -12,11 +12,26 @@ function wpdocs_theme_name_scripts() {
 
     wp_enqueue_style( 'motorskin-script-style', plugin_dir_url( __FILE__ ).'dist/js/app.css' );
     wp_enqueue_style( 'motorskin-montserrat', 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
-	wp_enqueue_style( 'motorskin-custom-style', plugin_dir_url( __FILE__ ).'dist/css/custom.css', array(), '1.0.0' );
 	wp_enqueue_script( 'motorskin-script', plugin_dir_url( __FILE__ ). 'dist/js/app.js', array(), '1.0.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts', 100 );
 add_filter('big_image_size_threshold', '__return_false');
+
+// 1000000 priority so it is executed after all Oxygen's styles
+add_action( 'wp_head', 'wpdd_enqueue_css_after_oxygens', 1000000 );
+/**
+ * Load assets.
+ */
+function wpdd_enqueue_css_after_oxygens() {
+	if ( ! class_exists( 'CT_Component' ) ) {
+		return;
+	}
+
+	$styles = new WP_Styles;
+	$styles->add( 'custom', plugin_dir_url( __FILE__ ).'dist/css/custom.css' );
+	$styles->enqueue( array ( 'custom' ) );
+	$styles->do_items();
+}
 
 
 // 메뉴에 설명 추가하기
