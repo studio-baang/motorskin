@@ -1,6 +1,7 @@
 @use "../utils" as *;
 
 .headline-box {
+	display: block;
 	@include calc-column-width(10);
 	margin: 0 auto;
 	&--wide {
@@ -24,6 +25,7 @@
 		}
 	}
 	&__wrapper {
+		display: block;
 		@include calc-column-width(6);
 		margin-right: auto;
 		& > *:first-child {
