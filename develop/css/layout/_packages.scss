@@ -69,7 +69,7 @@
 			.ct-headline {
 				@include font-monument;
 				font-weight: 400;
-				font-size: 32px;
+				font-size: min(7vw, 32px);
 				margin-bottom: 1em;
 			}
 		}
@@ -78,14 +78,12 @@
 			&-row {
 				@include flex($justify: space-between);
 				&--discount {
+					font-size: min(4vw, 20px);
 					font-weight: 700;
 					padding: 1em;
 					margin-top: 1em;
 					color: #0c0c0c;
 					background-color: #fff;
-					.ct-text-block {
-						font-size: 20px;
-					}
 				}
 				.ct-text-block {
 					max-width: 60%;
