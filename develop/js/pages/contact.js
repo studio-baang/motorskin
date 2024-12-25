@@ -49,7 +49,7 @@ class Contact {
 			},
 		});
 
-		updateReceipt();
+		this.updateReceipt();
 		this.form.addEventListener("update", this.updateReceipt());
 	}
 
