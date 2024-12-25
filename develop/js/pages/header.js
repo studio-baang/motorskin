@@ -35,7 +35,7 @@ function toggleGnbAnim() {
 	});
 }
 
-export function headerContor() {
+export function headerContorl() {
 	closeMenu();
 	toggleGnbAnim();
 }
