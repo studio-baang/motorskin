@@ -50,7 +50,10 @@ class Contact {
 		});
 
 		this.updateReceipt();
-		this.form.addEventListener("update", this.updateReceipt());
+		this.modelInput.addEventListener("input", this.updateReceipt());
+		for (const packageInput of this.packageInputs) {
+			packageInput.addEventListener("input", this.updateReceipt());
+		}
 	}
 
 	toggleModal = () => {
