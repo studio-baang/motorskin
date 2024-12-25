@@ -17,7 +17,7 @@ class App {
 		const main = document.querySelector("main");
 		const namespace = main.data("namespace");
 
-		if (namespace == "package") {
+		if (namespace == "packages") {
 			new Packages();
 		} else if (namespace == "contact") {
 			new Contact();
