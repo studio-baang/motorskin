@@ -94,9 +94,9 @@ class Contact {
 		}
 
 		const receiptTitle = document.querySelector("#contact-receipt-title");
-		console.log(modelValue + "&nbsp" + packageValue);
+		console.log(modelValue + " " + packageValue);
 		if (this.receipt) {
-			receiptTitle.innerHTML = console.log(modelValue + "&nbsp" + packageValue);
+			receiptTitle.innerHTML = modelValue + "&nbsp" + packageValue;
 		}
 	}
 }
