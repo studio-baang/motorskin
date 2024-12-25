@@ -5,9 +5,15 @@ import { delay } from "lodash";
 
 class Contact {
 	constructor() {
+		this.form = document.querySelector('."wpcf7-form');
+		this.receipt = document.querySelector(".contact-receipt");
+
 		this.textarea = document.querySelector(".wpcf7-textarea");
 		this.modal = document.querySelector(".agreement-modal");
 		this.openModalBtn = document.querySelector(".contact-form__open-modal");
+		this.tel = document.querySelector("input[name='tel']");
+		this.modelInput = document.querySelector('select[name="model"]');
+		this.packageInputs = document.querySelectorAll('input[name="package"]');
 
 		this.init();
 	}
@@ -29,6 +35,10 @@ class Contact {
 			});
 		}
 
+		if (this.tel) {
+			this.allowPhoneNumber();
+		}
+
 		new Swiper(".contact-swiper", {
 			modules: [Autoplay, EffectFade],
 			loop: true,
@@ -38,13 +48,13 @@ class Contact {
 				delay: 2500,
 			},
 		});
-		this.allowPhoneNumber();
+
+		updateReceipt();
+		this.form.addEventListener("update", this.updateReceipt);
 	}
 
 	toggleModal = () => {
-		if (this.modal) {
-			this.modal.classList.toggle("agreement-modal--open");
-		}
+		this.modal.classList.toggle("agreement-modal--open");
 	};
 
 	handleResizeHeight = () => {
@@ -55,26 +65,37 @@ class Contact {
 	};
 
 	allowPhoneNumber = () => {
-		const tel = document.querySelector("input[name='tel']");
-		if (tel) {
-			tel.addEventListener("input", function (e) {
-				const input = e.target;
-				const filterInput = input.value.replace(/\D/g, "");
+		this.tel.addEventListener("input", function (e) {
+			const input = e.target;
+			const filterInput = input.value.replace(/\D/g, "");
 
-				// 번호 포맷팅
-				if (filterInput.length <= 3) {
-					// 3자리 이하
-					input.value = filterInput;
-				} else if (filterInput.length <= 7) {
-					// 3-7자리
-					input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3);
-				} else {
-					// 8자리 이상
-					input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3, 7) + "-" + filterInput.slice(7, 11);
-				}
-			});
-		}
+			// 번호 포맷팅
+			if (filterInput.length <= 3) {
+				// 3자리 이하
+				input.value = filterInput;
+			} else if (filterInput.length <= 7) {
+				// 3-7자리
+				input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3);
+			} else {
+				// 8자리 이상
+				input.value = filterInput.slice(0, 3) + "-" + filterInput.slice(3, 7) + "-" + filterInput.slice(7, 11);
+			}
+		});
 	};
+
+	updateReceipt() {
+		const modelValue = this.modelInput.value || "";
+		let packageValue = "Package A";
+		for (const packageInput of this.packageInputs) {
+			packageValue = packageInput.checked ? packageInput.value : packageValue;
+		}
+
+		const receiptTitle = document.querySelector("#contact-receipt-title");
+
+		if (this.receipt) {
+			receiptTitle.innerText = modelValue + packageValue;
+		}
+	}
 }
 
 export default Contact;
