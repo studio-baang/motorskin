@@ -121,17 +121,17 @@
 				@include media-laptop {
 					gap: 0.5em;
 				}
-				.wpcf7-list-item-label {
-					display: block;
-					width: 100%;
-					font-weight: 700;
-					text-align: center;
-					padding: 0.5em;
-					border: 1px solid #525252;
-					border-radius: 30px;
-					&-item {
-						flex: 1 1 0;
-						margin: 0;
+				.wpcf7-list-item {
+					flex: 1 1 0;
+					margin: 0;
+					&-label {
+						display: block;
+						width: 100%;
+						font-weight: 700;
+						text-align: center;
+						padding: 0.5em;
+						border: 1px solid #525252;
+						border-radius: 30px;
 					}
 				}
 			}
