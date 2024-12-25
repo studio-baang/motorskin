@@ -25,9 +25,6 @@ class Packages {
 					slidesOffsetAfter: 30,
 				},
 			},
-			mousewheel: {
-				enabled: true,
-			},
 		});
 		this.packageSlider.slideTo(11);
 

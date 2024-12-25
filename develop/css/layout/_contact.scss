@@ -129,10 +129,7 @@
 				border-radius: 30px;
 			}
 			.wpcf7-checkbox {
-				@include flex($gap: $pc-layout-gap);
-				@include media-laptop {
-					gap: 0.5em;
-				}
+				@include flex($gap: 0.5em, $wrap: wrap);
 			}
 			.wpcf7-radio {
 				@include flex($gap: $pc-layout-gap);
