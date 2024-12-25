@@ -98,7 +98,8 @@
 				line-height: 2em;
 				border-bottom: 1px solid #141414;
 			}
-			[type="radio"] {
+			[type="radio"],
+			[type="checkbox"] {
 				display: none;
 				border: 1px solid #525252;
 				&:checked + .wpcf7-list-item-label {
@@ -114,23 +115,29 @@
 				border: 1px solid #525252;
 				border-radius: 4px;
 			}
-			.wpcf7-radio {
+			.wpcf7-list-item {
+				flex: 1 1 0;
+				margin: 0;
+			}
+			.wpcf7-list-item-label {
+				display: block;
+				width: 100%;
+				font-weight: 700;
+				text-align: center;
+				padding: 0.5em;
+				border: 1px solid #525252;
+				border-radius: 30px;
+			}
+			.wpcf7-checkbox {
 				@include flex($gap: $pc-layout-gap);
 				@include media-laptop {
 					gap: 0.5em;
 				}
-				.wpcf7-list-item {
-					flex: 1 1 0;
-					margin: 0;
-				}
-				.wpcf7-list-item-label {
-					display: block;
-					width: 100%;
-					font-weight: 700;
-					text-align: center;
-					padding: 0.5em;
-					border: 1px solid #525252;
-					border-radius: 30px;
+			}
+			.wpcf7-radio {
+				@include flex($gap: $pc-layout-gap);
+				@include media-laptop {
+					gap: 0.5em;
 				}
 			}
 			.wpcf7-submit {
