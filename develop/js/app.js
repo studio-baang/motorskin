@@ -15,8 +15,8 @@ class App {
 
 	init() {
 		const main = document.querySelector("main");
-		const namespace = main.dataset.namespace;
-
+		const namespace = main.dataset.namespace || null;
+		console.log(namespace);
 		if (namespace == "packages") {
 			new Packages();
 		} else if (namespace == "contact") {
