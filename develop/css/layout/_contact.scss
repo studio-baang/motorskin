@@ -179,6 +179,12 @@
 				font-size: 1.4em;
 			}
 		}
+		&__diff {
+			display: none;
+			&.contact-receipt__diff--current {
+				display: initial;
+			}
+		}
 	}
 	.swiper-slide {
 		background: center center / cover no-repeat;

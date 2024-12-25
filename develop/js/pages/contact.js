@@ -12,8 +12,11 @@ class Contact {
 		this.modal = document.querySelector(".agreement-modal");
 		this.openModalBtn = document.querySelector(".contact-form__open-modal");
 		this.tel = document.querySelector("input[name='tel']");
+
 		this.modelInput = document.querySelector('select[name="model"]');
 		this.packageInputs = document.querySelectorAll('input[name="package"]');
+		this.modelValue = this.modelInput.value;
+		this.packageValue = "Package A";
 
 		this.init();
 	}
@@ -49,10 +52,10 @@ class Contact {
 			},
 		});
 
-		this.updateReceiptTitle();
-		this.modelInput.addEventListener("input", this.updateReceiptTitle.bind(this));
+		this.updateReceipt();
+		this.modelInput.addEventListener("input", this.updateReceipt.bind(this));
 		for (const packageInput of this.packageInputs) {
-			packageInput.addEventListener("input", this.updateReceiptTitle.bind(this));
+			packageInput.addEventListener("input", this.updateReceipt.bind(this));
 		}
 	}
 
@@ -86,17 +89,35 @@ class Contact {
 		});
 	};
 
-	updateReceiptTitle() {
-		const modelValue = this.modelInput.value || "";
-		let packageValue = "Package A";
+	updateReceipt() {
+		this.modelValue = this.modelInput.value;
 		for (const packageInput of this.packageInputs) {
-			packageValue = packageInput.checked ? packageInput.value : packageValue;
+			this.packageValue = packageInput.checked ? packageInput.value : this.packageValue;
 		}
+		updateReceiptTitle();
+	}
 
+	toggleReceiptDiff() {
+		const diffs = document.querySelectorAll(".contact-receipt__diff");
+		const diffA = document.querySelector(".contact-receipt__diff--a");
+		const diffB = document.querySelector(".contact-receipt__diff--b");
+
+		for (const diff of diffs) {
+			diff.classList.remove("contact-receipt__diff--current");
+
+			if (this.packageValue == "Package B") {
+				diffB.classList.add("contact-receipt__diff--current");
+			} else {
+				diffA.classList.add("contact-receipt__diff--current");
+			}
+		}
+	}
+
+	updateReceiptTitle() {
 		const receiptTitle = document.querySelector("#contact-receipt-title");
-		console.log(modelValue + " " + packageValue);
+
 		if (this.receipt) {
-			receiptTitle.innerHTML = modelValue + "&nbsp" + packageValue;
+			receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
 		}
 	}
 }
