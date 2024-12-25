@@ -95,6 +95,7 @@ class Contact {
 			this.packageValue = packageInput.checked ? packageInput.value : this.packageValue;
 		}
 		this.updateReceiptTitle();
+		this.toggleReceiptDiff();
 	}
 
 	toggleReceiptDiff() {
