@@ -50,7 +50,7 @@ class Contact {
 		});
 
 		updateReceipt();
-		this.form.addEventListener("update", this.updateReceipt);
+		this.form.addEventListener("update", this.updateReceipt());
 	}
 
 	toggleModal = () => {
@@ -93,7 +93,7 @@ class Contact {
 		const receiptTitle = document.querySelector("#contact-receipt-title");
 
 		if (this.receipt) {
-			receiptTitle.innerText = modelValue + packageValue;
+			receiptTitle.innerHTML = modelValue + "&nbsp" + packageValue;
 		}
 	}
 }
