@@ -102,6 +102,19 @@
 			[type="checkbox"] {
 				display: none;
 				border: 1px solid #525252;
+				.wpcf7-list-item-label {
+					&-item {
+						flex: 1 1 0;
+						margin: 0;
+					}
+					display: block;
+					width: 100%;
+					font-weight: 700;
+					text-align: center;
+					padding: 0.5em;
+					border: 1px solid #525252;
+					border-radius: 30px;
+				}
 				&:checked + .wpcf7-list-item-label {
 					color: #ffffff;
 					background-color: #525252;
@@ -114,19 +127,6 @@
 				text-align: center;
 				border: 1px solid #525252;
 				border-radius: 4px;
-			}
-			.wpcf7-list-item {
-				flex: 1 1 0;
-				margin: 0;
-			}
-			.wpcf7-list-item-label {
-				display: block;
-				width: 100%;
-				font-weight: 700;
-				text-align: center;
-				padding: 0.5em;
-				border: 1px solid #525252;
-				border-radius: 30px;
 			}
 			.wpcf7-checkbox {
 				@include flex($gap: 0.5em, $wrap: wrap);
