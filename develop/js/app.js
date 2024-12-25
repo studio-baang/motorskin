@@ -15,7 +15,7 @@ class App {
 
 	init() {
 		const main = document.querySelector("main");
-		const namespace = main.data("namespace");
+		const namespace = main.dataset("namespace");
 
 		if (namespace == "packages") {
 			new Packages();
