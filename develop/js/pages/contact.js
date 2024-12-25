@@ -5,7 +5,7 @@ import { delay } from "lodash";
 
 class Contact {
 	constructor() {
-		this.form = document.querySelector('."wpcf7-form');
+		this.form = document.querySelector(".wpcf7-form");
 		this.receipt = document.querySelector(".contact-receipt");
 
 		this.textarea = document.querySelector(".wpcf7-textarea");
