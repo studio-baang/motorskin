@@ -49,10 +49,10 @@ class Contact {
 			},
 		});
 
-		this.updateReceipt();
-		this.modelInput.addEventListener("input", this.updateReceipt());
+		this.updateReceiptTitle();
+		this.modelInput.addEventListener("input", this.updateReceiptTitle.bind(this));
 		for (const packageInput of this.packageInputs) {
-			packageInput.addEventListener("input", this.updateReceipt());
+			packageInput.addEventListener("input", this.updateReceiptTitle.bind(this));
 		}
 	}
 
@@ -86,7 +86,7 @@ class Contact {
 		});
 	};
 
-	updateReceipt() {
+	updateReceiptTitle() {
 		const modelValue = this.modelInput.value || "";
 		let packageValue = "Package A";
 		for (const packageInput of this.packageInputs) {
@@ -94,9 +94,9 @@ class Contact {
 		}
 
 		const receiptTitle = document.querySelector("#contact-receipt-title");
-
+		console.log(modelValue + "&nbsp" + packageValue);
 		if (this.receipt) {
-			receiptTitle.innerHTML = modelValue + "&nbsp" + packageValue;
+			receiptTitle.innerHTML = console.log(modelValue + "&nbsp" + packageValue);
 		}
 	}
 }
