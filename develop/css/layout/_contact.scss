@@ -158,11 +158,11 @@
 		}
 	}
 	&-receipt {
-		gap: 1.5em;
+		gap: 2.5em;
 		&__index {
 			display: block;
 			font-weight: 700;
-			margin-bottom: 0.25em;
+			margin-bottom: 0.5em;
 			color: #e15aa4;
 		}
 		&__title {
@@ -184,6 +184,9 @@
 			&.contact-receipt__diff--current {
 				display: initial;
 			}
+		}
+		&__add-ons {
+			@include flex($gap: 1em 2em, $wrap: wrap);
 		}
 	}
 	.swiper-slide {
