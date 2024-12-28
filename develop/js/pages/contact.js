@@ -156,6 +156,8 @@ class Contact {
 	}
 
 	updatePrice() {
+		this.getPriceByPost(this.modelValue, this.packageValue);
+
 		console.log(this.basicPrice);
 		this.priceTag.innerHTML = this.basicPrice;
 	}
