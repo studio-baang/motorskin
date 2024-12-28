@@ -126,6 +126,10 @@ class Contact {
 		receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
 	}
 
+	updatePriceFunc() {
+		this.priceTag.innerHTML = this.basicPrice;
+	}
+
 	async updatePrice(title, packageName) {
 		try {
 			// REST API 엔드포인트 생성
@@ -152,10 +156,6 @@ class Contact {
 		} catch (error) {
 			console.error("Error fetching custom post:", error);
 		}
-	}
-
-	updatePriceFunc() {
-		this.priceTag.innerHTML = this.basicPrice;
 	}
 }
 
