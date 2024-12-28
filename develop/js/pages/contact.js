@@ -100,12 +100,10 @@ class Contact {
 		for (const packageInput of this.packageInputs) {
 			this.packageValue = packageInput.checked ? packageInput.value : this.packageValue;
 		}
-		this.updateReceiptTitle();
-		this.toggleReceiptDiff();
-		this.updatePrice(this.modelValue, this.packageValue);
+		this.updateReceiptData(this.modelValue, this.packageValue);
 	}
 
-	toggleReceiptDiff() {
+	updateReceiptContent() {
 		const diffs = document.querySelectorAll(".contact-receipt__diff");
 		const diffA = document.querySelector(".contact-receipt__diff--a");
 		const diffB = document.querySelector(".contact-receipt__diff--b");
@@ -127,10 +125,14 @@ class Contact {
 	}
 
 	updatePriceFunc() {
-		this.priceTag.innerHTML = this.basicPrice;
+		const basicPriceNum = Number(this.basicPrice);
+
+		const resultPriceNum = basicPriceNum;
+
+		this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
 	}
 
-	async updatePrice(title, packageName) {
+	async updateReceiptData(title, packageName) {
 		try {
 			// REST API 엔드포인트 생성
 			const endpoint = `/wp-json/wp/v2/promotion-1?search=${encodeURIComponent(title)}`;
@@ -148,6 +150,9 @@ class Contact {
 			// 검색 결과 처리
 			if (posts.length > 0) {
 				this.basicPrice = packageName == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
+
+				this.updateReceiptTitle();
+				this.updateReceiptContent();
 				this.updatePriceFunc();
 			} else {
 				console.log("No posts found for the given title in Custom Post Type.");
