@@ -28,7 +28,7 @@ class Receipt {
 			},
 		];
 
-		init();
+		this.init();
 	}
 	init() {
 		this.updateReceipt();
