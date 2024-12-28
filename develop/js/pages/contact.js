@@ -18,6 +18,8 @@ class Contact {
 		this.modelValue = this.modelInput.value;
 		this.packageValue = "Package A";
 
+		this.basicPrice;
+
 		this.init();
 	}
 
@@ -143,7 +145,7 @@ class Contact {
 
 			// 검색 결과 처리
 			if (posts.length > 0) {
-				return packageName == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
+				this.basicPrice = packageName == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
 			} else {
 				console.log("No posts found for the given title in Custom Post Type.");
 				return null;
@@ -154,10 +156,8 @@ class Contact {
 	}
 
 	updatePrice() {
-		const basicPrice = this.getPriceByPost(this.modelValue, this.packageValue);
-
-		console.log(basicPrice);
-		this.priceTag.innerHTML = basicPrice;
+		console.log(this.basicPrice);
+		this.priceTag.innerHTML = this.basicPrice;
 	}
 }
 
