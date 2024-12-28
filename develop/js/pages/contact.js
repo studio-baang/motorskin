@@ -160,7 +160,9 @@ class Contact {
 	}
 
 	updatePrice() {
-		const basicPrice = this.getPriceByPost("promotion-1", this.modelValue);
+		const basicPrice = this.getPriceByPost("promotion-1", this.packageValue);
+
+		console.log(basicPrice);
 		this.priceTag.innerHTML = basicPrice;
 	}
 }
