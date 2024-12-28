@@ -26,9 +26,9 @@
 		}
 		&__title {
 			@include font-monument;
-			font-size: 32px;
+			font-size: min(6vw, 32px);
 			color: #141414;
-			padding-bottom: 16px;
+			padding-bottom: 0.5em;
 			text-align: center;
 		}
 		&__input-wrapper {
@@ -68,7 +68,7 @@
 			text-decoration: underline;
 		}
 		.wpcf7-form {
-			font-size: 16px;
+			font-size: min(3vw, 16px);
 			margin: 0 auto;
 			@include flex($direction: column, $gap: 3em $pc-layout-gap);
 			@include calc-column-width(8, $wide-width: true);
@@ -76,7 +76,7 @@
 			@mixin default-input-style() {
 				font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
 					"Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-				font-size: 16px;
+				font-size: min(3vw, 16px);
 				font-weight: 700;
 				letter-spacing: -0.025em;
 				background-color: initial;

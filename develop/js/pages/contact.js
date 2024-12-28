@@ -52,11 +52,7 @@ class Contact {
 			},
 		});
 
-		this.updateReceipt();
-		this.modelInput.addEventListener("input", this.updateReceipt.bind(this));
-		for (const packageInput of this.packageInputs) {
-			packageInput.addEventListener("input", this.updateReceipt.bind(this));
-		}
+		this.initReceipt();
 	}
 
 	toggleModal = () => {
@@ -89,6 +85,14 @@ class Contact {
 		});
 	};
 
+	initReceipt() {
+		this.updateReceipt();
+		this.modelInput.addEventListener("input", this.updateReceipt.bind(this));
+		for (const packageInput of this.packageInputs) {
+			packageInput.addEventListener("input", this.updateReceipt.bind(this));
+		}
+	}
+
 	updateReceipt() {
 		this.modelValue = this.modelInput.value;
 		for (const packageInput of this.packageInputs) {
@@ -119,7 +123,40 @@ class Contact {
 
 		if (this.receipt) {
 			receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
+			this.getPriceByPost("promotion-1", this.modelValue);
 		}
+	}
+
+	getPriceByPost(cptSlug, title) {
+		async function getCustomPostByTitle(cptSlug, title) {
+			try {
+				// REST API 엔드포인트 생성
+				const endpoint = `/wp-json/wp/v2/${cptSlug}?search=${encodeURIComponent(title)}`;
+
+				// Fetch API로 요청
+				const response = await fetch(endpoint);
+
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+
+				// 응답 데이터(JSON) 파싱
+				const posts = await response.json();
+
+				// 검색 결과 처리
+				if (posts.length > 0) {
+					console.log("Post Content:", posts[0].content.rendered); // HTML 내용
+					return posts[0].content.rendered;
+				} else {
+					console.log("No posts found for the given title in Custom Post Type.");
+					return null;
+				}
+			} catch (error) {
+				console.error("Error fetching custom post:", error);
+			}
+		}
+
+		return getCustomPostByTitle();
 	}
 }
 
