@@ -102,6 +102,7 @@ class Contact {
 		}
 		this.updateReceiptTitle();
 		this.toggleReceiptDiff();
+		this.updatePrice();
 	}
 
 	toggleReceiptDiff() {
