@@ -126,13 +126,11 @@ class Contact {
 		receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
 	}
 
-	getPriceByPost(cptSlug, title, packageName) {
+	getPriceByPost(title, packageName) {
 		async function getCustomPostByTitle() {
 			try {
 				// REST API 엔드포인트 생성
-				const endpoint = `/wp-json/wp/v2/${cptSlug}?search=${encodeURIComponent(title)}`;
-
-				console.log(endpoint);
+				const endpoint = `/wp-json/wp/v2/promotion-1?search=${encodeURIComponent(title)}`;
 
 				// Fetch API로 요청
 				const response = await fetch(endpoint);
@@ -161,7 +159,7 @@ class Contact {
 	}
 
 	updatePrice() {
-		const basicPrice = this.getPriceByPost("promotion-1", this.packageValue);
+		const basicPrice = this.getPriceByPost(this.modelValue, this.packageValue);
 
 		console.log(basicPrice);
 		this.priceTag.innerHTML = basicPrice;
