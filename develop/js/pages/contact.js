@@ -18,8 +18,6 @@ class Contact {
 		this.modelValue = this.modelInput.value;
 		this.packageValue = "Package A";
 
-		this.basicPrice;
-
 		this.init();
 	}
 
@@ -128,7 +126,7 @@ class Contact {
 		receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
 	}
 
-	async getPriceByPost(title, packageName) {
+	async updatePrice(title, packageName) {
 		try {
 			// REST API 엔드포인트 생성
 			const endpoint = `/wp-json/wp/v2/promotion-1?search=${encodeURIComponent(title)}`;
@@ -146,6 +144,7 @@ class Contact {
 			// 검색 결과 처리
 			if (posts.length > 0) {
 				this.basicPrice = packageName == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
+				this.updatePriceFunc();
 			} else {
 				console.log("No posts found for the given title in Custom Post Type.");
 				return null;
@@ -155,10 +154,7 @@ class Contact {
 		}
 	}
 
-	updatePrice() {
-		this.getPriceByPost(this.modelValue, this.packageValue);
-
-		console.log(this.basicPrice);
+	updatePriceFunc() {
 		this.priceTag.innerHTML = this.basicPrice;
 	}
 }
