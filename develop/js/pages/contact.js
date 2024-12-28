@@ -11,9 +11,10 @@ class Contact {
 		this.modal = document.querySelector(".agreement-modal");
 		this.openModalBtn = document.querySelector(".contact-form__open-modal");
 		this.tel = document.querySelector("input[name='tel']");
-
 		this.modelInput = document.querySelector('select[name="model"]');
 		this.packageInputs = document.querySelectorAll('input[name="package"]');
+		this.priceTag = document.getElementById("contact-receipt-amount");
+
 		this.modelValue = this.modelInput.value;
 		this.packageValue = "Package A";
 
@@ -41,6 +42,10 @@ class Contact {
 			this.allowPhoneNumber();
 		}
 
+		if (this.receipt) {
+			this.initReceipt();
+		}
+
 		new Swiper(".contact-swiper", {
 			modules: [Autoplay, EffectFade],
 			loop: true,
@@ -50,8 +55,6 @@ class Contact {
 				delay: 2500,
 			},
 		});
-
-		this.initReceipt();
 	}
 
 	toggleModal = () => {
@@ -119,14 +122,10 @@ class Contact {
 
 	updateReceiptTitle() {
 		const receiptTitle = document.querySelector("#contact-receipt-title");
-
-		if (this.receipt) {
-			receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
-			this.getPriceByPost("promotion-1", this.modelValue);
-		}
+		receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
 	}
 
-	getPriceByPost(cptSlug, title) {
+	getPriceByPost(cptSlug, title, packageName) {
 		async function getCustomPostByTitle() {
 			try {
 				// REST API 엔드포인트 생성
@@ -146,8 +145,8 @@ class Contact {
 
 				// 검색 결과 처리
 				if (posts.length > 0) {
-					console.log("Post Content:", posts[0].content.rendered); // HTML 내용
-					return posts[0].content.rendered;
+					const packagePrice = packageName == "Package A" ? "package_a_price" : "package_b_price";
+					return posts[0].acf.packagePrice;
 				} else {
 					console.log("No posts found for the given title in Custom Post Type.");
 					return null;
@@ -158,6 +157,11 @@ class Contact {
 		}
 
 		return getCustomPostByTitle();
+	}
+
+	updatePrice() {
+		const basicPrice = this.getPriceByPost("promotion-1", this.modelValue);
+		this.priceTag.innerHTML = basicPrice;
 	}
 }
 
