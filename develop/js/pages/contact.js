@@ -13,29 +13,42 @@ class Receipt {
 		this.modelValue = this.modelInput.value;
 		this.packageValue = "Package A";
 
+		this.addOnsContentContainer = document.querySelector(".contact-receipt__add-ons");
 		this.addOnsArr = [
 			{
-				el: document.querySelector('input[name="add-on-01"]'),
+				el: document.querySelectorAll('input[name="add-on-01"]'),
 				data: [400000],
 			},
 			{
-				el: document.querySelector('input[name="add-on-02"]'),
+				el: document.querySelectorAll('input[name="add-on-02"]'),
 				data: [800000],
 			},
 			{
-				el: document.querySelector('input[name="add-on-03"]'),
+				el: document.querySelectorAll('input[name="add-on-03"]'),
 				data: [200000, 400000],
 			},
 		];
 
 		this.init();
 	}
+
 	init() {
 		this.updateReceipt();
-		this.modelInput.addEventListener("input", this.updateReceipt.bind(this));
+		this.observe(this.modelInput);
+
 		for (const packageInput of this.packageInputs) {
-			packageInput.addEventListener("input", this.updateReceipt.bind(this));
+			this.observe(packageInput);
 		}
+
+		for (const addOns of this.addOnsArr) {
+			for (const target of addOns.el) {
+				this.observe(target);
+			}
+		}
+	}
+
+	observe(el) {
+		el.addEventListener("input", this.updateReceipt.bind(this));
 	}
 
 	updateReceipt() {
@@ -76,12 +89,21 @@ class Receipt {
 	}
 
 	updateAddons() {
+		let addonHTML = "";
+
 		const title = "baam";
 		const price = 200000;
-		const listDom = `<li class="contact-receipt__add-ons-list">
-				<h5>${title}</h5>
-				<span>+${price}원</span>
-			</li>`;
+
+		for (const addOns of this.addOnsArr) {
+			for (const target of addOns.el) {
+				if (target.checked) {
+					addonHTML += `<li class="contact-receipt__add-ons-list">
+						<h5>${title}</h5>
+						<span>+${price}원</span>
+					</li>`;
+				}
+			}
+		}
 	}
 
 	async updateReceiptData(title, packageName) {
