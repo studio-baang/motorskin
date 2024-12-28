@@ -126,36 +126,31 @@ class Contact {
 		receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
 	}
 
-	getPriceByPost(title, packageName) {
-		async function getCustomPostByTitle() {
-			try {
-				// REST API 엔드포인트 생성
-				const endpoint = `/wp-json/wp/v2/promotion-1?search=${encodeURIComponent(title)}`;
+	async getPriceByPost(title, packageName) {
+		try {
+			// REST API 엔드포인트 생성
+			const endpoint = `/wp-json/wp/v2/promotion-1?search=${encodeURIComponent(title)}`;
 
-				// Fetch API로 요청
-				const response = await fetch(endpoint);
+			// Fetch API로 요청
+			const response = await fetch(endpoint);
 
-				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
-				}
-
-				// 응답 데이터(JSON) 파싱
-				const posts = await response.json();
-
-				// 검색 결과 처리
-				if (posts.length > 0) {
-					const packagePrice = packageName == "Package A" ? "package_a_price" : "package_b_price";
-					return posts[0].acf.packagePrice;
-				} else {
-					console.log("No posts found for the given title in Custom Post Type.");
-					return null;
-				}
-			} catch (error) {
-				console.error("Error fetching custom post:", error);
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
 			}
-		}
 
-		return getCustomPostByTitle();
+			// 응답 데이터(JSON) 파싱
+			const posts = await response.json();
+
+			// 검색 결과 처리
+			if (posts.length > 0) {
+				return packageName == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
+			} else {
+				console.log("No posts found for the given title in Custom Post Type.");
+				return null;
+			}
+		} catch (error) {
+			console.error("Error fetching custom post:", error);
+		}
 	}
 
 	updatePrice() {
