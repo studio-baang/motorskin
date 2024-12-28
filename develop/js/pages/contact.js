@@ -1,7 +1,6 @@
 import Swiper from "swiper";
 import "swiper/modules/effect-fade.min.css";
 import { Autoplay, EffectFade } from "swiper/modules";
-import { delay } from "lodash";
 
 class Contact {
 	constructor() {
@@ -128,7 +127,7 @@ class Contact {
 	}
 
 	getPriceByPost(cptSlug, title) {
-		async function getCustomPostByTitle(cptSlug, title) {
+		async function getCustomPostByTitle() {
 			try {
 				// REST API 엔드포인트 생성
 				const endpoint = `/wp-json/wp/v2/${cptSlug}?search=${encodeURIComponent(title)}`;
