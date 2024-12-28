@@ -133,6 +133,8 @@ class Contact {
 				// REST API 엔드포인트 생성
 				const endpoint = `/wp-json/wp/v2/${cptSlug}?search=${encodeURIComponent(title)}`;
 
+				console.log(endpoint);
+
 				// Fetch API로 요청
 				const response = await fetch(endpoint);
 
