@@ -122,6 +122,7 @@ class Receipt {
 				const title = content.title;
 				const price = content.price;
 
+				this.addOnsArr[0].isInactive = false;
 				addonHTML += `<li class="contact-receipt__add-ons-list">
 								<h5>${title}</h5>
 								<span>+${price}원</span>
