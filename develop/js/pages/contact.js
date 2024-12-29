@@ -22,6 +22,7 @@ class Receipt {
 			{
 				el: document.querySelectorAll('input[name="add-on-01"]'),
 				isInactive: true,
+				addPrice: 0,
 				content: [
 					{
 						title: "본네트 PPF",
@@ -32,6 +33,7 @@ class Receipt {
 			{
 				el: document.querySelectorAll('input[name="add-on-02"]'),
 				isInactive: true,
+				addPrice: 0,
 				content: [
 					{
 						title: "주차 안심 도어 4판",
@@ -42,6 +44,7 @@ class Receipt {
 			{
 				el: document.querySelectorAll('input[name="add-on-03"]'),
 				isInactive: true,
+				addPrice: 0,
 				content: [
 					{
 						title: "범퍼 양쪽 사이드",
@@ -107,6 +110,11 @@ class Receipt {
 	}
 
 	updatePriceFunc() {
+		this.finalPrice = this.basicPrice;
+		this.addOnsArr.forEach((element) => {
+			this.finalPrice += element.addPrice;
+		});
+
 		const resultPriceNum = Number(this.finalPrice);
 
 		this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
@@ -119,13 +127,14 @@ class Receipt {
 			for (let index = 0; index < element.el.length; index++) {
 				const radio = element.el[index];
 				element.isInactive = true;
+				element.addPrice = 0;
 				if (index !== element.el.length - 1 && radio.checked) {
 					const content = element.content[index];
 					const title = content.title;
 					const price = Number(content.price);
 
 					element.isInactive = false;
-					this.finalPrice += price;
+					element.addPrice = price;
 					addonHTML += `<li class="contact-receipt__add-ons-list">
 								<h5>${title}</h5>
 								<span>+${price.toLocaleString("ko-KR")}원</span>
@@ -136,12 +145,10 @@ class Receipt {
 		});
 
 		if (_.every(this.addOnsArr, { isInactive: true })) {
-			this.finalPrice = this.basicPrice;
 			addonHTML = `<li class="contact-receipt__add-ons-list">
 							<h5>추가옵션 없음</h5>
 						</li>`;
 		}
-
 		this.addOnsContentContainer.innerHTML = addonHTML;
 	}
 
