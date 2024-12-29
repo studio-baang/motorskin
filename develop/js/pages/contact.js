@@ -52,13 +52,14 @@ class Receipt {
 					},
 					{
 						title: "범퍼 앞/뒤 전체",
-						price: 800000,
+						price: 400000,
 					},
 				],
 			},
 		];
-
-		this.init();
+		if (this.receipt) {
+			this.init();
+		}
 	}
 
 	init() {
@@ -153,6 +154,8 @@ class Receipt {
 	}
 
 	async updateReceiptData(title, packageName) {
+		this.receipt.classList.add("contact-receipt--loading");
+
 		try {
 			// REST API 엔드포인트 생성
 			const endpoint = `/wp-json/wp/v2/promotion-1?search=${encodeURIComponent(title)}`;
@@ -175,6 +178,7 @@ class Receipt {
 				this.updateReceiptContent();
 				this.updateAddons();
 				this.updatePriceFunc();
+				this.receipt.classList.remove("contact-receipt--loading");
 			} else {
 				console.log("No posts found for the given title in Custom Post Type.");
 				return null;

@@ -159,6 +159,11 @@
 	}
 	&-receipt {
 		gap: 2.5em;
+		opacity: 1;
+		transition: opacity 0.1s;
+		&--loading {
+			opacity: 0.3;
+		}
 		&__index {
 			display: block;
 			font-weight: 700;
