@@ -117,7 +117,7 @@ class Receipt {
 		for (let index = 0; index < this.addOnsArr[0].el.length; index++) {
 			const radio = this.addOnsArr[0].el[index];
 			this.addOnsArr[0].isInactive = true;
-			if (index !== this.addOnsArr[0].el.length && radio.checked) {
+			if (index !== this.addOnsArr[0].el.length - 1 && radio.checked) {
 				console.log(index, this.addOnsArr[0].el.length, radio.checked);
 				const content = this.addOnsArr[0].content[index];
 				const title = content.title;
