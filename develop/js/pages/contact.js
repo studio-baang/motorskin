@@ -1,6 +1,7 @@
 import Swiper from "swiper";
 import "swiper/modules/effect-fade.min.css";
 import { Autoplay, EffectFade } from "swiper/modules";
+import _ from "lodash";
 
 class Receipt {
 	constructor() {
@@ -17,6 +18,7 @@ class Receipt {
 		this.addOnsArr = [
 			{
 				el: document.querySelectorAll('input[name="add-on-01"]'),
+				isInactive: true,
 				content: [
 					{
 						title: "본네트 PPF",
@@ -26,6 +28,7 @@ class Receipt {
 			},
 			{
 				el: document.querySelectorAll('input[name="add-on-02"]'),
+				isInactive: true,
 				content: [
 					{
 						title: "주차 안심 도어 4판",
@@ -35,6 +38,7 @@ class Receipt {
 			},
 			{
 				el: document.querySelectorAll('input[name="add-on-03"]'),
+				isInactive: true,
 				content: [
 					{
 						title: "범퍼 양쪽 사이드",
@@ -110,20 +114,28 @@ class Receipt {
 	updateAddons() {
 		let addonHTML = "";
 
-		for (const addon of this.addOnsArr[0].el) {
-			console.log(addon, addon.checked);
+		this.addOnsArr[0].el.forEach((radio, index) => {
+			if (index == this.addOnsArr[0].el.length && radio.checked) {
+				this.addOnsArr[0].isInactive = true;
+			} else if (index !== this.addOnsArr[0].el.length && radio.checked) {
+				const content = this.addOnsArr[0].content[index];
+				const title = content.title;
+				const price = content.price;
+
+				addonHTML += `<li class="contact-receipt__add-ons-list">
+								<h5>${title}</h5>
+								<span>+${price}원</span>
+							</li>`;
+			}
+		});
+
+		if (_.every(this.addOnsArr, { isInactive: true })) {
+			addonHTML = `<li class="contact-receipt__add-ons-list">
+							<h5>추가옵션 없음</h5>
+						</li>`;
 		}
 
-		// for (const addOns of this.addOnsArr) {
-		// 	for (const target of addOns.el) {
-		// 		if (target.checked) {
-		// 			addonHTML += `<li class="contact-receipt__add-ons-list">
-		// 				<h5>${title}</h5>
-		// 				<span>+${price}원</span>
-		// 			</li>`;
-		// 		}
-		// 	}
-		// }
+		this.addOnsContentContainer.innerHTML = addonHTML;
 	}
 
 	async updateReceiptData(title, packageName) {
