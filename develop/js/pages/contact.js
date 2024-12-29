@@ -14,6 +14,9 @@ class Receipt {
 		this.modelValue = this.modelInput.value;
 		this.packageValue = "Package A";
 
+		this.basicPrice = 0;
+		this.finalPrice = 0;
+
 		this.addOnsContentContainer = document.querySelector(".contact-receipt__add-ons");
 		this.addOnsArr = [
 			{
@@ -104,9 +107,7 @@ class Receipt {
 	}
 
 	updatePriceFunc() {
-		const basicPriceNum = Number(this.basicPrice);
-
-		const resultPriceNum = basicPriceNum;
+		const resultPriceNum = Number(this.finalPrice);
 
 		this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
 	}
@@ -119,12 +120,12 @@ class Receipt {
 				const radio = element.el[index];
 				element.isInactive = true;
 				if (index !== element.el.length - 1 && radio.checked) {
-					console.log(index, element.el.length, radio.checked);
 					const content = element.content[index];
 					const title = content.title;
 					const price = Number(content.price);
 
 					element.isInactive = false;
+					this.finalPrice += price;
 					addonHTML += `<li class="contact-receipt__add-ons-list">
 								<h5>${title}</h5>
 								<span>+${price.toLocaleString("ko-KR")}원</span>
@@ -135,6 +136,7 @@ class Receipt {
 		});
 
 		if (_.every(this.addOnsArr, { isInactive: true })) {
+			this.finalPrice = this.basicPrice;
 			addonHTML = `<li class="contact-receipt__add-ons-list">
 							<h5>추가옵션 없음</h5>
 						</li>`;
@@ -164,8 +166,8 @@ class Receipt {
 
 				this.updateReceiptTitle();
 				this.updateReceiptContent();
-				this.updatePriceFunc();
 				this.updateAddons();
+				this.updatePriceFunc();
 			} else {
 				console.log("No posts found for the given title in Custom Post Type.");
 				return null;
