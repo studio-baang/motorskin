@@ -115,7 +115,7 @@ class Receipt {
 		let addonHTML = "";
 
 		for (let index = 0; index < this.addOnsArr[0].el.length; index++) {
-			const radio = array[index];
+			const radio = this.addOnsArr[0].el[index];
 			this.addOnsArr[0].isInactive = true;
 			if (index !== this.addOnsArr[0].el.length && radio.checked) {
 				const content = this.addOnsArr[0].content[index];
