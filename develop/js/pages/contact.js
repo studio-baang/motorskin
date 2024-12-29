@@ -219,7 +219,7 @@ class Contact {
 		}
 
 		if (this.tel) {
-			this.tel.addEventListener("input", _.debounce(this.allowPhoneNumber.bind(this), 150));
+			this.tel.addEventListener("input", _.debounce(this.allowPhoneNumber.bind(this), 17));
 		}
 
 		new Swiper(".contact-swiper", {
