@@ -114,7 +114,8 @@ class Receipt {
 	updateAddons() {
 		let addonHTML = "";
 
-		this.addOnsArr[0].el.forEach((radio, index) => {
+		for (let index = 0; index < this.addOnsArr[0].el.length; index++) {
+			const radio = this.addOnsArr[0].el[index];
 			if (index !== this.addOnsArr[0].el.length && radio.checked) {
 				const content = this.addOnsArr[0].content[index];
 				const title = content.title;
@@ -125,9 +126,10 @@ class Receipt {
 								<h5>${title}</h5>
 								<span>+${price}원</span>
 							</li>`;
+				return false;
 			}
 			this.addOnsArr[0].isInactive = true;
-		});
+		}
 
 		if (_.every(this.addOnsArr, { isInactive: true })) {
 			addonHTML = `<li class="contact-receipt__add-ons-list">
