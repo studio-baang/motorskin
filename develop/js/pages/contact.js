@@ -115,9 +115,7 @@ class Receipt {
 		let addonHTML = "";
 
 		this.addOnsArr[0].el.forEach((radio, index) => {
-			if (index == this.addOnsArr[0].el.length && radio.checked) {
-				this.addOnsArr[0].isInactive = true;
-			} else if (index !== this.addOnsArr[0].el.length && radio.checked) {
+			if (index !== this.addOnsArr[0].el.length && radio.checked) {
 				const content = this.addOnsArr[0].content[index];
 				const title = content.title;
 				const price = content.price;
@@ -128,6 +126,7 @@ class Receipt {
 								<span>+${price}원</span>
 							</li>`;
 			}
+			this.addOnsArr[0].isInactive = true;
 		});
 
 		if (_.every(this.addOnsArr, { isInactive: true })) {
