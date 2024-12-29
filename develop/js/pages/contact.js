@@ -1,7 +1,7 @@
 import Swiper from "swiper";
 import "swiper/modules/effect-fade.min.css";
 import { Autoplay, EffectFade } from "swiper/modules";
-import _ from "lodash";
+import _, { forEach } from "lodash";
 
 class Receipt {
 	constructor() {
@@ -114,23 +114,25 @@ class Receipt {
 	updateAddons() {
 		let addonHTML = "";
 
-		for (let index = 0; index < this.addOnsArr[0].el.length; index++) {
-			const radio = this.addOnsArr[0].el[index];
-			this.addOnsArr[0].isInactive = true;
-			if (index !== this.addOnsArr[0].el.length - 1 && radio.checked) {
-				console.log(index, this.addOnsArr[0].el.length, radio.checked);
-				const content = this.addOnsArr[0].content[index];
-				const title = content.title;
-				const price = content.price;
+		this.addOnsArr.forEach((element) => {
+			for (let index = 0; index < element.el.length; index++) {
+				const radio = element.el[index];
+				element.isInactive = true;
+				if (index !== element.el.length - 1 && radio.checked) {
+					console.log(index, element.el.length, radio.checked);
+					const content = element.content[index];
+					const title = content.title;
+					const price = Number(content.price);
 
-				this.addOnsArr[0].isInactive = false;
-				addonHTML += `<li class="contact-receipt__add-ons-list">
+					element.isInactive = false;
+					addonHTML += `<li class="contact-receipt__add-ons-list">
 								<h5>${title}</h5>
-								<span>+${price}원</span>
+								<span>+${price.toLocaleString("ko-KR")}원</span>
 							</li>`;
-				break;
+					break;
+				}
 			}
-		}
+		});
 
 		if (_.every(this.addOnsArr, { isInactive: true })) {
 			addonHTML = `<li class="contact-receipt__add-ons-list">
