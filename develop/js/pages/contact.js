@@ -14,18 +14,37 @@ class Receipt {
 		this.packageValue = "Package A";
 
 		this.addOnsContentContainer = document.querySelector(".contact-receipt__add-ons");
-		this.addOnsArr = [
+		addOnsArr = [
 			{
 				el: document.querySelectorAll('input[name="add-on-01"]'),
-				data: [400000],
+				content: [
+					{
+						title: "본네트 PPF",
+						price: 400000,
+					},
+				],
 			},
 			{
 				el: document.querySelectorAll('input[name="add-on-02"]'),
-				data: [800000],
+				content: [
+					{
+						title: "주차 안심 도어 4판",
+						price: 800000,
+					},
+				],
 			},
 			{
 				el: document.querySelectorAll('input[name="add-on-03"]'),
-				data: [200000, 400000],
+				content: [
+					{
+						title: "범퍼 양쪽 사이드",
+						price: 200000,
+					},
+					{
+						title: "범퍼 앞/뒤 전체",
+						price: 800000,
+					},
+				],
 			},
 		];
 
@@ -91,19 +110,20 @@ class Receipt {
 	updateAddons() {
 		let addonHTML = "";
 
-		const title = "baam";
-		const price = 200000;
-
-		for (const addOns of this.addOnsArr) {
-			for (const target of addOns.el) {
-				if (target.checked) {
-					addonHTML += `<li class="contact-receipt__add-ons-list">
-						<h5>${title}</h5>
-						<span>+${price}원</span>
-					</li>`;
-				}
-			}
+		for (const addon of this.addOnsArr[0].el) {
+			console.log(addon, addon.checked);
 		}
+
+		// for (const addOns of this.addOnsArr) {
+		// 	for (const target of addOns.el) {
+		// 		if (target.checked) {
+		// 			addonHTML += `<li class="contact-receipt__add-ons-list">
+		// 				<h5>${title}</h5>
+		// 				<span>+${price}원</span>
+		// 			</li>`;
+		// 		}
+		// 	}
+		// }
 	}
 
 	async updateReceiptData(title, packageName) {
@@ -128,6 +148,7 @@ class Receipt {
 				this.updateReceiptTitle();
 				this.updateReceiptContent();
 				this.updatePriceFunc();
+				this.updateAddons();
 			} else {
 				console.log("No posts found for the given title in Custom Post Type.");
 				return null;
