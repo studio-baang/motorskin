@@ -14,7 +14,7 @@ class Receipt {
 		this.packageValue = "Package A";
 
 		this.addOnsContentContainer = document.querySelector(".contact-receipt__add-ons");
-		addOnsArr = [
+		this.addOnsArr = [
 			{
 				el: document.querySelectorAll('input[name="add-on-01"]'),
 				content: [
