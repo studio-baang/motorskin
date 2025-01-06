@@ -51,7 +51,7 @@ class Receipt {
 						price: 200000,
 					},
 					{
-						title: "범퍼 앞/뒤 전체",
+						title: "앞,뒤 범퍼 양쪽 사이드",
 						price: 400000,
 					},
 				],
@@ -91,16 +91,15 @@ class Receipt {
 
 	updateReceiptContent() {
 		const diffs = document.querySelectorAll(".contact-receipt__diff");
-		const diffA = document.querySelector(".contact-receipt__diff--a");
-		const diffB = document.querySelector(".contact-receipt__diff--b");
 
 		for (const diff of diffs) {
 			diff.classList.remove("contact-receipt__diff--current");
 
-			if (this.packageValue == "Package B") {
-				diffB.classList.add("contact-receipt__diff--current");
-			} else {
-				diffA.classList.add("contact-receipt__diff--current");
+			if (this.packageValue == "Package B" && diff.classList.contains("contact-receipt__diff--b")) {
+				diff.classList.add("contact-receipt__diff--current");
+			}
+			if (this.packageValue == "Package A" && diff.classList.contains("contact-receipt__diff--a")) {
+				diff.classList.add("contact-receipt__diff--current");
 			}
 		}
 	}
