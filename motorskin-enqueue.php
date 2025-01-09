@@ -12,8 +12,7 @@ function wpdocs_theme_name_scripts() {
 
     wp_enqueue_style( 'motorskin-script-style', plugin_dir_url( __FILE__ ).'dist/js/app.css' );
     wp_enqueue_style( 'motorskin-montserrat', 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
-    wp_enqueue_script( 'motorskin-script', '//dapi.kakao.com/v2/maps/sdk.js?appkey=3d8490cef9d3894e25161481f99cb3d8');
-	wp_enqueue_script( 'motorskin-kakao', plugin_dir_url( __FILE__ ). 'dist/js/app.js', array(), '1.0.0', true );
+	wp_enqueue_script( 'motorskin-script', plugin_dir_url( __FILE__ ). 'dist/js/app.js', array(), '1.0.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts', 100 );
 add_filter('big_image_size_threshold', '__return_false');
