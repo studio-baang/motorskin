@@ -41,7 +41,7 @@ export function createFranchisesMap() {
 
 	const map = new kakao.maps.Map(container, defaultoptions);
 
-	this.bounds = new kakao.maps.LatLngBounds();
+	const bounds = new kakao.maps.LatLngBounds();
 
 	for (let i = 0; i < points.length; i++) {
 		// 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
@@ -55,7 +55,7 @@ export function createFranchisesMap() {
 	}
 
 	// bound박스 조정
-	map.setBounds(this.bounds);
+	map.setBounds(bounds);
 
 	// 커스텀오버레이 선언
 	// 오버레이 관련
