@@ -35,7 +35,7 @@ export function createFranchisesMap() {
 	// 기본 지도 생성
 	const container = document.getElementById("map");
 	const defaultoptions = {
-		center: new kakao.maps.LatLng(33.450701, 126.570667),
+		center: new kakao.maps.LatLng(36.17858955735982, 127.7225267019436),
 		level: 3,
 	};
 
@@ -59,8 +59,6 @@ export function createFranchisesMap() {
 
 	// bound박스 조정
 	map.setBounds(bounds);
-
-	console.log(map.getCenter());
 
 	// 인포윈도우 선언
 	const infowindow = new kakao.maps.InfoWindow({
@@ -87,10 +85,26 @@ export function createFranchisesMap() {
 			map.panTo(points[latlngNum].latLng);
 
 			infowindow.setContent(`
-                <div style="display: flex; flex-direction: column; color: #333333; padding: 0.5em;">
-                    <h5>${points[latlngNum].title}</h5>
-                    <span>${points[latlngNum].address}</span>
-                    <a href="https://map.kakao.com/link/search/${points[latlngNum].address}">크게 보기</a>
+                <style>
+                    .info-window {
+                        text-align: center;
+                        display: flex;
+                        flex-direction: column;
+                        color: #333333;
+                        padding: 1em;
+                        box-sizing: content-box;
+                    }
+                    .info-window__address {
+                        white-space:nowrap;
+                    }
+                    .info-window__link {
+                        text-decolation: underline;
+                    }
+                </style>
+                <div class="info-window">
+                    <h5 class="info-window__title">${points[latlngNum].title}</h5>
+                    <span class="info-window__address">${points[latlngNum].address}</span>
+                    <a class=".nfo-window__link" href="https://map.kakao.com/link/search/${points[latlngNum].address}">크게 보기</a>
                 </div>`);
 			infowindow.setPosition(points[latlngNum].latLng);
 
