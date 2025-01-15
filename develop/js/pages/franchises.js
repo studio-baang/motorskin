@@ -41,6 +41,9 @@ export function createFranchisesMap() {
 
 	const map = new kakao.maps.Map(container, defaultoptions);
 
+	// 스크롤로 축소 / 확대 기능 비활성화
+	map.setZoomable(false);
+
 	const bounds = new kakao.maps.LatLngBounds();
 
 	for (let i = 0; i < points.length; i++) {
@@ -57,10 +60,8 @@ export function createFranchisesMap() {
 	// bound박스 조정
 	map.setBounds(bounds);
 
-	// 커스텀오버레이 선언
-	// 오버레이 관련
+	// 인포윈도우 선언
 	const infowindow = new kakao.maps.InfoWindow({
-		content: `<div>안녕, 세상!</div>`,
 		map: map,
 	});
 
@@ -75,7 +76,7 @@ export function createFranchisesMap() {
 			const latlngNum = e.target.dataset.markerNumber || 0;
 
 			// 지도 확대 조정
-			map.setLevel(3);
+			map.setLevel(2);
 
 			// 해당 좌표로 지도 이동
 			map.panTo(points[latlngNum].latLng);
@@ -83,6 +84,12 @@ export function createFranchisesMap() {
 			// 오버레이 초기화
 			infowindow.close();
 
+			infowindow.setContent(`
+                <div>
+                    <h5>${points[latlngNum].title}</h5>
+                    <span>${points[latlngNum].address}</span>
+                    <a href="	https://map.kakao.com/link/search/${points[latlngNum].address}">크게 보기</a>
+                </div>`);
 			infowindow.setPosition(points[latlngNum].latLng);
 
 			// 오버레이 재생성
