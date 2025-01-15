@@ -60,6 +60,8 @@ export function createFranchisesMap() {
 	// bound박스 조정
 	map.setBounds(bounds);
 
+	console.log(map.getCenter());
+
 	// 인포윈도우 선언
 	const infowindow = new kakao.maps.InfoWindow({
 		map: map,
