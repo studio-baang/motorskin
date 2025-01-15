@@ -42,19 +42,22 @@
                         display: flex;
                         flex-direction: column;
                         color: #333333;
-                        padding: 1em;
+                        padding: 0.5em 1em;
                         box-sizing: content-box;
                     }
                     .info-window__address {
                         white-space:nowrap;
                     }
                     .info-window__link {
-                        text-decolation: underline;
+                        margin-top: 0.75em;
+                        color: #fff;
+                        background-color: #333;
                     }
                 </style>
                 <div class="info-window">
                     <h5 class="info-window__title">${t[r].title}</h5>
                     <span class="info-window__address">${t[r].address}</span>
-                    <a class=".nfo-window__link" href="https://map.kakao.com/link/search/${t[r].address}">\u{D06C}\u{AC8C} \u{BCF4}\u{AE30}</a>
-                </div>`),a.setPosition(t[r].latLng),a.open(i,t[r].marker)})})}()}onLoad(){document.addEventListener("DOMContentLoaded",()=>{(function(){let e=document.querySelector(".oxy-pro-menu-container"),t=document.querySelector(".oxy-pro-menu");e.addEventListener("click",e=>{if(e.target,e.target.classList.contains("oxy-pro-menu-container")){for(let e of(t.classList.remove("oxy-pro-menu-open"),document.querySelector(".oxy-pro-menu-container").classList.remove("oxy-pro-menu-open-container"),document.querySelectorAll(".oxy-nav-menu-prevent-overflow")))e.classList.remove("oxy-nav-menu-prevent-overflow");oxygen_pro_menu_unset_static_width(t)}})})(),document.querySelectorAll(".header .menu-item").forEach(e=>{let t=e.querySelector("a"),r=n7.to(t,{paused:!0,duration:.2,x:20,ease:"power1.inOut"});e.addEventListener("mouseenter",()=>r.play()),e.addEventListener("mouseleave",()=>r.reverse())}),function(){let e=new a1({lerp:.125});e.on("scroll",aN.update),n7.ticker.add(t=>{e.raf(1e3*t)})}()})}}}();
+                    <a class="info-window__link" href="https://map.kakao.com/link/search/${t[r].address}">\u{D06C}\u{AC8C} \u{BCF4}\u{AE30}</a>
+                </div>
+                `),a.setPosition(t[r].latLng),a.open(i,t[r].marker)})}),document.querySelector(".map-refresh-button").addEventListener("click",()=>{a.close(),i.setBounds(s)})}()}onLoad(){document.addEventListener("DOMContentLoaded",()=>{(function(){let e=document.querySelector(".oxy-pro-menu-container"),t=document.querySelector(".oxy-pro-menu");e.addEventListener("click",e=>{if(e.target,e.target.classList.contains("oxy-pro-menu-container")){for(let e of(t.classList.remove("oxy-pro-menu-open"),document.querySelector(".oxy-pro-menu-container").classList.remove("oxy-pro-menu-open-container"),document.querySelectorAll(".oxy-nav-menu-prevent-overflow")))e.classList.remove("oxy-nav-menu-prevent-overflow");oxygen_pro_menu_unset_static_width(t)}})})(),document.querySelectorAll(".header .menu-item").forEach(e=>{let t=e.querySelector("a"),r=n7.to(t,{paused:!0,duration:.2,x:20,ease:"power1.inOut"});e.addEventListener("mouseenter",()=>r.play()),e.addEventListener("mouseleave",()=>r.reverse())}),function(){let e=new a1({lerp:.125});e.on("scroll",aN.update),n7.ticker.add(t=>{e.raf(1e3*t)})}()})}}}();
 //# sourceMappingURL=app.js.map

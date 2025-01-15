@@ -91,25 +91,36 @@ export function createFranchisesMap() {
                         display: flex;
                         flex-direction: column;
                         color: #333333;
-                        padding: 1em;
+                        padding: 0.5em 1em;
                         box-sizing: content-box;
                     }
                     .info-window__address {
                         white-space:nowrap;
                     }
                     .info-window__link {
-                        text-decolation: underline;
+                        margin-top: 0.75em;
+                        color: #fff;
+                        background-color: #333;
                     }
                 </style>
                 <div class="info-window">
                     <h5 class="info-window__title">${points[latlngNum].title}</h5>
                     <span class="info-window__address">${points[latlngNum].address}</span>
-                    <a class=".nfo-window__link" href="https://map.kakao.com/link/search/${points[latlngNum].address}">크게 보기</a>
-                </div>`);
+                    <a class="info-window__link" href="https://map.kakao.com/link/search/${points[latlngNum].address}">크게 보기</a>
+                </div>
+                `);
 			infowindow.setPosition(points[latlngNum].latLng);
 
 			// 오버레이 재생성
 			infowindow.open(map, points[latlngNum].marker);
 		});
+	});
+
+	// 리셋 버튼
+	const refreshButton = document.querySelector(".map-refresh-button");
+	refreshButton.addEventListener("click", () => {
+		// 오버레이 초기화
+		infowindow.close();
+		map.setBounds(bounds);
 	});
 }
