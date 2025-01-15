@@ -65,6 +65,9 @@ export function createFranchisesMap() {
 		map: map,
 	});
 
+	// 오버레이 초기화
+	infowindow.close();
+
 	// 지도에서 보기 클릭 시 이벤트
 	// 1. 지도를 이동하고
 	// 2. 거리가 보이게 지도를 확대하고
@@ -81,14 +84,11 @@ export function createFranchisesMap() {
 			// 해당 좌표로 지도 이동
 			map.panTo(points[latlngNum].latLng);
 
-			// 오버레이 초기화
-			infowindow.close();
-
 			infowindow.setContent(`
-                <div>
+                <div style="display: flex; flex-direction: column; color: #333333;">
                     <h5>${points[latlngNum].title}</h5>
                     <span>${points[latlngNum].address}</span>
-                    <a href="	https://map.kakao.com/link/search/${points[latlngNum].address}">크게 보기</a>
+                    <a href="https://map.kakao.com/link/search/${points[latlngNum].address}">크게 보기</a>
                 </div>`);
 			infowindow.setPosition(points[latlngNum].latLng);
 
