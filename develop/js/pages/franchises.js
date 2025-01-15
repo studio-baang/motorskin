@@ -65,9 +65,7 @@ export function createFranchisesMap() {
 		kakao.maps.event.addListener(marker, "click", function (mouseEvent) {
 			for (let i = 0; i < points.length; i++) {
 				const element = points[i];
-				if (mouseEvent.latLng == element.latLng) {
-					console.log(element.title);
-				}
+				console.log(element.latLng, mouseEvent.latLng);
 			}
 		});
 
