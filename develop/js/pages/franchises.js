@@ -63,9 +63,10 @@ export function createFranchisesMap() {
 
 		// 마커에 마우스오버 이벤트를 등록합니다
 		kakao.maps.event.addListener(marker, "click", function (mouseEvent) {
+			const targetLatLng = mouseEvent.latLng;
 			for (let i = 0; i < points.length; i++) {
 				const element = points[i];
-				console.log(element.latLng, mouseEvent.latLng);
+				console.log(element.latLng, targetLatLng);
 			}
 		});
 
