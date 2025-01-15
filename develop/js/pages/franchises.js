@@ -85,7 +85,7 @@ export function createFranchisesMap() {
 			map.panTo(points[latlngNum].latLng);
 
 			infowindow.setContent(`
-                <div style="display: flex; flex-direction: column; color: #333333;">
+                <div style="display: flex; flex-direction: column; color: #333333; padding: 0.5em;">
                     <h5>${points[latlngNum].title}</h5>
                     <span>${points[latlngNum].address}</span>
                     <a href="https://map.kakao.com/link/search/${points[latlngNum].address}">크게 보기</a>
