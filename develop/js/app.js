@@ -1,9 +1,9 @@
 import Contact from "./pages/contact";
 import Packages from "./pages/packages";
 import { headerContorl } from "./pages/header";
-import { removeDefaultClass } from "./utils/removeDefaultClass";
 import { aftercareParallax } from "./pages/aftercare";
 import { smoothScroll } from "./utils/smooth-scroll";
+import { createFranchisesMap } from "./pages/franchises";
 
 class App {
 	constructor() {
@@ -22,6 +22,8 @@ class App {
 			new Contact();
 		} else if (namespace == "aftercare") {
 			aftercareParallax();
+		} else if (namespace == "franchises") {
+			createFranchisesMap();
 		}
 	}
 
