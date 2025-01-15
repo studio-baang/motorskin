@@ -44,6 +44,14 @@ export function createFranchisesMap() {
 	// 스크롤로 축소 / 확대 기능 비활성화
 	map.setZoomable(false);
 
+	// 인포윈도우 선언
+	const infowindow = new kakao.maps.InfoWindow({
+		map: map,
+	});
+
+	// 인포윈도우 초기화
+	infowindow.close();
+
 	const bounds = new kakao.maps.LatLngBounds();
 
 	for (let i = 0; i < points.length; i++) {
@@ -53,6 +61,16 @@ export function createFranchisesMap() {
 		// point 객체에 생셩한 마커를 저장
 		points[i].marker = marker;
 
+		// 마커에 마우스오버 이벤트를 등록합니다
+		kakao.maps.event.addListener(marker, "click", function (mouseEvent) {
+			for (let i = 0; i < points.length; i++) {
+				const element = points[i];
+				if (mouseEvent.latLng == element.latLng) {
+					console.log(element.title);
+				}
+			}
+		});
+
 		// LatLngBounds 객체에 좌표를 추가합니다
 		bounds.extend(points[i].latLng);
 	}
@@ -61,14 +79,6 @@ export function createFranchisesMap() {
 		// bound박스 조정
 		map.setBounds(bounds);
 	};
-
-	// 인포윈도우 선언
-	const infowindow = new kakao.maps.InfoWindow({
-		map: map,
-	});
-
-	// 오버레이 초기화
-	infowindow.close();
 
 	// 지도에서 보기 클릭 시 이벤트
 	// 1. 지도를 이동하고
