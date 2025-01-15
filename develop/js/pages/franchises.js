@@ -57,8 +57,10 @@ export function createFranchisesMap() {
 		bounds.extend(points[i].latLng);
 	}
 
-	// bound박스 조정
-	map.setBounds(bounds);
+	window.onload = () => {
+		// bound박스 조정
+		map.setBounds(bounds);
+	};
 
 	// 인포윈도우 선언
 	const infowindow = new kakao.maps.InfoWindow({
