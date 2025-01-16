@@ -9,7 +9,7 @@ function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {
 
     $rows = get_posts(
     	array ( 
-	        'post_type' => 'car-type',  
+	        'post_type' => 'car',  
 	        'numberposts' => -1,  
 	        'orderby' => 'date',
             'order'   => 'ASC', 
