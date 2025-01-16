@@ -96,24 +96,6 @@ export function createFranchisesMap() {
 			map.panTo(points[latlngNum].latLng);
 
 			infowindow.setContent(`
-                <style>
-                    .info-window {
-                        text-align: center;
-                        display: flex;
-                        flex-direction: column;
-                        color: #333333;
-                        padding: 0.5em 1em;
-                        box-sizing: content-box;
-                    }
-                    .info-window__address {
-                        white-space:nowrap;
-                    }
-                    .info-window__link {
-                        margin-top: 0.75em;
-                        color: #fff;
-                        background-color: #333;
-                    }
-                </style>
                 <div class="info-window">
                     <h5 class="info-window__title">${points[latlngNum].title}</h5>
                     <span class="info-window__address">${points[latlngNum].address}</span>
