@@ -12,7 +12,7 @@ function wpdocs_theme_name_scripts() {
 
     wp_enqueue_style( 'motorskin-script-style', plugin_dir_url( __FILE__ ).'dist/js/app.css' );
     wp_enqueue_style( 'motorskin-montserrat', 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap' );
-	wp_enqueue_script( 'motorskin-kakao-map', 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=36cbd06568494a5921808897cb0a4df5', array(), '1.0.0', true );
+	wp_enqueue_script( 'motorskin-kakao-map', 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=a7ffb209c2cdc632fc4997b0a8adba16', array(), '1.0.0', true );
 	wp_enqueue_script( 'motorskin-script', plugin_dir_url( __FILE__ ). 'dist/js/app.js', array(), '1.0.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts', 100 );
@@ -67,7 +67,7 @@ add_action('wp_enqueue_scripts', 'add_dynamic_menu_css');
 // contact 7 custom 관련 func 호출
 require_once(plugin_dir_path( __FILE__ ). '/wpcf7.php');
 
-// promotion-1 custom link 생성
+// car types custom link 생성
 function add_query_arg_to_link_wrapper() {
     $contact_page_url = site_url( '/contact' );
     $model = '';
