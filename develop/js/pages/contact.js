@@ -3,9 +3,9 @@ import "swiper/modules/effect-fade.min.css";
 import { Autoplay, EffectFade } from "swiper/modules";
 import _, { forEach } from "lodash";
 
-class Receipt {
-	constructor() {
-		this.sitename = document.querySelector("main").dataset.siteName;
+class BimmerReceipt {
+	constructor(siteName) {
+		this.sitename = siteName;
 
 		this.receipt = document.querySelector(".contact-receipt");
 
@@ -193,6 +193,8 @@ class Receipt {
 
 class Contact {
 	constructor() {
+		this.siteName = document.querySelector("main").dataset.siteName;
+
 		this.form = document.querySelector(".wpcf7-form");
 
 		this.textarea = document.querySelector(".wpcf7-textarea");
@@ -234,7 +236,9 @@ class Contact {
 			},
 		});
 
-		new Receipt();
+		if (this.siteName == "bimmer") {
+			new BimmerReceipt(this.siteName);
+		}
 	}
 
 	toggleModal = () => {
