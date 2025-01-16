@@ -7,20 +7,18 @@
 	&__item {
 		padding: 1em;
 		border-radius: 1rem;
-		aspect-ratio: 16/9;
 		@include flex($direction: column, $align: center, $justify: flex-end);
-		&--large {
-			aspect-ratio: 4 / 1;
-		}
 	}
 	&__name {
-		font-size: 1.25em;
+		margin-top: 4em;
+		font-size: 2.5em;
 	}
 	&__address {
-		margin: 1.5em 0;
+		text-align: center;
+		margin: 1em 0;
 	}
 	&__button {
-		padding: 1em 2em;
+		padding: 0.5em 2em;
 		border: 1px solid #ffffff;
 		border-radius: 4em;
 	}
