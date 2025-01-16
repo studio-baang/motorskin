@@ -8,8 +8,10 @@
 
 .franchises-list {
 	&__item {
+		padding: 1em;
 		border-radius: 1rem;
 		aspect-ratio: 16/9;
+		@include flex($direction: column, $align: flex-end, $justify: center);
 	}
 }
 
