@@ -158,7 +158,7 @@ class Receipt {
 
 		try {
 			// REST API 엔드포인트 생성
-			const endpoint = `/wp-json/wp/v2/car_type?search=${encodeURIComponent(title)}`;
+			const endpoint = `/wp-json/wp/v2/car-type?search=${encodeURIComponent(title)}`;
 
 			// Fetch API로 요청
 			const response = await fetch(endpoint);
