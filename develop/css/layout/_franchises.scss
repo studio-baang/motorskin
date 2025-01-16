@@ -1,11 +1,28 @@
 @use "../utils" as *;
 
 .franchises-list {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2em;
 	&__item {
 		padding: 1em;
 		border-radius: 1rem;
 		aspect-ratio: 16/9;
-		@include flex($direction: column, $align: flex-end, $justify: center);
+		@include flex($direction: column, $align: center, $justify: flex-end);
+		&--large {
+			aspect-ratio: 4 / 1;
+		}
+	}
+	&__name {
+		font-size: 1.25em;
+	}
+	&__address {
+		margin: 1.5em 0;
+	}
+	&__button {
+		padding: 1em 2em;
+		border: 1px solid #ffffff;
+		border-radius: 4em;
 	}
 }
 
