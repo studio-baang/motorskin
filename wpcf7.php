@@ -11,7 +11,7 @@ function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {
     	array ( 
 	        'post_type' => 'car',  
 	        'numberposts' => -1,  
-	        'orderby' => 'date',
+	        'orderby' => 'title',
             'order'   => 'ASC', 
         )
     );  
