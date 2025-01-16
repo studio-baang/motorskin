@@ -37,6 +37,9 @@
 	background-color: #343434;
 	border-radius: 1em;
 	text-align: center;
+	&-wrapper {
+		position: relative;
+	}
 	&-refresh-button {
 		background-color: #ffffff;
 		border-radius: 5em;
