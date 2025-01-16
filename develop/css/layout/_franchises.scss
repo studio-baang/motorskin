@@ -51,11 +51,11 @@
 		}
 
 		&__icon {
-			animation: 1s infinite refresh;
+			animation: 2s infinite linear refresh;
 			animation-play-state: paused;
 		}
 		&:hover .map-refresh-button__icon {
-			animation-play-state: play;
+			animation-play-state: running;
 		}
 	}
 }
