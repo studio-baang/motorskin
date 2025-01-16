@@ -7,12 +7,13 @@ class Receipt {
 	constructor() {
 		this.receipt = document.querySelector(".contact-receipt");
 
-		this.modelInput = document.querySelector('select[name="model"]');
 		this.packageInputs = document.querySelectorAll('input[name="package"]');
+		this.packageValue = "Package A";
 
 		this.priceTag = document.getElementById("contact-receipt-amount");
+
+		this.modelInput = document.querySelector('select[name="model"]');
 		this.modelValue = this.modelInput.value;
-		this.packageValue = "Package A";
 
 		this.basicPrice = 0;
 		this.finalPrice = 0;
