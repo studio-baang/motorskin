@@ -5,6 +5,8 @@ import _, { forEach } from "lodash";
 
 class Receipt {
 	constructor() {
+		this.sitename = document.querySelector("main").dataset.siteName;
+
 		this.receipt = document.querySelector(".contact-receipt");
 
 		this.packageInputs = document.querySelectorAll('input[name="package"]');
@@ -158,7 +160,7 @@ class Receipt {
 
 		try {
 			// REST API 엔드포인트 생성
-			const endpoint = `/wp-json/wp/v2/car?search=${encodeURIComponent(title)}`;
+			const endpoint = `/${this.sitename ? this.sitename + "/" : ""}wp-json/wp/v2/car?search=${encodeURIComponent(title)}`;
 
 			// Fetch API로 요청
 			const response = await fetch(endpoint);
