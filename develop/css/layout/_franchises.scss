@@ -1,11 +1,5 @@
 @use "../utils" as *;
 
-@keyframes refresh {
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
 .franchises-list {
 	&__item {
 		padding: 1em;
@@ -48,8 +42,18 @@
 		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 		padding: 0.25em;
 		z-index: 1;
-		@include flex($justify: center, $align: center, $gap: 0.5em);
+		@include flex($justify: center, $align: center);
 		@include absolute($top: 1em, $left: 1em);
+		@keyframes refresh {
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		&__icon {
+			animation: 1s infinite refresh;
+			animation-play-state: paused;
+		}
 		&:hover .map-refresh-button__icon {
 			animation-play-state: play;
 		}
