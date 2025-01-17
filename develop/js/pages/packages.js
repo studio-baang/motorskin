@@ -28,11 +28,14 @@ class Packages {
 		});
 		this.packageSlider.slideTo(11);
 
-		this.filterWrapper = document.querySelector(".filter-model");
-		this.filterItems = this.filterWrapper.querySelectorAll(".filter-model__item");
-		this.filterActiveItemName = "filter-model__item--active";
-
-		this.filterWrapper.addEventListener("click", this.onClick.bind(this));
+		this.filterWrapper = document.querySelector(".filter-model") ?? false;
+		this.filterItems = [];
+		this.filterActiveItemName = "";
+		if (this.filterWrapper) {
+			this.filterItems = this.filterWrapper.querySelectorAll(".filter-model__item");
+			this.filterActiveItemName = "filter-model__item--active";
+			this.filterWrapper.addEventListener("click", this.onClick.bind(this));
+		}
 	}
 
 	updateActiveClass(target) {

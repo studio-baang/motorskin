@@ -5,17 +5,25 @@
 	grid-template-columns: repeat(2, 1fr);
 	gap: 2em;
 	&__item {
+		min-width: 100%;
 		height: 100%;
 		padding: 1em;
 		border-radius: 1rem;
+		text-align: center;
 		@include flex($direction: column, $align: center, $justify: flex-end);
 		&--large {
 			grid-column: 1 / 3;
+			.franchises-list {
+				&__name {
+					margin-top: 7em;
+					font-size: min(3em, 7vw);
+				}
+			}
 		}
 	}
 	&__name {
 		margin-top: 4em;
-		font-size: 2.5em;
+		font-size: min(2em, 5.25vw);
 	}
 	&__address {
 		text-align: center;
