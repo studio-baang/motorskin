@@ -17,6 +17,7 @@
 			padding: min(3.5vw, 28px);
 			border-radius: 28px;
 			box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 2px 0px;
+			overflow: hidden;
 			@include media-tablet {
 				background-position: left bottom;
 			}
