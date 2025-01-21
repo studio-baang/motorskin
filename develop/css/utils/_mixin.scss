@@ -86,7 +86,7 @@
 	$gap: $pc-layout-gap;
 	$margin: $layout-margin;
 
-	$calc-width: $number * $col + ($number - 1) * $gap;
+	$calc-width: $number * ($col + $gap) - $gap;
 
 	@if ($wide-width) {
 		width: min(100%, $calc-width);
