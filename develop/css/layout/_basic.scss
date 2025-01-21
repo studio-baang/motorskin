@@ -61,3 +61,11 @@ html.lenis body {
 		width: 100%;
 	}
 }
+
+.button {
+	&-default-style {
+		padding: 0.5em 2em;
+		border: 1px solid currentColor;
+		border-radius: 2px;
+	}
+}

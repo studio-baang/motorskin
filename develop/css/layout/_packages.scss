@@ -112,7 +112,9 @@
 		}
 	}
 	&-visual {
-		@include flex($justify: space-between);
+		&__wrapper {
+			@include flex($justify: space-between);
+		}
 	}
 }
 
@@ -123,6 +125,20 @@
 	line-height: 1;
 	&__mask {
 		overflow: hidden;
+	}
+	&__content {
+		display: block;
+		&--strong {
+			font-weight: 400;
+			font-style: italic;
+		}
+	}
+	&__desc {
+		p {
+			font-size: 2em;
+			font-weight: 700;
+			line-height: 1.25;
+		}
 	}
 }
 
