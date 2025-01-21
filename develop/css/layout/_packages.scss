@@ -115,6 +115,14 @@
 		&__wrapper {
 			@include flex($justify: space-between, $align: center);
 		}
+		&__desc {
+			.ct-text-block {
+				font-size: 2em;
+				padding-bottom: 1em;
+				font-weight: 700;
+				line-height: 1.25;
+			}
+		}
 	}
 }
 
@@ -131,14 +139,6 @@
 		&--strong {
 			font-weight: 400;
 			font-style: italic;
-		}
-	}
-	&__desc {
-		.ct-text-block {
-			font-size: 2em;
-			padding-bottom: 1em;
-			font-weight: 700;
-			line-height: 1.25;
 		}
 	}
 }
