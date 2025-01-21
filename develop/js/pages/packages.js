@@ -42,6 +42,7 @@ class PackageSwiper {
 
 class BimmerPackages extends PackageSwiper {
 	constructor() {
+		super();
 		this.filterWrapper = document.querySelector(".filter-model") ?? false;
 		this.filterItems = [];
 		this.filterActiveItemName = "";
