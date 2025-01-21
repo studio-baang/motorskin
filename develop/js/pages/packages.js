@@ -61,14 +61,15 @@ class BimmerPackages extends PackageSwiper {
 	}
 
 	updateSlide(data) {
-		const cards = document.querySelectorAll(".package-slider__card");
+		const cards = document.querySelectorAll(".package-card");
+		const activeCardClassName = "package-card--inactive";
 
 		cards.forEach((card) => {
 			const modelDataArr = card.dataset.model.split(", ");
-			card.classList.add("package-slider__card--inactive");
+			card.classList.add(activeCardClassName);
 			modelDataArr.forEach((e) => {
 				if (e === data || data === "all") {
-					card.classList.remove("package-slider__card--inactive");
+					card.classList.remove(activeCardClassName);
 				}
 			});
 		});
