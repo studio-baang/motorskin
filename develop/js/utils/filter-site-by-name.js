@@ -15,6 +15,7 @@ function getSiteName() {
 
 function isSiteBimmer() {
 	if (this.siteName == "bimmer") {
+		console.log("bimmer");
 		return true;
 	}
 	return false;
