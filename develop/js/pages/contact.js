@@ -2,10 +2,11 @@ import Swiper from "swiper";
 import "swiper/modules/effect-fade.min.css";
 import { Autoplay, EffectFade } from "swiper/modules";
 import _, { forEach } from "lodash";
+import { getSiteName, isSiteBimmer } from "../utils/filter-site-by-name";
 
 class BimmerReceipt {
-	constructor(siteName) {
-		this.sitename = siteName;
+	constructor() {
+		this.sitename = getSiteName();
 
 		this.receipt = document.querySelector(".contact-receipt");
 
@@ -236,8 +237,8 @@ class Contact {
 			},
 		});
 
-		if (this.siteName == "bimmer") {
-			new BimmerReceipt(this.siteName);
+		if (isSiteBimmer()) {
+			new BimmerReceipt();
 		}
 	}
 
