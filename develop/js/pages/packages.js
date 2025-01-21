@@ -2,8 +2,9 @@ import Swiper from "swiper";
 import { Navigation, Autoplay, Mousewheel } from "swiper/modules";
 
 import "swiper/swiper.min.css";
+import { isSiteBimmer } from "../utils/filter-site-by-name";
 
-class Packages {
+class BimmerPackages {
 	constructor() {
 		this.PackageSliderDom = document.querySelector(".package-slider") ?? false;
 		this.packageSlider = {};
@@ -80,4 +81,8 @@ class Packages {
 	}
 }
 
-export default Packages;
+export function packagesInit() {
+	if (isSiteBimmer()) {
+		new BimmerPackages();
+	}
+}

@@ -1,5 +1,5 @@
 import Contact from "./pages/contact";
-import Packages from "./pages/packages";
+import { packagesInit } from "./pages/packages";
 import { headerContorl } from "./pages/header";
 import { aftercareParallax } from "./pages/aftercare";
 import { smoothScroll } from "./utils/smooth-scroll";
@@ -17,7 +17,7 @@ class App {
 		const main = document.querySelector("main");
 		const namespace = main.dataset.namespace.toLowerCase() || null;
 		if (namespace == "packages") {
-			new Packages();
+			packagesInit();
 		} else if (namespace == "contact") {
 			new Contact();
 		} else if (namespace == "aftercare") {
