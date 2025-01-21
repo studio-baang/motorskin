@@ -48,6 +48,11 @@
 				background: none;
 			}
 		}
+		&__options {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 2em;
+		}
 		a {
 			color: #111111;
 		}
@@ -105,6 +110,19 @@
 			border: 1px solid #fff;
 			border-radius: 64px;
 		}
+	}
+	&-visual {
+		@include flex($justify: space-between);
+	}
+}
+
+.visual-title {
+	@include flex($direction: column);
+	@include font-monument;
+	font-size: min(10vw, 96px);
+	line-height: 1;
+	&__mask {
+		overflow: hidden;
 	}
 }
 

@@ -1,7 +1,7 @@
 import Swiper from "swiper";
 import "swiper/modules/effect-fade.min.css";
 import { Autoplay, EffectFade } from "swiper/modules";
-import _, { forEach } from "lodash";
+import _ from "lodash";
 import { getSiteName, isSiteBimmer } from "../utils/filter-site-by-name";
 
 class BimmerReceipt {
