@@ -9,6 +9,7 @@ class BimmerPackages {
 		this.PackageSliderDom = document.querySelector(".package-slider") ?? false;
 		this.packageSlider = {};
 		if (this.PackageSliderDom) {
+			console.log("create package swiper");
 			this.createSwiper();
 		}
 
