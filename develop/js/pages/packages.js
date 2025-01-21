@@ -1,18 +1,47 @@
 import Swiper from "swiper";
-import { Navigation, Autoplay, Mousewheel } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/swiper.min.css";
 import { isSiteBimmer } from "../utils/filter-site-by-name";
 
-class BimmerPackages {
+class PackageSwiper {
 	constructor() {
 		this.PackageSliderDom = document.querySelector(".package-slider") ?? false;
 		this.packageSlider = {};
 		if (this.PackageSliderDom) {
-			console.log("create package swiper");
 			this.createSwiper();
 		}
+	}
 
+	createSwiper() {
+		this.packageSlider = new Swiper(".package-slider", {
+			modules: [Autoplay],
+			slidesPerView: "auto",
+			spaceBetween: 16,
+			slidesOffsetBefore: 16,
+			slidesOffsetAfter: 16,
+			observeSlideChildren: true,
+			centeredSlides: true,
+			centeredSlidesBounds: true,
+			touchRatio: 0.3,
+			autoplay: {
+				delay: 2500,
+				pauseOnMouseEnter: true,
+			},
+			breakpoints: {
+				658: {
+					spaceBetween: 32,
+					slidesOffsetBefore: 32,
+					slidesOffsetAfter: 32,
+				},
+			},
+		});
+		this.packageSlider.slideTo(11);
+	}
+}
+
+class BimmerPackages extends PackageSwiper {
+	constructor() {
 		this.filterWrapper = document.querySelector(".filter-model") ?? false;
 		this.filterItems = [];
 		this.filterActiveItemName = "";
@@ -21,31 +50,6 @@ class BimmerPackages {
 			this.filterActiveItemName = "filter-model__item--active";
 			this.filterWrapper.addEventListener("click", this.onClick.bind(this));
 		}
-	}
-
-	createSwiper() {
-		this.packageSlider = new Swiper(".package-slider", {
-			modules: [Autoplay, Mousewheel],
-			slidesPerView: "auto",
-			spaceBetween: 15,
-			slidesOffsetBefore: 15,
-			slidesOffsetAfter: 15,
-			observeSlideChildren: true,
-			centeredSlides: true,
-			centeredSlidesBounds: true,
-			autoplay: {
-				delay: 2500,
-				pauseOnMouseEnter: true,
-			},
-			breakpoints: {
-				658: {
-					spaceBetween: 30,
-					slidesOffsetBefore: 30,
-					slidesOffsetAfter: 30,
-				},
-			},
-		});
-		this.packageSlider.slideTo(11);
 	}
 
 	updateActiveClass(target) {
