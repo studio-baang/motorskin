@@ -113,7 +113,7 @@
 	}
 	&-visual {
 		&__wrapper {
-			@include flex($justify: space-between);
+			@include flex($justify: space-between, $align: center);
 		}
 	}
 }
@@ -136,6 +136,7 @@
 	&__desc {
 		.ct-text-block {
 			font-size: 2em;
+			padding-bottom: 1em;
 			font-weight: 700;
 			line-height: 1.25;
 		}
