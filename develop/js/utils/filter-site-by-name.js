@@ -14,7 +14,7 @@ function getSiteName() {
 }
 
 function isSiteBimmer() {
-	if (this.siteName == "bimmer") {
+	if (siteName == "bimmer") {
 		console.log("bimmer");
 		return true;
 	}
@@ -22,7 +22,7 @@ function isSiteBimmer() {
 }
 
 function isSitePanamera() {
-	if (this.siteName == "panamera") {
+	if (siteName == "panamera") {
 		return true;
 	}
 	return false;
