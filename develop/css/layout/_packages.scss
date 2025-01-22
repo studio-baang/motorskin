@@ -18,6 +18,9 @@
 			margin: 0 auto;
 			padding-bottom: 80px;
 		}
+		&--has-bottom {
+			padding-bottom: 160px;
+		}
 	}
 	&-card {
 		display: block;
@@ -117,11 +120,17 @@
 		}
 	}
 	&-visual {
+		color: #fff;
 		height: vh(96);
 		background-attachment: fixed;
 		.ct-section-inner-wrap {
-			@include flex($justify: space-between, $align: center, $wrap: wrap, $gap: 2em);
+			max-width: 1280px;
+			width: 96%;
+			@include flex($align: center);
 			height: 100%;
+		}
+		&__wrapper {
+			@include flex($justify: space-between, $align: center, $wrap: wrap, $gap: 2em);
 		}
 		&__desc {
 			.ct-text-block {
@@ -137,7 +146,7 @@
 .visual-title {
 	@include flex($direction: column);
 	@include font-monument;
-	font-size: min(10vw, 96px);
+	font-size: min(9vw, 96px);
 	line-height: 1;
 	&__mask {
 		overflow: hidden;
