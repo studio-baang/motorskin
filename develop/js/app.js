@@ -13,6 +13,7 @@ class App {
 
 		this.init();
 		this.onLoad();
+		this.onResize();
 	}
 
 	init() {
@@ -35,6 +36,7 @@ class App {
 
 	onLoad() {
 		document.addEventListener("DOMContentLoaded", () => {
+			setVh();
 			headerContorl();
 			smoothScroll();
 		});
