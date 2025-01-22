@@ -1,3 +1,11 @@
 @function vh($value) {
 	@return calc(var(--vh, 1vh) * #{$value});
 }
+
+@function calc-grid($number) {
+	$col: $pc-layout-col;
+	$gap: $pc-layout-gap;
+	$margin: $layout-margin;
+
+	@return $number * ($col + $gap) - $gap;
+}

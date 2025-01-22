@@ -118,8 +118,10 @@
 	}
 	&-visual {
 		height: vh(96);
-		&__wrapper {
-			@include flex($justify: space-between, $align: center);
+		background-attachment: fixed;
+		.ct-section-inner-wrap {
+			@include flex($justify: space-between, $align: center, $wrap: wrap, $gap: 2em);
+			height: 100%;
 		}
 		&__desc {
 			.ct-text-block {
