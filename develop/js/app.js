@@ -4,6 +4,8 @@ import { headerContorl } from "./pages/header";
 import { aftercareParallax } from "./pages/aftercare";
 import { smoothScroll } from "./utils/smooth-scroll";
 import { createFranchisesMap } from "./pages/franchises";
+import { debounce } from "lodash";
+import { setVh } from "./utils/set-vh";
 
 class App {
 	constructor() {
@@ -25,6 +27,10 @@ class App {
 		} else if (namespace == "franchises") {
 			createFranchisesMap();
 		}
+	}
+
+	onResize() {
+		window.addEventListener("resize", debounce(setVh, 200));
 	}
 
 	onLoad() {
