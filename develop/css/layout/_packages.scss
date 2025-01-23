@@ -322,12 +322,10 @@
 		transition-duration: 0.3s;
 		opacity: 0;
 		transform: translate3d(0, 100%, 0);
-		$i: 1;
-		@while ($i <= 3) {
+		@for $i from 1 through 3 {
 			&:nth-child(#{$i}) {
-				transition-delay: $i * 0.1s;
+				transition-delay: #{$i * 0.1}s;
 			}
-			$i: $i + 1;
 		}
 		&--strong {
 			font-weight: 400;
