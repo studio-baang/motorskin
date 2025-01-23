@@ -40,6 +40,12 @@
 		&--panamera {
 			width: min(50vw, 420px);
 			aspect-ratio: 0.875;
+			background: bottom center / contain no-repeat #fff;
+			.package-card {
+				&__wrapper {
+					justify-content: flex-start;
+				}
+			}
 		}
 		&__wrapper {
 			flex-wrap: nowrap;
