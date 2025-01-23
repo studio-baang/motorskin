@@ -30,9 +30,11 @@ class PackageSwiper {
 				},
 			},
 		};
-		if (this.PackageSliderDom) {
-			this.createSwiper();
-		}
+		document.addEventListener("DOMContentLoaded", () => {
+			if (this.PackageSliderDom) {
+				this.createSwiper();
+			}
+		});
 	}
 
 	createSwiper() {
