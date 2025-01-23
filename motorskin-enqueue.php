@@ -73,8 +73,9 @@ function add_query_arg_to_link_wrapper() {
     $model = '';
     global $post;
     if ( $post ) {
-        $model = urlencode( $post->post_title );
+        $model_remove_span = preg_replace('/<span[^>]*>(.*?)<\/span>/', '$1', $post->post_title );
+        $model = urlencode( $model_remove_span );
     }
 
-    return add_query_arg( 'model', $model, $contact_page_url );
+    return add_query_arg( 'model', $model_remove_span, $model );
 }

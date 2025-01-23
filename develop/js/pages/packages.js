@@ -2,7 +2,7 @@ import Swiper from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/swiper.min.css";
-import { isSiteBimmer } from "../utils/filter-site-by-name";
+import { isSiteBimmer, isSitePanamera } from "../utils/filter-site-by-name";
 
 class PackageSwiper {
 	constructor() {
@@ -91,10 +91,7 @@ class BimmerPackages extends PackageSwiper {
 export function packagesInit() {
 	if (isSiteBimmer()) {
 		new BimmerPackages();
-		return;
-	}
-	if (isSitePanamera()) {
+	} else if (isSitePanamera()) {
 		new PackageSwiper();
-		return;
 	}
 }
