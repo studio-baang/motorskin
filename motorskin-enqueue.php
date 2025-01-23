@@ -72,9 +72,10 @@ function add_query_arg_to_link_wrapper() {
     $contact_page_url = site_url( '/contact' );
     $model = '';
     global $post;
+    if ( $post ) {
         $model_remove_span = preg_replace('/<span[^>]*>(.*?)<\/span>/', '$1', $post->post_title );
-        $model = urlencode( $model_remove_span );
+        $model = urlencode($model_remove_span );
     }
 
-    return add_query_arg( 'model', $model, $contact_page_url);
+    return add_query_arg( 'model', $model, $contact_page_url );
 }
