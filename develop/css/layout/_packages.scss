@@ -36,6 +36,11 @@
 		&--inactive {
 			display: none;
 		}
+		&--panamera {
+			.package-card {
+				width: min(50vw, 420px);
+			}
+		}
 		&__wrapper {
 			flex-wrap: nowrap;
 			align-items: flex-start;
