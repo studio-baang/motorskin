@@ -5,16 +5,10 @@ import "swiper/swiper.min.css";
 import { isSiteBimmer, isSitePanamera } from "../utils/filter-site-by-name";
 
 class PackageSwiper {
-	constructor() {
+	constructor(packageOption) {
 		this.PackageSliderDom = document.querySelector(".package-slider") ?? false;
 		this.packageSlider = {};
-		if (this.PackageSliderDom) {
-			this.createSwiper();
-		}
-	}
-
-	createSwiper() {
-		this.packageSlider = new Swiper(".package-slider", {
+		this.swiperOption = packageOption ?? {
 			modules: [Autoplay],
 			slidesPerView: "auto",
 			spaceBetween: 16,
@@ -35,7 +29,14 @@ class PackageSwiper {
 					slidesOffsetAfter: 32,
 				},
 			},
-		});
+		};
+		if (this.PackageSliderDom) {
+			this.createSwiper();
+		}
+	}
+
+	createSwiper() {
+		this.packageSlider = new Swiper(".package-slider", this.swiperOption);
 		this.packageSlider.slideTo(11);
 	}
 }
@@ -88,10 +89,38 @@ class BimmerPackages extends PackageSwiper {
 	}
 }
 
+class ParameraPackages extends PackageSwiper {
+	constructor() {
+		super({
+			modules: [Autoplay],
+			slidesPerView: "auto",
+			spaceBetween: 16,
+			slidesOffsetBefore: 16,
+			slidesOffsetAfter: 16,
+			observeSlideChildren: true,
+			centeredSlides: true,
+			centeredSlidesBounds: true,
+			touchRatio: 0.3,
+			loop: true,
+			autoplay: {
+				delay: 2500,
+				pauseOnMouseEnter: true,
+			},
+			breakpoints: {
+				658: {
+					spaceBetween: 32,
+					slidesOffsetBefore: 32,
+					slidesOffsetAfter: 32,
+				},
+			},
+		});
+	}
+}
+
 export function packagesInit() {
 	if (isSiteBimmer()) {
 		new BimmerPackages();
 	} else if (isSitePanamera()) {
-		new PackageSwiper();
+		new ParameraPackages();
 	}
 }
