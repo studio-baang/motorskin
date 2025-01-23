@@ -307,11 +307,19 @@
 	@include font-monument;
 	font-size: min(9vw, 96px);
 	line-height: 1;
+	&[data-aos="visual-title"].aos-animate {
+		.visual-title__content {
+			opacity: 1;
+			transform: translate3d(0, 0, 0);
+		}
+	}
 	&__mask {
 		overflow: hidden;
 	}
 	&__content {
 		display: block;
+		opacity: 0;
+		transform: translate3d(0, 100%, 0);
 		&--strong {
 			font-weight: 400;
 			font-style: italic;

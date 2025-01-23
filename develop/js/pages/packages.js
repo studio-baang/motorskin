@@ -89,7 +89,7 @@ class BimmerPackages extends PackageSwiper {
 	}
 }
 
-class ParameraPackages extends PackageSwiper {
+class PanameraPackages extends PackageSwiper {
 	constructor() {
 		super({
 			modules: [Autoplay],
@@ -121,6 +121,6 @@ export function packagesInit() {
 	if (isSiteBimmer()) {
 		new BimmerPackages();
 	} else if (isSitePanamera()) {
-		new ParameraPackages();
+		new PanameraPackages();
 	}
 }
