@@ -318,16 +318,18 @@
 	}
 	&__content {
 		display: block;
-		opacity: 0;
 		transition-property: transform, opacity;
 		transition-duration: 0.3;
+		opacity: 0;
 		transform: translate3d(0, 100%, 0);
-		$i: 1;
-		@while ($i <= 3) {
-			&:nth-child(#{$i}) {
-				transition-delay: $i * 0.1;
-			}
-			$i: $i + 1;
+		&:nth-child(1) {
+			transition-delay: 0.1;
+		}
+		&:nth-child(2) {
+			transition-delay: 0.2;
+		}
+		&:nth-child(3) {
+			transition-delay: 0.3;
 		}
 		&--strong {
 			font-weight: 400;
