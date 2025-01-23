@@ -91,5 +91,10 @@ class BimmerPackages extends PackageSwiper {
 export function packagesInit() {
 	if (isSiteBimmer()) {
 		new BimmerPackages();
+		return;
+	}
+	if (isSitePanamera()) {
+		new PackageSwiper();
+		return;
 	}
 }
