@@ -5,7 +5,7 @@ import "swiper/swiper.min.css";
 import { isSiteBimmer, isSitePanamera } from "../utils/filter-site-by-name";
 
 class PackageSwiper {
-	constructor(packageOption) {
+	constructor() {
 		this.PackageSliderDom = document.querySelector(".package-slider") ?? false;
 		this.packageSlider = {};
 	}
@@ -98,6 +98,7 @@ class PanameraPackages extends PackageSwiper {
 			centeredSlidesBounds: true,
 			touchRatio: 0.3,
 			loop: true,
+			loopedSlides: 1,
 			autoplay: {
 				delay: 2500,
 				pauseOnMouseEnter: true,

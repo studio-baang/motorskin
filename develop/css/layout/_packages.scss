@@ -359,4 +359,34 @@
 	&__title {
 		opacity: 0.7;
 	}
+	&__content {
+		width: 100%;
+		align-items: flex-end;
+	}
+	&__origin-price {
+		color: $gray-400;
+		flex-direction: row;
+		gap: 1em;
+		.ct-span {
+			font-size: 1.25em;
+			text-decoration: line-through;
+		}
+	}
+	&__discount-price {
+		font-size: 1.25em;
+		font-weight: 700;
+		flex-direction: row;
+		gap: 1em;
+		.ct-span {
+			font-size: 3em;
+			color: $primary-color;
+		}
+	}
+	&__discount-name {
+		color: $white;
+		background: $primary-color;
+		font-weight: 700;
+		padding: 0.25em 0.5em;
+		border-radius: 0.5em;
+	}
 }
