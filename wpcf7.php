@@ -19,8 +19,9 @@ function pine_dynamic_select_field_values ( $scanned_tag, $replace ) {
     if ( ! $rows )  
         return $scanned_tag;
 
-    foreach ( $rows as $row ) {  
-        $scanned_tag['raw_values'][] = $row->post_title . '|' . $row->post_title;
+    foreach ( $rows as $row ) { 
+        $filter_title = preg_replace('/<span[^>]*>(.*?)<\/span>/', '$1', $row->post_title );
+        $scanned_tag['raw_values'][] = $filter_title . '|' . $filter_title;
     }
 
     $pipes = new WPCF7_Pipes($scanned_tag['raw_values']);
