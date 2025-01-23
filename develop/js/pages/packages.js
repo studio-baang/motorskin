@@ -30,11 +30,6 @@ class PackageSwiper {
 				},
 			},
 		};
-		document.addEventListener("DOMContentLoaded", () => {
-			if (this.PackageSliderDom) {
-				this.createSwiper();
-			}
-		});
 	}
 
 	createSwiper() {
@@ -49,11 +44,16 @@ class BimmerPackages extends PackageSwiper {
 		this.filterWrapper = document.querySelector(".filter-model") ?? false;
 		this.filterItems = [];
 		this.filterActiveItemName = "";
-		if (this.filterWrapper) {
-			this.filterItems = this.filterWrapper.querySelectorAll(".filter-model__item");
-			this.filterActiveItemName = "filter-model__item--active";
-			this.filterWrapper.addEventListener("click", this.onClick.bind(this));
-		}
+		document.addEventListener("DOMContentLoaded", () => {
+			if (this.PackageSliderDom) {
+				this.createSwiper();
+			}
+			if (this.filterWrapper) {
+				this.filterItems = this.filterWrapper.querySelectorAll(".filter-model__item");
+				this.filterActiveItemName = "filter-model__item--active";
+				this.filterWrapper.addEventListener("click", this.onClick.bind(this));
+			}
+		});
 	}
 
 	updateActiveClass(target) {
@@ -115,6 +115,11 @@ class PanameraPackages extends PackageSwiper {
 					slidesOffsetAfter: 32,
 				},
 			},
+		});
+		document.addEventListener("DOMContentLoaded", () => {
+			if (this.PackageSliderDom) {
+				this.createSwiper();
+			}
 		});
 	}
 }

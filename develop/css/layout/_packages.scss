@@ -315,6 +315,13 @@
 	}
 	&__mask {
 		overflow: hidden;
+		@for $i from 1 through 3 {
+			&:nth-child(#{$i}) {
+				.visual-title__content {
+					transition-delay: #{$i - 1 * 50}ms;
+				}
+			}
+		}
 	}
 	&__content {
 		display: block;
@@ -322,12 +329,6 @@
 		transform: translate3d(0, 100%, 0);
 		transition-property: transform, opacity;
 		transition-duration: 0.3s;
-		&:nth-child(2) {
-			transition-delay: 0.1s;
-		}
-		&:nth-child(3) {
-			transition-delay: 0.2s;
-		}
 		&--strong {
 			font-weight: 400;
 			font-style: italic;
