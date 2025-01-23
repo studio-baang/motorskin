@@ -98,7 +98,7 @@ class PanameraPackages extends PackageSwiper {
 			centeredSlidesBounds: true,
 			touchRatio: 0.3,
 			loop: true,
-			loopedSlides: 1,
+			loopedSlides: 2,
 			autoplay: {
 				delay: 2500,
 				pauseOnMouseEnter: true,

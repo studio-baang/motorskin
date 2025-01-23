@@ -299,6 +299,10 @@
 			background: $gray-800;
 			border-radius: 3em;
 		}
+		&__content {
+			width: 100%;
+			align-items: flex-end;
+		}
 		&__origin-price {
 			color: $gray-400;
 			flex-direction: row;
@@ -314,13 +318,14 @@
 			flex-direction: row;
 			gap: 1em;
 			.ct-span {
-				font-size: 3em;
+				font-size: 2em;
 				color: $primary-color;
 			}
 		}
 		&__discount-name {
 			color: $white;
 			background: $primary-color;
+			font-size: 0.75em;
 			font-weight: 700;
 			padding: 0.25em 0.5em;
 			border-radius: 0.5em;
