@@ -8,7 +8,10 @@ class PackageSwiper {
 	constructor(packageOption) {
 		this.PackageSliderDom = document.querySelector(".package-slider") ?? false;
 		this.packageSlider = {};
-		this.swiperOption = packageOption ?? {
+	}
+
+	createSwiper() {
+		this.packageSlider = new Swiper(".package-slider", {
 			modules: [Autoplay],
 			slidesPerView: "auto",
 			spaceBetween: 16,
@@ -29,11 +32,7 @@ class PackageSwiper {
 					slidesOffsetAfter: 32,
 				},
 			},
-		};
-	}
-
-	createSwiper() {
-		this.packageSlider = new Swiper(".package-slider", this.swiperOption);
+		});
 		this.packageSlider.slideTo(11);
 	}
 }
@@ -44,16 +43,11 @@ class BimmerPackages extends PackageSwiper {
 		this.filterWrapper = document.querySelector(".filter-model") ?? false;
 		this.filterItems = [];
 		this.filterActiveItemName = "";
-		document.addEventListener("DOMContentLoaded", () => {
-			if (this.PackageSliderDom) {
-				this.createSwiper();
-			}
-			if (this.filterWrapper) {
-				this.filterItems = this.filterWrapper.querySelectorAll(".filter-model__item");
-				this.filterActiveItemName = "filter-model__item--active";
-				this.filterWrapper.addEventListener("click", this.onClick.bind(this));
-			}
-		});
+		if (this.filterWrapper) {
+			this.filterItems = this.filterWrapper.querySelectorAll(".filter-model__item");
+			this.filterActiveItemName = "filter-model__item--active";
+			this.filterWrapper.addEventListener("click", this.onClick.bind(this));
+		}
 	}
 
 	updateActiveClass(target) {
@@ -92,8 +86,8 @@ class BimmerPackages extends PackageSwiper {
 }
 
 class PanameraPackages extends PackageSwiper {
-	constructor() {
-		super({
+	createSwiper() {
+		this.packageSlider = new Swiper(".package-slider", {
 			modules: [Autoplay],
 			slidesPerView: "auto",
 			spaceBetween: 16,
@@ -116,18 +110,20 @@ class PanameraPackages extends PackageSwiper {
 				},
 			},
 		});
-		document.addEventListener("DOMContentLoaded", () => {
-			if (this.PackageSliderDom) {
-				this.createSwiper();
-			}
-		});
 	}
 }
 
 export function packagesInit() {
+	let activePackges;
 	if (isSiteBimmer()) {
-		new BimmerPackages();
+		activePackges = new BimmerPackages();
 	} else if (isSitePanamera()) {
-		new PanameraPackages();
+		activePackges = new PanameraPackages();
 	}
+
+	document.addEventListener("DOMContentLoaded", () => {
+		if (activePackges.PackageSliderDom) {
+			activePackges.createSwiper();
+		}
+	});
 }

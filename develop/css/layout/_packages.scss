@@ -318,7 +318,7 @@
 		@for $i from 1 through 3 {
 			&:nth-child(#{$i}) {
 				.visual-title__content {
-					transition-delay: #{$i - 1 * 50}ms;
+					transition-delay: #{($i - 1) * 50}ms;
 				}
 			}
 		}
