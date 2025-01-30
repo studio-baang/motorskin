@@ -149,9 +149,9 @@
 			@include flex($justify: space-between, $align: center, $wrap: wrap, $gap: 2em);
 		}
 		&__desc {
+			gap: 1em;
 			.ct-text-block {
 				font-size: 2em;
-				padding-bottom: 1em;
 				font-weight: 700;
 				line-height: 1.25;
 			}
@@ -172,6 +172,7 @@
 		}
 		&-card {
 			@include flex($direction: column, $gap: 1em, $justify: center);
+			position: relative;
 			grid-column: span 2;
 			border-radius: 1em;
 			height: 100%;
