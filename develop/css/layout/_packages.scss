@@ -74,7 +74,7 @@
 		&__options {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			gap: min(2em, 4vw);
+			gap: min(2em, 2vw);
 			@include media-laptop {
 				display: flex;
 			}
@@ -87,7 +87,7 @@
 				width: min(360px, 100%);
 				font-weight: 700;
 				@include font-monument();
-				font-size: min(5vw, 28px);
+				font-size: min(4.5vw, 28px);
 				line-height: 1.3;
 				span {
 					white-space: nowrap;
