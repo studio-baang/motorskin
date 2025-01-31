@@ -137,6 +137,9 @@
 		color: #fff;
 		height: vh(96);
 		background-attachment: fixed;
+		@include media-tablet {
+			height: 140vw;
+		}
 		.ct-section-inner-wrap {
 			max-width: 1280px;
 			width: 96%;
@@ -145,13 +148,20 @@
 			height: 100%;
 		}
 		&__wrapper {
-			width: 100%;
+			width: 90%;
+			margin: 0 auto;
 			@include flex($justify: space-between, $align: center, $wrap: wrap, $gap: 2em);
+			@include media-tablet-landscape {
+				gap: 6vw;
+			}
 		}
 		&__desc {
-			gap: 1em;
+			gap: 3em;
+			@include media-tablet-landscape {
+				gap: 6vw;
+			}
 			.ct-text-block {
-				font-size: 2em;
+				font-size: min(2em, 4vw);
 				font-weight: 700;
 				line-height: 1.25;
 			}
