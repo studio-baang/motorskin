@@ -137,8 +137,10 @@
 		color: #fff;
 		height: vh(96);
 		background-attachment: fixed;
+		background-repeat: no-repeat;
 		@include media-tablet {
 			height: 140vw;
+			background-attachment: scroll;
 		}
 		.ct-section-inner-wrap {
 			max-width: 1280px;
@@ -287,9 +289,6 @@
 			&__price-value {
 				color: $black;
 				font-size: min(2em, 4.25vw);
-			}
-			.ct-image {
-				width: 50%;
 			}
 		}
 	}
