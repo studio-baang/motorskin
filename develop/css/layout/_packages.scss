@@ -41,12 +41,18 @@
 			width: min(50vw, 420px);
 			aspect-ratio: 0.875;
 			background: bottom center / contain no-repeat #fff;
+			@include media-laptop {
+				aspect-ratio: auto;
+			}
 			.package-card {
 				&__wrapper {
 					justify-content: flex-start;
 					gap: 2em;
 					padding: 4em 1.75em;
 					background-image: linear-gradient(180deg, #ffffff, transparent);
+					@include media-laptop {
+						padding: 6vw 4vw;
+					}
 				}
 			}
 		}
@@ -137,8 +143,10 @@
 		color: #fff;
 		height: vh(96);
 		background-attachment: fixed;
+		background-repeat: no-repeat;
 		@include media-tablet {
 			height: 140vw;
+			background-attachment: scroll;
 		}
 		.ct-section-inner-wrap {
 			max-width: 1280px;
@@ -287,9 +295,6 @@
 			&__price-value {
 				color: $black;
 				font-size: min(2em, 4.25vw);
-			}
-			.ct-image {
-				width: 50%;
 			}
 		}
 	}
