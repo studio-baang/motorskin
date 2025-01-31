@@ -38,21 +38,21 @@
 			display: none;
 		}
 		&--panamera {
+			@include media-tablet {
+				aspect-ratio: auto;
+			}
 			width: min(50vw, 420px);
 			aspect-ratio: 0.875;
 			background: bottom center / contain no-repeat #fff;
-			@include media-laptop {
-				aspect-ratio: auto;
-			}
 			.package-card {
 				&__wrapper {
+					@include media-tablet {
+						padding: 6vw 4vw;
+					}
 					justify-content: flex-start;
 					gap: 2em;
 					padding: 4em 1.75em;
 					background-image: linear-gradient(180deg, #ffffff, transparent);
-					@include media-laptop {
-						padding: 6vw 4vw;
-					}
 				}
 			}
 		}
@@ -74,7 +74,10 @@
 		&__options {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			gap: 2em;
+			gap: min(2em, 4vw);
+			@include media-laptop {
+				display: flex;
+			}
 		}
 		a {
 			color: #111111;
