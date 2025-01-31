@@ -253,7 +253,7 @@
 				word-break: keep-all;
 				color: $primary-color;
 				font-weight: 700;
-				font-size: 2.5em;
+				font-size: min(2.5em, 5.25vw);
 				line-height: 1.25;
 			}
 			&__text {
@@ -286,7 +286,10 @@
 			}
 			&__price-value {
 				color: $black;
-				font-size: min(2em, 5.5vw);
+				font-size: min(2em, 4.25vw);
+			}
+			.ct-image {
+				width: 50%;
 			}
 		}
 	}
@@ -294,14 +297,13 @@
 		background: #fff;
 		border-radius: 1em;
 		padding: 1.5em;
-		gap: 2em;
-		margin-bottom: 3em;
+		gap: min(2em, 4vw);
 		&__title-box {
 			gap: 1.25em;
 		}
 		&__title {
 			font-weight: 700;
-			font-size: 3em;
+			font-size: min(3em, 6vw);
 			line-height: 1.25;
 			color: $black;
 		}
@@ -315,7 +317,7 @@
 		&__content {
 			width: 100%;
 			align-items: flex-end;
-			gap: 0.75em;
+			gap: 0.5em;
 		}
 		&__origin-price {
 			color: $gray-400;
@@ -331,6 +333,7 @@
 			font-size: 1.25em;
 			font-weight: 700;
 			flex-direction: row;
+			align-items: center;
 			gap: 0.75em;
 			.ct-span {
 				font-size: 2em;
@@ -353,7 +356,7 @@
 		gap: 1em;
 		.ct-text-block {
 			background-color: $gray-800;
-			padding: 0.25em 1em;
+			padding: 0.5em 1.5em;
 			border-radius: 3em;
 		}
 	}
@@ -363,7 +366,7 @@
 	@include flex($direction: column);
 	@include font-monument;
 	font-size: min(9vw, 96px);
-	line-height: 1;
+	line-height: 1.1;
 	&.aos-animate {
 		.visual-title__content {
 			opacity: 1;
