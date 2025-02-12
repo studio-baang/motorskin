@@ -20,7 +20,7 @@ class App {
 	init() {
 		const main = document.querySelector("main");
 		const namespace = main.dataset.namespace.toLowerCase() || null;
-		if (namespace == "hmoe") {
+		if (namespace == "home") {
 			setServiceListAnim();
 		} else if (namespace == "packages") {
 			packagesInit();
