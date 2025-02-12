@@ -12,31 +12,20 @@ export function setServiceListAnim() {
 			const anim = new ServiceList(listItem);
 			listAnimArr.push(anim);
 
-			listItem.addEventListener(
-				"click",
-				(e) => {
-					const targetItem = listAnimArr.find((item) => item.el === e.currentTarget);
-					const currentItem = listAnimArr.find((item) => item.isCurrentActive === true);
+			listItem.addEventListener("click", (e) => {
+				const targetItem = listAnimArr.find((item) => item.el === e.currentTarget);
+				const currentItem = listAnimArr.find((item) => item.isActive === true);
 
-					// 이전의 active 요소와 현재 active 요소가 같다면 모든 애니메이션을 리셋한다.
-					if (targetItem == currentItem) {
-						listAnimArr.forEach((item) => (item.isActive = false));
-						targetItem.isCurrentActive = false;
-					} else {
-						// 그 외 상황이라면 모든 요소의 isActive를 true로 설정하고
-						// target 개체를 표기하는 boolean을 설정한다.
-						listAnimArr.forEach((item) => {
-							item.isActive = true;
-							item.isCurrentActive = false;
-						});
-						targetItem.isCurrentActive = true;
-					}
+				listAnimArr.forEach((item) => (item.isActive = false));
 
-					// onClick 함수를 실행한다.
-					listAnimArr.forEach((item) => item.onClick());
-				},
-				true
-			);
+				// 이전의 active 요소와 현재 active 요소가 같지 않다면 isActive를 활성화한다.
+				if (targetItem !== currentItem) {
+					targetItem.isActive = true;
+				}
+
+				// onClick 함수를 실행한다.
+				listAnimArr.forEach((item) => item.onClick());
+			});
 		}
 
 		window.addEventListener(

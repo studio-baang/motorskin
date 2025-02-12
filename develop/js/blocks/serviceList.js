@@ -1,11 +1,12 @@
 import gsap from "gsap";
+import { ignoreMobileHeaderWhenResizingWindow } from "../utils/resize-ignore-header";
 
 export class ServiceList {
 	constructor(el) {
 		this.el = el;
 
 		this.vw = window.innerWidth;
-		this.breakPoint = 1340;
+		this.breakPoint = 1025;
 		this.isDesktop = this.vw > this.breakPoint ? true : false;
 
 		this.contentWrapper = this.el.querySelector(".service-list__item-wrapper");
@@ -22,16 +23,15 @@ export class ServiceList {
 
 		this.titleFs = gsap.getProperty(this.title, "fontSize");
 
-		this.itemPcWidth = 240;
+		this.itemPcWidth = "100%";
+		this.activePcWidth = "400%";
+
 		this.itemMobileWidth = "96vw";
-		this.gutter = 16;
+		this.itemMobileHeight = 600;
+
 		this.duration = 0.4;
 
-		this.activePcWidth = (this.itemPcWidth + this.gutter) * 3 - this.gutter;
-		this.inactivePcWidth = (this.itemPcWidth + this.gutter) / 2 - this.gutter;
-
 		this.isActive = false;
-		this.isCurrentActive = false;
 
 		this.onEnter = this.onEnter.bind(this);
 		this.onLeave = this.onLeave.bind(this);
@@ -72,7 +72,7 @@ export class ServiceList {
 			gsap.to(this.el, {
 				...this.elBasicGsap,
 				width: isDesktop ? this.activePcWidth : this.itemMobileWidth,
-				height: isMobile ? 600 : false,
+				height: isMobile ? this.itemMobileHeight : false,
 				duration: reduceMotion ? 0 : this.duration,
 			});
 			gsap.to(this.contentWrapper, {
@@ -88,30 +88,12 @@ export class ServiceList {
 		});
 	}
 
-	inactiveAnim() {
-		this.mm.add(this.mmObj, (context) => {
-			let { isDesktop, isMobile, reduceMotion } = context.conditions;
-			gsap.to(this.el, {
-				...this.elBasicGsap,
-				width: isDesktop ? this.inactivePcWidth : this.itemMobileWidth,
-				height: isMobile ? "auto" : false,
-			});
-			gsap.to(this.contentWrapper, {
-				opacity: isMobile ? 1 : 0,
-				duration: reduceMotion ? 0 : this.duration,
-			});
-			gsap.to(this.desc, {
-				opacity: 0,
-				duration: reduceMotion ? 0 : this.duration,
-			});
-		});
-	}
 	resetAnim() {
 		this.mm.add(this.mmObj, (context) => {
 			let { isDesktop, isMobile, reduceMotion } = context.conditions;
 			gsap.to(this.el, {
 				...this.elBasicGsap,
-				width: isDesktop ? (!this.isActive ? this.itemPcWidth : this.inactivePcWidth) : this.itemMobileWidth,
+				width: isDesktop ? this.itemPcWidth : this.itemMobileWidth,
 				height: isMobile ? "auto" : false,
 				duration: reduceMotion ? 0 : this.duration,
 			});
@@ -140,22 +122,18 @@ export class ServiceList {
 	}
 
 	onClick() {
-		if (this.isCurrentActive) {
+		if (this.isActive) {
 			this.el.removeEventListener("mouseenter", this.onEnter);
 			this.el.removeEventListener("mouseleave", this.onLeave);
 			this.activeAnim();
-		} else if (!this.isActive) {
-			this.el.addEventListener("mouseenter", this.onEnter);
-			this.resetAnim();
 		} else {
 			this.el.addEventListener("mouseenter", this.onEnter);
-			this.inactiveAnim();
+			this.resetAnim();
 		}
 	}
 
 	resizeAnim() {
 		this.isActive = false;
-		this.isCurrentActive = false;
 
 		gsap.killTweensOf(this.el);
 		gsap.set(this.el, {
@@ -170,17 +148,19 @@ export class ServiceList {
 	}
 
 	onResize() {
-		this.vw = window.innerWidth;
-		this.isDesktop = this.vw > this.breakPoint ? true : false;
+		ignoreMobileHeaderWhenResizingWindow(() => {
+			this.vw = window.innerWidth;
+			this.isDesktop = this.vw > this.breakPoint ? true : false;
 
-		this.resizeAnim();
-		gsap.matchMediaRefresh();
+			this.resizeAnim();
+			gsap.matchMediaRefresh();
 
-		if (this.isDesktop) {
-			this.el.addEventListener("mouseenter", this.onEnter);
-		} else {
-			this.el.removeEventListener("mouseenter", this.onEnter);
-			this.el.removeEventListener("mouseleave", this.onLeave);
-		}
+			if (this.isDesktop) {
+				this.el.addEventListener("mouseenter", this.onEnter);
+			} else {
+				this.el.removeEventListener("mouseenter", this.onEnter);
+				this.el.removeEventListener("mouseleave", this.onLeave);
+			}
+		});
 	}
 }

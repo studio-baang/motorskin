@@ -21,21 +21,59 @@ export class panameraReceipt {
 		this.packageList = [
 			{
 				id: 0,
-				content: {
-					title: "PPF 신차패키지",
-				},
+				content: "PPF 신차패키지",
+				type: [
+					{
+						id: 0,
+						content: [
+							{
+								id: 0,
+								price: 100000,
+								content: "베이직",
+							},
+						],
+					},
+					{
+						id: 0,
+						content: [
+							{
+								id: 0,
+								price: 100000,
+								content: "플러스",
+							},
+						],
+					},
+				],
 			},
 			{
 				id: 1,
-				content: {
-					title: "올인원 패키지",
-				},
+				content: "올인원 패키지",
+				type: [
+					{
+						id: 0,
+						content: [
+							{
+								id: 0,
+								price: 100000,
+								content: "베이직",
+							},
+						],
+					},
+					{
+						id: 0,
+						content: [
+							{
+								id: 0,
+								price: 100000,
+								content: "플러스",
+							},
+						],
+					},
+				],
 			},
 			{
 				id: 2,
-				content: {
-					title: "올인원 패키지",
-				},
+				content: "PPF 메인터넌스",
 			},
 		];
 
