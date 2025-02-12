@@ -217,9 +217,7 @@ class Contact {
 
 		if (this.modal) {
 			this.modal.addEventListener("click", (e) => {
-				if (e.target.classList.contains("agreement-modal")) {
-					this.toggleModal();
-				}
+				this.toggleModal();
 			});
 		}
 

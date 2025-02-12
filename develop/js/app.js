@@ -6,6 +6,7 @@ import { smoothScroll } from "./utils/smooth-scroll";
 import { createFranchisesMap } from "./pages/franchises";
 import { debounce } from "lodash";
 import { setVh } from "./utils/set-vh";
+import { setServiceListAnim } from "./pages/home";
 
 class App {
 	constructor() {
@@ -19,7 +20,9 @@ class App {
 	init() {
 		const main = document.querySelector("main");
 		const namespace = main.dataset.namespace.toLowerCase() || null;
-		if (namespace == "packages") {
+		if (namespace == "hmoe") {
+			setServiceListAnim();
+		} else if (namespace == "packages") {
 			packagesInit();
 		} else if (namespace == "contact") {
 			new Contact();
