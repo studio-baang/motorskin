@@ -1,5 +1,5 @@
 import { debounce } from "lodash";
-import { ServiceList } from "../utils/serviceList";
+import { ServiceList } from "../blocks/serviceList";
 
 export function setServiceListAnim() {
 	const listItems = document.querySelectorAll(".service-list__item");

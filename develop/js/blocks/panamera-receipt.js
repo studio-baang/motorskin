@@ -18,46 +18,27 @@ export class panameraReceipt {
 		this.basicPrice = 0;
 		this.finalPrice = 0;
 
-		this.addOnsContentContainer = document.querySelector(".contact-receipt__add-ons");
-		this.addOnsArr = [
+		this.packageList = [
 			{
-				el: document.querySelectorAll('input[name="add-on-01"]'),
-				isInactive: true,
-				addPrice: 0,
-				content: [
-					{
-						title: "본네트 PPF",
-						price: 400000,
-					},
-				],
+				id: 0,
+				content: {
+					title: "PPF 신차패키지",
+				},
 			},
 			{
-				el: document.querySelectorAll('input[name="add-on-02"]'),
-				isInactive: true,
-				addPrice: 0,
-				content: [
-					{
-						title: "주차 안심 도어 4판",
-						price: 800000,
-					},
-				],
+				id: 1,
+				content: {
+					title: "올인원 패키지",
+				},
 			},
 			{
-				el: document.querySelectorAll('input[name="add-on-03"]'),
-				isInactive: true,
-				addPrice: 0,
-				content: [
-					{
-						title: "범퍼 양쪽 사이드",
-						price: 200000,
-					},
-					{
-						title: "앞,뒤 범퍼 양쪽 사이드",
-						price: 400000,
-					},
-				],
+				id: 2,
+				content: {
+					title: "올인원 패키지",
+				},
 			},
 		];
+
 		if (this.receipt) {
 			this.init();
 		}

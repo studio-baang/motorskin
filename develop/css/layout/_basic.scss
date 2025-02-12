@@ -70,3 +70,20 @@ html.lenis body {
 		border-radius: 2px;
 	}
 }
+
+.info-modal {
+	@include flex($align: center, $justify: center);
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+	color: $white;
+	background: #000000ef;
+	line-height: 2;
+	&--open {
+		visibility: visible;
+		z-index: 10;
+	}
+}
