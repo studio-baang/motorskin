@@ -6,7 +6,7 @@ export class ServiceList {
 		this.el = el;
 
 		this.vw = window.innerWidth;
-		this.breakPoint = 1025;
+		this.breakPoint = 1024;
 		this.isDesktop = this.vw > this.breakPoint ? true : false;
 
 		this.contentWrapper = this.el.querySelector(".service-list__item-wrapper");
@@ -16,17 +16,16 @@ export class ServiceList {
 		this.mm = gsap.matchMedia();
 		this.mmObj = {
 			// set up any number of arbitrarily-named conditions. The function below will be called when ANY of them match.
-			isDesktop: `(min-width: ${this.breakPoint}px)`,
-			isMobile: `(max-width: ${this.breakPoint - 1}px)`,
+			isDesktop: `(min-width: ${this.breakPoint + 1}px)`,
+			isMobile: `(max-width: ${this.breakPoint}px)`,
 			reduceMotion: "(prefers-reduced-motion: reduce)",
 		};
 
 		this.titleFs = gsap.getProperty(this.title, "fontSize");
 
-		this.itemPcWidth = "100%";
-		this.activePcWidth = "400%";
+		this.itemWidth = "100%";
+		this.activeWidth = "400%";
 
-		this.itemMobileWidth = "96vw";
 		this.itemMobileHeight = 600;
 
 		this.duration = 0.4;
@@ -71,7 +70,7 @@ export class ServiceList {
 			let { isDesktop, isMobile, reduceMotion } = context.conditions;
 			gsap.to(this.el, {
 				...this.elBasicGsap,
-				width: isDesktop ? this.activePcWidth : this.itemMobileWidth,
+				width: isDesktop ? this.activePcWidth : this.itemWidth,
 				height: isMobile ? this.itemMobileHeight : false,
 				duration: reduceMotion ? 0 : this.duration,
 			});
@@ -90,10 +89,10 @@ export class ServiceList {
 
 	resetAnim() {
 		this.mm.add(this.mmObj, (context) => {
-			let { isDesktop, isMobile, reduceMotion } = context.conditions;
+			let { isMobile, reduceMotion } = context.conditions;
 			gsap.to(this.el, {
 				...this.elBasicGsap,
-				width: isDesktop ? this.itemPcWidth : this.itemMobileWidth,
+				width: this.itemWidth,
 				height: isMobile ? "auto" : false,
 				duration: reduceMotion ? 0 : this.duration,
 			});
