@@ -70,7 +70,7 @@ export class ServiceList {
 			let { isDesktop, isMobile, reduceMotion } = context.conditions;
 			gsap.to(this.el, {
 				...this.elBasicGsap,
-				width: isDesktop ? this.activePcWidth : this.itemWidth,
+				width: isDesktop ? this.activeWidth : this.itemWidth,
 				height: isMobile ? this.itemMobileHeight : false,
 				duration: reduceMotion ? 0 : this.duration,
 			});
