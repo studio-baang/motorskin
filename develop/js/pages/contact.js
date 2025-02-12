@@ -2,7 +2,7 @@ import Swiper from "swiper";
 import "swiper/modules/effect-fade.min.css";
 import { Autoplay, EffectFade } from "swiper/modules";
 import _ from "lodash";
-import { isSiteBimmer } from "../utils/filter-site-by-name";
+import { isSiteBimmer, isSitePanamera } from "../utils/filter-site-by-name";
 import { BimmerReceipt } from "../blocks/bimmer-receipt";
 import { panameraReceipt } from "../blocks/panamera-receipt";
 
@@ -49,6 +49,9 @@ class Contact {
 
 		if (isSiteBimmer()) {
 			new BimmerReceipt();
+		}
+		if (isSitePanamera()) {
+			new panameraReceipt();
 		}
 	}
 

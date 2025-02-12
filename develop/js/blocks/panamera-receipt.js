@@ -25,25 +25,51 @@ export class panameraReceipt {
 				type: [
 					{
 						id: 0,
-						content: [
-							{
-								id: 0,
-								price: 100000,
-								content: "베이직",
-							},
-						],
+						price: 6000000,
+						content: "카바차 적용 신차 풀 패키지",
 					},
+					,
 					{
-						id: 0,
-						content: [
-							{
-								id: 0,
-								price: 100000,
-								content: "플러스",
-							},
-						],
+						id: 1,
+						price: 5500000,
+						content: "모터가드 필름 적용 신차 풀 패키지",
 					},
 				],
+				tinting: [
+					{
+						id: 0,
+						content: "솔라가드 LX",
+						price: 300000,
+					},
+					{
+						id: 1,
+						content: "루마 버텍스 1100",
+						price: 300000,
+					},
+					{
+						id: 2,
+						content: "후퍼옵틱 프리미엄 나노 세라믹",
+						price: 300000,
+					},
+					{
+						id: 3,
+						content: "솔라가드 퀀텀",
+						price: -300000,
+					},
+					{
+						id: 4,
+						content: "후퍼옵틱 클래식",
+						price: -300000,
+					},
+				],
+				sportDesign: {
+					content: "스포츠 디자인 패키지 추가",
+					price: 500000,
+				},
+				blackbox: {
+					content: "선택안함",
+					price: -500000,
+				},
 			},
 			{
 				id: 1,
@@ -51,29 +77,20 @@ export class panameraReceipt {
 				type: [
 					{
 						id: 0,
-						content: [
-							{
-								id: 0,
-								price: 100000,
-								content: "베이직",
-							},
-						],
+						price: 2500000,
+						content: "주차안심 패키지",
 					},
 					{
-						id: 0,
-						content: [
-							{
-								id: 0,
-								price: 100000,
-								content: "플러스",
-							},
-						],
+						id: 1,
+						price: 2600000,
+						content: "프론트 패키지",
 					},
 				],
 			},
 			{
 				id: 2,
 				content: "PPF 메인터넌스",
+				price: 800000,
 			},
 		];
 
@@ -109,21 +126,6 @@ export class panameraReceipt {
 		this.updateReceiptData(this.modelValue, this.packageValue);
 	}
 
-	updateReceiptContent() {
-		const diffs = document.querySelectorAll(".contact-receipt__diff");
-
-		for (const diff of diffs) {
-			diff.classList.remove("contact-receipt__diff--current");
-
-			if (this.packageValue == "Package B" && diff.classList.contains("contact-receipt__diff--b")) {
-				diff.classList.add("contact-receipt__diff--current");
-			}
-			if (this.packageValue == "Package A" && diff.classList.contains("contact-receipt__diff--a")) {
-				diff.classList.add("contact-receipt__diff--current");
-			}
-		}
-	}
-
 	updateReceiptTitle() {
 		const receiptTitle = document.querySelector("#contact-receipt-title");
 		receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
@@ -140,70 +142,9 @@ export class panameraReceipt {
 		this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
 	}
 
-	updateAddons() {
-		let addonHTML = "";
-
-		this.addOnsArr.forEach((element) => {
-			for (let index = 0; index < element.el.length; index++) {
-				const radio = element.el[index];
-				element.isInactive = true;
-				element.addPrice = 0;
-				if (index !== element.el.length - 1 && radio.checked) {
-					const content = element.content[index];
-					const title = content.title;
-					const price = Number(content.price);
-
-					element.isInactive = false;
-					element.addPrice = price;
-					addonHTML += `<li class="contact-receipt__add-ons-list">
-								<h5>${title}</h5>
-								<span>+${price.toLocaleString("ko-KR")}원</span>
-							</li>`;
-					break;
-				}
-			}
-		});
-
-		if (_.every(this.addOnsArr, { isInactive: true })) {
-			addonHTML = `<li class="contact-receipt__add-ons-list">
-							<h5>추가옵션 없음</h5>
-						</li>`;
-		}
-		this.addOnsContentContainer.innerHTML = addonHTML;
-	}
-
-	async updateReceiptData(title, packageName) {
-		this.receipt.classList.add("contact-receipt--loading");
-
-		try {
-			// REST API 엔드포인트 생성
-			const endpoint = `/${this.sitename ? this.sitename + "/" : ""}wp-json/wp/v2/car?search=${encodeURIComponent(title)}`;
-
-			// Fetch API로 요청
-			const response = await fetch(endpoint);
-
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
-			}
-
-			// 응답 데이터(JSON) 파싱
-			const posts = await response.json();
-
-			// 검색 결과 처리
-			if (posts.length > 0) {
-				this.basicPrice = packageName == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
-
-				this.updateReceiptTitle();
-				this.updateReceiptContent();
-				this.updateAddons();
-				this.updatePriceFunc();
-				this.receipt.classList.remove("contact-receipt--loading");
-			} else {
-				console.log("No posts found for the given title in Custom Post Type.");
-				return null;
-			}
-		} catch (error) {
-			console.error("Error fetching custom post:", error);
-		}
+	updateReceiptData() {
+		this.updateReceiptTitle();
+		this.updateReceiptContent();
+		// this.updatePriceFunc();
 	}
 }
