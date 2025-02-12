@@ -89,8 +89,7 @@
 	display: flex;
 	justify-content: center;
 	&__wrapper {
-		display: flex;
-		gap: 16px;
+		@include flex($direction: row, $gap: 1em);
 		@include media-tablet-landscape {
 			flex-direction: column;
 		}
@@ -100,7 +99,8 @@
 		position: relative;
 		width: var(--item-width);
 		height: 720px;
-		background-color: #777777;
+		background-position: center center;
+		background-size: cover;
 		overflow: hidden;
 		@include media-tablet-landscape {
 			width: 96vw;
