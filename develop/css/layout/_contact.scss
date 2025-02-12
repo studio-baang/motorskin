@@ -132,6 +132,9 @@
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
 				gap: 0.5em;
+				.wpcf7-list-item {
+					margin: 0;
+				}
 			}
 			.wpcf7-radio {
 				@include flex($gap: 0.5em, $wrap: wrap);
