@@ -22,16 +22,26 @@ export class panameraReceipt {
 				id: 0,
 				content: "PPF 신차패키지",
 				activeClassName: ".contact-option--01",
-				optionHTML: (title, content) => {
+				typeHTML: (tinting, blackbox) => {
 					return `<li class="contact-receipt__options-list">
-											<h5>${title}</h5>
-											<p>${content}</p>
-										</li>`;
-				},
-				addonHTML: (title, price) => {
-					return `<li class="contact-receipt__add-ons-list">
-								<h5>${title}</h5>
-								<span>+${price.toLocaleString("ko-KR")}원</span>
+								<h5>전체 PPF 시공</h5>
+								<p>루프 및 (추가: 악세사리 제외) 모든 도장면</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>실내 PPF 시공</h5>
+								<p>디스플레이, 센터페시아 실내 하이그로시 부분</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>썬팅</h5>
+								<p>${tinting ?? "선택 안함"}</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>블랙박스</h5>
+								<p>${blackbox ?? "선택 안함"}</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>유리발수<br>실내가죽<br>휠코팅</h5>
+								<p><b>유리 초발수<b/> RAIN<br><b>실내 가죽<b/>  탑코드 / 9H<br><b>휠 코팅<b/>  휠 & 캘리퍼</p>
 							</li>`;
 				},
 				typeInputEl: document.querySelectorAll('input[name="package-01-type"]'),
@@ -39,13 +49,13 @@ export class panameraReceipt {
 					{
 						id: 0,
 						price: 6000000,
-						content: "카바차 적용 신차 풀 패키지",
+						content: "카바차 필름",
 					},
 					,
 					{
 						id: 1,
 						price: 5500000,
-						content: "모터가드 필름 적용 신차 풀 패키지",
+						content: "모터가드 필름 적용",
 					},
 				],
 				tintingInputEl: document.querySelectorAll('input[name="package-01-tinting"]'),
@@ -96,12 +106,12 @@ export class panameraReceipt {
 					{
 						id: 0,
 						price: 2500000,
-						content: "주차안심 패키지",
+						content: "주차안심",
 					},
 					{
 						id: 1,
 						price: 2600000,
-						content: "프론트 패키지",
+						content: "프론트",
 					},
 				],
 			},
@@ -112,9 +122,14 @@ export class panameraReceipt {
 			},
 		];
 
-		this.currentPackageID = 0;
-		this.currentPackageType = {};
-		this.selectedPackage = this.packageList[this.currentPackageID];
+		this.currentPackage = {
+			id: 0,
+			type: {},
+			tintingValue: "",
+			sportDesignValue: "",
+			blackboxValue: "",
+		};
+		this.selectedPackage = this.packageList[this.currentPackage.id];
 
 		if (this.receipt) {
 			this.init();
@@ -154,19 +169,20 @@ export class panameraReceipt {
 	}
 
 	updateReceipt() {
+		// update simple data
 		this.modelValue = this.modelInput.value;
 		for (const packageInput of this.packageInputs) {
 			this.packageValue = packageInput.checked ? packageInput.value : this.packageValue;
 		}
 
 		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
-		this.currentPackageID = this.selectedPackage.id;
+		this.currentPackage.id = this.selectedPackage.id;
 
-		// this.updatePriceFunc();
+		// update need filter data
+		this.updatePackageTypeFunc();
 
 		// toggle class
 		this.toggleClassAsOptions();
-		console.log(this.currentPackageID);
 
 		// update html
 		this.updateReceiptTitleHTML();
@@ -180,7 +196,7 @@ export class panameraReceipt {
 		inputOptionWrapper.forEach((item) => {
 			item.classList.remove("contact-option--active");
 			// PPF 필름 메인터넌스 외
-			if (this.currentPackageID !== 2) {
+			if (this.currentPackage.id !== 2) {
 				const activeClassName = this.selectedPackage.activeClassName;
 				const activeClassEls = document.querySelectorAll(activeClassName);
 				activeClassEls.forEach((el) => {
@@ -190,15 +206,24 @@ export class panameraReceipt {
 		});
 	}
 
+	setCheckedValue() {}
+
 	updatePackageTypeFunc() {
 		// set package types
-		if (this.currentPackageID !== 2) {
+		if (this.currentPackage.id !== 2) {
 			const typeInputs = this.selectedPackage.typeInputEl;
-			for (const typeInput of typeInputs) {
-				this.currentPackageType = typeInput.checked ? typeInput.value : this.currentPackageType;
+			for (const typeInput of this.selectedPackage.typeInputEl) {
+				if (typeInput.checked) {
+					this.currentPackage.type = this.selectedPackage.type.find((item) => item.content === typeInput.value);
+				}
+
+				//
+				const optionEl = document.querySelector("#contact-receipt__options");
+				optionEl.innerHTML = this.currentPackage.type.typeHTML();
 			}
-			// ID가 0 일떄
-		} else if (this.currentPackageID == 0) {
+		}
+		// 신차 패키지
+		if (this.currentPackage.id === 0) {
 		}
 	}
 
