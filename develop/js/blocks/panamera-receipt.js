@@ -122,11 +122,6 @@ export class panameraReceipt {
 	}
 
 	init() {
-		function setObserveWhenNodeLoaded(el) {
-			if (el) {
-				this.observe(el);
-			}
-		}
 		this.updateReceipt();
 		this.observe(this.modelInput);
 
@@ -136,13 +131,13 @@ export class panameraReceipt {
 
 		this.packageList.forEach((item) => {
 			if (item.id === 0) {
-				setObserveWhenNodeLoaded(item.typeInputEl);
-				setObserveWhenNodeLoaded(item.tintingInputEl);
-				setObserveWhenNodeLoaded(item.sportDesignInputEl);
-				setObserveWhenNodeLoaded(item.blackboxInputEl);
+				this.observe(item.typeInputEl);
+				this.observe(item.tintingInputEl);
+				this.observe(item.sportDesignInputEl);
+				this.observe(item.blackboxInputEl);
 			}
 			if (item.id === 1) {
-				setObserveWhenNodeLoaded(item.typeInputEl);
+				this.observe(item.typeInputEl);
 			}
 		});
 	}
