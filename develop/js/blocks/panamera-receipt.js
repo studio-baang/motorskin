@@ -15,8 +15,7 @@ export class panameraReceipt {
 		this.modelInput = document.querySelector('select[name="model"]');
 		this.modelValue = this.modelInput.value;
 
-		this.basicPrice = 0;
-		this.finalPrice = 0;
+		this.price = 0;
 
 		this.packageList = [
 			{
@@ -35,6 +34,7 @@ export class panameraReceipt {
 								<span>+${price.toLocaleString("ko-KR")}원</span>
 							</li>`;
 				},
+				typeInputEl: 'input[name="package-01-type"]',
 				type: [
 					{
 						id: 0,
@@ -88,6 +88,7 @@ export class panameraReceipt {
 				id: 1,
 				content: "올인원 패키지",
 				activeClassName: ".contact-option--02",
+				typeInputEl: 'input[name="package-02-type"]',
 				type: [
 					{
 						id: 0,
@@ -109,6 +110,7 @@ export class panameraReceipt {
 		];
 
 		this.selectedPackage = this.packageList[0];
+		this.packageType = {};
 
 		if (this.receipt) {
 			this.init();
@@ -144,18 +146,28 @@ export class panameraReceipt {
 
 	updatePackageOptionFunc() {
 		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
+		const currentPackageID = this.selectedPackage.id;
 
 		// toggle class
-		if (this.selectedPackage.id !== 2) {
-			const activeClassName = this.selectedPackage.activeClassName ?? false;
-			const inputOptionWrapper = document.querySelectorAll(".contact-option");
-			inputOptionWrapper.forEach((item) => {
+		const inputOptionWrapper = document.querySelectorAll(".contact-option");
+		inputOptionWrapper.forEach((item) => {
+			item.classList.remove("contact-option--active");
+			// PPF 필름 메인터넌스 외
+			if (currentPackageID !== 2) {
 				const activeClassEls = document.querySelectorAll(activeClassName);
-				item.classList.remove("contact-option--active");
+				const activeClassName = this.selectedPackage.activeClassName;
 				activeClassEls.forEach((el) => {
 					el.classList.add("contact-option--active");
 				});
-			});
+			}
+		});
+
+		// set package types
+		if (currentPackageID !== 2) {
+			const typeInputs = document.querySelectorAll(this.selectedPackage.typeInputEl);
+			for (const typeInput of typeInputs) {
+				this.packageType = typeInput.checked ? typeInput.value : this.packageType;
+			}
 		}
 	}
 
