@@ -44,6 +44,7 @@ export class panameraReceipt {
 								<p><b>유리 초발수<b/> RAIN<br><b>실내 가죽<b/>  탑코드 / 9H<br><b>휠 코팅<b/>  휠 & 캘리퍼</p>
 							</li>`;
 				},
+				typeInputEl: document.querySelectorAll('input[name="package-01-type"]'),
 				type: [
 					{
 						id: 0,
@@ -56,7 +57,7 @@ export class panameraReceipt {
 						content: "프리미엄 모터가드 필름",
 					},
 				],
-				tintingInputEl: document.querySelectorAll('input[name="package-01-tinting"]'),
+				tintingInputEl: document.querySelectorAll('input[name="package-tinting"]'),
 				tinting: [
 					{
 						id: 0,
@@ -84,12 +85,12 @@ export class panameraReceipt {
 						price: -300000,
 					},
 				],
-				sportDesignInputEl: document.querySelectorAll('input[name="package-01-sport-design"]'),
+				sportDesignInputEl: document.querySelectorAll('input[name="package-sport-design"]'),
 				sportDesign: {
 					content: "스포츠 디자인 패키지 추가",
 					price: 500000,
 				},
-				blackboxInputEl: document.querySelectorAll('input[name="package-01-blackbox"]'),
+				blackboxInputEl: document.querySelectorAll('input[name="package-blackbox"]'),
 				blackbox: {
 					content: "선택안함",
 					price: -500000,
@@ -121,6 +122,7 @@ export class panameraReceipt {
 								<p><b>유리 초발수<b/> RAIN<br><b>실내 가죽<b/>  탑코드 / 9H<br><b>휠 코팅<b/>  휠 & 캘리퍼</p>
 							</li>`;
 				},
+				typeInputEl: document.querySelectorAll('input[name="package-02-type"]'),
 				type: [
 					{
 						id: 0,
