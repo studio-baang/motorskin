@@ -231,15 +231,12 @@ export class panameraReceipt {
 		// set package types
 		if (this.currentPackage.id !== 2) {
 			const typeInputs = this.selectedPackage.typeInputEl;
-			const optionEl = document.querySelector("#contact-receipt__options");
 			for (const typeInput of typeInputs) {
+				console.log(typeInput);
 				if (typeInput.checked) {
 					const selectedPackageType = this.selectedPackage.type;
 					this.currentPackage.type = selectedPackageType.find((item) => item.content === typeInput.value);
-					//
 					// optionEl.innerHTML = this.currentPackage.type.typeHTML();
-				} else {
-					this.currentPackage.type = false;
 				}
 			}
 		}
