@@ -44,7 +44,6 @@ export class panameraReceipt {
 								<p><b>유리 초발수<b/> RAIN<br><b>실내 가죽<b/>  탑코드 / 9H<br><b>휠 코팅<b/>  휠 & 캘리퍼</p>
 							</li>`;
 				},
-				typeInputEl: document.querySelectorAll('input[name="package-01-type"]'),
 				type: [
 					{
 						id: 0,
@@ -122,7 +121,6 @@ export class panameraReceipt {
 								<p><b>유리 초발수<b/> RAIN<br><b>실내 가죽<b/>  탑코드 / 9H<br><b>휠 코팅<b/>  휠 & 캘리퍼</p>
 							</li>`;
 				},
-				typeInputEl: document.querySelectorAll('input[name="package-02-type"]'),
 				type: [
 					{
 						id: 0,
@@ -231,12 +229,11 @@ export class panameraReceipt {
 		// set package types
 		if (this.currentPackage.id !== 2) {
 			const typeInputs = this.selectedPackage.typeInputEl;
-			for (let index = 0; index < typeInputs.length; index++) {
-				const typeInput = typeInputs[index];
+			for (const typeInput of typeInputs) {
 				if (typeInput.checked) {
 					const selectedPackageType = this.selectedPackage.type;
 					this.currentPackage.type = selectedPackageType.find((item) => item.content === typeInput.value);
-					break;
+					// optionEl.innerHTML = this.currentPackage.type.typeHTML();
 				}
 			}
 		}
