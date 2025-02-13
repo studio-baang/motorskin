@@ -45,7 +45,6 @@ export class panameraReceipt {
 								<p>${sportDesign ? sportDesign.content : "선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
-								<h5>유리발수<br>실내가죽<br>휠코팅</h5>
 								<p><b>유리 초발수</b> RAIN<br><b>실내 가죽</b>  탑코드 / 9H<br><b>휠 코팅</b>  휠 & 캘리퍼</p>
 							</li>`;
 				},
@@ -100,7 +99,7 @@ export class panameraReceipt {
 				blackboxInputEl: document.querySelectorAll('input[name="package-blackbox"]'),
 				blackbox: [
 					{
-						content: "선택 안함",
+						content: "선택안함",
 						price: -500000,
 					},
 				],
@@ -111,17 +110,21 @@ export class panameraReceipt {
 				activeClassName: ".contact-option--02",
 				typeHTML: (optionObj) => {
 					const { type } = optionObj;
+					let content = "";
+					if (type.id === 0) {
+						content = "본넷, 도어4판, 생활보호 6종, 버텍스 900시리즈 전/측후면, <span>세라믹프로 케어플러스 바디코팅</span>";
+					} else {
+						content = "본넷, 범퍼 양쪽 앞휀다, 생활보호 6종, 버텍스 900시리즈 전/측후면, <span>세라믹프로 케어플러스 바디코팅</span>";
+					}
 					return `<li class="contact-receipt__options-list">
-								<h5>ㅁㄴㅇㅁㄴㅇ</h5>
-								<p>루프 및 (추가: 악세사리 제외) 모든 도장면</p>
+								<h5>PPF</h5>
+								<p><b>KAVACA PPF</b></p>
+								<p>나도 모르는 사이 생겨버린 스크래치는 NO!<br/>
+									파나메라의 가치를 오랜 기간 지키실 수 있습니다.</p>
 							</li>
 							<li class="contact-receipt__options-list">
-								<h5>실내 PPF 시공</h5>
-								<p>디스플레이, 센터페시아 실내 하이그로시 부분</p>
-							</li>
-							<li class="contact-receipt__options-list">
-								<h5>유리발수<br>실내가죽<br>휠코팅</h5>
-								<p><b>유리 초발수<b/> RAIN<br><b>실내 가죽<b/>  탑코드 / 9H<br><b>휠 코팅<b/>  휠 & 캘리퍼</p>
+								<h5>PPF 시공 부위</h5>
+								<p>${content}</p>
 							</li>`;
 				},
 				typeInputEl: document.querySelectorAll('input[name="package-02-type"]'),
@@ -218,7 +221,7 @@ export class panameraReceipt {
 		this.updateReceiptTitleHTML();
 		this.updateReceiptPackageNameHTML();
 		this.updateReceiptDetailHTML();
-		// this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
+		this.priceTag.innerHTML = this.price.toLocaleString("ko-KR");
 	}
 
 	toggleClassAsOptions() {
@@ -284,6 +287,27 @@ export class panameraReceipt {
 		}
 	}
 
+	updatePriceFunc() {
+		// set package types
+		let calcPrice = 0;
+		if (this.currentPackage.id !== 2) {
+			calcPrice = this.currentPackage.type.price;
+		} else {
+			// 메인터넌스
+			calcPrice = this.selectedPackage.price;
+		}
+		if (this.currentPackage.tinting.price) {
+			calcPrice += this.currentPackage.tinting.price;
+		}
+		if (this.currentPackage.sportDesign.price) {
+			calcPrice += this.currentPackage.tinting.price;
+		}
+		if (this.currentPackage.blackbox.price) {
+			calcPrice += this.currentPackage.tinting.price;
+		}
+		this.price = calcPrice;
+	}
+
 	updateReceiptTitleHTML() {
 		const receiptTitle = document.querySelector("#contact-receipt-title");
 		receiptTitle.innerHTML = this.modelValue;
@@ -302,11 +326,5 @@ export class panameraReceipt {
 			sportDesign: this.currentPackage.sportDesign,
 			blackbox: this.currentPackage.blackbox,
 		});
-	}
-
-	updatePriceFunc() {
-		this.finalPrice = this.basicPrice;
-
-		const resultPriceNum = Number(this.finalPrice);
 	}
 }
