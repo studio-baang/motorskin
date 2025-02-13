@@ -23,6 +23,7 @@ export class panameraReceipt {
 				id: 0,
 				content: "PPF 신차패키지",
 				activeClassName: "contact-option--01",
+				innerHTML: ``,
 				type: [
 					{
 						id: 0,
@@ -96,7 +97,7 @@ export class panameraReceipt {
 			},
 		];
 
-		this.selectedPackage = "";
+		this.selectedPackage = this.packageList[0];
 
 		if (this.receipt) {
 			this.init();
@@ -134,8 +135,8 @@ export class panameraReceipt {
 		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
 
 		// toggle class
-		const activeClassName = this.selectedPackage.activeClassName ?? false;
-		if (activeClassName) {
+		if (this.selectedPackage.content !== "PPF 메인터넌스") {
+			const activeClassName = this.selectedPackage.activeClassName ?? false;
 			const inputOptionWrapper = document.querySelectorAll(".contact-option");
 			inputOptionWrapper.forEach((item) => {
 				const activeClassEls = document.querySelectorAll(activeClassName);
