@@ -90,15 +90,19 @@ export class panameraReceipt {
 					},
 				],
 				sportDesignInputEl: document.querySelectorAll('input[name="package-sport-design"]'),
-				sportDesign: {
-					content: "스포츠 디자인 패키지 추가",
-					price: 500000,
-				},
+				sportDesign: [
+					{
+						content: "스포츠 디자인 패키지 추가",
+						price: 500000,
+					},
+				],
 				blackboxInputEl: document.querySelectorAll('input[name="package-blackbox"]'),
-				blackbox: {
-					content: "선택안함",
-					price: -500000,
-				},
+				blackbox: [
+					{
+						content: "선택안함",
+						price: -500000,
+					},
+				],
 			},
 			{
 				id: 1,
@@ -252,20 +256,20 @@ export class panameraReceipt {
 			const blackInputs = this.selectedPackage.blackboxInputEl;
 			for (const input of tintingInputs) {
 				if (input.checked) {
-					const selectedPackageType = this.selectedPackage.tinting;
-					this.currentPackage.tinting = selectedPackageType.find((item) => item.content === input.value);
+					const selectedPackageTinting = this.selectedPackage.tinting;
+					this.currentPackage.tinting = selectedPackageTinting.find((item) => item.content === input.value);
 				}
 			}
 			for (const input of sportDesignInputs) {
 				if (input.checked) {
-					const selectedPackageType = this.selectedPackage.sportDesign;
-					this.currentPackage.sportDesign = selectedPackageType.find((item) => item.content === input.value);
+					const selectedPackageSportDesign = this.selectedPackage.sportDesign;
+					this.currentPackage.sportDesign = selectedPackageSportDesign.find((item) => item.content === input.value);
 				}
 			}
 			for (const input of blackInputs) {
 				if (input.checked) {
-					const selectedPackageType = this.selectedPackage.blackbox;
-					this.currentPackage.blackbox = selectedPackageType.find((item) => item.content === input.value);
+					const selectedPackageBlackbox = this.selectedPackage.blackbox;
+					this.currentPackage.blackbox = selectedPackageBlackbox.find((item) => item.content === input.value);
 				}
 			}
 		} else {
