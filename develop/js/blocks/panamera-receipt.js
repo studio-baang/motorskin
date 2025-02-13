@@ -34,15 +34,15 @@ export class panameraReceipt {
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>썬팅</h5>
-								<p>${tinting ?? "선택 안함"}</p>
+								<p>${tinting.content ?? "선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>블랙박스</h5>
-								<p>${blackbox ?? "선택 안함"}</p>
+								<p>${blackbox.content ?? "선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>스포츠 디자인</h5>
-								<p>${sportDesign ?? "선택 안함"}</p>
+								<p>${sportDesign.content ?? "선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>유리발수<br>실내가죽<br>휠코팅</h5>
@@ -286,7 +286,7 @@ export class panameraReceipt {
 
 	updateReceiptDetailHTML() {
 		const optionEl = document.querySelector("#contact-receipt__options");
-		optionEl.innerHTML = this.currentPackage.typeHTML({
+		optionEl.innerHTML = this.selectedPackage.typeHTML({
 			type: this.currentPackage.type,
 			tinting: this.currentPackage.tinting,
 			sportDesign: this.currentPackage.sportDesign,
