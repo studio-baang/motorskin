@@ -135,6 +135,7 @@ export class panameraReceipt {
 		}
 
 		this.packageList.forEach((item) => {
+			console.log(item.typeInputEl, item.tintingInputEl, item.sportDesignInputEl, item.blackboxInputEl);
 			setObserveWhenNodeLoaded(item.typeInputEl);
 			setObserveWhenNodeLoaded(item.tintingInputEl);
 			setObserveWhenNodeLoaded(item.sportDesignInputEl);
