@@ -213,6 +213,7 @@ export class panameraReceipt {
 
 		// update need filter data
 		this.updatePackageTypeFunc();
+		this.updatePriceFunc();
 
 		// toggle class
 		this.toggleClassAsOptions();
