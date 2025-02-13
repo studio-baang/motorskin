@@ -231,12 +231,12 @@ export class panameraReceipt {
 		// set package types
 		if (this.currentPackage.id !== 2) {
 			const typeInputs = this.selectedPackage.typeInputEl;
-			for (const typeInput of typeInputs) {
-				console.log(typeInput);
+			for (let index = 0; index < typeInputs.length; index++) {
+				const typeInput = typeInputs[index];
 				if (typeInput.checked) {
 					const selectedPackageType = this.selectedPackage.type;
 					this.currentPackage.type = selectedPackageType.find((item) => item.content === typeInput.value);
-					// optionEl.innerHTML = this.currentPackage.type.typeHTML();
+					break;
 				}
 			}
 		}
