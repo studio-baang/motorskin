@@ -22,7 +22,8 @@ export class panameraReceipt {
 				id: 0,
 				content: "PPF 신차패키지",
 				activeClassName: ".contact-option--01",
-				typeHTML: (tinting, sportDesign, blackbox) => {
+				typeHTML: (optionObj) => {
+					const { tinting, blackbox, sportDesign } = optionObj;
 					return `<li class="contact-receipt__options-list">
 								<h5>전체 PPF 시공</h5>
 								<p>루프 및 (추가: 악세사리 제외) 모든 도장면</p>
@@ -108,7 +109,8 @@ export class panameraReceipt {
 				id: 1,
 				content: "올인원 패키지",
 				activeClassName: ".contact-option--02",
-				typeHTML: (tinting, blackbox) => {
+				typeHTML: (optionObj) => {
+					const { type } = optionObj;
 					return `<li class="contact-receipt__options-list">
 								<h5>ㅁㄴㅇㅁㄴㅇ</h5>
 								<p>루프 및 (추가: 악세사리 제외) 모든 도장면</p>
@@ -116,14 +118,6 @@ export class panameraReceipt {
 							<li class="contact-receipt__options-list">
 								<h5>실내 PPF 시공</h5>
 								<p>디스플레이, 센터페시아 실내 하이그로시 부분</p>
-							</li>
-							<li class="contact-receipt__options-list">
-								<h5>썬팅</h5>
-								<p>${tinting ?? "선택 안함"}</p>
-							</li>
-							<li class="contact-receipt__options-list">
-								<h5>블랙박스</h5>
-								<p>${blackbox ?? "선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>유리발수<br>실내가죽<br>휠코팅</h5>
@@ -292,7 +286,12 @@ export class panameraReceipt {
 
 	updateReceiptDetailHTML() {
 		const optionEl = document.querySelector("#contact-receipt__options");
-		optionEl.innerHTML = this.currentPackage.type.typeHTML();
+		optionEl.innerHTML = this.currentPackage.typeHTML({
+			type: this.currentPackage.type,
+			tinting: this.currentPackage.tinting,
+			sportDesign: this.currentPackage.sportDesign,
+			blackbox: this.currentPackage.blackbox,
+		});
 	}
 
 	updatePriceFunc() {
