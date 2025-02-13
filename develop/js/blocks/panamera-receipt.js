@@ -301,10 +301,10 @@ export class panameraReceipt {
 			calcPrice += this.currentPackage.tinting.price;
 		}
 		if (this.currentPackage.sportDesign.price) {
-			calcPrice += this.currentPackage.tinting.price;
+			calcPrice += this.currentPackage.sportDesign.price;
 		}
 		if (this.currentPackage.blackbox.price) {
-			calcPrice += this.currentPackage.tinting.price;
+			calcPrice += this.currentPackage.blackbox.price;
 		}
 		this.price = calcPrice;
 	}
