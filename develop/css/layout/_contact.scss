@@ -128,7 +128,8 @@
 					border-radius: 30px;
 				}
 			}
-			.wpcf7-checkbox {
+			.wpcf7-checkbox,
+			[data-name="package-tinting"] .wpcf7-radio {
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
 				gap: 0.5em;
