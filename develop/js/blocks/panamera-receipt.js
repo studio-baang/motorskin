@@ -260,21 +260,21 @@ export class panameraReceipt {
 				if (input.checked) {
 					const selectedPackageTinting = this.selectedPackage.tinting;
 					const findTinting = selectedPackageTinting.find((item) => item.content === input.value);
-					this.currentPackage.tinting = findTinting ?? input.value;
+					this.currentPackage.tinting = findTinting ?? { content: input.value };
 				}
 			}
 			for (const input of sportDesignInputs) {
 				if (input.checked) {
 					const selectedPackageSportDesign = this.selectedPackage.sportDesign;
 					const findSportDesign = selectedPackageSportDesign.find((item) => item.content === input.value);
-					this.currentPackage.sportDesign = findSportDesign ?? input.value;
+					this.currentPackage.sportDesign = findSportDesign ?? { content: input.value };
 				}
 			}
 			for (const input of blackInputs) {
 				if (input.checked) {
 					const selectedPackageBlackbox = this.selectedPackage.blackbox;
 					const findBlackbox = selectedPackageBlackbox.find((item) => item.content === input.value);
-					this.currentPackage.blackbox = findBlackbox ?? input.value;
+					this.currentPackage.blackbox = findBlackbox ?? { content: input.value };
 				}
 			}
 		} else {
