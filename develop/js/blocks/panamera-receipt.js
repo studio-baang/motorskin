@@ -110,12 +110,6 @@ export class panameraReceipt {
 		for (const packageInput of this.packageInputs) {
 			this.observe(packageInput);
 		}
-
-		for (const addOns of this.addOnsArr) {
-			for (const target of addOns.el) {
-				this.observe(target);
-			}
-		}
 	}
 
 	observe(el) {
@@ -140,15 +134,17 @@ export class panameraReceipt {
 		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
 
 		// toggle class
-		const activeClassName = this.selectedPackage.activeClassName;
-		const inputOptionWrapper = document.querySelectorAll(".contact-option");
-		inputOptionWrapper.forEach((item) => {
-			const activeClassEls = document.querySelectorAll(activeClassName);
-			item.classList.remove("contact-option--active");
-			activeClassEls.forEach((el) => {
-				el.classList.add("contact-option--active");
+		const activeClassName = this.selectedPackage.activeClassName ?? false;
+		if (activeClassName) {
+			const inputOptionWrapper = document.querySelectorAll(".contact-option");
+			inputOptionWrapper.forEach((item) => {
+				const activeClassEls = document.querySelectorAll(activeClassName);
+				item.classList.remove("contact-option--active");
+				activeClassEls.forEach((el) => {
+					el.classList.add("contact-option--active");
+				});
 			});
-		});
+		}
 	}
 
 	updateReceiptTitleHTML() {
@@ -163,9 +159,6 @@ export class panameraReceipt {
 
 	updatePriceFunc() {
 		this.finalPrice = this.basicPrice;
-		this.addOnsArr.forEach((element) => {
-			this.finalPrice += element.addPrice;
-		});
 
 		const resultPriceNum = Number(this.finalPrice);
 
