@@ -22,6 +22,7 @@ export class panameraReceipt {
 			{
 				id: 0,
 				content: "PPF 신차패키지",
+				activeClassName: "contact-option--01",
 				type: [
 					{
 						id: 0,
@@ -74,6 +75,7 @@ export class panameraReceipt {
 			{
 				id: 1,
 				content: "올인원 패키지",
+				activeClassName: "contact-option--02",
 				type: [
 					{
 						id: 0,
@@ -125,21 +127,36 @@ export class panameraReceipt {
 		for (const packageInput of this.packageInputs) {
 			this.packageValue = packageInput.checked ? packageInput.value : this.packageValue;
 		}
-		this.updateReceiptTitle();
-		this.updateReceiptPackageName();
+		this.updatePackageOptionFunc();
 
-		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
-		console.log(this.selectedPackage);
+		// update html
+		this.updateReceiptTitleHTML();
+		this.updateReceiptPackageNameHTML();
 
 		// this.updatePriceFunc();
 	}
 
-	updateReceiptTitle() {
+	updatePackageOptionFunc() {
+		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
+
+		// toggle class
+		const activeClassName = this.selectedPackage.activeClassName;
+		const inputOptionWrapper = document.querySelectorAll(".contact-option");
+		inputOptionWrapper.forEach((item) => {
+			const activeClassEls = document.querySelectorAll(activeClassName);
+			item.classList.remove("contact-option--active");
+			activeClassEls.forEach((el) => {
+				el.classList.add("contact-option--active");
+			});
+		});
+	}
+
+	updateReceiptTitleHTML() {
 		const receiptTitle = document.querySelector("#contact-receipt-title");
 		receiptTitle.innerHTML = this.modelValue;
 	}
 
-	updateReceiptPackageName() {
+	updateReceiptPackageNameHTML() {
 		const receiptPromotion = document.querySelector("#contact-receipt-promotion");
 		receiptPromotion.innerHTML = this.packageValue;
 	}

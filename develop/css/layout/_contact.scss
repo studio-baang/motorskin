@@ -197,6 +197,12 @@
 			@include flex($gap: 1em 2em, $wrap: wrap);
 		}
 	}
+	&-option {
+		display: none;
+		&--active {
+			display: flex;
+		}
+	}
 	.swiper-slide {
 		background: center center / cover no-repeat;
 		filter: grayscale(1);
