@@ -51,7 +51,6 @@ export class panameraReceipt {
 						price: 6000000,
 						content: "카바차 필름",
 					},
-					,
 					{
 						id: 1,
 						price: 5500000,
@@ -237,8 +236,12 @@ export class panameraReceipt {
 			const optionEl = document.querySelector("#contact-receipt__options");
 			for (const typeInput of typeInputs) {
 				if (typeInput.checked) {
-					console.log(this.selectedPackage.type);
-					this.currentPackage.type = this.selectedPackage.type.find((item) => item.content === typeInput.value);
+					const selectedPackageType = this.selectedPackage.type;
+					console.log(
+						selectedPackageType.find((item) => item.content === typeInput.value),
+						typeInput.value
+					);
+					this.currentPackage.type = selectedPackageType.find((item) => item.content === typeInput.value);
 					//
 					// optionEl.innerHTML = this.currentPackage.type.typeHTML();
 				} else {
