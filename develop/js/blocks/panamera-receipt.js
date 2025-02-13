@@ -234,14 +234,15 @@ export class panameraReceipt {
 		// set package types
 		if (this.currentPackage.id !== 2) {
 			const typeInputs = this.selectedPackage.typeInputEl;
-			for (const typeInput of this.selectedPackage.typeInputEl) {
+			const optionEl = document.querySelector("#contact-receipt__options");
+			for (const typeInput of typeInputs) {
 				if (typeInput.checked) {
+					console.log(this.selectedPackage.type);
 					this.currentPackage.type = this.selectedPackage.type.find((item) => item.content === typeInput.value);
+					//
+					// optionEl.innerHTML = this.currentPackage.type.typeHTML();
+				} else {
 				}
-
-				//
-				const optionEl = document.querySelector("#contact-receipt__options");
-				optionEl.innerHTML = this.currentPackage.type.typeHTML();
 			}
 		}
 		// 신차 패키지
