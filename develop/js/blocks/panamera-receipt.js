@@ -46,7 +46,7 @@ export class panameraReceipt {
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>유리발수<br>실내가죽<br>휠코팅</h5>
-								<p><b>유리 초발수<b/> RAIN<br><b>실내 가죽<b/>  탑코드 / 9H<br><b>휠 코팅<b/>  휠 & 캘리퍼</p>
+								<p><b>유리 초발수</b> RAIN<br><b>실내 가죽</b>  탑코드 / 9H<br><b>휠 코팅</b>  휠 & 캘리퍼</p>
 							</li>`;
 				},
 				typeInputEl: document.querySelectorAll('input[name="package-01-type"]'),
@@ -100,7 +100,7 @@ export class panameraReceipt {
 				blackboxInputEl: document.querySelectorAll('input[name="package-blackbox"]'),
 				blackbox: [
 					{
-						content: "선택안함",
+						content: "선택 안함",
 						price: -500000,
 					},
 				],
@@ -142,6 +142,13 @@ export class panameraReceipt {
 				id: 2,
 				content: "PPF 필름 메인터넌스",
 				price: 800000,
+				typeHTML: () => {
+					return `<li class="contact-receipt__options-list">
+								<h5>PPF 필름 메인터넌스</h5>
+								<p>잘못된 시공으로 발생한 PPF 필름의 마감 들뜸 문제,<br/>
+								10년 이상의 숙련된 기술자가 세심하게 교정 작업을 진행합니다.</p>
+							</li>`;
+				},
 			},
 		];
 
@@ -252,19 +259,22 @@ export class panameraReceipt {
 			for (const input of tintingInputs) {
 				if (input.checked) {
 					const selectedPackageTinting = this.selectedPackage.tinting;
-					this.currentPackage.tinting = selectedPackageTinting.find((item) => item.content === input.value);
+					const findTinting = selectedPackageTinting.find((item) => item.content === input.value);
+					this.currentPackage.tinting = findTinting ?? input.value;
 				}
 			}
 			for (const input of sportDesignInputs) {
 				if (input.checked) {
 					const selectedPackageSportDesign = this.selectedPackage.sportDesign;
-					this.currentPackage.sportDesign = selectedPackageSportDesign.find((item) => item.content === input.value);
+					const findSportDesign = selectedPackageSportDesign.find((item) => item.content === input.value);
+					this.currentPackage.sportDesign = findSportDesign ?? input.value;
 				}
 			}
 			for (const input of blackInputs) {
 				if (input.checked) {
 					const selectedPackageBlackbox = this.selectedPackage.blackbox;
-					this.currentPackage.blackbox = selectedPackageBlackbox.find((item) => item.content === input.value);
+					const findBlackbox = selectedPackageBlackbox.find((item) => item.content === input.value);
+					this.currentPackage.blackbox = findBlackbox ?? input.value;
 				}
 			}
 		} else {
