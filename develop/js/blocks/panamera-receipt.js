@@ -101,6 +101,28 @@ export class panameraReceipt {
 				id: 1,
 				content: "올인원 패키지",
 				activeClassName: ".contact-option--02",
+				typeHTML: (tinting, blackbox) => {
+					return `<li class="contact-receipt__options-list">
+								<h5>ㅁㄴㅇㅁㄴㅇ</h5>
+								<p>루프 및 (추가: 악세사리 제외) 모든 도장면</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>실내 PPF 시공</h5>
+								<p>디스플레이, 센터페시아 실내 하이그로시 부분</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>썬팅</h5>
+								<p>${tinting ?? "선택 안함"}</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>블랙박스</h5>
+								<p>${blackbox ?? "선택 안함"}</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>유리발수<br>실내가죽<br>휠코팅</h5>
+								<p><b>유리 초발수<b/> RAIN<br><b>실내 가죽<b/>  탑코드 / 9H<br><b>휠 코팅<b/>  휠 & 캘리퍼</p>
+							</li>`;
+				},
 				typeInputEl: document.querySelectorAll('input[name="package-02-type"]'),
 				type: [
 					{
