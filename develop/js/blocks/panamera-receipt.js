@@ -54,7 +54,7 @@ export class panameraReceipt {
 					{
 						id: 1,
 						price: 5500000,
-						content: "모터가드 필름 적용",
+						content: "프리미엄 모터가드 필름",
 					},
 				],
 				tintingInputEl: document.querySelectorAll('input[name="package-01-tinting"]'),
@@ -227,8 +227,6 @@ export class panameraReceipt {
 		});
 	}
 
-	setCheckedValue() {}
-
 	updatePackageTypeFunc() {
 		// set package types
 		if (this.currentPackage.id !== 2) {
@@ -237,14 +235,11 @@ export class panameraReceipt {
 			for (const typeInput of typeInputs) {
 				if (typeInput.checked) {
 					const selectedPackageType = this.selectedPackage.type;
-					console.log(
-						selectedPackageType.find((item) => item.content === typeInput.value),
-						typeInput.value
-					);
 					this.currentPackage.type = selectedPackageType.find((item) => item.content === typeInput.value);
 					//
 					// optionEl.innerHTML = this.currentPackage.type.typeHTML();
 				} else {
+					this.currentPackage.type = false;
 				}
 			}
 		}
@@ -260,7 +255,7 @@ export class panameraReceipt {
 
 	updateReceiptPackageNameHTML() {
 		const receiptPromotion = document.querySelector("#contact-receipt-promotion");
-		receiptPromotion.innerHTML = this.packageValue;
+		receiptPromotion.innerHTML = this.currentPackage.type ? `${this.packageValue} ${this.currentPackage.type.content}` : this.packageValue;
 	}
 
 	updatePriceFunc() {
