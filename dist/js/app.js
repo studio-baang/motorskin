@@ -21,15 +21,15 @@
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>\u{C36C}\u{D305}</h5>
-								<p>${e.content??"선택 안함"}</p>
+								<p>${e?e.content:"선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>\u{BE14}\u{B799}\u{BC15}\u{C2A4}</h5>
-								<p>${r.content??"선택 안함"}</p>
+								<p>${r?r.content:"선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>\u{C2A4}\u{D3EC}\u{CE20} \u{B514}\u{C790}\u{C778}</h5>
-								<p>${n.content??"선택 안함"}</p>
+								<p>${n?n.content:"선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>\u{C720}\u{B9AC}\u{BC1C}\u{C218}<br>\u{C2E4}\u{B0B4}\u{AC00}\u{C8FD}<br>\u{D720}\u{CF54}\u{D305}</h5>
