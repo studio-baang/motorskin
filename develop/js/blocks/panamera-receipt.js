@@ -8,7 +8,7 @@ export class panameraReceipt {
 		this.receipt = document.querySelector(".contact-receipt");
 
 		this.packageInputs = document.querySelectorAll('input[name="package"]');
-		this.packageValue = "Package A";
+		this.packageValue = "";
 
 		this.priceTag = document.getElementById("contact-receipt-amount");
 
@@ -94,6 +94,8 @@ export class panameraReceipt {
 			},
 		];
 
+		this.selectedPackage = "";
+
 		if (this.receipt) {
 			this.init();
 		}
@@ -123,12 +125,23 @@ export class panameraReceipt {
 		for (const packageInput of this.packageInputs) {
 			this.packageValue = packageInput.checked ? packageInput.value : this.packageValue;
 		}
-		this.updateReceiptData(this.modelValue, this.packageValue);
+		this.updateReceiptTitle();
+		this.updateReceiptPackageName();
+
+		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
+		console.log(this.selectedPackage);
+
+		// this.updatePriceFunc();
 	}
 
 	updateReceiptTitle() {
 		const receiptTitle = document.querySelector("#contact-receipt-title");
-		receiptTitle.innerHTML = `${this.modelValue}&nbsp<span>${this.packageValue}</span>`;
+		receiptTitle.innerHTML = this.modelValue;
+	}
+
+	updateReceiptPackageName() {
+		const receiptPromotion = document.querySelector("#contact-receipt-promotion");
+		receiptPromotion.innerHTML = this.packageValue;
 	}
 
 	updatePriceFunc() {
@@ -140,11 +153,5 @@ export class panameraReceipt {
 		const resultPriceNum = Number(this.finalPrice);
 
 		this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
-	}
-
-	updateReceiptData() {
-		this.updateReceiptTitle();
-		this.updateReceiptContent();
-		// this.updatePriceFunc();
 	}
 }
