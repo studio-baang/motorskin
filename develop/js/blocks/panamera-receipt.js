@@ -173,8 +173,8 @@ export class panameraReceipt {
 			item.classList.remove("contact-option--active");
 			// PPF 필름 메인터넌스 외
 			if (this.currentPackageID !== 2) {
-				const activeClassEls = document.querySelectorAll(activeClassName);
 				const activeClassName = this.selectedPackage.activeClassName;
+				const activeClassEls = document.querySelectorAll(activeClassName);
 				activeClassEls.forEach((el) => {
 					el.classList.add("contact-option--active");
 				});
