@@ -135,11 +135,15 @@ export class panameraReceipt {
 		}
 
 		this.packageList.forEach((item) => {
-			console.log(item.typeInputEl, item.tintingInputEl, item.sportDesignInputEl, item.blackboxInputEl);
-			setObserveWhenNodeLoaded(item.typeInputEl);
-			setObserveWhenNodeLoaded(item.tintingInputEl);
-			setObserveWhenNodeLoaded(item.sportDesignInputEl);
-			setObserveWhenNodeLoaded(item.blackboxInputEl);
+			if (item.id == 0) {
+				setObserveWhenNodeLoaded(item.typeInputEl);
+				setObserveWhenNodeLoaded(item.tintingInputEl);
+				setObserveWhenNodeLoaded(item.sportDesignInputEl);
+				setObserveWhenNodeLoaded(item.blackboxInputEl);
+			}
+			if (item.id == 1) {
+				setObserveWhenNodeLoaded(item.typeInputEl);
+			}
 		});
 	}
 
