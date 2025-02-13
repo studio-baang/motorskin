@@ -216,6 +216,7 @@ export class panameraReceipt {
 		// update html
 		this.updateReceiptTitleHTML();
 		this.updateReceiptPackageNameHTML();
+		this.updateReceiptDetailHTML();
 		// this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
 	}
 
