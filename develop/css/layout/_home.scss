@@ -126,6 +126,7 @@
 		font-size: min(4vw, 20px);
 		text-transform: uppercase;
 		pointer-events: none;
+		white-space: nowrap;
 	}
 	&__desc {
 		display: none;

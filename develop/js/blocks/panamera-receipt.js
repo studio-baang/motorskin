@@ -261,11 +261,9 @@ export class panameraReceipt {
 			const sportDesignInputs = this.selectedPackage.sportDesignInputEl;
 			const blackInputs = this.selectedPackage.blackboxInputEl;
 			for (const input of tintingInputs) {
-				if (input.checked) {
-					const selectedPackageTinting = this.selectedPackage.tinting;
-					const findTinting = selectedPackageTinting.find((item) => item.content === input.value);
-					this.currentPackage.tinting = findTinting ?? { content: input.value };
-				}
+				const selectedPackageTinting = this.selectedPackage.tinting;
+				const findTinting = selectedPackageTinting.find((item) => item.content === input.value);
+				this.currentPackage.tinting = findTinting ?? { content: input.value };
 			}
 			for (const input of sportDesignInputs) {
 				if (input.checked) {
@@ -275,11 +273,9 @@ export class panameraReceipt {
 				}
 			}
 			for (const input of blackInputs) {
-				if (input.checked) {
-					const selectedPackageBlackbox = this.selectedPackage.blackbox;
-					const findBlackbox = selectedPackageBlackbox.find((item) => item.content === input.value);
-					this.currentPackage.blackbox = findBlackbox ?? { content: input.value };
-				}
+				const selectedPackageBlackbox = this.selectedPackage.blackbox;
+				const findBlackbox = selectedPackageBlackbox.find((item) => item.content === input.value);
+				this.currentPackage.blackbox = findBlackbox ?? { content: input.value };
 			}
 		} else {
 			this.currentPackage.blackbox = false;

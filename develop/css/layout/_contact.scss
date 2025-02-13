@@ -137,6 +137,9 @@
 					margin: 0;
 				}
 			}
+			[data-name="package-tinting"] .wpcf7-radio {
+				grid-template-columns: repeat(3, 1fr);
+			}
 			.wpcf7-radio {
 				@include flex($gap: 0.5em, $wrap: wrap);
 				@include media-laptop {
