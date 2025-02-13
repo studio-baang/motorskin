@@ -103,7 +103,7 @@ export class panameraReceipt {
 			},
 			{
 				id: 2,
-				content: "PPF 메인터넌스",
+				content: "PPF 필름 메인터넌스",
 				price: 800000,
 			},
 		];
@@ -144,10 +144,9 @@ export class panameraReceipt {
 
 	updatePackageOptionFunc() {
 		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
-		console.log(this.selectedPackage);
 
 		// toggle class
-		if (this.selectedPackage.content !== "PPF 메인터넌스") {
+		if (this.selectedPackage.id !== 2) {
 			const activeClassName = this.selectedPackage.activeClassName ?? false;
 			const inputOptionWrapper = document.querySelectorAll(".contact-option");
 			inputOptionWrapper.forEach((item) => {
