@@ -22,8 +22,19 @@ export class panameraReceipt {
 			{
 				id: 0,
 				content: "PPF 신차패키지",
-				activeClassName: "contact-option--01",
-				innerHTML: ``,
+				activeClassName: ".contact-option--01",
+				optionHTML: (title, content) => {
+					return `<li class="contact-receipt__options-list">
+											<h5>${title}</h5>
+											<p>${content}</p>
+										</li>`;
+				},
+				addonHTML: (title, price) => {
+					return `<li class="contact-receipt__add-ons-list">
+								<h5>${title}</h5>
+								<span>+${price.toLocaleString("ko-KR")}원</span>
+							</li>`;
+				},
 				type: [
 					{
 						id: 0,
@@ -76,7 +87,7 @@ export class panameraReceipt {
 			{
 				id: 1,
 				content: "올인원 패키지",
-				activeClassName: "contact-option--02",
+				activeClassName: ".contact-option--02",
 				type: [
 					{
 						id: 0,
@@ -133,6 +144,7 @@ export class panameraReceipt {
 
 	updatePackageOptionFunc() {
 		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
+		console.log(this.selectedPackage);
 
 		// toggle class
 		if (this.selectedPackage.content !== "PPF 메인터넌스") {
