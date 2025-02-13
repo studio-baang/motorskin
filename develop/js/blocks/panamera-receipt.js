@@ -135,13 +135,13 @@ export class panameraReceipt {
 		}
 
 		this.packageList.forEach((item) => {
-			if (item.id == 0) {
+			if (item.id === 0) {
 				setObserveWhenNodeLoaded(item.typeInputEl);
 				setObserveWhenNodeLoaded(item.tintingInputEl);
 				setObserveWhenNodeLoaded(item.sportDesignInputEl);
 				setObserveWhenNodeLoaded(item.blackboxInputEl);
 			}
-			if (item.id == 1) {
+			if (item.id === 1) {
 				setObserveWhenNodeLoaded(item.typeInputEl);
 			}
 		});
@@ -164,6 +164,7 @@ export class panameraReceipt {
 
 		// toggle class
 		this.toggleClassAsOptions();
+		console.log(this.currentPackageID);
 
 		// update html
 		this.updateReceiptTitleHTML();
