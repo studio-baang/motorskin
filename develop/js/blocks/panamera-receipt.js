@@ -34,7 +34,7 @@ export class panameraReceipt {
 								<span>+${price.toLocaleString("ko-KR")}원</span>
 							</li>`;
 				},
-				typeInputEl: 'input[name="package-01-type"]',
+				typeInputEl: document.querySelectorAll('input[name="package-01-type"]'),
 				type: [
 					{
 						id: 0,
@@ -48,6 +48,7 @@ export class panameraReceipt {
 						content: "모터가드 필름 적용 신차 풀 패키지",
 					},
 				],
+				tintingInputEl: document.querySelectorAll('input[name="package-01-tinting"]'),
 				tinting: [
 					{
 						id: 0,
@@ -75,10 +76,12 @@ export class panameraReceipt {
 						price: -300000,
 					},
 				],
+				sportDesignInputEl: document.querySelectorAll('input[name="package-01-sport-design"]'),
 				sportDesign: {
 					content: "스포츠 디자인 패키지 추가",
 					price: 500000,
 				},
+				blackboxInputEl: document.querySelectorAll('input[name="package-01-blackbox"]'),
 				blackbox: {
 					content: "선택안함",
 					price: -500000,
@@ -88,7 +91,7 @@ export class panameraReceipt {
 				id: 1,
 				content: "올인원 패키지",
 				activeClassName: ".contact-option--02",
-				typeInputEl: 'input[name="package-02-type"]',
+				typeInputEl: document.querySelectorAll('input[name="package-02-type"]'),
 				type: [
 					{
 						id: 0,
@@ -109,8 +112,9 @@ export class panameraReceipt {
 			},
 		];
 
-		this.selectedPackage = this.packageList[0];
-		this.packageType = {};
+		this.currentPackageID = 0;
+		this.currentPackageType = {};
+		this.selectedPackage = this.packageList[this.currentPackageID];
 
 		if (this.receipt) {
 			this.init();
@@ -118,12 +122,24 @@ export class panameraReceipt {
 	}
 
 	init() {
+		function setObserveWhenNodeLoaded(el) {
+			if (el) {
+				this.observe(el);
+			}
+		}
 		this.updateReceipt();
 		this.observe(this.modelInput);
 
 		for (const packageInput of this.packageInputs) {
 			this.observe(packageInput);
 		}
+
+		this.packageList.forEach((item) => {
+			setObserveWhenNodeLoaded(item.typeInputEl);
+			setObserveWhenNodeLoaded(item.tintingInputEl);
+			setObserveWhenNodeLoaded(item.sportDesignInputEl);
+			setObserveWhenNodeLoaded(item.blackboxInputEl);
+		});
 	}
 
 	observe(el) {
@@ -135,25 +151,28 @@ export class panameraReceipt {
 		for (const packageInput of this.packageInputs) {
 			this.packageValue = packageInput.checked ? packageInput.value : this.packageValue;
 		}
-		this.updatePackageOptionFunc();
+
+		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
+		this.currentPackageID = this.selectedPackage.id;
+
+		// this.updatePriceFunc();
+
+		// toggle class
+		this.toggleClassAsOptions();
 
 		// update html
 		this.updateReceiptTitleHTML();
 		this.updateReceiptPackageNameHTML();
-
-		// this.updatePriceFunc();
+		// this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
 	}
 
-	updatePackageOptionFunc() {
-		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
-		const currentPackageID = this.selectedPackage.id;
-
+	toggleClassAsOptions() {
 		// toggle class
 		const inputOptionWrapper = document.querySelectorAll(".contact-option");
 		inputOptionWrapper.forEach((item) => {
 			item.classList.remove("contact-option--active");
 			// PPF 필름 메인터넌스 외
-			if (currentPackageID !== 2) {
+			if (this.currentPackageID !== 2) {
 				const activeClassEls = document.querySelectorAll(activeClassName);
 				const activeClassName = this.selectedPackage.activeClassName;
 				activeClassEls.forEach((el) => {
@@ -161,13 +180,17 @@ export class panameraReceipt {
 				});
 			}
 		});
+	}
 
+	updatePackageTypeFunc() {
 		// set package types
-		if (currentPackageID !== 2) {
-			const typeInputs = document.querySelectorAll(this.selectedPackage.typeInputEl);
+		if (this.currentPackageID !== 2) {
+			const typeInputs = this.selectedPackage.typeInputEl;
 			for (const typeInput of typeInputs) {
-				this.packageType = typeInput.checked ? typeInput.value : this.packageType;
+				this.currentPackageType = typeInput.checked ? typeInput.value : this.currentPackageType;
 			}
+			// ID가 0 일떄
+		} else if (this.currentPackageID == 0) {
 		}
 	}
 
@@ -185,7 +208,5 @@ export class panameraReceipt {
 		this.finalPrice = this.basicPrice;
 
 		const resultPriceNum = Number(this.finalPrice);
-
-		this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
 	}
 }
