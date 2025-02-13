@@ -22,7 +22,7 @@ export class panameraReceipt {
 				id: 0,
 				content: "PPF 신차패키지",
 				activeClassName: ".contact-option--01",
-				typeHTML: (tinting, blackbox) => {
+				typeHTML: (tinting, sportDesign, blackbox) => {
 					return `<li class="contact-receipt__options-list">
 								<h5>전체 PPF 시공</h5>
 								<p>루프 및 (추가: 악세사리 제외) 모든 도장면</p>
@@ -38,6 +38,10 @@ export class panameraReceipt {
 							<li class="contact-receipt__options-list">
 								<h5>블랙박스</h5>
 								<p>${blackbox ?? "선택 안함"}</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>스포츠 디자인</h5>
+								<p>${sportDesign ?? "선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>유리발수<br>실내가죽<br>휠코팅</h5>
@@ -146,9 +150,9 @@ export class panameraReceipt {
 		this.currentPackage = {
 			id: 0,
 			type: {},
-			tintingValue: "",
-			sportDesignValue: "",
-			blackboxValue: "",
+			tinting: "",
+			sportDesign: "",
+			blackbox: "",
 		};
 		this.selectedPackage = this.packageList[this.currentPackage.id];
 
@@ -235,12 +239,39 @@ export class panameraReceipt {
 				if (typeInput.checked) {
 					const selectedPackageType = this.selectedPackage.type;
 					this.currentPackage.type = selectedPackageType.find((item) => item.content === typeInput.value);
-					// optionEl.innerHTML = this.currentPackage.type.typeHTML();
 				}
 			}
+			// 메인터넌스
+		} else {
+			this.currentPackage.type = false;
 		}
 		// 신차 패키지
 		if (this.currentPackage.id === 0) {
+			const tintingInputs = this.selectedPackage.tintingInputEl;
+			const sportDesignInputs = this.selectedPackage.sportDesignInputEl;
+			const blackInputs = this.selectedPackage.blackboxInputEl;
+			for (const input of tintingInputs) {
+				if (input.checked) {
+					const selectedPackageType = this.selectedPackage.tinting;
+					this.currentPackage.tinting = selectedPackageType.find((item) => item.content === input.value);
+				}
+			}
+			for (const input of sportDesignInputs) {
+				if (input.checked) {
+					const selectedPackageType = this.selectedPackage.sportDesign;
+					this.currentPackage.sportDesign = selectedPackageType.find((item) => item.content === input.value);
+				}
+			}
+			for (const input of blackInputs) {
+				if (input.checked) {
+					const selectedPackageType = this.selectedPackage.blackbox;
+					this.currentPackage.blackbox = selectedPackageType.find((item) => item.content === input.value);
+				}
+			}
+		} else {
+			this.currentPackage.blackbox = false;
+			this.currentPackage.sportDesign = false;
+			this.currentPackage.tinting = false;
 		}
 	}
 
@@ -251,7 +282,12 @@ export class panameraReceipt {
 
 	updateReceiptPackageNameHTML() {
 		const receiptPromotion = document.querySelector("#contact-receipt-promotion");
-		receiptPromotion.innerHTML = this.currentPackage.type ? `${this.packageValue} ${this.currentPackage.type.content}` : this.packageValue;
+		receiptPromotion.innerHTML = this.currentPackage.type ? `${this.currentPackage.type.content} ${this.packageValue}` : this.packageValue;
+	}
+
+	updateReceiptDetailHTML() {
+		const optionEl = document.querySelector("#contact-receipt__options");
+		optionEl.innerHTML = this.currentPackage.type.typeHTML();
 	}
 
 	updatePriceFunc() {
