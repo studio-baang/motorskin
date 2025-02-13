@@ -61,7 +61,7 @@ export class panameraReceipt {
 						content: "프리미엄 모터가드 필름",
 					},
 				],
-				tintingInputEl: document.querySelectorAll('input[name="package-tinting"]'),
+				tintingInputEl: document.querySelector('select[name="package-tinting"]'),
 				tinting: [
 					{
 						id: 0,
@@ -96,7 +96,7 @@ export class panameraReceipt {
 						price: 500000,
 					},
 				],
-				blackboxInputEl: document.querySelectorAll('input[name="package-blackbox"]'),
+				blackboxInputEl: document.querySelector('select[name="package-blackbox"]'),
 				blackbox: [
 					{
 						content: "선택안함",
@@ -257,25 +257,27 @@ export class panameraReceipt {
 		}
 		// 신차 패키지
 		if (this.currentPackage.id === 0) {
-			const tintingInputs = this.selectedPackage.tintingInputEl;
+			const tintingInput = this.selectedPackage.tintingInputEl;
 			const sportDesignInputs = this.selectedPackage.sportDesignInputEl;
-			const blackInputs = this.selectedPackage.blackboxInputEl;
-			for (const input of tintingInputs) {
-				const selectedPackageTinting = this.selectedPackage.tinting;
-				const findTinting = selectedPackageTinting.find((item) => item.content === input.value);
-				this.currentPackage.tinting = findTinting ?? { content: input.value };
-			}
+			const blackInput = this.selectedPackage.blackboxInputEl;
+
+			// tinting
+			const selectedPackageTinting = this.selectedPackage.tinting;
+			const findTinting = selectedPackageTinting.find((item) => item.content === tintingInput.value);
+			this.currentPackage.tinting = findTinting ?? { content: tintingInput.value };
+
+			// blackbox
+			const selectedPackageBlackbox = this.selectedPackage.blackbox;
+			const findBlackbox = selectedPackageTinting.find((item) => item.content === blackInput.value);
+			this.currentPackage.blackbox = findBlackbox ?? { content: blackInput.value };
+
+			// sport design
 			for (const input of sportDesignInputs) {
 				if (input.checked) {
 					const selectedPackageSportDesign = this.selectedPackage.sportDesign;
 					const findSportDesign = selectedPackageSportDesign.find((item) => item.content === input.value);
 					this.currentPackage.sportDesign = findSportDesign ?? { content: input.value };
 				}
-			}
-			for (const input of blackInputs) {
-				const selectedPackageBlackbox = this.selectedPackage.blackbox;
-				const findBlackbox = selectedPackageBlackbox.find((item) => item.content === input.value);
-				this.currentPackage.blackbox = findBlackbox ?? { content: input.value };
 			}
 		} else {
 			this.currentPackage.blackbox = false;
