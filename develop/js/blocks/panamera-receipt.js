@@ -124,21 +124,21 @@ export class panameraReceipt {
 				activeClassName: ".contact-option--02",
 				typeHTML: (optionObj) => {
 					const { type } = optionObj;
-					let content = "";
-					if (type.id === 0) {
-						content = "본넷, 도어4판, 생활보호 6종, 버텍스 900시리즈 전/측후면, <span>세라믹프로 케어플러스 바디코팅</span>";
-					} else {
-						content = "본넷, 범퍼 양쪽 앞휀다, 생활보호 6종, 버텍스 900시리즈 전/측후면, <span>세라믹프로 케어플러스 바디코팅</span>";
+					let ppfContent = "본넷, 도어4판, 생활보호 6종 (헤드라이트/ 도어엣지/ 도어캐치 /주유구/ 트렁크리드/ 사이드미러)";
+					if (type.id === 1) {
+						ppfConntent = "본넷, 범퍼 양쪽 앞휀다, 생활보호 6종 (헤드라이트/ 도어엣지/ 도어캐치 /주유구/ 트렁크리드/ 사이드미러)";
 					}
 					return `<li class="contact-receipt__options-list">
-								<h5>PPF</h5>
-								<p><b>KAVACA PPF</b></p>
-								<p>나도 모르는 사이 생겨버린 스크래치는 NO!<br/>
-									파나메라의 가치를 오랜 기간 지키실 수 있습니다.</p>
+								<h5>PPF 시공 부위</h5>
+								<p>${ppfContent}</p>
 							</li>
 							<li class="contact-receipt__options-list">
-								<h5>PPF 시공 부위</h5>
-								<p>${content}</p>
+								<h5>썬팅</h5>
+								<p>루마 버텍스 900</p>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>코팅</h5>
+								<p>세라믹프로 케어 플러스 코팅</p>
 							</li>`;
 				},
 				typeInputEl: document.querySelectorAll('input[name="package-02-type"]'),
@@ -278,7 +278,7 @@ export class panameraReceipt {
 
 			// blackbox
 			const selectedPackageBlackbox = this.selectedPackage.blackbox;
-			const findBlackbox = selectedPackageTinting.find((item) => item.content === blackInput.value);
+			const findBlackbox = selectedPackageBlackbox.find((item) => item.content === blackInput.value);
 			this.currentPackage.blackbox = findBlackbox ?? { content: blackInput.value };
 
 			// sport design
