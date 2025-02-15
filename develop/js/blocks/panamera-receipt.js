@@ -65,28 +65,38 @@ export class panameraReceipt {
 				tinting: [
 					{
 						id: 0,
-						content: "솔라가드 LX",
+						content: "Upgrade : 솔라가드 LX (+ 300,000원)",
 						price: 300000,
 					},
 					{
 						id: 1,
-						content: "루마 버텍스 1100",
+						content: "Upgrade : 루마 버텍스 1100 (+ 300,000원)",
 						price: 300000,
 					},
 					{
 						id: 2,
-						content: "후퍼옵틱 프리미엄 나노 세라믹",
+						content: "Upgrade : 후퍼옵틱 프나세 (+ 300,000원)",
 						price: 300000,
 					},
 					{
 						id: 3,
-						content: "솔라가드 퀀텀",
+						content: "솔라가드 퀀텀 (- 300,000원)",
 						price: -300000,
 					},
 					{
 						id: 4,
-						content: "후퍼옵틱 클래식",
+						content: "후퍼옵틱 클래식 (- 300,000원)",
 						price: -300000,
+					},
+					{
+						id: 5,
+						content: "루마 버텍스 700 ( -300,000원)",
+						price: -300000,
+					},
+					{
+						id: 6,
+						content: "후퍼옵틱 GK (- 600,000원)",
+						price: -600000,
 					},
 				],
 				sportDesignInputEl: document.querySelectorAll('input[name="package-sport-design"]'),
@@ -98,6 +108,10 @@ export class panameraReceipt {
 				],
 				blackboxInputEl: document.querySelector('select[name="package-blackbox"]'),
 				blackbox: [
+					{
+						content: "선택안함",
+						price: -500000,
+					},
 					{
 						content: "선택안함",
 						price: -500000,
