@@ -90,7 +90,7 @@ export class panameraReceipt {
 					},
 					{
 						id: 5,
-						content: "루마 버텍스 700 ( -300,000원)",
+						content: "루마 버텍스 700 (-300,000원)",
 						price: -300000,
 					},
 					{
@@ -102,18 +102,18 @@ export class panameraReceipt {
 				sportDesignInputEl: document.querySelectorAll('input[name="package-sport-design"]'),
 				sportDesign: [
 					{
-						content: "스포츠 디자인 패키지 추가",
+						content: "스포츠 디자인 패키지 추가 (+500,000원)",
 						price: 500000,
 					},
 				],
 				blackboxInputEl: document.querySelector('select[name="package-blackbox"]'),
 				blackbox: [
 					{
-						content: "선택안함",
-						price: -500000,
+						content: "Upgrade : 퀀텀 4K PRO (+100,000원)",
+						price: 100000,
 					},
 					{
-						content: "선택안함",
+						content: "블랙박스 선택 안함",
 						price: -500000,
 					},
 				],
