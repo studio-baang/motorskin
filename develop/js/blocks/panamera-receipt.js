@@ -161,9 +161,25 @@ export class panameraReceipt {
 				price: 800000,
 				typeHTML: () => {
 					return `<li class="contact-receipt__options-list">
-								<h5>PPF 필름 메인터넌스</h5>
-								<p>잘못된 시공으로 발생한 PPF 필름의 마감 들뜸 문제,<br/>
-								10년 이상의 숙련된 기술자가 세심하게 교정 작업을 진행합니다.</p>
+								<h5>프리미엄 디테일링 세차</h5>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>PPF 및 필름 표면 복원 및 광택 시공</h5>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>세라믹프로 PPF & VINYL 베이스코트 도포</h5>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>세라믹프로 PPF & VINYL 탑코트 도포</h5>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>세라믹프로 휠 & 캘리퍼 코팅 시공</h5>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>고온 열경화 공정</h5>
+							</li>
+							<li class="contact-receipt__options-list">
+								<h5>PPF 마감 교정 및 들뜸 보정 작업</h5>
 							</li>`;
 				},
 			},
