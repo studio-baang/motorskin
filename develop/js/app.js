@@ -18,19 +18,21 @@ class App {
 	}
 
 	init() {
-		const main = document.querySelector("main");
-		const namespace = main.dataset.namespace.toLowerCase() || null;
-		if (namespace == "home") {
-			setServiceListAnim();
-		} else if (namespace == "packages") {
-			packagesInit();
-		} else if (namespace == "contact") {
-			new Contact();
-		} else if (namespace == "aftercare") {
-			aftercareParallax();
-		} else if (namespace == "franchises") {
-			createFranchisesMap();
-		}
+		document.addEventListener("DOMContentLoaded", () => {
+			const main = document.querySelector("main");
+			const namespace = main.dataset.namespace.toLowerCase() || null;
+			if (namespace == "home") {
+				setServiceListAnim();
+			} else if (namespace == "packages") {
+				packagesInit();
+			} else if (namespace == "contact") {
+				new Contact();
+			} else if (namespace == "aftercare") {
+				aftercareParallax();
+			} else if (namespace == "franchises") {
+				createFranchisesMap();
+			}
+		});
 	}
 
 	onResize() {
