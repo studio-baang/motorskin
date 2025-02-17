@@ -124,9 +124,9 @@ export class panameraReceipt {
 				activeClassName: ".contact-option--02",
 				typeHTML: (optionObj) => {
 					const { type } = optionObj;
-					let ppfContent = "본넷, 도어4판, 생활보호 6종 (헤드라이트/ 도어엣지/ 도어캐치 /주유구/ 트렁크리드/ 사이드미러)";
+					let ppfContent = "본넷, 도어4판, <span>생활보호 6종</span> (헤드라이트/ 도어엣지/ 도어캐치 /주유구/ 트렁크리드/ 사이드미러)";
 					if (type.id === 1) {
-						ppfConntent = "본넷, 범퍼 양쪽 앞휀다, 생활보호 6종 (헤드라이트/ 도어엣지/ 도어캐치 /주유구/ 트렁크리드/ 사이드미러)";
+						ppfContent = "본넷, 범퍼 양쪽 앞휀다, <span>생활보호 6종</span> (헤드라이트/ 도어엣지/ 도어캐치 /주유구/ 트렁크리드/ 사이드미러)";
 					}
 					return `<li class="contact-receipt__options-list">
 								<h5>PPF 시공 부위</h5>
