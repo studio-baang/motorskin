@@ -10,7 +10,9 @@ export class panameraReceipt {
 		this.packageInputs = document.querySelectorAll('input[name="package"]');
 		this.packageValue = "";
 
+		this.packageTypebuttons = document.querySelectorAll(".contact-type-button");
 		this.packageTypeValue = "";
+
 		this.priceTag = document.getElementById("contact-receipt-amount");
 
 		this.modelInput = document.querySelector('select[name="model"]');
@@ -209,8 +211,7 @@ export class panameraReceipt {
 			this.observe(packageInput);
 		}
 
-		const bodyEl = document.querySelector(".contact-form__body");
-		bodyEl.addEventListener("click", (event) => {
+		this.packageTypebuttons.addEventListener("click", (event) => {
 			const curTarget = event.currentTarget;
 			if (curTarget.classList.contains("contact-type-button")) {
 				console.log("am i work");
@@ -259,8 +260,7 @@ export class panameraReceipt {
 
 	toggleClassTypeButton(curTarget) {
 		if (curTarget) {
-			const buttons = document.querySelectorAll(".contact-type-button");
-			buttons.forEach((item) => {
+			this.packageTypebuttons.forEach((item) => {
 				// 화면에 표기된 버튼만 active를 지움
 				if (item.offsetParent !== null) {
 					item.classList.remove("contact-type-button--active");
