@@ -253,7 +253,7 @@ export class panameraReceipt {
 		this.toggleClassAsOptions();
 		this.toggleClassTypeButton(activeTypeBtn);
 
-		this.toggleDisableInputs();
+		// this.toggleDisableInputs();
 
 		// update html
 		this.updateReceiptTitleHTML();
