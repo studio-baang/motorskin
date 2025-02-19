@@ -48,7 +48,7 @@ export class panameraReceipt {
 								<p>${sportDesign ? sportDesign.content : "선택 안함"}</p>
 							</li>
 							<li class="contact-receipt__options-list">
-								<p><b>유리 초발수</b> RAIN<br><b>실내 가죽</b>  탑코드 / 9H<br><b>휠 코팅</b>  휠 & 캘리퍼</p>
+								<p><b>유리 초발수</b> RAIN<br><b>실내 가죽</b> 9H / 탑코드<br><b>휠 코팅</b>  휠 & 캘리퍼</p>
 							</li>`;
 				},
 				typeInputEl: document.getElementById("package-01-type"),
@@ -137,7 +137,7 @@ export class panameraReceipt {
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>썬팅</h5>
-								<p>루마 버텍스 900</p>
+								<p>버텍스 900 시리즈 기본 적용</p>
 							</li>
 							<li class="contact-receipt__options-list">
 								<h5>코팅</h5>
@@ -293,9 +293,9 @@ export class panameraReceipt {
 		if (this.currentPackage.id !== 2) {
 			const typeInput = this.selectedPackage.typeInputEl;
 			const selectedPackageType = this.selectedPackage.type;
-			this.currentPackage.typeEl = typeInput;
 			let typeChr = typeInput.value;
 			if (curTarget) {
+				this.currentPackage.typeEl = typeInput;
 				typeChr = curTarget.dataset.content;
 				typeInput.value = typeChr;
 			}
