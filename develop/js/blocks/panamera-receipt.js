@@ -291,14 +291,15 @@ export class panameraReceipt {
 	updatePackageTypeFunc(curTarget) {
 		// 메인터넌스 외 package types 선택
 		if (this.currentPackage.id !== 2) {
+			const typeInput = this.selectedPackage.typeInputEl;
+			const selectedPackageType = this.selectedPackage.type;
+			let typeChr = typeInput.value;
 			if (curTarget) {
-				const typeInput = this.selectedPackage.typeInputEl;
-				const selectedPackageType = this.selectedPackage.type;
-				let typeChr = curTarget.dataset.content;
 				this.currentPackage.typeEl = typeInput;
+				typeChr = curTarget.dataset.content;
 				typeInput.value = typeChr;
-				this.currentPackage.type = selectedPackageType.find((item) => item.content === typeChr);
 			}
+			this.currentPackage.type = selectedPackageType.find((item) => item.content === typeChr);
 			// 메인터넌스
 		} else {
 			this.currentPackage.typeEl = false;
