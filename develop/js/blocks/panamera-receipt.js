@@ -295,11 +295,12 @@ export class panameraReceipt {
 			const selectedPackageType = this.selectedPackage.type;
 			let typeChr = typeInput.value;
 			if (curTarget) {
-				this.currentPackage.typeEl = typeInput;
 				typeChr = curTarget.dataset.content;
 				typeInput.value = typeChr;
 			}
+			this.currentPackage.typeEl = typeInput;
 			this.currentPackage.type = selectedPackageType.find((item) => item.content === typeChr);
+			console.log(this.currentPackage);
 			// 메인터넌스
 		} else {
 			this.currentPackage.typeEl = false;
