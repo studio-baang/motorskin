@@ -212,14 +212,8 @@ export class panameraReceipt {
 		}
 
 		this.packageTypebuttons.forEach((el) => {
-			el.addEventListener("click", (event) => {
-				const curTarget = event.currentTarget;
-				if (curTarget.classList.contains("contact-type-button")) {
-					this.updateReceipt(curTarget);
-				}
-			});
+			el.addEventListener("click", this.updateReceipt.bind(this));
 		});
-
 		this.packageList.forEach((item) => {
 			if (item.id === 0) {
 				this.observe(item.tintingInputEl);
@@ -236,7 +230,10 @@ export class panameraReceipt {
 	}
 
 	updateReceipt(event) {
-		const curTarget = event && event.currentTarget && event.classList.contains("contact-type-button") ? event.currentTarget : false;
+		let activeTypeBtn = false;
+		if (event) {
+			activeTypeBtn = event.currentTarget && event.currentTarget.classList.contains("contact-type-button") ? event.currentTarget : false;
+		}
 
 		// update simple data
 		this.modelValue = this.modelInput.value;
@@ -248,12 +245,12 @@ export class panameraReceipt {
 		this.currentPackage.id = this.selectedPackage.id;
 
 		// update need filter data
-		this.updatePackageTypeFunc(curTarget);
+		this.updatePackageTypeFunc(activeTypeBtn);
 		this.updatePriceFunc();
 
 		// toggle class
 		this.toggleClassAsOptions();
-		this.toggleClassTypeButton(curTarget);
+		this.toggleClassTypeButton(activeTypeBtn);
 
 		// update html
 		this.updateReceiptTitleHTML();
@@ -262,16 +259,17 @@ export class panameraReceipt {
 		this.priceTag.innerHTML = this.price.toLocaleString("ko-KR");
 	}
 
-	toggleClassTypeButton(curTarget) {
-		if (curTarget) {
+	toggleClassTypeButton(activeTypeBtn) {
+		if (activeTypeBtn) {
 			this.packageTypebuttons.forEach((item) => {
 				// 화면에 표기된 버튼만 active를 지움
 				if (item.offsetParent !== null) {
 					item.classList.remove("contact-type-button--active");
 				}
 			});
-			curTarget.classList.add("contact-type-button--active");
+			activeTypeBtn.classList.add("contact-type-button--active");
 		}
+		return false;
 	}
 
 	toggleClassAsOptions() {
@@ -291,7 +289,6 @@ export class panameraReceipt {
 	}
 
 	updatePackageTypeFunc(curTarget) {
-		console.log(curTarget);
 		// 메인터넌스 외 package types 선택
 		if (this.currentPackage.id !== 2) {
 			const typeInput = this.selectedPackage.typeInputEl;
