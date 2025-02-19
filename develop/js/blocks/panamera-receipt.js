@@ -157,6 +157,7 @@ export class panameraReceipt {
 						content: "프론트",
 					},
 				],
+				tintingInputEl: document.querySelectorAll('input[name="package-02-custom-tinting"]'),
 			},
 			{
 				id: 2,
@@ -286,6 +287,38 @@ export class panameraReceipt {
 				});
 			}
 		});
+	}
+
+	toggleDisableInputs() {
+		// 메인터넌스 외 package types 선택
+		if (this.currentPackage.id !== 2) {
+			this.selectedPackage.typeInputEl.disabled = false;
+			this.selectedPackage.tintingInputEl.forEach((el) => {
+				el.disabled = false;
+			});
+			// 메인터넌스
+		} else {
+			this.selectedPackage.typeInputEl.disabled = true;
+			this.selectedPackage.tintingInputEl.forEach((el) => {
+				el.disabled = true;
+			});
+		}
+		// 신차 패키지
+		if (this.currentPackage.id === 0) {
+			this.selectedPackage.blackboxInputEl.forEach((el) => {
+				el.disabled = false;
+			});
+			this.selectedPackage.sportDesignInputEl.forEach((el) => {
+				el.disabled = false;
+			});
+		} else {
+			this.selectedPackage.blackboxInputEl.forEach((el) => {
+				el.disabled = true;
+			});
+			this.selectedPackage.sportDesignInputEl.forEach((el) => {
+				el.disabled = true;
+			});
+		}
 	}
 
 	updatePackageTypeFunc(curTarget) {
