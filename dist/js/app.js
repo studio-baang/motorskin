@@ -44,7 +44,7 @@
 							<li class="contact-receipt__options-list">
 								<h5>\u{CF54}\u{D305}</h5>
 								<p>\u{C138}\u{B77C}\u{BBF9}\u{D504}\u{B85C} \u{CF00}\u{C5B4} \u{D50C}\u{B7EC}\u{C2A4} \u{CF54}\u{D305}</p>
-							</li>`},typeInputEl:document.getElementById("package-01-type"),type:[{id:0,price:25e5,content:"주차안심"},{id:1,price:26e5,content:"프론트"}]},{id:2,content:"PPF 필름 메인터넌스",price:8e5,typeHTML:()=>`<li class="contact-receipt__options-list">
+							</li>`},typeInputEl:document.getElementById("package-02-type"),type:[{id:0,price:25e5,content:"주차안심"},{id:1,price:26e5,content:"프론트"}]},{id:2,content:"PPF 필름 메인터넌스",price:8e5,typeHTML:()=>`<li class="contact-receipt__options-list">
 								<h5>\u{D504}\u{B9AC}\u{BBF8}\u{C5C4} \u{B514}\u{D14C}\u{C77C}\u{B9C1} \u{C138}\u{CC28}</h5>
 							</li>
 							<li class="contact-receipt__options-list">

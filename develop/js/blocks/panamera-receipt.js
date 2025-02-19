@@ -144,7 +144,7 @@ export class panameraReceipt {
 								<p>세라믹프로 케어 플러스 코팅</p>
 							</li>`;
 				},
-				typeInputEl: document.getElementById("package-01-type"),
+				typeInputEl: document.getElementById("package-02-type"),
 				type: [
 					{
 						id: 0,
