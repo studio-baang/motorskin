@@ -99,8 +99,7 @@
 				line-height: 2em;
 				border-bottom: 1px solid #141414;
 			}
-			[type="radio"],
-			[type="checkbox"] {
+			[type="radio"] {
 				display: none;
 				border: 1px solid #525252;
 				&:checked + .wpcf7-list-item-label {
