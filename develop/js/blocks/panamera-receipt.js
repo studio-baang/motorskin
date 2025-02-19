@@ -215,7 +215,7 @@ export class panameraReceipt {
 			el.addEventListener("click", (event) => {
 				const curTarget = event.currentTarget;
 				if (curTarget.classList.contains("contact-type-button")) {
-					console.log("am i work");
+					this.updateReceipt(curTarget);
 				}
 			});
 		});
