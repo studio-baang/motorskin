@@ -235,7 +235,9 @@ export class panameraReceipt {
 		el.addEventListener("input", this.updateReceipt.bind(this));
 	}
 
-	updateReceipt(curTarget) {
+	updateReceipt(event) {
+		const curTarget = event.currentTarget && event.classList.contains("contact-type-button") ? event.currentTarget : false;
+
 		// update simple data
 		this.modelValue = this.modelInput.value;
 		for (const packageInput of this.packageInputs) {
@@ -246,12 +248,12 @@ export class panameraReceipt {
 		this.currentPackage.id = this.selectedPackage.id;
 
 		// update need filter data
-		this.updatePackageTypeFunc(curTarget ?? false);
+		this.updatePackageTypeFunc(curTarget);
 		this.updatePriceFunc();
 
 		// toggle class
 		this.toggleClassAsOptions();
-		this.toggleClassTypeButton(curTarget ?? false);
+		this.toggleClassTypeButton(curTarget);
 
 		// update html
 		this.updateReceiptTitleHTML();
