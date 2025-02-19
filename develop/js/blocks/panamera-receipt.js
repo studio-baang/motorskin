@@ -236,7 +236,7 @@ export class panameraReceipt {
 	}
 
 	updateReceipt(event) {
-		const curTarget = event.currentTarget && event.classList.contains("contact-type-button") ? event.currentTarget : false;
+		const curTarget = event && event.currentTarget && event.classList.contains("contact-type-button") ? event.currentTarget : false;
 
 		// update simple data
 		this.modelValue = this.modelInput.value;
