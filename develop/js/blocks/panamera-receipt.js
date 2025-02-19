@@ -291,25 +291,25 @@ export class panameraReceipt {
 		});
 	}
 
-	toggleDisableInputs() {
-		function controlInputDisable(input, boolean) {
-			if (input) {
-				if (input instanceof NodeList) {
-					input.forEach((el) => {
-						el.disabled = boolean;
-					});
-					return false;
-				}
-				input.disabled = boolean;
+	controlInputDisable(input, boolean) {
+		if (input) {
+			if (input instanceof NodeList) {
+				input.forEach((el) => {
+					el.disabled = boolean;
+				});
+				return false;
 			}
+			input.disabled = boolean;
 		}
+	}
 
+	toggleDisableInputs() {
 		this.packageList.forEach((packageItem) => {
-			controlInputDisable(packageItem.typeInputEl, true);
-			controlInputDisable(packageItem.tintingInputEl, true);
-			controlInputDisable(packageItem.customTintingInputEls, true);
-			controlInputDisable(packageItem.sportDesignInputEls, true);
-			controlInputDisable(packageItem.blackboxInputEl, true);
+			this.controlInputDisable(packageItem.typeInputEl, true);
+			this.controlInputDisable(packageItem.tintingInputEl, true);
+			this.controlInputDisable(packageItem.customTintingInputEls, true);
+			this.controlInputDisable(packageItem.sportDesignInputEls, true);
+			this.controlInputDisable(packageItem.blackboxInputEl, true);
 		});
 		if (this.currentPackage.id !== 2) {
 			// 메인터넌스 외 package types 선택
@@ -323,7 +323,7 @@ export class panameraReceipt {
 			});
 		}
 		if (this.currentPackage.id === 1) {
-			controlInputDisable(this.selectedPackage.customTintingInputEls, false);
+			this.controlInputDisable(this.selectedPackage.customTintingInputEls, false);
 		}
 	}
 
