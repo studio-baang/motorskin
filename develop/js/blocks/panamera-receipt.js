@@ -281,6 +281,7 @@ export class panameraReceipt {
 		// 메인터넌스 외 package types 선택
 		if (this.currentPackage.id !== 2) {
 			const typeInput = this.selectedPackage.typeInputEl;
+			const selectedPackageType = this.selectedPackage.type;
 			this.currentPackage.typeEl = typeInput;
 			let typeChr = typeInput.value;
 			if (curTarget) {
