@@ -10,6 +10,7 @@ export class panameraReceipt {
 		this.packageInputs = document.querySelectorAll('input[name="package"]');
 		this.packageValue = "";
 
+		this.packageTypeValue = "";
 		this.priceTag = document.getElementById("contact-receipt-amount");
 
 		this.modelInput = document.querySelector('select[name="model"]');
@@ -48,7 +49,7 @@ export class panameraReceipt {
 								<p><b>유리 초발수</b> RAIN<br><b>실내 가죽</b>  탑코드 / 9H<br><b>휠 코팅</b>  휠 & 캘리퍼</p>
 							</li>`;
 				},
-				typeInputEl: document.querySelectorAll('input[name="package-01-type"]'),
+				typeInputEl: document.getElementById("package-01-type"),
 				type: [
 					{
 						id: 0,
@@ -141,7 +142,7 @@ export class panameraReceipt {
 								<p>세라믹프로 케어 플러스 코팅</p>
 							</li>`;
 				},
-				typeInputEl: document.querySelectorAll('input[name="package-02-type"]'),
+				typeInputEl: document.getElementById("package-01-type"),
 				type: [
 					{
 						id: 0,
@@ -187,6 +188,7 @@ export class panameraReceipt {
 
 		this.currentPackage = {
 			id: 0,
+			typeEl: {},
 			type: {},
 			tinting: "",
 			sportDesign: "",
@@ -206,6 +208,14 @@ export class panameraReceipt {
 		for (const packageInput of this.packageInputs) {
 			this.observe(packageInput);
 		}
+
+		const bodyEl = document.querySelector(".contact-form__body");
+		bodyEl.addEventListener("click", (event) => {
+			const curTarget = event.currentTarget;
+			if (curTarget.classList.contains("contact-type-button")) {
+				this.updateReceipt(curTarget);
+			}
+		});
 
 		this.packageList.forEach((item) => {
 			if (item.id !== 2) {
@@ -227,7 +237,7 @@ export class panameraReceipt {
 		el.addEventListener("input", this.updateReceipt.bind(this));
 	}
 
-	updateReceipt() {
+	updateReceipt(curTarget) {
 		// update simple data
 		this.modelValue = this.modelInput.value;
 		for (const packageInput of this.packageInputs) {
@@ -238,7 +248,7 @@ export class panameraReceipt {
 		this.currentPackage.id = this.selectedPackage.id;
 
 		// update need filter data
-		this.updatePackageTypeFunc();
+		this.updatePackageTypeFunc(curTarget);
 		this.updatePriceFunc();
 
 		// toggle class
@@ -267,18 +277,20 @@ export class panameraReceipt {
 		});
 	}
 
-	updatePackageTypeFunc() {
-		// set package types
+	updatePackageTypeFunc(curTarget) {
+		// 메인터넌스 외 package types 선택
 		if (this.currentPackage.id !== 2) {
-			const typeInputs = this.selectedPackage.typeInputEl;
-			for (const typeInput of typeInputs) {
-				if (typeInput.checked) {
-					const selectedPackageType = this.selectedPackage.type;
-					this.currentPackage.type = selectedPackageType.find((item) => item.content === typeInput.value);
-				}
+			const typeInput = this.selectedPackage.typeInputEl;
+			this.currentPackage.typeEl = typeInput;
+			let typeChr = typeInput.value;
+			if (curTarget) {
+				typeChr = curTarget.dataset.content;
+				typeInput.value = typeChr;
 			}
+			this.currentPackage.type = selectedPackageType.find((item) => item.content === typeChr);
 			// 메인터넌스
 		} else {
+			this.currentPackage.typeEl = false;
 			this.currentPackage.type = false;
 		}
 		// 신차 패키지

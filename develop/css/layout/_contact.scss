@@ -203,6 +203,38 @@
 			display: flex;
 		}
 	}
+	&-type-button {
+		padding: 1em;
+		border: 1px solid #525252;
+		border-radius: 0.5em;
+		opacity: 0.4;
+		transition: opacity 0.15s;
+		&:hover {
+			opacity: 0.7;
+		}
+		&--active {
+			opacity: 1;
+			border: 1px solid #e62367;
+		}
+		&__wrapper {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		&__row {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+		}
+		&__origin-price {
+			text-decoration: line-through;
+		}
+		&__discount-price {
+			color: #e62367;
+			font-weight: 700;
+			font-size: 1.125em;
+		}
+	}
 	.swiper-slide {
 		background: center center / cover no-repeat;
 		filter: grayscale(1);
