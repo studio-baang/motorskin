@@ -102,7 +102,7 @@ export class panameraReceipt {
 						price: -600000,
 					},
 				],
-				sportDesignInputEl: document.querySelectorAll('input[name="package-sport-design"]'),
+				sportDesignInputEls: document.querySelectorAll('input[name="package-sport-design"]'),
 				sportDesign: [
 					{
 						content: "스포츠 디자인 패키지 추가 (+500,000원)",
@@ -157,7 +157,7 @@ export class panameraReceipt {
 						content: "프론트",
 					},
 				],
-				tintingInputEl: document.querySelectorAll('input[name="package-02-custom-tinting"]'),
+				customTintingInputEls: document.querySelectorAll('input[name="package-02-custom-tinting"]'),
 			},
 			{
 				id: 2,
@@ -219,7 +219,7 @@ export class panameraReceipt {
 			if (item.id === 0) {
 				this.observe(item.tintingInputEl);
 				this.observe(item.blackboxInputEl);
-				item.sportDesignInputEl.forEach((item) => {
+				item.sportDesignInputEls.forEach((item) => {
 					this.observe(item);
 				});
 			}
@@ -324,7 +324,7 @@ export class panameraReceipt {
 		// 신차 패키지
 		if (this.currentPackage.id === 0) {
 			const tintingInput = this.selectedPackage.tintingInputEl;
-			const sportDesignInputs = this.selectedPackage.sportDesignInputEl;
+			const sportDesignInputs = this.selectedPackage.sportDesignInputEls;
 			const blackInput = this.selectedPackage.blackboxInputEl;
 
 			// tinting
