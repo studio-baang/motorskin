@@ -246,12 +246,12 @@ export class panameraReceipt {
 		this.currentPackage.id = this.selectedPackage.id;
 
 		// update need filter data
-		this.updatePackageTypeFunc(curTarget);
+		this.updatePackageTypeFunc(curTarget ?? false);
 		this.updatePriceFunc();
 
 		// toggle class
 		this.toggleClassAsOptions();
-		this.toggleClassTypeButton(curTarget);
+		this.toggleClassTypeButton(curTarget ?? false);
 
 		// update html
 		this.updateReceiptTitleHTML();
