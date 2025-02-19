@@ -247,7 +247,8 @@ export class panameraReceipt {
 		this.updatePriceFunc();
 
 		// toggle class
-		this.toggleClassAsOptions(curTarget);
+		this.toggleClassAsOptions();
+		this.toggleClassTypeButton(curTarget);
 
 		// update html
 		this.updateReceiptTitleHTML();
