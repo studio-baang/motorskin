@@ -211,11 +211,13 @@ export class panameraReceipt {
 			this.observe(packageInput);
 		}
 
-		this.packageTypebuttons.addEventListener("click", (event) => {
-			const curTarget = event.currentTarget;
-			if (curTarget.classList.contains("contact-type-button")) {
-				console.log("am i work");
-			}
+		this.packageTypebuttons.forEach((el) => {
+			el.addEventListener("click", (event) => {
+				const curTarget = event.currentTarget;
+				if (curTarget.classList.contains("contact-type-button")) {
+					console.log("am i work");
+				}
+			});
 		});
 
 		this.packageList.forEach((item) => {
