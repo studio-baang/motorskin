@@ -218,11 +218,6 @@ export class panameraReceipt {
 		});
 
 		this.packageList.forEach((item) => {
-			if (item.id !== 2) {
-				item.typeInputEl.forEach((item) => {
-					this.observe(item);
-				});
-			}
 			if (item.id === 0) {
 				this.observe(item.tintingInputEl);
 				this.observe(item.blackboxInputEl);
@@ -252,13 +247,26 @@ export class panameraReceipt {
 		this.updatePriceFunc();
 
 		// toggle class
-		this.toggleClassAsOptions();
+		this.toggleClassAsOptions(curTarget);
 
 		// update html
 		this.updateReceiptTitleHTML();
 		this.updateReceiptPackageNameHTML();
 		this.updateReceiptDetailHTML();
 		this.priceTag.innerHTML = this.price.toLocaleString("ko-KR");
+	}
+
+	toggleClassTypeButton(curTarget) {
+		if (curTarget) {
+			const buttons = document.querySelectorAll(".contact-type-button");
+			buttons.forEach((item) => {
+				// 화면에 표기된 버튼만 active를 지움
+				if (item.offsetParent !== null) {
+					item.classList.remove("contact-type-button--active");
+				}
+			});
+			curTarget.classList.add("contact-type-button--active");
+		}
 	}
 
 	toggleClassAsOptions() {
