@@ -43,3 +43,18 @@ add_filter( 'wpcf7_form_tag', 'pine_dynamic_select_field_values', 10, 2);
 // remove p tag
 add_filter('wpcf7_autop_or_not', '__return_false');
 
+// ignore hidden inputs
+add_filter('wpcf7_posted_data', function ($posted_data) {
+    if (!is_array($posted_data)) {
+        return $posted_data;
+    }
+
+    foreach ($posted_data as $key => $value) {
+        // input 요소가 hidden 상태라면 unset 처리
+        if (strpos($key, 'hidden_') !== false) {
+            unset($posted_data[$key]);
+        }
+    }
+
+    return $posted_data;
+});
