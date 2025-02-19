@@ -253,7 +253,7 @@ export class panameraReceipt {
 		this.toggleClassAsOptions();
 		this.toggleClassTypeButton(activeTypeBtn);
 
-		// this.toggleDisableInputs();
+		this.toggleDisableInputs();
 
 		// update html
 		this.updateReceiptTitleHTML();
@@ -292,15 +292,38 @@ export class panameraReceipt {
 	}
 
 	toggleDisableInputs() {
-		// 메인터넌스 외 package types 선택
+		function controlInputDisable(input, boolean) {
+			if (input) {
+				if (input instanceof NodeList) {
+					input.forEach((el) => {
+						el.disabled = boolean;
+					});
+					return false;
+				}
+				input.disabled = boolean;
+			}
+		}
+
+		this.packageList.forEach((packageItem) => {
+			controlInputDisable(packageItem.typeInputEl, true);
+			controlInputDisable(packageItem.tintingInputEl, true);
+			controlInputDisable(packageItem.customTintingInputEls, true);
+			controlInputDisable(packageItem.sportDesignInputEls, true);
+			controlInputDisable(packageItem.blackboxInputEl, true);
+		});
 		if (this.currentPackage.id !== 2) {
+			// 메인터넌스 외 package types 선택
 			this.selectedPackage.typeInputEl.disabled = false;
-			// 메인터넌스
-		} else {
-			this.selectedPackage.typeInputEl.disabled = true;
-			this.selectedPackage.tintingInputEl.forEach((el) => {
+		}
+		if (this.currentPackage.id === 0) {
+			this.selectedPackage.tintingInputEl.disabled = false;
+			this.selectedPackage.blackboxInputEl = false;
+			this.selectedPackage.sportDesignInputEls.forEach((el) => {
 				el.disabled = true;
 			});
+		}
+		if (this.currentPackage.id === 1) {
+			controlInputDisable(this.selectedPackage.customTintingInputEls, false);
 		}
 	}
 
