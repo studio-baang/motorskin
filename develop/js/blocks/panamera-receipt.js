@@ -289,6 +289,7 @@ export class panameraReceipt {
 	}
 
 	updatePackageTypeFunc(curTarget) {
+		console.log(curTarget);
 		// 메인터넌스 외 package types 선택
 		if (this.currentPackage.id !== 2) {
 			const typeInput = this.selectedPackage.typeInputEl;
@@ -300,7 +301,6 @@ export class panameraReceipt {
 			}
 			this.currentPackage.typeEl = typeInput;
 			this.currentPackage.type = selectedPackageType.find((item) => item.content === typeChr);
-			console.log(this.currentPackage);
 			// 메인터넌스
 		} else {
 			this.currentPackage.typeEl = false;
