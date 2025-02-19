@@ -198,8 +198,10 @@
 	}
 	&-option {
 		display: none;
+		visibility: hidden;
 		&--active {
 			display: flex;
+			visibility: visible;
 		}
 	}
 	&-type-button {
