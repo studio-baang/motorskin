@@ -32,6 +32,8 @@ export function setServiceListAnim() {
 		window.addEventListener(
 			"resize",
 			debounce(() => {
+				console.log("뭐야 씨이발");
+
 				listAnimArr.forEach((item) => item.onResize());
 			}, 150)
 		);
