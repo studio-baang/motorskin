@@ -10,6 +10,7 @@ export function setServiceListAnim() {
 		for (let i = 0; i < listItems.length; i++) {
 			const listItem = listItems[i];
 			const anim = new ServiceList(listItem);
+			anim.resizeFunc();
 			listAnimArr.push(anim);
 
 			listItem.addEventListener("click", (e) => {

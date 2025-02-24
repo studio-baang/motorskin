@@ -39,8 +39,6 @@ export class ServiceList {
 			duration: this.duration,
 			ease: "power2.inOut",
 		};
-
-		this.resizeFunc();
 	}
 
 	enterAnim() {
