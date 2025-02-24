@@ -147,9 +147,7 @@ export class ServiceList {
 
 		this.resizeAnim();
 		gsap.matchMediaRefresh();
-		console.log("load test");
 		if (this.isDesktop) {
-			console.log("am i loaded?");
 			this.el.addEventListener("mouseenter", this.onEnter);
 		} else {
 			this.el.removeEventListener("mouseenter", this.onEnter);
