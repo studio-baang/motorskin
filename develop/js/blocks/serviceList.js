@@ -32,9 +32,6 @@ export class ServiceList {
 
 		this.isActive = false;
 
-		this.onEnter = this.onEnter.bind(this);
-		this.onLeave = this.onLeave.bind(this);
-
 		this.elBasicGsap = {
 			scale: 1,
 			width: false,
@@ -43,7 +40,7 @@ export class ServiceList {
 			ease: "power2.inOut",
 		};
 
-		this.onResize();
+		this.resizeFunc();
 	}
 
 	enterAnim() {
@@ -108,17 +105,17 @@ export class ServiceList {
 		});
 	}
 
-	onEnter() {
+	onEnter = () => {
 		this.enterAnim();
 		this.el.removeEventListener("mouseenter", this.onEnter);
 		this.el.addEventListener("mouseleave", this.onLeave);
-	}
+	};
 
-	onLeave() {
+	onLeave = () => {
 		this.resetAnim();
 		this.el.removeEventListener("mouseleave", this.onLeave);
 		this.el.addEventListener("mouseenter", this.onEnter);
-	}
+	};
 
 	onClick() {
 		if (this.isActive) {
@@ -146,20 +143,22 @@ export class ServiceList {
 		});
 	}
 
+	resizeFunc = () => {
+		this.vw = window.innerWidth;
+		this.isDesktop = this.vw > this.breakPoint ? true : false;
+
+		this.resizeAnim();
+		gsap.matchMediaRefresh();
+
+		if (this.isDesktop) {
+			this.el.addEventListener("mouseenter", this.onEnter);
+		} else {
+			this.el.removeEventListener("mouseenter", this.onEnter);
+			this.el.removeEventListener("mouseleave", this.onLeave);
+		}
+	};
+
 	onResize() {
-		ignoreMobileHeaderWhenResizingWindow(() => {
-			this.vw = window.innerWidth;
-			this.isDesktop = this.vw > this.breakPoint ? true : false;
-
-			this.resizeAnim();
-			gsap.matchMediaRefresh();
-
-			if (this.isDesktop) {
-				this.el.addEventListener("mouseenter", this.onEnter);
-			} else {
-				this.el.removeEventListener("mouseenter", this.onEnter);
-				this.el.removeEventListener("mouseleave", this.onLeave);
-			}
-		});
+		ignoreMobileHeaderWhenResizingWindow(this.resizeFunc);
 	}
 }
