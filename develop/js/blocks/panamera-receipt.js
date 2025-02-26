@@ -398,15 +398,15 @@ export class panameraReceipt {
 		if (this.currentPackage.id === 0) {
 			const ignorePackage = this.packageList[1];
 			resetInputsValue(ignorePackage.typeInputEl);
-			resetInputsValue(ignorePackage.tintingInputEl);
-			resetInputsValue(ignorePackage.sportDesignInputEls);
-			resetInputsValue(ignorePackage.blackboxInputEl);
+			resetInputsValue(ignorePackage.customTintingInputEls);
 			// 신차 패키지
 		} else if (this.currentPackage.id === 1) {
 			// 올인원 패키지
 			const ignorePackage = this.packageList[0];
 			resetInputsValue(ignorePackage.typeInputEl);
-			resetInputsValue(ignorePackage.customTintingInputEls);
+			resetInputsValue(ignorePackage.tintingInputEl);
+			resetInputsValue(ignorePackage.sportDesignInputEls);
+			resetInputsValue(ignorePackage.blackboxInputEl);
 		} else {
 			// 메인터넌스
 			return false;
