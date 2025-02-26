@@ -304,7 +304,9 @@ export class panameraReceipt {
 				typeInput.value = typeChr;
 			}
 			this.currentPackage.typeEl = typeInput;
-			this.currentPackage.type = selectedPackageType.find((item) => item.content === typeChr);
+			const findType = selectedPackageType.find((item) => item.content === typeChr);
+			const defaultType = selectedPackageType[0];
+			this.currentPackage.type = findType ?? defaultType;
 			// 메인터넌스
 		} else {
 			this.currentPackage.typeEl = false;
@@ -344,6 +346,8 @@ export class panameraReceipt {
 	updatePriceFunc() {
 		// set package types
 		let calcPrice = 0;
+		console.log(this.currentPackage);
+
 		if (this.currentPackage.id !== 2) {
 			calcPrice = this.currentPackage.type.price;
 		} else {
