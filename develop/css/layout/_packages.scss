@@ -32,6 +32,7 @@
 		overflow: hidden;
 		aspect-ratio: 2 / 1;
 		@include media-tablet {
+			aspect-ratio: 0.65;
 			background-position: left bottom;
 		}
 		&--inactive {
@@ -66,7 +67,6 @@
 			padding: min(3.5vw, 28px);
 			box-sizing: border-box;
 			@container (max-width:380px) {
-				aspect-ratio: 0.65;
 				justify-content: flex-start;
 				background: none;
 			}
