@@ -202,6 +202,7 @@ export class panameraReceipt {
 
 		if (this.receipt) {
 			this.init();
+			this.form.addEventListener("submit", this.ignoreOtherInputs());
 		}
 	}
 
@@ -225,8 +226,6 @@ export class panameraReceipt {
 				});
 			}
 		});
-
-		this.form.addEventListener("submit", this.ignoreOtherInputs());
 	}
 
 	observe(el) {
@@ -391,8 +390,6 @@ export class panameraReceipt {
 				});
 				return false;
 			}
-			console.log(el);
-
 			el.value = "";
 		}
 		if (this.currentPackage.id === 0) {
