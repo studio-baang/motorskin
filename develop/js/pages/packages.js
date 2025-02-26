@@ -121,9 +121,7 @@ export function packagesInit() {
 		activePackges = new PanameraPackages();
 	}
 
-	document.addEventListener("DOMContentLoaded", () => {
-		if (activePackges.PackageSliderDom) {
-			activePackges.createSwiper();
-		}
-	});
+	if (activePackges.PackageSliderDom) {
+		activePackges.createSwiper();
+	}
 }
