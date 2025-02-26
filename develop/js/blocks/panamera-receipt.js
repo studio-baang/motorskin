@@ -5,6 +5,7 @@ export class panameraReceipt {
 	constructor() {
 		this.sitename = getSiteName();
 
+		this.form = document.querySelector(".wpcf7-form");
 		this.receipt = document.querySelector(".contact-receipt");
 
 		this.packageInputs = document.querySelectorAll('input[name="package"]');
@@ -224,6 +225,8 @@ export class panameraReceipt {
 				});
 			}
 		});
+
+		this.form.addEventListener("submit", this.ignoreOtherInputs());
 	}
 
 	observe(el) {
@@ -289,42 +292,6 @@ export class panameraReceipt {
 				});
 			}
 		});
-	}
-
-	controlInputDisable(input, boolean) {
-		if (input) {
-			if (input instanceof NodeList) {
-				input.forEach((el) => {
-					el.disabled = boolean;
-				});
-				return false;
-			}
-			input.disabled = boolean;
-		}
-	}
-
-	toggleDisableInputs() {
-		this.packageList.forEach((packageItem) => {
-			this.controlInputDisable(packageItem.typeInputEl, true);
-			this.controlInputDisable(packageItem.tintingInputEl, true);
-			this.controlInputDisable(packageItem.customTintingInputEls, true);
-			this.controlInputDisable(packageItem.sportDesignInputEls, true);
-			this.controlInputDisable(packageItem.blackboxInputEl, true);
-		});
-		if (this.currentPackage.id !== 2) {
-			// 메인터넌스 외 package types 선택
-			this.selectedPackage.typeInputEl.disabled = false;
-		}
-		if (this.currentPackage.id === 0) {
-			this.selectedPackage.tintingInputEl.disabled = false;
-			this.selectedPackage.blackboxInputEl = false;
-			this.selectedPackage.sportDesignInputEls.forEach((el) => {
-				el.disabled = true;
-			});
-		}
-		if (this.currentPackage.id === 1) {
-			this.controlInputDisable(this.selectedPackage.customTintingInputEls, false);
-		}
 	}
 
 	updatePackageTypeFunc(curTarget) {
@@ -415,4 +382,32 @@ export class panameraReceipt {
 			blackbox: this.currentPackage.blackbox,
 		});
 	}
+	// form 제출 시 선택한 패키지를 제외한 값을 제거
+	ignoreOtherInputs = () => {
+		function resetInputsValue(el) {
+			if (el instanceof NodeList) {
+				el.forEach((item) => {
+					item.value = "";
+				});
+				return false;
+			}
+			el.value = "";
+		}
+		if (this.currentPackage.id === 0) {
+			const ignorePackage = this.packageList[1];
+			resetInputsValue(ignorePackage.typeInputEl);
+			resetInputsValue(ignorePackage.tintingInputEl);
+			resetInputsValue(ignorePackage.sportDesignInputEls);
+			resetInputsValue(ignorePackage.blackboxInputEl);
+			// 신차 패키지
+		} else if (this.currentPackage.id === 1) {
+			// 올인원 패키지
+			const ignorePackage = this.packageList[0];
+			resetInputsValue(ignorePackage.typeInputEl);
+			resetInputsValue(ignorePackage.customTintingInputEls);
+		} else {
+			// 메인터넌스
+			return false;
+		}
+	};
 }
