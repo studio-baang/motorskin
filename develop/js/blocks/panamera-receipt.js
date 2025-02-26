@@ -391,6 +391,8 @@ export class panameraReceipt {
 				});
 				return false;
 			}
+			console.log(el);
+
 			el.value = "";
 		}
 		if (this.currentPackage.id === 0) {
