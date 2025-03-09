@@ -32,11 +32,12 @@
 	box-sizing: content-box;
 	justify-content: center;
 	align-items: center;
+	position: absolute;
 	z-index: 1;
 	&__line {
 		width: 32px;
 		height: 3px;
-		background-color: #414141;
+		background-color: #777;
 		position: absolute;
 		transition: 0.3s;
 		will-change: transform;
@@ -47,19 +48,19 @@
 			transform: scaleX(1);
 		}
 		&:nth-child(3) {
-			transform: translateY(-10px);
+			transform: translateY(10px);
 		}
 	}
-	&.active {
+	&--active {
 		.header-icon__line {
 			&:nth-child(1) {
-				transform: translateY(0px) rotate("45deg");
+				transform: translateY(0px) rotate(45deg);
 			}
 			&:nth-child(2) {
 				transform: scaleX(0);
 			}
 			&:nth-child(3) {
-				transform: translateY(-10px) rotate("-45deg");
+				transform: translateY(0px) rotate(-45deg);
 			}
 		}
 	}
@@ -81,7 +82,7 @@
 		color: #222;
 		opacity: 0.4;
 		transition: 0.3s;
-		will-change: padding opacity;
+		will-change: padding-bottom, opacity;
 		&--active {
 			opacity: 1;
 		}
@@ -113,5 +114,7 @@
 	position: absolute;
 	opacity: 0;
 	visibility: hidden;
-	transform: 0.3s;
+	transition: 0.3s;
+	padding: 0.5em 0;
+	color: #444;
 }
