@@ -39,12 +39,12 @@
 			display: none;
 		}
 		&--panamera {
-			@include media-tablet {
-				aspect-ratio: auto;
-			}
 			width: min(50vw, 420px);
 			aspect-ratio: 0.875;
 			background: bottom center / contain no-repeat #fff;
+			@include media-tablet {
+				aspect-ratio: auto;
+			}
 			.package-card {
 				&__wrapper {
 					justify-content: flex-start;
