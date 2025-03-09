@@ -36,15 +36,17 @@
 				height: 2px;
 				transform: scaleX(0);
 				transform-origin: 0%;
-				transition: 0.4s;
+				transition: 0.3s;
 				will-change: transform;
 				content: "";
 			}
 			&--has-child {
 				&:hover {
-					margin-bottom: 3em;
+					margin-bottom: 3rem;
 					.sub-menu {
-						transform: translateY(3em);
+						transform: translateY(3.5rem);
+						opacity: 1;
+						visibility: visible;
 					}
 				}
 			}
@@ -61,5 +63,8 @@
 		font-weight: 400;
 		font-size: 1.25rem;
 		position: absolute;
+		opacity: 0;
+		visibility: hidden;
+		transform: 0.3s;
 	}
 }
