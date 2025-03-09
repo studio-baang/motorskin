@@ -16,6 +16,12 @@
 	z-index: 1000;
 	background-color: white;
 	align-items: center;
+	&__wrapper {
+		width: 96%;
+		max-width: 1440px;
+		margin: 0 auto;
+		position: relative;
+	}
 }
 
 .header-logo {
@@ -37,7 +43,7 @@
 	z-index: 1;
 	&__line {
 		width: 32px;
-		height: 3px;
+		height: 2px;
 		background-color: #777;
 		position: absolute;
 		transition: 0.3s;
