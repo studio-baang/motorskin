@@ -31,6 +31,8 @@ class App {
 				aftercareParallax();
 			} else if (namespace == "franchises") {
 				createFranchisesMap();
+			} else if (namespace == "automotive") {
+				new Faq();
 			}
 		});
 	}
