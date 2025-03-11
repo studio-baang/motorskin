@@ -7,6 +7,7 @@ import { createFranchisesMap } from "./pages/franchises";
 import { debounce } from "lodash";
 import { setVh } from "./utils/set-vh";
 import { setServiceListAnim } from "./pages/home";
+import { Faq } from "./pages/automotive";
 
 class App {
 	constructor() {

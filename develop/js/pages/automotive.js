@@ -1,4 +1,4 @@
-class Faq {
+export class Faq {
 	constructor() {
 		this.items = document.querySelectorAll(".faq__item");
 

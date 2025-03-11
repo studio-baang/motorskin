@@ -5,6 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	&__item {
+		display: block;
 		padding: 1.5em 16px;
 		border-bottom: 1px solid #eeeeee;
 		&::marker {
@@ -39,6 +40,7 @@
 			font-size: 1.5em;
 			width: 100%;
 			display: flex;
+			flex-direction: row;
 			align-items: center;
 			position: relative;
 			&::after {
