@@ -2,11 +2,9 @@ export class Faq {
 	constructor() {
 		this.items = document.querySelectorAll(".faq__item");
 
-		document.addEventListener("DOMContentLoaded", this.init);
+		this.init();
 	}
 	init = (e) => {
-		console.log("waht");
-
 		this.onLoad();
 		this.items.forEach((item) => {
 			item.addEventListener("click", this.onClick);
