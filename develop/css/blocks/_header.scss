@@ -108,6 +108,9 @@
 					transform: translateY(3.5rem);
 					opacity: 1;
 					visibility: visible;
+					@include media-tablet {
+						transform: translateY(5rem);
+					}
 				}
 			}
 		}
@@ -130,4 +133,9 @@
 	transition: 0.3s;
 	padding: 0.5em 0;
 	color: #444;
+	@include media-tablet {
+		flex-direction: column;
+		gap: 0.5rem;
+		text-align: center;
+	}
 }
