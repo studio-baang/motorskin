@@ -104,6 +104,9 @@
 		}
 		&--has-child {
 			&:hover {
+				@include media-tablet {
+					padding-bottom: 6rem;
+				}
 				.sub-menu {
 					transform: translateY(3.5rem);
 					opacity: 1;
