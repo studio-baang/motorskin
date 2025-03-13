@@ -204,6 +204,7 @@
 		&--active {
 			opacity: 1;
 			position: inherit;
+			z-index: auto;
 		}
 	}
 	&-type-button {

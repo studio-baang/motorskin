@@ -11,8 +11,9 @@ export class panameraReceipt {
 		this.packageInputs = document.querySelectorAll('input[name="package"]');
 		this.packageValue = "";
 
-		this.packageTypebuttons = document.querySelectorAll(".contact-type-button");
-		this.packageTypeValue = "";
+		this.typeInput = document.querySelector("#package-type");
+		this.typebuttons = document.querySelectorAll(".contact-type-button");
+		this.activeTypeClassName = "contact-type-button--active";
 
 		this.priceTag = document.getElementById("contact-receipt-amount");
 
@@ -20,6 +21,8 @@ export class panameraReceipt {
 		this.modelValue = this.modelInput.value;
 
 		this.price = 0;
+
+		this.currentTarget = "";
 
 		this.packageList = [
 			{
@@ -192,7 +195,6 @@ export class panameraReceipt {
 
 		this.currentPackage = {
 			id: 0,
-			typeEl: {},
 			type: {},
 			tinting: "",
 			sportDesign: "",
@@ -201,11 +203,11 @@ export class panameraReceipt {
 		this.selectedPackage = this.packageList[this.currentPackage.id];
 
 		if (this.receipt) {
-			this.init();
+			this.setEvents();
 		}
 	}
 
-	init() {
+	setEvents() {
 		this.updateReceipt();
 		this.observe(this.modelInput);
 
@@ -213,7 +215,7 @@ export class panameraReceipt {
 			this.observe(packageInput);
 		}
 
-		this.packageTypebuttons.forEach((el) => {
+		this.typebuttons.forEach((el) => {
 			el.addEventListener("click", this.updateReceipt.bind(this));
 		});
 		this.packageList.forEach((item) => {
@@ -232,10 +234,7 @@ export class panameraReceipt {
 	}
 
 	updateReceipt(event) {
-		let activeTypeBtn = false;
-		if (event) {
-			activeTypeBtn = event.currentTarget && event.currentTarget.classList.contains("contact-type-button") ? event.currentTarget : false;
-		}
+		this.currentTarget = event.currentTarget;
 
 		// update simple data
 		this.modelValue = this.modelInput.value;
@@ -249,12 +248,18 @@ export class panameraReceipt {
 		// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
 
 		// update need filter data
-		this.updatePackageTypeFunc(activeTypeBtn);
+
+		this.updateOptionFunc();
 		this.updatePriceFunc();
+
+		// 현재 일어난 이벤트가 type button을 클릭했다면 type data를 업데이트합니다.
+		if (this.currentTarget.classList.contains("contact-type-button")) {
+			this.updateType();
+		}
 
 		// toggle class
 		this.toggleClassAsOptions();
-		this.toggleClassTypeButton(activeTypeBtn);
+		this.toggleClassTypeButton();
 
 		// update html
 		this.updateReceiptTitleHTML();
@@ -263,13 +268,13 @@ export class panameraReceipt {
 		this.priceTag.innerHTML = this.price.toLocaleString("ko-KR");
 	}
 
-	toggleClassTypeButton(activeTypeBtn) {
-		if (activeTypeBtn) {
-			this.packageTypebuttons.forEach((item) => {
-				item.classList.remove("contact-type-button--active");
-			});
-			activeTypeBtn.classList.add("contact-type-button--active");
-		}
+	toggleClassTypeButton() {
+		this.typebuttons.forEach((typeButton) => {
+			typeButton.classList.remove(this.activeTypeClassName);
+			if (typeButton.dataset.content == this.typeInput.value) {
+				typeButton.classList.add(this.activeTypeClassName);
+			}
+		});
 		return false;
 	}
 
@@ -289,25 +294,25 @@ export class panameraReceipt {
 		});
 	}
 
-	updatePackageTypeFunc(curTarget) {
+	// 패키지 타입 선택
+	updateType() {
 		// 메인터넌스 외 package types 선택
+		let newTypeValue = "";
+		let newTypeObj = false;
+
 		if (this.currentPackage.id !== 2) {
-			const typeInput = this.selectedPackage.typeInputEl;
-			const selectedPackageType = this.selectedPackage.type;
-			let typeChr = typeInput.value;
-			if (curTarget) {
-				typeChr = curTarget.dataset.content;
-				typeInput.value = typeChr;
-			}
-			this.currentPackage.typeEl = typeInput;
-			const findType = selectedPackageType.find((item) => item.content === typeChr);
-			const defaultType = selectedPackageType[0];
-			this.currentPackage.type = findType ?? defaultType;
+			newTypeValue = this.currentTarget.dataset.content;
+
+			const findType = selectedPackageType.find((item) => item.content === newTypeValue);
+			newTypeObj = findType;
 			// 메인터넌스
-		} else {
-			this.currentPackage.typeEl = false;
-			this.currentPackage.type = false;
 		}
+
+		this.typeInput.value = newTypeValue;
+		this.currentPackage.type = newTypeObj;
+	}
+
+	updateOptionFunc() {
 		// 신차 패키지
 		if (this.currentPackage.id === 0) {
 			const tintingInput = this.selectedPackage.tintingInputEl;
