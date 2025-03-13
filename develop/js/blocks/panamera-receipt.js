@@ -412,14 +412,14 @@ export class panameraReceipt {
 			const ignorePackage = this.packageList[0];
 
 			this.setInputsValue(ignorePackage.tintingInputEl);
-			this.setInputsValue(ignorePackage.sportDesignInputEls);
 			this.setInputsValue(ignorePackage.blackboxInputEl);
 		} else {
 			// 메인터넌스
 			// 신차패키지, 올인원 패키지 데이터 삭제
 			this.setInputsValue(this.typeInput);
+			this.setInputsValue(this.option01Input);
+
 			this.setInputsValue(this.packageList[0].tintingInputEl);
-			this.setInputsValue(this.packageList[0].sportDesignInputEls);
 			this.setInputsValue(this.packageList[0].blackboxInputEl);
 		}
 	};
