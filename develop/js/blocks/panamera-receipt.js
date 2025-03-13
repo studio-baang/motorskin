@@ -227,9 +227,6 @@ export class panameraReceipt {
 			if (item.id === 0) {
 				this.observe(item.tintingInputEl);
 				this.observe(item.blackboxInputEl);
-				item.sportDesignInputEls.forEach((item) => {
-					this.observe(item);
-				});
 			}
 		});
 	}
