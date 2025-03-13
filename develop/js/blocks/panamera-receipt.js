@@ -268,7 +268,17 @@ export class panameraReceipt {
 
 		// toggle class
 		this.toggleClassAsOptions();
-		this.toggleClassTypeButton();
+		this.toggleButton({
+			els: this.typeButtons,
+			input: this.typeInput,
+			activeClassName: this.typeActiveClassName,
+		});
+
+		this.toggleButton({
+			els: this.option01Buttons,
+			input: this.option01Input,
+			activeClassName: this.option01ActiveClassName,
+		});
 
 		// update html
 		this.updateReceiptTitleHTML();
@@ -277,11 +287,11 @@ export class panameraReceipt {
 		this.priceTag.innerHTML = this.price.toLocaleString("ko-KR");
 	}
 
-	toggleClassTypeButton() {
-		this.typeButtons.forEach((typeButton) => {
-			typeButton.classList.remove(this.typeActiveClassName);
-			if (typeButton.dataset.content == this.typeInput.value) {
-				typeButton.classList.add(this.typeActiveClassName);
+	toggleButton({ els, input, activaClassName }) {
+		els.forEach((el) => {
+			el.classList.remove(activaClassName);
+			if (el.dataset.content == input.value) {
+				el.classList.add(activaClassName);
 			}
 		});
 		return false;
