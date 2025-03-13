@@ -250,7 +250,7 @@ export class panameraReceipt {
 		if (this.currentTarget && this.currentTarget.classList.contains("contact-type-button")) {
 			this.updateType();
 		} else {
-			this.currentPackage.type = this.selectedPackage.type[0].content;
+			this.currentPackage.type = this.selectedPackage.type[0];
 		}
 
 		console.log(this.currentPackage);
