@@ -254,6 +254,8 @@ export class panameraReceipt {
 		if (this.currentTarget) {
 			if (this.currentTarget.classList.contains("contact-type-button")) {
 				this.updateType();
+			} else if (this.currentTarget.classList.contains("contact-option-button--01")) {
+				this.updateOption01();
 			} else if (this.currentTarget.name == "package") {
 				// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
 				this.resetOtherOption();
