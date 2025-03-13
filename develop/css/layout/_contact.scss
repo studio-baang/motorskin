@@ -99,14 +99,6 @@
 				line-height: 2em;
 				border-bottom: 1px solid #141414;
 			}
-			[type="radio"],
-			[type="checkbox"] {
-				display: none;
-				&:checked + .wpcf7-list-item-label {
-					color: #ffffff;
-					background-color: #525252;
-				}
-			}
 			.wpcf7-date,
 			.wpcf7-select {
 				@include default-input-style();
@@ -117,6 +109,14 @@
 			}
 			.wpcf7-radio,
 			.wpcf7-checkbox {
+				[type="radio"],
+				[type="checkbox"] {
+					display: none;
+					&:checked + .wpcf7-list-item-label {
+						color: #ffffff;
+						background-color: #525252;
+					}
+				}
 				.wpcf7-list-item-label {
 					display: block;
 					width: 100%;
@@ -197,11 +197,13 @@
 		}
 	}
 	&-option {
-		display: none;
-		visibility: hidden;
+		display: flex;
+		opacity: 0;
+		position: absolute;
+		z-index: -100;
 		&--active {
-			display: flex;
-			visibility: visible;
+			opacity: 1;
+			position: inherit;
 		}
 	}
 	&-type-button {

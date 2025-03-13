@@ -246,6 +246,8 @@ export class panameraReceipt {
 		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
 		this.currentPackage.id = this.selectedPackage.id;
 
+		// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
+
 		// update need filter data
 		this.updatePackageTypeFunc(activeTypeBtn);
 		this.updatePriceFunc();
@@ -253,9 +255,6 @@ export class panameraReceipt {
 		// toggle class
 		this.toggleClassAsOptions();
 		this.toggleClassTypeButton(activeTypeBtn);
-
-		// 보여지지 않는 필드의 값을 리셋합니다.
-		this.ignoreOtherInputs();
 
 		// update html
 		this.updateReceiptTitleHTML();
@@ -267,10 +266,7 @@ export class panameraReceipt {
 	toggleClassTypeButton(activeTypeBtn) {
 		if (activeTypeBtn) {
 			this.packageTypebuttons.forEach((item) => {
-				// 화면에 표기된 버튼만 active를 지움
-				if (item.offsetParent !== null) {
-					item.classList.remove("contact-type-button--active");
-				}
+				item.classList.remove("contact-type-button--active");
 			});
 			activeTypeBtn.classList.add("contact-type-button--active");
 		}
@@ -346,8 +342,6 @@ export class panameraReceipt {
 	updatePriceFunc() {
 		// set package types
 		let calcPrice = 0;
-		console.log(this.currentPackage);
-
 		if (this.currentPackage.id !== 2) {
 			calcPrice = this.currentPackage.type.price;
 		} else {
@@ -386,31 +380,44 @@ export class panameraReceipt {
 		});
 	}
 	// form 제출 시 선택한 패키지를 제외한 값을 제거
-	ignoreOtherInputs = () => {
-		function resetInputsValue(el) {
+	switchOptions = () => {
+		function setInputsValue(el, value) {
+			const filterValue = value ?? "";
 			if (el instanceof NodeList) {
 				el.forEach((item) => {
-					item.value = "";
+					item.value = filterValue;
 				});
 				return false;
 			}
-			el.value = "";
+			el.value = filterValue;
 		}
 		if (this.currentPackage.id === 0) {
+			// 신차 패키지 시
+
+			// 올인원 패키기 리셋
 			const ignorePackage = this.packageList[1];
-			resetInputsValue(ignorePackage.typeInputEl);
-			resetInputsValue(ignorePackage.customTintingInputEls);
-			// 신차 패키지
+			setInputsValue(ignorePackage.typeInputEl);
+			setInputsValue(ignorePackage.customTintingInputEls);
 		} else if (this.currentPackage.id === 1) {
 			// 올인원 패키지
+
+			// 신차 패키지 리셋
 			const ignorePackage = this.packageList[0];
-			resetInputsValue(ignorePackage.typeInputEl);
-			resetInputsValue(ignorePackage.tintingInputEl);
-			resetInputsValue(ignorePackage.sportDesignInputEls);
-			resetInputsValue(ignorePackage.blackboxInputEl);
+
+			setInputsValue(this.selectedPackage.typeInputEl);
+			setInputsValue(ignorePackage.typeInputEl);
+			setInputsValue(ignorePackage.tintingInputEl);
+			setInputsValue(ignorePackage.sportDesignInputEls);
+			setInputsValue(ignorePackage.blackboxInputEl);
 		} else {
 			// 메인터넌스
-			return false;
+			// 신차패키지, 올인원 패키지 데이터 삭제
+			setInputsValue(this.packageList[0].typeInputEl);
+			setInputsValue(this.packageList[0].tintingInputEl);
+			setInputsValue(this.packageList[0].sportDesignInputEls);
+			setInputsValue(this.packageList[0].blackboxInputEl);
+			setInputsValue(this.packageList[1].typeInputEl);
+			setInputsValue(this.packageList[1].customTintingInputEls);
 		}
 	};
 }
