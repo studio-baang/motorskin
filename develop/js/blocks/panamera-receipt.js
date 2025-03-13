@@ -55,7 +55,6 @@ export class panameraReceipt {
 								<p><b>유리 초발수</b> RAIN<br><b>실내 가죽</b> 9H / 탑코드<br><b>휠 코팅</b>  휠 & 캘리퍼</p>
 							</li>`;
 				},
-				typeInputEl: document.getElementById("package-01-type"),
 				type: [
 					{
 						id: 0,
@@ -148,7 +147,6 @@ export class panameraReceipt {
 								<p>세라믹프로 케어 플러스 코팅</p>
 							</li>`;
 				},
-				typeInputEl: document.getElementById("package-02-type"),
 				type: [
 					{
 						id: 0,
@@ -258,6 +256,8 @@ export class panameraReceipt {
 		// 현재 일어난 이벤트가 type button을 클릭했다면 type data를 업데이트합니다.
 		if (this.currentTarget && this.currentTarget.classList.contains("contact-type-button")) {
 			this.updateType();
+		} else {
+			this.currentPackage.type = this.selectedPackage.type[0].content;
 		}
 
 		// toggle class
@@ -404,7 +404,6 @@ export class panameraReceipt {
 
 			// 올인원 패키기 리셋
 			const ignorePackage = this.packageList[1];
-			setInputsValue(ignorePackage.typeInputEl);
 			setInputsValue(ignorePackage.customTintingInputEls);
 		} else if (this.currentPackage.id === 1) {
 			// 올인원 패키지
@@ -412,19 +411,17 @@ export class panameraReceipt {
 			// 신차 패키지 리셋
 			const ignorePackage = this.packageList[0];
 
-			setInputsValue(this.selectedPackage.typeInputEl);
-			setInputsValue(ignorePackage.typeInputEl);
 			setInputsValue(ignorePackage.tintingInputEl);
 			setInputsValue(ignorePackage.sportDesignInputEls);
 			setInputsValue(ignorePackage.blackboxInputEl);
 		} else {
 			// 메인터넌스
 			// 신차패키지, 올인원 패키지 데이터 삭제
-			setInputsValue(this.packageList[0].typeInputEl);
+
+			setInputsValue(this.typeInput);
 			setInputsValue(this.packageList[0].tintingInputEl);
 			setInputsValue(this.packageList[0].sportDesignInputEls);
 			setInputsValue(this.packageList[0].blackboxInputEl);
-			setInputsValue(this.packageList[1].typeInputEl);
 			setInputsValue(this.packageList[1].customTintingInputEls);
 		}
 	};
