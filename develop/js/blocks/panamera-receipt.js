@@ -22,7 +22,7 @@ export class panameraReceipt {
 
 		this.price = 0;
 
-		this.currentTarget = "";
+		this.currentTarget = false;
 
 		this.packageList = [
 			{
@@ -256,7 +256,7 @@ export class panameraReceipt {
 		this.updatePriceFunc();
 
 		// 현재 일어난 이벤트가 type button을 클릭했다면 type data를 업데이트합니다.
-		if (this.currentTarget.classList.contains("contact-type-button")) {
+		if (this.currentTarget && this.currentTarget.classList.contains("contact-type-button")) {
 			this.updateType();
 		}
 
