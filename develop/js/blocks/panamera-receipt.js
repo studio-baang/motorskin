@@ -219,7 +219,7 @@ export class panameraReceipt {
 			el.addEventListener("click", this.updateReceipt.bind(this));
 		});
 
-		this.option01Input.forEach((el) => {
+		this.option01Buttons.forEach((el) => {
 			el.addEventListener("click", this.updateReceipt.bind(this));
 		});
 
