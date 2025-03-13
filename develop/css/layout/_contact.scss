@@ -206,6 +206,9 @@
 			position: inherit;
 			z-index: auto;
 		}
+		.last {
+			display: none;
+		}
 	}
 	&-type-button {
 		padding: 1em;

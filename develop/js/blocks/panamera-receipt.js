@@ -247,13 +247,14 @@ export class panameraReceipt {
 		this.currentPackage.id = this.selectedPackage.id;
 
 		// 현재 일어난 이벤트가 type button을 클릭했다면 type data를 업데이트합니다.
-		if (this.currentTarget && this.currentTarget.classList.contains("contact-type-button")) {
-			this.updateType();
+		if (this.currentTarget) {
+			if (this.currentTarget.classList.contains("contact-type-button")) {
+				this.updateType();
+				return;
+			}
 		} else {
 			this.currentPackage.type = this.selectedPackage.type[0];
 		}
-
-		console.log(this.currentPackage);
 
 		// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
 		this.switchOptions();
@@ -308,7 +309,7 @@ export class panameraReceipt {
 		if (this.currentPackage.id !== 2) {
 			newTypeValue = this.currentTarget.dataset.content;
 
-			const findType = selectedPackageType.find((item) => item.content === newTypeValue);
+			const findType = this.selectedPackage.type.find((item) => item.content === newTypeValue);
 			newTypeObj = findType;
 			// 메인터넌스
 		}
@@ -413,9 +414,9 @@ export class panameraReceipt {
 			// 신차 패키지 리셋
 			const ignorePackage = this.packageList[0];
 
-			setInputsValue(ignorePackage.tintingInputEl);
+			setInputsValue(ignorePackage.tintingInputEl, ignorePackage.tintingInputEl.options[0].value);
 			setInputsValue(ignorePackage.sportDesignInputEls);
-			setInputsValue(ignorePackage.blackboxInputEl);
+			setInputsValue(ignorePackage.blackboxInputEl, ignorePackage.blackboxInputEl.options[0].value);
 		} else {
 			// 메인터넌스
 			// 신차패키지, 올인원 패키지 데이터 삭제
