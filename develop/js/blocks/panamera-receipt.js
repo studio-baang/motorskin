@@ -12,8 +12,12 @@ export class panameraReceipt {
 		this.packageValue = "";
 
 		this.typeInput = document.querySelector("#package-type");
-		this.typebuttons = document.querySelectorAll(".contact-type-button");
-		this.activeTypeClassName = "contact-type-button--active";
+		this.typeButtons = document.querySelectorAll(".contact-type-button");
+		this.typeActiveClassName = "contact-type-button--active";
+
+		this.option01Input = document.querySelector("#package-option-01");
+		this.option01Buttons = document.querySelectorAll(".contact-option-button-01");
+		this.option01ActiveClassName = "contact-option-button--active";
 
 		this.priceTag = document.getElementById("contact-receipt-amount");
 
@@ -105,7 +109,6 @@ export class panameraReceipt {
 						price: -600000,
 					},
 				],
-				sportDesignInputEls: document.querySelectorAll('input[name="package-sport-design"]'),
 				sportDesign: [
 					{
 						content: "스포츠 디자인 패키지 추가 (+500,000원)",
@@ -159,7 +162,6 @@ export class panameraReceipt {
 						content: "프론트",
 					},
 				],
-				customTintingInputEls: document.querySelectorAll('input[name="package-02-custom-tinting"]'),
 			},
 			{
 				id: 2,
@@ -213,7 +215,7 @@ export class panameraReceipt {
 			this.observe(packageInput);
 		}
 
-		this.typebuttons.forEach((el) => {
+		this.typeButtons.forEach((el) => {
 			el.addEventListener("click", this.updateReceipt.bind(this));
 		});
 		this.packageList.forEach((item) => {
@@ -250,13 +252,15 @@ export class panameraReceipt {
 		if (this.currentTarget) {
 			if (this.currentTarget.classList.contains("contact-type-button")) {
 				this.updateType();
+			} else if (this.currentTarget.name == "package") {
+				// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
+				console.log("package changed");
+
+				this.resetOtherOption();
 			}
 		} else {
 			this.currentPackage.type = this.selectedPackage.type[0];
 		}
-
-		// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
-		this.switchOptions();
 
 		// update need filter data
 		this.updateOptionFunc();
@@ -274,11 +278,10 @@ export class panameraReceipt {
 	}
 
 	toggleClassTypeButton() {
-		this.typebuttons.forEach((typeButton) => {
-			typeButton.classList.remove(this.activeTypeClassName);
-			console.log(typeButton, this.typeInput.value);
+		this.typeButtons.forEach((typeButton) => {
+			typeButton.classList.remove(this.typeActiveClassName);
 			if (typeButton.dataset.content == this.typeInput.value) {
-				typeButton.classList.add(this.activeTypeClassName);
+				typeButton.classList.add(this.typeActiveClassName);
 			}
 		});
 		return false;
@@ -390,42 +393,35 @@ export class panameraReceipt {
 			blackbox: this.currentPackage.blackbox,
 		});
 	}
-	// form 제출 시 선택한 패키지를 제외한 값을 제거
-	switchOptions = () => {
-		function setInputsValue(el, value) {
-			const filterValue = value ?? "";
-			if (el instanceof NodeList) {
-				el.forEach((item) => {
-					item.value = filterValue;
-				});
-				return false;
-			}
-			el.value = filterValue;
+	setInputsValue(el, value) {
+		const filterValue = value ?? "";
+		if (el instanceof NodeList) {
+			el.forEach((item) => {
+				item.value = filterValue;
+			});
+			return false;
 		}
-		if (this.currentPackage.id === 0) {
-			// 신차 패키지 시
+		el.value = filterValue;
+	}
 
-			// 올인원 패키기 리셋
-			const ignorePackage = this.packageList[1];
-			setInputsValue(ignorePackage.customTintingInputEls);
-		} else if (this.currentPackage.id === 1) {
+	// form 제출 시 선택한 패키지를 제외한 값을 제거
+	resetOtherOption = () => {
+		if (this.currentPackage.id === 1) {
 			// 올인원 패키지
 
 			// 신차 패키지 리셋
 			const ignorePackage = this.packageList[0];
 
-			setInputsValue(ignorePackage.tintingInputEl, ignorePackage.tintingInputEl.options[0].value);
-			setInputsValue(ignorePackage.sportDesignInputEls);
-			setInputsValue(ignorePackage.blackboxInputEl, ignorePackage.blackboxInputEl.options[0].value);
+			this.setInputsValue(ignorePackage.tintingInputEl);
+			this.setInputsValue(ignorePackage.sportDesignInputEls);
+			this.setInputsValue(ignorePackage.blackboxInputEl);
 		} else {
 			// 메인터넌스
 			// 신차패키지, 올인원 패키지 데이터 삭제
-
-			setInputsValue(this.typeInput);
-			setInputsValue(this.packageList[0].tintingInputEl);
-			setInputsValue(this.packageList[0].sportDesignInputEls);
-			setInputsValue(this.packageList[0].blackboxInputEl);
-			setInputsValue(this.packageList[1].customTintingInputEls);
+			this.setInputsValue(this.typeInput);
+			this.setInputsValue(this.packageList[0].tintingInputEl);
+			this.setInputsValue(this.packageList[0].sportDesignInputEls);
+			this.setInputsValue(this.packageList[0].blackboxInputEl);
 		}
 	};
 }

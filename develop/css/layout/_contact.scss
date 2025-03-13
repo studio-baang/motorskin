@@ -1,5 +1,20 @@
 @use "../utils" as *;
 
+@mixin default-button-style {
+	display: block;
+	width: 100%;
+	font-weight: 700;
+	text-align: center;
+	padding: 0.5em;
+	border: 1px solid #525252;
+	border-radius: 30px;
+}
+
+@mixin default-button-active-style {
+	color: #ffffff;
+	background-color: #525252;
+}
+
 .contact {
 	& > .ct-section-inner-wrap {
 		@include flex($align: stretch);
@@ -113,18 +128,11 @@
 				[type="checkbox"] {
 					display: none;
 					&:checked + .wpcf7-list-item-label {
-						color: #ffffff;
-						background-color: #525252;
+						@include default-button-active-style;
 					}
 				}
 				.wpcf7-list-item-label {
-					display: block;
-					width: 100%;
-					font-weight: 700;
-					text-align: center;
-					padding: 0.5em;
-					border: 1px solid #525252;
-					border-radius: 30px;
+					@include default-button-style;
 				}
 			}
 			.wpcf7-checkbox {
@@ -206,9 +214,6 @@
 			position: inherit;
 			z-index: auto;
 		}
-		.last {
-			display: none;
-		}
 	}
 	&-type-button {
 		padding: 1em;
@@ -241,6 +246,17 @@
 			color: #e62367;
 			font-weight: 700;
 			font-size: 1.125em;
+		}
+	}
+	&-option-button {
+		@include default-button-style;
+		&-wrapper {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 0.5em;
+		}
+		&--active {
+			@include default-button-active-style;
 		}
 	}
 	.swiper-slide {
