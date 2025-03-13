@@ -324,14 +324,8 @@ export class panameraReceipt {
 	updateOptionFunc() {
 		// 신차 패키지
 		if (this.currentPackage.id === 0) {
-			const tintingInput = this.selectedPackage.tintingInputEl;
 			const sportDesignInputs = this.selectedPackage.sportDesignInputEls;
 			const blackInput = this.selectedPackage.blackboxInputEl;
-
-			// tinting
-			const selectedPackageTinting = this.selectedPackage.tinting;
-			const findTinting = selectedPackageTinting.find((item) => item.content === tintingInput.value);
-			this.currentPackage.tinting = findTinting ?? { content: tintingInput.value };
 
 			// blackbox
 			const selectedPackageBlackbox = this.selectedPackage.blackbox;
@@ -348,7 +342,6 @@ export class panameraReceipt {
 			}
 		} else {
 			this.currentPackage.blackbox = false;
-			this.currentPackage.sportDesign = false;
 			this.currentPackage.tinting = false;
 		}
 	}
