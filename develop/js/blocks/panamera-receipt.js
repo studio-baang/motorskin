@@ -277,6 +277,7 @@ export class panameraReceipt {
 	toggleClassTypeButton() {
 		this.typebuttons.forEach((typeButton) => {
 			typeButton.classList.remove(this.activeTypeClassName);
+			console.log(typeButton, this.typeInput.value);
 			if (typeButton.dataset.content == this.typeInput.value) {
 				typeButton.classList.add(this.activeTypeClassName);
 			}
