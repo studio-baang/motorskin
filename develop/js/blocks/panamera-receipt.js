@@ -202,7 +202,6 @@ export class panameraReceipt {
 
 		if (this.receipt) {
 			this.init();
-			this.form.addEventListener("submit", this.ignoreOtherInputs());
 		}
 	}
 
@@ -255,7 +254,8 @@ export class panameraReceipt {
 		this.toggleClassAsOptions();
 		this.toggleClassTypeButton(activeTypeBtn);
 
-		// this.toggleDisableInputs();
+		// 보여지지 않는 필드의 값을 리셋합니다.
+		this.ignoreOtherInputs();
 
 		// update html
 		this.updateReceiptTitleHTML();

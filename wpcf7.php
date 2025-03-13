@@ -42,3 +42,21 @@ add_filter( 'wpcf7_form_tag', 'pine_dynamic_select_field_values', 10, 2);
 
 // remove p tag
 add_filter('wpcf7_autop_or_not', '__return_false');
+
+add_filter('wpcf7_mail_components', 'remove_empty_mail_fields', 10, 3);
+function remove_empty_mail_fields($components, $contact_form, $mail) {
+    foreach ($components as $key => &$component) {
+        if (is_array($component)) {
+            foreach ($component as $sub_key => $value) {
+                if (empty(trim($value))) {
+                    unset($component[$sub_key]);
+                }
+            }
+        } else {
+            if (empty(trim($component))) {
+                unset($components[$key]);
+            }
+        }
+    }
+    return $components;
+}
