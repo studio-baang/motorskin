@@ -16,7 +16,7 @@ export class panameraReceipt {
 		this.typeActiveClassName = "contact-type-button--active";
 
 		this.option01Input = document.querySelector("#package-option-01");
-		this.option01Buttons = document.querySelectorAll(".contact-option-button-01");
+		this.option01Buttons = document.querySelectorAll(".contact-option-button--01");
 		this.option01ActiveClassName = "contact-option-button--active";
 
 		this.priceTag = document.getElementById("contact-receipt-amount");
@@ -218,6 +218,11 @@ export class panameraReceipt {
 		this.typeButtons.forEach((el) => {
 			el.addEventListener("click", this.updateReceipt.bind(this));
 		});
+
+		this.option01Input.forEach((el) => {
+			el.addEventListener("click", this.updateReceipt.bind(this));
+		});
+
 		this.packageList.forEach((item) => {
 			if (item.id === 0) {
 				this.observe(item.tintingInputEl);
