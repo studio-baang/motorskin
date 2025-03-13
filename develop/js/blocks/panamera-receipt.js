@@ -253,6 +253,8 @@ export class panameraReceipt {
 			this.currentPackage.type = this.selectedPackage.type[0].content;
 		}
 
+		console.log(this.currentPackage);
+
 		// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
 		this.switchOptions();
 
