@@ -256,8 +256,6 @@ export class panameraReceipt {
 				this.updateType();
 			} else if (this.currentTarget.name == "package") {
 				// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
-				console.log("package changed");
-
 				this.resetOtherOption();
 			}
 		} else {
@@ -289,11 +287,11 @@ export class panameraReceipt {
 		this.priceTag.innerHTML = this.price.toLocaleString("ko-KR");
 	}
 
-	toggleButton({ els, input, activaClassName }) {
+	toggleButton({ els, input, activeClassName }) {
 		els.forEach((el) => {
-			el.classList.remove(activaClassName);
+			el.classList.remove(activeClassName);
 			if (el.dataset.content == input.value) {
-				el.classList.add(activaClassName);
+				el.classList.add(activeClassName);
 			}
 		});
 		return false;
@@ -323,7 +321,6 @@ export class panameraReceipt {
 
 		if (this.currentPackage.id !== 2) {
 			newTypeValue = this.currentTarget.dataset.content;
-
 			const findType = this.selectedPackage.type.find((item) => item.content === newTypeValue);
 			newTypeObj = findType;
 			// 메인터넌스
@@ -331,6 +328,19 @@ export class panameraReceipt {
 
 		this.typeInput.value = newTypeValue;
 		this.currentPackage.type = newTypeObj;
+	}
+
+	updateOption01() {
+		// 메인터넌스 외 package types 선택
+		let newOptionValue = "";
+
+		if (this.currentPackage.id == 0) {
+			newOptionValue = this.currentTarget.dataset.content;
+			const findSport = this.selectedPackage.type.find((item) => item.content === newOptionValue);
+			this.currentPackage.sportDesign = findSport;
+		}
+
+		this.option01Input.value = newOptionValue;
 	}
 
 	updateOptionFunc() {
