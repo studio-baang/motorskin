@@ -246,19 +246,19 @@ export class panameraReceipt {
 		this.selectedPackage = this.packageList.find((item) => item.content == this.packageValue);
 		this.currentPackage.id = this.selectedPackage.id;
 
-		// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
-
-		// update need filter data
-
-		this.updateOptionFunc();
-		this.updatePriceFunc();
-
 		// 현재 일어난 이벤트가 type button을 클릭했다면 type data를 업데이트합니다.
 		if (this.currentTarget && this.currentTarget.classList.contains("contact-type-button")) {
 			this.updateType();
 		} else {
 			this.currentPackage.type = this.selectedPackage.type[0].content;
 		}
+
+		// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
+		this.switchOptions();
+
+		// update need filter data
+		this.updateOptionFunc();
+		this.updatePriceFunc();
 
 		// toggle class
 		this.toggleClassAsOptions();
