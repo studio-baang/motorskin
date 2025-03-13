@@ -234,7 +234,10 @@ export class panameraReceipt {
 	}
 
 	updateReceipt(event) {
-		this.currentTarget = event.currentTarget;
+		// addEventListener을 통한 호출인지 확인
+		if (event) {
+			this.currentTarget = event.currentTarget;
+		}
 
 		// update simple data
 		this.modelValue = this.modelInput.value;
