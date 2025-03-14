@@ -333,11 +333,15 @@ export class panameraReceipt {
 	}
 
 	updateOption01() {
-		// 메인터넌스 외 package types 선택
 		let newOptionValue = "";
 
-		if (this.currentPackage.id == 0) {
+		// 메인터넌스 외 package types 선택
+		if (this.currentPackage.id !== 2) {
 			newOptionValue = this.currentTarget.dataset.content;
+		}
+
+		// 신차 패키지라면
+		if (this.currentPackage.id == 0) {
 			const findSport = this.selectedPackage.sportDesign.find((item) => item.content === newOptionValue);
 			this.currentPackage.sportDesign = findSport ?? { content: newOptionValue };
 		} else {
@@ -371,12 +375,15 @@ export class panameraReceipt {
 	updatePriceFunc() {
 		// set package types
 		let calcPrice = 0;
+		console.log();
+
 		if (this.currentPackage.id !== 2) {
 			calcPrice = this.currentPackage.type.price;
 		} else {
 			// 메인터넌스
 			calcPrice = this.selectedPackage.price;
 		}
+
 		if (this.currentPackage.tinting.price) {
 			calcPrice += this.currentPackage.tinting.price;
 		}
@@ -422,25 +429,21 @@ export class panameraReceipt {
 	// form 제출 시 선택한 패키지를 제외한 값을 제거
 	resetOtherOption = () => {
 		let typeContent = "",
-			optionContent = "";
+			optionContent = "",
+			tintingContent = "",
+			blackboxContent = "";
 		if (this.currentPackage.id === 0) {
 			typeContent = document.querySelector(".contact-option--01 .contact-type-button").dataset.content;
 			optionContent = document.querySelector(".contact-option--01 .contact-option-button--01").dataset.content;
+			tintingContent = this.packageList[0].tintingInputEl.options[0].value;
+			blackboxContent = this.packageList[0].blackboxInputEl.options[0].value;
 		} else if (this.currentPackage.id === 1) {
+			// 올인원 패키지
 			typeContent = document.querySelector(".contact-option--02 .contact-type-button").dataset.content;
 			optionContent = document.querySelector(".contact-option--02 .contact-option-button--01").dataset.content;
-			// 올인원 패키지
-
-			// 신차 패키지 리셋
-			const ignorePackage = this.packageList[0];
-			this.setInputsValue(ignorePackage.tintingInputEl);
-			this.setInputsValue(ignorePackage.blackboxInputEl);
-		} else {
-			// 메인터넌스
-			// 신차패키지, 올인원 패키지 데이터 삭제
-			this.setInputsValue(this.packageList[0].tintingInputEl);
-			this.setInputsValue(this.packageList[0].blackboxInputEl);
 		}
+		this.setInputsValue(this.packageList[0].tintingInputEl, tintingContent);
+		this.setInputsValue(this.packageList[0].blackboxInputEl, blackboxContent);
 		this.setInputsValue(this.typeInput, typeContent);
 		this.setInputsValue(this.option01Input, optionContent);
 	};
