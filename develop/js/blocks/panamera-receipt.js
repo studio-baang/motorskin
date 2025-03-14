@@ -339,7 +339,7 @@ export class panameraReceipt {
 		if (this.currentPackage.id == 0) {
 			newOptionValue = this.currentTarget.dataset.content;
 			const findSport = this.selectedPackage.sportDesign.find((item) => item.content === newOptionValue);
-			this.currentPackage.sportDesign = findSport;
+			this.currentPackage.sportDesign = findSport ?? { price: 0 };
 		}
 
 		this.option01Input.value = newOptionValue;
