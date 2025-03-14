@@ -259,9 +259,6 @@ export class panameraReceipt {
 			} else if (this.currentTarget.name == "package") {
 				// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
 				this.resetOtherOption();
-			} else {
-				this.updateType();
-				this.updateOption01();
 			}
 		} else {
 			this.currentPackage.type = this.selectedPackage.type[0];
@@ -434,17 +431,30 @@ export class panameraReceipt {
 		let typeContent = "",
 			optionContent = "",
 			tintingContent = "",
-			blackboxContent = "";
+			blackboxContent = "",
+			findType = null;
 		if (this.currentPackage.id === 0) {
 			typeContent = document.querySelector(".contact-option--01 .contact-type-button").dataset.content;
 			optionContent = document.querySelector(".contact-option--01 .contact-option-button--01").dataset.content;
 			tintingContent = this.packageList[0].tintingInputEl.options[0].value;
 			blackboxContent = this.packageList[0].blackboxInputEl.options[0].value;
-		} else if (this.currentPackage.id === 1) {
+
+			findType = this.selectedPackage.type.find((item) => item.content === typeContent);
+
+			const findSport = this.selectedPackage.sportDesign.find((item) => item.content === optionContent);
+			this.currentPackage.sportDesign = findSport ?? { content: optionContent };
+		} else {
+			this.currentPackage.sportDesign = false;
+		}
+
+		if (this.currentPackage.id === 1) {
 			// 올인원 패키지
 			typeContent = document.querySelector(".contact-option--02 .contact-type-button").dataset.content;
 			optionContent = document.querySelector(".contact-option--02 .contact-option-button--01").dataset.content;
+
+			findType = this.selectedPackage.type.find((item) => item.content === typeContent);
 		}
+		this.currentPackage.type = findType;
 		this.setInputsValue(this.packageList[0].tintingInputEl, tintingContent);
 		this.setInputsValue(this.packageList[0].blackboxInputEl, blackboxContent);
 		this.setInputsValue(this.typeInput, typeContent);
