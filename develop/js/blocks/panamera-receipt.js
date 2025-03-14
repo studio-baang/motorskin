@@ -373,18 +373,19 @@ export class panameraReceipt {
 		let calcPrice = 0;
 		if (this.currentPackage.id !== 2) {
 			calcPrice = this.currentPackage.type.price;
+		} else if (this.currentPackage.id == 0) {
+			if (this.currentPackage.tinting.price) {
+				calcPrice += this.currentPackage.tinting.price;
+			}
+			if (this.currentPackage.sportDesign.price) {
+				calcPrice += this.currentPackage.sportDesign.price;
+			}
+			if (this.currentPackage.blackbox.price) {
+				calcPrice += this.currentPackage.blackbox.price;
+			}
 		} else {
 			// 메인터넌스
 			calcPrice = this.selectedPackage.price;
-		}
-		if (this.currentPackage.tinting.price) {
-			calcPrice += this.currentPackage.tinting.price;
-		}
-		if (this.currentPackage.sportDesign.price) {
-			calcPrice += this.currentPackage.sportDesign.price;
-		}
-		if (this.currentPackage.blackbox.price) {
-			calcPrice += this.currentPackage.blackbox.price;
 		}
 		this.price = calcPrice;
 	}
