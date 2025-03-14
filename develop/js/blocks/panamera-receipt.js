@@ -253,12 +253,15 @@ export class panameraReceipt {
 		// 현재 일어난 이벤트가 type button을 클릭했다면 type data를 업데이트합니다.
 		if (this.currentTarget) {
 			if (this.currentTarget.classList.contains("contact-type-button")) {
-				this.updateType();
+				this.updateType(this.currentTarget.dataset.content);
 			} else if (this.currentTarget.classList.contains("contact-option-button--01")) {
-				this.updateOption01();
+				this.updateOption01(this.currentTarget.dataset.content);
 			} else if (this.currentTarget.name == "package") {
 				// package 변경 시 기존 데이터를 불러오고 가려진 데이터를 삭제하는 functon
 				this.resetOtherOption();
+			} else {
+				this.updateType();
+				this.updateOption01();
 			}
 		} else {
 			this.currentPackage.type = this.selectedPackage.type[0];
@@ -316,13 +319,13 @@ export class panameraReceipt {
 	}
 
 	// 패키지 타입 선택
-	updateType() {
+	updateType(activeButton) {
 		// 메인터넌스 외 package types 선택
 		let newTypeValue = "";
 		let newTypeObj = false;
 
 		if (this.currentPackage.id !== 2) {
-			newTypeValue = this.currentTarget.dataset.content;
+			newTypeValue = activeButton ?? this.typeInput.value;
 			const findType = this.selectedPackage.type.find((item) => item.content === newTypeValue);
 			newTypeObj = findType;
 			// 메인터넌스
@@ -332,12 +335,12 @@ export class panameraReceipt {
 		this.currentPackage.type = newTypeObj;
 	}
 
-	updateOption01() {
+	updateOption01(activeButton) {
 		let newOptionValue = "";
 
 		// 메인터넌스 외 package types 선택
 		if (this.currentPackage.id !== 2) {
-			newOptionValue = this.currentTarget.dataset.content;
+			newOptionValue = activeButton ?? this.option01Input.value;
 		}
 
 		// 신차 패키지라면
