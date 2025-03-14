@@ -373,19 +373,18 @@ export class panameraReceipt {
 		let calcPrice = 0;
 		if (this.currentPackage.id !== 2) {
 			calcPrice = this.currentPackage.type.price;
-		} else if (this.currentPackage.id == 0) {
-			if (this.currentPackage.tinting.price) {
-				calcPrice += this.currentPackage.tinting.price;
-			}
-			if (this.currentPackage.sportDesign.price) {
-				calcPrice += this.currentPackage.sportDesign.price;
-			}
-			if (this.currentPackage.blackbox.price) {
-				calcPrice += this.currentPackage.blackbox.price;
-			}
 		} else {
 			// 메인터넌스
 			calcPrice = this.selectedPackage.price;
+		}
+		if (this.currentPackage.tinting.price) {
+			calcPrice += this.currentPackage.tinting.price;
+		}
+		if (this.currentPackage.sportDesign.price) {
+			calcPrice += this.currentPackage.sportDesign.price;
+		}
+		if (this.currentPackage.blackbox.price) {
+			calcPrice += this.currentPackage.blackbox.price;
 		}
 		this.price = calcPrice;
 	}
@@ -422,7 +421,14 @@ export class panameraReceipt {
 
 	// form 제출 시 선택한 패키지를 제외한 값을 제거
 	resetOtherOption = () => {
-		if (this.currentPackage.id === 1) {
+		let typeContent = "",
+			optionContent = "";
+		if (this.currentPackage.id === 0) {
+			typeContent = document.querySelector(".contact-option--01 .contact-type-button").dataset.content;
+			optionContent = document.querySelector(".contact-option--01 .contact-option-button--01").dataset.content;
+		} else if (this.currentPackage.id === 1) {
+			typeContent = document.querySelector(".contact-option--02 .contact-type-button").dataset.content;
+			optionContent = document.querySelector(".contact-option--02 .contact-option-button--01").dataset.content;
 			// 올인원 패키지
 
 			// 신차 패키지 리셋
@@ -432,11 +438,10 @@ export class panameraReceipt {
 		} else {
 			// 메인터넌스
 			// 신차패키지, 올인원 패키지 데이터 삭제
-			this.setInputsValue(this.typeInput);
-			this.setInputsValue(this.option01Input);
-
 			this.setInputsValue(this.packageList[0].tintingInputEl);
 			this.setInputsValue(this.packageList[0].blackboxInputEl);
 		}
+		this.setInputsValue(this.typeInput, typeContent);
+		this.setInputsValue(this.option01Input, optionContent);
 	};
 }
