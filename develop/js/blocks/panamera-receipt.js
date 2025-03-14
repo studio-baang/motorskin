@@ -339,7 +339,9 @@ export class panameraReceipt {
 		if (this.currentPackage.id == 0) {
 			newOptionValue = this.currentTarget.dataset.content;
 			const findSport = this.selectedPackage.sportDesign.find((item) => item.content === newOptionValue);
-			this.currentPackage.sportDesign = findSport ?? { price: 0 };
+			this.currentPackage.sportDesign = findSport ?? { content: newOptionValue };
+		} else {
+			this.currentPackage.sportDesign = false;
 		}
 
 		this.option01Input.value = newOptionValue;
@@ -424,7 +426,6 @@ export class panameraReceipt {
 
 			// 신차 패키지 리셋
 			const ignorePackage = this.packageList[0];
-
 			this.setInputsValue(ignorePackage.tintingInputEl);
 			this.setInputsValue(ignorePackage.blackboxInputEl);
 		} else {
