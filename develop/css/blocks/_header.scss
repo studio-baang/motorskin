@@ -89,7 +89,7 @@
 		@include flex($direction: column, $justify: center, $align: flex-start, $gap: 2em);
 	}
 	&__item {
-		@include flex($direction: column, $justify: center, $align: center);
+		@include flex($direction: column, $justify: center, $align: flex-start);
 		font-size: 4em;
 		font-weight: 700;
 		color: #222;
