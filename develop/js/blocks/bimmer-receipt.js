@@ -15,8 +15,10 @@ export class BimmerReceipt {
 		this.modelInput = document.querySelector('select[name="model"]');
 		this.modelValue = this.modelInput.value;
 
+		this.totalPriceInput = document.querySelector("#total-price");
+
 		this.basicPrice = 0;
-		this.finalPrice = 0;
+		this.price = 0;
 
 		this.addOnsContentContainer = document.querySelector(".contact-receipt__add-ons");
 		this.addOnsArr = [
@@ -87,7 +89,7 @@ export class BimmerReceipt {
 		for (const packageInput of this.packageInputs) {
 			this.packageValue = packageInput.checked ? packageInput.value : this.packageValue;
 		}
-		this.updateReceiptData(this.modelValue, this.packageValue);
+		this.updateReceiptData(this.modelValue);
 	}
 
 	updateReceiptContent() {
@@ -111,14 +113,17 @@ export class BimmerReceipt {
 	}
 
 	updatePriceFunc() {
-		this.finalPrice = this.basicPrice;
+		this.price = this.packageValue == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
+
 		this.addOnsArr.forEach((element) => {
-			this.finalPrice += element.addPrice;
+			this.price += element.addPrice;
 		});
 
-		const resultPriceNum = Number(this.finalPrice);
+		this.price = Number(this.price);
+		this.price = this.price.toLocaleString("ko-KR");
 
-		this.priceTag.innerHTML = resultPriceNum.toLocaleString("ko-KR");
+		this.totalPriceInput.value = this.price;
+		this.priceTag.innerHTML = this.price;
 	}
 
 	updateAddons() {
@@ -153,7 +158,7 @@ export class BimmerReceipt {
 		this.addOnsContentContainer.innerHTML = addonHTML;
 	}
 
-	async updateReceiptData(title, packageName) {
+	async updateReceiptData(title) {
 		this.receipt.classList.add("contact-receipt--loading");
 
 		try {
@@ -172,8 +177,6 @@ export class BimmerReceipt {
 
 			// 검색 결과 처리
 			if (posts.length > 0) {
-				this.basicPrice = packageName == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
-
 				this.updateReceiptTitle();
 				this.updateReceiptContent();
 				this.updateAddons();

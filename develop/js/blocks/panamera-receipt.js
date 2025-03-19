@@ -19,6 +19,8 @@ export class panameraReceipt {
 		this.option01Buttons = document.querySelectorAll(".contact-option-button--01");
 		this.option01ActiveClassName = "contact-option-button--active";
 
+		this.totalPriceInput = document.querySelector("#total-price");
+
 		this.priceTag = document.getElementById("contact-receipt-amount");
 
 		this.modelInput = document.querySelector('select[name="model"]');
@@ -266,7 +268,7 @@ export class panameraReceipt {
 
 		// update need filter data
 		this.updateOptionFunc();
-		this.updatePriceFunc();
+		this.calcPrice();
 
 		// toggle class
 		this.toggleClassAsOptions();
@@ -286,7 +288,9 @@ export class panameraReceipt {
 		this.updateReceiptTitleHTML();
 		this.updateReceiptPackageNameHTML();
 		this.updateReceiptDetailHTML();
-		this.priceTag.innerHTML = this.price.toLocaleString("ko-KR");
+
+		this.setInputsValue(this.totalPriceInput, this.price);
+		this.priceTag.innerHTML = this.price;
 	}
 
 	toggleButton({ els, input, activeClassName }) {
@@ -372,10 +376,9 @@ export class panameraReceipt {
 		}
 	}
 
-	updatePriceFunc() {
+	calcPrice() {
 		// set package types
 		let calcPrice = 0;
-		console.log();
 
 		if (this.currentPackage.id !== 2) {
 			calcPrice = this.currentPackage.type.price;
@@ -393,7 +396,7 @@ export class panameraReceipt {
 		if (this.currentPackage.blackbox.price) {
 			calcPrice += this.currentPackage.blackbox.price;
 		}
-		this.price = calcPrice;
+		this.price = calcPrice.toLocaleString("ko-KR");
 	}
 
 	updateReceiptTitleHTML() {
