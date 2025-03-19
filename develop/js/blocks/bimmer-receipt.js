@@ -113,8 +113,6 @@ export class BimmerReceipt {
 	}
 
 	updatePriceFunc() {
-		this.price = this.packageValue == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
-
 		this.addOnsArr.forEach((element) => {
 			this.price += element.addPrice;
 		});
@@ -177,6 +175,8 @@ export class BimmerReceipt {
 
 			// 검색 결과 처리
 			if (posts.length > 0) {
+				this.price = this.packageValue == "Package A" ? posts[0].acf.package_a_price : posts[0].acf.package_b_price;
+
 				this.updateReceiptTitle();
 				this.updateReceiptContent();
 				this.updateAddons();
