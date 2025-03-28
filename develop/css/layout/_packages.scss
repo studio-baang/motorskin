@@ -44,6 +44,7 @@
 			background: bottom center / contain no-repeat #fff;
 			@include media-tablet {
 				aspect-ratio: auto;
+				height: auto;
 			}
 			.package-card {
 				&__wrapper {
@@ -52,7 +53,7 @@
 					padding: 4em 1.75em;
 					background-image: linear-gradient(180deg, #ffffff, transparent);
 					@include media-tablet {
-						padding: 6vw 4vw;
+						padding: 4vw 6vw 26vw;
 					}
 				}
 			}
