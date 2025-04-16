@@ -28,7 +28,8 @@
 		align-items: center;
 		width: 100%;
 		height: 100%;
-		font-size: 3rem;
+		font-size: 2.5rem;
+		line-height: 1.3;
 		font-weight: 700;
 		display: flex;
 		position: absolute;
@@ -37,5 +38,11 @@
 	}
 	&__background {
 		position: absolute;
+		height: 100%;
+		.ct-image {
+			width: 100%;
+			height: 150%;
+			object-fit: cover;
+		}
 	}
 }
