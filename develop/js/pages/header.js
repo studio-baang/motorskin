@@ -31,9 +31,11 @@ function toggleGnbItemAnim() {
 function toggleGnb() {
 	const gnbEl = document.querySelector(".gnb");
 	const headerIconEl = document.querySelector(".header-icon");
+	const header = document.querySelector(".header");
 	headerIconEl.addEventListener("click", (e) => {
 		gnbEl.classList.toggle("gnb--active");
 		headerIconEl.classList.toggle("header-icon--active");
+		header, classList.toggle("heeder--gnb-active");
 	});
 }
 
