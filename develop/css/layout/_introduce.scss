@@ -1,0 +1,24 @@
+.wide-frame {
+	border-radius: 2em;
+	overflow: hidden;
+}
+
+.introduce-frame {
+	position: relative;
+	&__content {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: rgba(0, 0, 0, 0.5);
+		color: #ffffff;
+		font-weight: 700;
+		font-size: 3rem;
+		z-index: 1;
+	}
+	&__background {
+		position: absolute;
+	}
+}
