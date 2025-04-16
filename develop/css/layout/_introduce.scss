@@ -5,18 +5,35 @@
 
 .introduce-frame {
 	position: relative;
-	&__content {
+	&:hover {
+		.introduce-frame__content {
+			background-color: rgb(217 26 131 / 75%);
+		}
+	}
+	&::after {
+		z-index: 1;
 		position: absolute;
-		width: 100%;
-		height: 100%;
-		display: flex;
+		top: 2rem;
+		right: 2rem;
+		width: 3rem;
+		height: 3rem;
+		background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22Layer_1%22%20data-name%3D%22Layer%201%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2036%2038%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill%3A%23fff%3B%7D%3C/style%3E%3C/defs%3E%3Cpolygon%20class%3D%22cls-1%22%20points%3D%2236%2018%2019%2018%2019%200%2017%200%2017%2018%200%2018%200%2020%2017%2020%2017%2038%2019%2038%2019%2020%2036%2020%2036%2018%22/%3E%3C/svg%3E");
+		content: "";
+	}
+	&__content {
+		color: #fff;
+		z-index: 1;
+		background-color: #00000080;
 		justify-content: center;
 		align-items: center;
-		background-color: rgba(0, 0, 0, 0.5);
-		color: #ffffff;
-		font-weight: 700;
+		width: 100%;
+		height: 100%;
 		font-size: 3rem;
-		z-index: 1;
+		font-weight: 700;
+		display: flex;
+		position: absolute;
+		transition: background-color 0.15s;
+		will-change: background-color;
 	}
 	&__background {
 		position: absolute;

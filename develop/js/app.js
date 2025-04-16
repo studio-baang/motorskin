@@ -8,6 +8,7 @@ import { debounce } from "lodash";
 import { setVh } from "./utils/set-vh";
 import { setServiceListAnim } from "./pages/home";
 import { Faq } from "./pages/automotive";
+import { introduceParallax } from "./pages/introduce";
 
 class App {
 	constructor() {
@@ -34,6 +35,8 @@ class App {
 				createFranchisesMap();
 			} else if (namespace == "automotive") {
 				new Faq();
+			} else if (namespace == "notor skin") {
+				introduceParallax();
 			}
 		});
 	}
