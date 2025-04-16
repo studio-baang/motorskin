@@ -61,6 +61,7 @@
 	}
 	&--active {
 		.header-icon__line {
+			background-color: #777;
 			&:nth-child(1) {
 				transform: translateY(0px) rotate(45deg);
 			}
