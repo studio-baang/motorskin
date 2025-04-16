@@ -35,7 +35,7 @@ class App {
 				createFranchisesMap();
 			} else if (namespace == "automotive") {
 				new Faq();
-			} else if (namespace == "notor skin") {
+			} else if (namespace == "motor skin") {
 				introduceParallax();
 			}
 		});
