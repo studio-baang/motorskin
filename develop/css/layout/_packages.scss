@@ -200,6 +200,7 @@
 			height: 100%;
 			padding: 1.75em;
 			background-color: #ffffff;
+			border: 1px solid #e8e8e8;
 			@include grid-10() {
 				grid-column: span 5;
 			}
@@ -313,6 +314,7 @@
 		border-radius: 1em;
 		padding: 1.5em;
 		gap: min(2em, 4vw);
+		border: 1px solid #e8e8e8;
 		&__title-box {
 			gap: 1.25em;
 		}
