@@ -470,6 +470,7 @@
 		bottom: 0;
 		width: auto;
 		height: 18em;
+		object-fit: contain;
 	}
 	&__typo {
 		font-weight: 400;
@@ -499,5 +500,13 @@
 	&__desc {
 		line-height: 1.5;
 		color: $gray-700;
+	}
+}
+
+.kavaca-package-wrapper {
+	width: 80%;
+	gap: min(2em, 4vw);
+	@include media-tablet {
+		width: 100%;
 	}
 }
