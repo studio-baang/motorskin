@@ -18,7 +18,15 @@ img {
 	&__card-wrapper {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 36px;
+		gap: 1rem;
+	}
+	&__navigation {
+		display: flex;
+		flex-direction: column;
+		align-self: flex-start;
+		margin: 80px 0;
+		position: sticky;
+		top: 160px;
 	}
 }
 
@@ -65,13 +73,12 @@ img {
 	&__desc {
 		font-size: 14px;
 		color: #7f7f7f;
-		margin: 14px 0;
 	}
 	&__price {
 		font-weight: 700;
 		font-size: 14px;
 		color: #515151;
-		margin: 12px 0;
+		margin-top: 0.5rem;
 	}
 }
 
