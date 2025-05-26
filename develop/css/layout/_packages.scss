@@ -226,6 +226,12 @@
 						grid-column: span 10;
 					}
 				}
+				&-2 {
+					grid-column: span 6;
+					@include grid-10() {
+						grid-column: span 10;
+					}
+				}
 			}
 			&--row {
 				&-large {
@@ -312,7 +318,7 @@
 		}
 		&__title {
 			font-weight: 700;
-			font-size: min(3em, 6vw);
+			font-size: min(2.25em, 6vw);
 			line-height: 1.25;
 			color: $black;
 		}
@@ -345,7 +351,7 @@
 			align-items: center;
 			gap: 0.75em;
 			.ct-span {
-				font-size: 2em;
+				font-size: 1.75em;
 				color: $primary-color;
 			}
 		}
@@ -361,6 +367,7 @@
 	&-add-on {
 		width: 100%;
 		flex-direction: row;
+		flex-wrap: wrap;
 		justify-content: center;
 		gap: 1em;
 		.ct-text-block {

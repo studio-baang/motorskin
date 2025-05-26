@@ -63,8 +63,8 @@ img {
 		flex-direction: column;
 		gap: 24px;
 	}
-	&__button-wrapper {
-		display: flex;
+	&__button-container {
+		flex-direction: row;
 		flex-wrap: wrap;
 		width: 100%;
 		gap: 4px;
