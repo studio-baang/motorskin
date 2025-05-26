@@ -53,7 +53,9 @@ function add_query_arg_to_link_wrapper() {
 // porsche 패키지 가격
 function search_porsche_package_price($post_id, $series_name) {
     $area_number = 'area-1';
-    if(strpos($series_name, "911") !== false || strpos($series_name, "macan")) {
+    $filter_series_name = strtolower($series_name);
+
+    if(strpos($filter_series_name, "911") !== false || strpos($filter_series_name, "macan") !== false) {
           $area_number = 'area-2';
      }
   
