@@ -49,3 +49,15 @@ function add_query_arg_to_link_wrapper() {
 
     return add_query_arg( 'model', $model, $contact_page_url );
 }
+
+// porsche 패키지 가격
+function search_porsche_package_price($post_id, $series_name) {
+    $area_number = 'area-1';
+    if($series_name == "911" || $series_name == "macan") {
+          $area_number = 'area-2';
+     }
+  
+    $area = get_field(  $area_number, $post_id );
+    $area_num = intval( $area );
+    return number_format($area_num);
+}
