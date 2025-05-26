@@ -71,6 +71,22 @@ html.lenis body {
 	}
 }
 
+.cta-button {
+	display: inline-block;
+	box-sizing: border-box;
+	font-size: 14px;
+	color: #292929;
+	line-height: 1;
+	padding: 16px;
+	border: 1px solid #292929;
+	border-radius: 2px;
+	text-decoration: none;
+	&--strong {
+		color: #fdfdfd;
+		background: #292929;
+	}
+}
+
 .info-modal {
 	@include flex($align: center, $justify: center);
 	position: fixed;
