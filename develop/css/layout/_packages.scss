@@ -2,13 +2,13 @@
 
 .page-id-15 .section:not(.footer) {
 	color: #ffffff;
-	background-color: #141414;
+	background-color: $black;
 }
 
 .package {
 	&-slider {
 		color: #ffffff;
-		background-color: #141414;
+		background-color: $black;
 		&__label {
 			color: #666;
 		}
@@ -328,6 +328,7 @@
 			@include flex($justify: center, $align: center);
 			font-weight: 700;
 			padding: 0.25em 1em;
+			color: $white;
 			background: $gray-800;
 			border-radius: 3em;
 		}
@@ -373,6 +374,7 @@
 		justify-content: center;
 		gap: 1em;
 		.ct-text-block {
+			color: $white;
 			background-color: $gray-800;
 			padding: 0.5em 1.5em;
 			border-radius: 3em;
@@ -440,5 +442,60 @@
 	&__content {
 		width: 100%;
 		align-items: flex-end;
+	}
+}
+
+.porsche-package-intro {
+	text-align: center;
+	background: linear-gradient(180deg, $gray-200 0%, $white 25%);
+	& > .section-inner-wrapper {
+		padding: 64px 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 64px;
+	}
+	&__visual {
+		width: 100%;
+		position: relative;
+		align-items: center;
+		&::after {
+			display: block;
+			height: 16em;
+			content: "";
+		}
+	}
+	&__frame {
+		position: absolute;
+		bottom: 0;
+		width: auto;
+		height: 18em;
+	}
+	&__typo {
+		font-family: "PP Monument Extended";
+		font-weight: 400;
+		text-transform: uppercase;
+		font-style: italic;
+		font-size: 8em;
+		strong {
+			font-weight: 700;
+		}
+	}
+	&__headline {
+		gap: 1.75em;
+	}
+	&__title {
+		font-weight: 700;
+		font-size: 3em;
+		line-height: 2;
+		color: $black;
+	}
+	&__summary {
+		font-size: 1.5em;
+		color: $black;
+	}
+	&__desc {
+		line-height: 1.5;
+		color: $gray-700;
 	}
 }
