@@ -18,15 +18,17 @@ export class PorcsheReceipt {
 		 *	}
 		 */
 		this.packageOption = [];
+
 		this.modelInput = document.querySelector('select[name="model"]');
 
 		this.init();
-
-		this.carPost;
 	}
 
 	init() {
-		this.runUpdatePipeline();
+		this.updateData();
+		this.updatePackageType();
+		this.updatePackageOption();
+
 		this.observe(this.modelInput);
 	}
 
