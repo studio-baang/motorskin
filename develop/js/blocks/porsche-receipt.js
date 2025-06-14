@@ -26,9 +26,8 @@ export class PorcsheReceipt {
 	}
 
 	init() {
-		this.updateData();
-		this.updatePackageType();
 		this.updatePackageOption();
+		this.runUpdatePipeline();
 
 		this.observe(this.modelInput);
 	}
@@ -40,6 +39,7 @@ export class PorcsheReceipt {
 	runUpdatePipeline() {
 		this.updateData();
 		this.updatePackageType();
+		this.renderTypeButton();
 	}
 
 	updateData() {
