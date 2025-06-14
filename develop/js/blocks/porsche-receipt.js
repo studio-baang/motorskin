@@ -50,7 +50,6 @@ export class PorcsheReceipt {
 	updatePackageType() {
 		requestWpJson(`car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
 			this.carPost = posts.find((post) => post.title.rendered === this.data.model);
-			console.log(this.carPost);
 		});
 	}
 
@@ -64,7 +63,7 @@ export class PorcsheReceipt {
 					typeB: e.acf.type_b,
 				},
 			}));
-			console.log(this.packageOption);
+			console.log(posts);
 		});
 	}
 }
