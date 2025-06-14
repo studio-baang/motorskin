@@ -38,6 +38,7 @@ export class PorcsheReceipt {
 		try {
 			// REST API 엔드포인트 생성
 			const endpoint = `/porsche-dealer/wp-json/wp/v2/${url}}`;
+			console.log(endpoint);
 
 			// Fetch API로 요청
 			const response = await fetch(endpoint);
