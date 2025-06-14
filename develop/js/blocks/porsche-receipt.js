@@ -63,7 +63,7 @@ export class PorcsheReceipt {
 					typeB: e.acf.type_b,
 				},
 			}));
-			console.log(posts);
+			console.log(this.packageOption);
 		});
 	}
 }
