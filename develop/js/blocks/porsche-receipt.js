@@ -12,7 +12,7 @@ export class PorcsheReceipt {
 	}
 
 	init() {
-		updateContact();
+		this.updateContact();
 		this.observe(this.modelInput);
 	}
 
