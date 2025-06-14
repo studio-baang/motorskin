@@ -20,7 +20,7 @@ export function renderTypeButton(data, isActive) {
 
 	element.innerHTML = `<div class="contact-type-button__wrapper">
 			<div class="contact-type-button__row">
-                <span>${filterData.classType}</span>
+                <span style="margin-right: auto">${filterData.classType}</span>
 				<h5>${filterData.title}</h5>
 			</div>
 			<div class="contact-type-button__row">

@@ -1,14 +1,7 @@
-import { getSiteName } from "../utils/filter-site-by-name";
-
 export async function requestWpJson(url, returnFunc) {
-	let sitename = getSiteName();
-	if (sitename === "porsche") {
-		sitename = "porsche-dealer";
-	}
-
 	try {
 		// REST API 엔드포인트 생성
-		const endpoint = `/${sitename ? sitename + "/" : ""}/wp-json/wp/v2/${url}`;
+		const endpoint = "url";
 
 		// Fetch API로 요청
 		const response = await fetch(endpoint);

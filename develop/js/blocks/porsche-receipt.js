@@ -49,13 +49,13 @@ export class PorcsheReceipt {
 	// 패키지 옵션 표기
 
 	updatePackageType() {
-		requestWpJson(`car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
+		requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
 			this.carPost = posts.find((post) => post.title.rendered === this.data.model);
 		});
 	}
 
 	updatePackageOption() {
-		requestWpJson("package-option", (posts) => {
+		requestWpJson("/porsche-dealer/wp-json/wp/v2/package-option", (posts) => {
 			this.packageOption = posts.map((e) => ({
 				title: e.title.rendered,
 				classType: e.acf.package_class,
