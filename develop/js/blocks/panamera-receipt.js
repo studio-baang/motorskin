@@ -1,10 +1,7 @@
 import _ from "lodash";
-import { getSiteName } from "../utils/filter-site-by-name";
 
 export class panameraReceipt {
 	constructor() {
-		this.sitename = getSiteName();
-
 		this.form = document.querySelector(".wpcf7-form");
 		this.receipt = document.querySelector(".contact-receipt");
 
