@@ -30,15 +30,14 @@ export class PorcsheReceipt {
 		this.data.model = this.modelInput.value;
 		this.requestWpJson(`car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
 			this.carPost = posts.find((post) => post.title.rendered === this.data.model);
-			console.log(this.carPost);
 		});
+		console.log(this.carPost);
 	}
 
 	async requestWpJson(url, returnFunc) {
 		try {
 			// REST API 엔드포인트 생성
-			const endpoint = `/porsche-dealer/wp-json/wp/v2/${url}}`;
-			console.log(endpoint);
+			const endpoint = `/porsche-dealer/wp-json/wp/v2/${url}`;
 
 			// Fetch API로 요청
 			const response = await fetch(endpoint);
