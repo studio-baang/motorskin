@@ -13,18 +13,11 @@ function getSiteName() {
 	return siteName;
 }
 
-function isSiteBimmer() {
-	if (siteName == "bimmer") {
+function checkSiteName(matchSiteName) {
+	if (siteName == matchSiteName) {
 		return true;
 	}
 	return false;
 }
 
-function isSitePanamera() {
-	if (siteName == "panamera") {
-		return true;
-	}
-	return false;
-}
-
-export { getSiteName, isSiteBimmer, isSitePanamera };
+export { getSiteName, checkSiteName };

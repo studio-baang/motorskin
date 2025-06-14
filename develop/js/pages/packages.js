@@ -115,9 +115,9 @@ class PanameraPackages extends PackageSwiper {
 
 export function packagesInit() {
 	let activePackges;
-	if (isSiteBimmer()) {
+	if (checkSiteName("bimmer")) {
 		activePackges = new BimmerPackages();
-	} else if (isSitePanamera()) {
+	} else if (checkSiteName("panamera")) {
 		activePackges = new PanameraPackages();
 	}
 

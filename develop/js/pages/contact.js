@@ -2,9 +2,10 @@ import Swiper from "swiper";
 import "swiper/modules/effect-fade.min.css";
 import { Autoplay, EffectFade } from "swiper/modules";
 import _ from "lodash";
-import { isSiteBimmer, isSitePanamera } from "../utils/filter-site-by-name";
+import { checkSiteName } from "../utils/filter-site-by-name";
 import { BimmerReceipt } from "../blocks/bimmer-receipt";
 import { panameraReceipt } from "../blocks/panamera-receipt";
+import { PorcsheReceipt } from "../blocks/porsche-receipt";
 
 class Contact {
 	constructor() {
@@ -47,11 +48,14 @@ class Contact {
 			},
 		});
 
-		if (isSiteBimmer()) {
+		if (checkSiteName("bimmer")) {
 			new BimmerReceipt();
 		}
-		if (isSitePanamera()) {
+		if (checkSiteName("panamera")) {
 			new panameraReceipt();
+		}
+		if (checkSiteName("porsche")) {
+			new PorcsheReceipt();
 		}
 	}
 

@@ -220,14 +220,19 @@
 		border: 1px solid #525252;
 		border-radius: 0.5em;
 		margin: 0.5em 0;
-		opacity: 0.4;
+		opacity: 1;
 		transition: opacity 0.15s;
 		&:hover {
-			opacity: 0.7;
+			opacity: 0.8;
+		}
+		&--inactive {
+			opacity: 0.5;
 		}
 		&--active {
 			opacity: 1;
 			border: 1px solid #e62367;
+			background: #ffffff;
+			filter: drop-shadow(0px 0px 2px #e6236799);
 		}
 		&__wrapper {
 			display: flex;
@@ -240,6 +245,7 @@
 			align-items: flex-end;
 		}
 		&__origin-price {
+			font-size: 0.875rem;
 			text-decoration: line-through;
 		}
 		&__discount-price {
