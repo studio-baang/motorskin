@@ -30,9 +30,8 @@ export class PorcsheReceipt {
 		this.data.model = this.modelInput.value;
 		this.requestWpJson(`car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
 			this.carPost = posts.find((post) => post.title.rendered === this.data.model);
+			console.log(this.carPost);
 		});
-
-		console.log(this.carPost);
 	}
 
 	async requestWpJson(url, returnFunc) {
