@@ -69,8 +69,8 @@ export class PorcsheReceipt {
 
 	renderTypeButton() {
 		const wrapper = document.getElementById("porsche-form__type-button-wrapper");
-		this.packageOption.forEach((e) => {
-			renderTypeButton(e.title);
+		this.packageOption.forEach((data) => {
+			wrapper.appendChild(renderTypeButton(data));
 		});
 	}
 }
