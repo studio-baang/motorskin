@@ -13,8 +13,8 @@ export function renderTypeButton(data, isActive) {
 		classType: data.classType,
 		originPrice: data.price.typeA.toLocaleString("ko-KR"),
 		discountPrice: () => {
-			const calcDiscointPrice = data.price.typeA / 2;
-			return calcDiscointPrice.toLocaleString("ko-KR");
+			const calcDiscountPrice = data.price.typeA / 2;
+			return calcDiscountPrice.toLocaleString("ko-KR");
 		},
 	};
 

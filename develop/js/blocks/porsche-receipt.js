@@ -4,10 +4,6 @@ import { renderTypeButton } from "../components/contact-type-button";
 
 export class PorcsheReceipt {
 	constructor() {
-		this.data = {
-			model: "",
-		};
-
 		/**
 		 * 	{
 		 *  	title: string,
@@ -21,6 +17,10 @@ export class PorcsheReceipt {
 		this.packageOption = [];
 
 		this.modelInput = document.querySelector('select[name="model"]');
+
+		this.data = {
+			model: this.modelInput.value,
+		};
 
 		this.init();
 	}
