@@ -9,26 +9,36 @@ export class PorcsheReceipt {
 		this.modelInput = document.querySelector('select[name="model"]');
 
 		this.init();
+
+		this.carPost;
 	}
 
 	init() {
-		this.updateContact();
+		this.runUpdatePipeline();
 		this.observe(this.modelInput);
 	}
 
 	observe(el) {
-		el.addEventListener("input", this.updateContact.bind(this));
+		el.addEventListener("input", this.runUpdatePipeline.bind(this));
 	}
 
-	updateContact() {
+	runUpdatePipeline() {
+		this.updateData();
+	}
+
+	updateData() {
 		this.data.model = this.modelInput.value;
-		this.requestCarDate(this.data.model);
+		this.requestWpJson(`car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
+			this.carPost = posts.find((post) => post.title.rendered === this.data.model);
+		});
+
+		console.log(this.carPost);
 	}
 
-	async requestCarDate(title) {
+	async requestWpJson(url, returnFunc) {
 		try {
 			// REST API 엔드포인트 생성
-			const endpoint = `/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(title)}`;
+			const endpoint = `/porsche-dealer/wp-json/wp/v2/${url}}`;
 
 			// Fetch API로 요청
 			const response = await fetch(endpoint);
@@ -42,7 +52,7 @@ export class PorcsheReceipt {
 
 			// 검색 결과 처리
 			if (posts.length > 0) {
-				console.log(posts);
+				returnFunc(posts);
 			} else {
 				console.log("No posts found for the given title in Custom Post Type.");
 				return null;
