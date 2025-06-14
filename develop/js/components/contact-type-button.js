@@ -1,23 +1,33 @@
-function renderTypeButton(title, originPrice) {
-	const activeClass = "contact-type-button--active";
-	const data = {
-		title: title,
-		originPrice: originPrice.toLocaleString("ko-KR"),
+export function renderTypeButton(data, isActive) {
+	// 기본 설정
+	const element = document.createElement("div");
+	element.classList.add("contact-type-button");
+	element.dataset.content = data.title;
+
+	if (isActive) {
+		element.classList.add("contact-type-button--active");
+	}
+
+	const filterData = {
+		title: data.title,
+		classType: data.classType,
+		originPrice: data.price.typeA.toLocaleString("ko-KR"),
 		discountPrice: () => {
-			const calcDiscointPrice = originPrice / 2;
+			const calcDiscointPrice = this.originPrice / 2;
 			return calcDiscointPrice.toLocaleString("ko-KR");
 		},
 	};
 
-	return `<div class="contact-type-button ${activeClass}" data-content="${data.title}">
-		<div class="contact-type-button__wrapper">
+	element.innerHTML = `<div class="contact-type-button__wrapper">
 			<div class="contact-type-button__row">
-				<h5>${data.title}</h5>
+                <span>${filterData.classType}</span>
+				<h5>${filterData.title}</h5>
 			</div>
 			<div class="contact-type-button__row">
-				<span class="contact-type-button__origin-price"> 정상가 : ${data.originPrice}원 </span>
-				<span class="contact-type-button__discount-price"> 할인가 : ${data.discountPrice()}원 </span>
+				<span class="contact-type-button__origin-price"> 정상가 : ${filterData.originPrice}원 </span>
+				<span class="contact-type-button__discount-price"> 할인가 : ${filterData.discountPrice()}원 </span>
 			</div>
-		</div>
-	</div>`;
+		</div>`;
+
+	return element;
 }

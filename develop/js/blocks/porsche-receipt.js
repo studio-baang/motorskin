@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { requestWpJson } from "../utils/wp-json";
+import { renderTypeButton } from "../components/contact-type-button";
 
 export class PorcsheReceipt {
 	constructor() {
@@ -12,8 +13,8 @@ export class PorcsheReceipt {
 		 *  	title: string,
 		 * 		class: string,
 		 * 		price: {
-		 * 			area-1 : number,
-		 * 			area-2 : number
+		 * 			typeA : number,
+		 * 			typeB : number
 		 * 		}
 		 *	}
 		 */
@@ -63,7 +64,13 @@ export class PorcsheReceipt {
 					typeB: e.acf.type_b,
 				},
 			}));
-			console.log(this.packageOption);
+		});
+	}
+
+	renderTypeButton() {
+		const wrapper = document.getElementById("porsche-form__type-button-wrapper");
+		this.packageOption.forEach((e) => {
+			renderTypeButton(e.title);
 		});
 	}
 }
