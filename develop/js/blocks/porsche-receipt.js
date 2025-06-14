@@ -58,12 +58,13 @@ export class PorcsheReceipt {
 		requestWpJson("package-option", (posts) => {
 			this.packageOption = posts.map((e) => ({
 				title: e.title.rendered,
-				class: e.acf.package_class,
+				classType: e.acf.package_class,
 				price: {
 					typeA: e.acf.type_a,
 					typeB: e.acf.type_b,
 				},
 			}));
+			this.renderTypeButton();
 		});
 	}
 
