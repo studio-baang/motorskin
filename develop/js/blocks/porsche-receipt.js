@@ -1,17 +1,18 @@
 import _ from "lodash";
-import { getSiteName } from "../utils/filter-site-by-name";
 
 export class PorcsheReceipt {
 	constructor() {
-		this.sitename = getSiteName();
+		this.data = {
+			model: "",
+		};
 
 		this.modelInput = document.querySelector('select[name="model"]');
-		this.modelValue = this.modelInput.value;
 
 		this.init();
 	}
 
 	init() {
+		updateContact();
 		this.observe(this.modelInput);
 	}
 
@@ -20,14 +21,14 @@ export class PorcsheReceipt {
 	}
 
 	updateContact() {
-		this.modelValue = this.modelInput.value;
-		this.requestCarDate(this.modelValue);
+		this.data.model = this.modelInput.value;
+		this.requestCarDate(this.data.model);
 	}
 
 	async requestCarDate(title) {
 		try {
 			// REST API 엔드포인트 생성
-			const endpoint = `/porche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(title)}`;
+			const endpoint = `/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(title)}`;
 
 			// Fetch API로 요청
 			const response = await fetch(endpoint);
