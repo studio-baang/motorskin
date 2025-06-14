@@ -17,16 +17,7 @@ export class PorcsheReceipt {
 		 * 		}
 		 *	}
 		 */
-		this.packageOption = requestWpJson("package-option", (posts) => {
-			return posts.map((e) => ({
-				title: e.title.rendered,
-				class: e.acf.package_class,
-				price: {
-					typeA: e.acf.type_a,
-					typeB: e.acf.type_b,
-				},
-			}));
-		});
+		this.packageOption = [];
 		this.modelInput = document.querySelector('select[name="model"]');
 
 		this.init();
@@ -37,7 +28,6 @@ export class PorcsheReceipt {
 	init() {
 		this.runUpdatePipeline();
 		this.observe(this.modelInput);
-		console.log(this.packageOption);
 	}
 
 	observe(el) {
@@ -59,6 +49,20 @@ export class PorcsheReceipt {
 		requestWpJson(`car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
 			this.carPost = posts.find((post) => post.title.rendered === this.data.model);
 			console.log(this.carPost);
+		});
+	}
+
+	updatePackageOption() {
+		requestWpJson("package-option", (posts) => {
+			this.packageOption = posts.map((e) => ({
+				title: e.title.rendered,
+				class: e.acf.package_class,
+				price: {
+					typeA: e.acf.type_a,
+					typeB: e.acf.type_b,
+				},
+			}));
+			console.log(this.packageOption);
 		});
 	}
 }
