@@ -14,7 +14,7 @@ function filter_dealer_code_exact_title_match( $args, $request ) {
     if ( ! $where_filter_added ) {
         add_filter( 'posts_where', function( $where ) use ( $search_term ) {
             global $wpdb;
-            $where .= $wpdb->prepare( " AND {$wpdb->posts}..post_title COLLATE utf8mb4_bin = %s", $search_term );
+            $where .= $wpdb->prepare( " AND {$wpdb->posts}.post_title COLLATE utf8mb4_bin = %s", $search_term );
             return $where;
         } );
         $where_filter_added = true;
