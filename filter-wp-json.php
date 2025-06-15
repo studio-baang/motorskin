@@ -18,7 +18,8 @@ add_filter('rest_post_dispatch', function($result, $server, $request) {
 
         $match = false;
         foreach ($data as $item) {
-            if (strtolower($item['title']['rendered']) === strtolower($search_term)) {
+            // 대소문자 구분해서 정확히 비교
+            if ($item['title']['rendered'] === $search_term) {
                 $match = true;
                 break;
             }
