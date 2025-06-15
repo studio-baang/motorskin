@@ -17,17 +17,19 @@ add_filter('rest_post_dispatch', function($result, $server, $request) {
         $data = $result->get_data();
 
         $match = false;
-        foreach ($data as $item) {
-            // 대소문자 구분해서 정확히 비교
-            if ($item['title']['rendered'] === $search_term) {
-                $match = true;
-                break;
-            }
-        }
+        var_dump($data);
 
-        if (!$match) {
-            return new WP_Error('no_match', '일치하는 코드가 없습니다.', ['status' => 404]);
-        }
+        // foreach ($data as $item) {
+        //     // 대소문자 구분해서 정확히 비교
+        //     if ($item['title']['rendered'] === $search_term) {
+        //         $match = true;
+        //         break;
+        //     }
+        // }
+
+        // if (!$match) {
+        //     return new WP_Error('no_match', '일치하는 코드가 없습니다.', ['status' => 404]);
+        // }
     }
 
     return $result;
