@@ -25,3 +25,28 @@ function search_porsche_package_price($post_id, $series_name) {
     return intval( $area );
 }
 
+// parameter code를 통한 검색 후 boolean 반환
+function check_dealer_code_via_rest_api() {
+    if ( ! isset($_GET['code']) ) {
+        return false;
+    }
+
+    $keyword = sanitize_text_field($_GET['code']);
+    $url = get_site_url() . '/wp-json/wp/v2/dealer-code?search=' . rawurlencode($keyword);
+
+    $response = wp_remote_get($url);
+
+    if ( is_wp_error($response) ) {
+        return false;
+    }
+
+    $body = wp_remote_retrieve_body($response);
+    $data = json_decode($body, true);
+
+    if ( empty($data) || !is_array($data) ) {
+        return false;
+    }
+
+    // 배열이 비어있지 않으면 true 반환
+    return !empty($data);
+}
