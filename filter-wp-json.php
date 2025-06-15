@@ -12,7 +12,7 @@ add_filter('rest_pre_dispatch', function($result, $server, $request) {
 
 // dealer code 정확하지 않은 결과 차단
 add_filter('rest_post_dispatch', function($result, $server, $request) {
-    if ($request->get_route() === '/wp/v2/coupon' && $request->get_param('search')) {
+    if ($request->get_route() === '/wp/v2/dealer-code' && $request->get_param('search')) {
         $search_term = $request->get_param('search');
         $data = $result->get_data();
 
