@@ -1,18 +1,23 @@
 <?php
 function filter_dealer_code_exact_title_match( $args, $request ) {
-    if ( isset( $request['search'] ) && ! empty( $request['search'] ) ) {
-        $search_term = $request['search'];
+    // 검색어가 없으면 결과를 반환하지 않음
+    if ( empty( $request['search'] ) ) {
+        $args['post__in'] = array( 0 ); // 빈 결과 반환
+        return $args;
+    }
 
-        // 's'를 제거하고 'title' 정확 일치로 meta_query 사용
-        unset( $args['s'] );
+    // 정확한 제목 일치 필터 적용
+    $search_term = $request['search'];
+    unset( $args['s'] ); // 기본 검색 제거
 
-        // SQL 쿼리 커스터마이징을 위해 필터를 추가
+    static $where_filter_added = false;
+    if ( ! $where_filter_added ) {
         add_filter( 'posts_where', function( $where ) use ( $search_term ) {
             global $wpdb;
-            // 제목 정확히 일치하는 경우만
             $where .= $wpdb->prepare( " AND {$wpdb->posts}.post_title = %s", $search_term );
             return $where;
         } );
+        $where_filter_added = true;
     }
 
     return $args;
