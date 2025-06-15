@@ -27,8 +27,10 @@ function search_porsche_package_price($post_id, $series_name) {
 
 // parameter code를 통한 검색 후 boolean 반환
 function check_dealer_code_via_rest_api() {
+    $result = 'false';
+
     if ( ! isset($_GET['code']) ) {
-        return false;
+        return $result;
     }
 
     $keyword = sanitize_text_field($_GET['code']);
@@ -37,28 +39,17 @@ function check_dealer_code_via_rest_api() {
     $response = wp_remote_get($url);
 
     if ( is_wp_error($response) ) {
-        return false;
+        return $result;
     }
 
     $body = wp_remote_retrieve_body($response);
     $data = json_decode($body, true);
 
     if ( empty($data) || !is_array($data) ) {
-        return false;
+        return $result;
     }
 
     // 배열이 비어있지 않으면 true 반환
-    return !empty($data);
-}
-
-add_action('oxygen_vsb_register_condition', 'register_custom_condition_dealer_code');
-
-function register_custom_condition_dealer_code() {
-    oxygen_vsb_register_condition(
-        'Dealer Code is Valid', // 조건 이름
-        array('options' => array('true', 'false'), 'custom' => false),
-        array('=='),
-        'check_dealer_code_via_rest_api',
-        'Other'
-    );
+    $result = 'true';
+    return $result;
 }
