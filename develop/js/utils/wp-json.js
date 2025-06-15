@@ -1,7 +1,7 @@
 export async function requestWpJson(url, returnFunc) {
 	try {
 		// REST API 엔드포인트 생성
-		const endpoint = "url";
+		const endpoint = url;
 
 		// Fetch API로 요청
 		const response = await fetch(endpoint);
