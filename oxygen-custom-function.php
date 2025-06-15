@@ -50,3 +50,14 @@ function check_dealer_code_via_rest_api() {
     // 배열이 비어있지 않으면 true 반환
     return !empty($data);
 }
+
+add_action('oxygen_vsb_register_condition', 'register_custom_condition_dealer_code');
+
+function register_custom_condition_dealer_code() {
+    oxygen_vsb_register_condition(
+        'Dealer Code is Valid', // 조건 이름
+        array('options' => array('true', 'false')), // 비교값
+        'check_dealer_code_via_rest_api', // 비교할 함수
+        'equal' // 비교 방식
+    );
+}
