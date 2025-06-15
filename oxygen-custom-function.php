@@ -25,6 +25,23 @@ function search_porsche_package_price($post_id, $series_name) {
     return intval( $area );
 }
 
+// dealer 코드의 앞과 뒤를 분리
+function splitDealerCode($string) {
+    $len = strlen($string);
+
+    if ($len < 2) {
+        return [$string, '']; // 문자열이 2자 이하인 경우
+    }
+
+    $splitPos = $len - 2;
+
+    $firstPart = substr($string, 0, $splitPos);
+    $secondPart = substr($string, $splitPos);
+    $secondPart = (int)$secondPart;
+
+    return [$firstPart, $secondPart];
+}
+
 // parameter code를 통한 검색 후 boolean 반환
 function check_dealer_code_via_rest_api() {
     $result = 'false';
@@ -34,7 +51,9 @@ function check_dealer_code_via_rest_api() {
     }
 
     $keyword = sanitize_text_field($_GET['code']);
-    $url = get_site_url() . '/wp-json/wp/v2/dealer-code?search=' . rawurlencode($keyword);
+    list($code, $numbering) = splitDealerCode($keyword);
+
+    $url = get_site_url() . '/wp-json/wp/v2/dealer-code?search=' . rawurlencode($code);
 
     $response = wp_remote_get($url);
 
@@ -49,7 +68,10 @@ function check_dealer_code_via_rest_api() {
         return $result;
     }
 
-    // 배열이 비어있지 않으면 true 반환
-    $result = 'true';
+    $max_numbering_range = (int)$data[0]['acf']['range'];
+    if ($numbering > 0 && $numbering <= $max_numbering_range) {
+        $result = 'true';
+    }
+
     return $result;
 }
