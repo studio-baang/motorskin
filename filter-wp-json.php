@@ -1,25 +1,25 @@
 <?php
 
 // dealer code 리스트 접근 차단
-add_filter('rest_pre_dispatch', function($result, $server, $request) {
-    // 대상: 쿠폰 CPT의 GET 요청
-    if ($request->get_route() === '/wp/v2/dealer-code' && $request->get_method() === 'GET') {
-        // search 파라미터가 없는 경우: 전체 리스트 요청 → 차단
+add_filter('rest_post_dispatch', function($result, $server, $request) {
+    if ($request->get_route() === '/wp/v2/coupon' && $request->get_method() === 'GET') {
         if (!$request->get_param('search')) {
-            return new WP_Error('rest_forbidden', '허용되지 않은 접근입니다.', ['status' => 403]);
+            return new WP_Error('rest_forbidden', '전체 쿠폰 리스트 접근은 허용되지 않습니다.', ['status' => 403]);
         }
 
-        // 에러 응답이 아니고, 정상적으로 결과가 왔는지 확인
-        if (!is_wp_error($result)) {
-            $search_term = trim(mb_strtolower($request->get_param('search'), 'UTF-8'));
+        // WP_REST_Response인지 확인 후 처리
+        if ($result instanceof WP_REST_Response) {
+            $search_term = trim($request->get_param('search'));
             $data = $result->get_data();
 
             $match = false;
             foreach ($data as $item) {
-                $item_title = trim($item['title']['rendered']);
-                if ($item_title === $search_term) {
-                    $match = true;
-                    break;
+                if (isset($item['title']['rendered'])) {
+                    $item_title = trim($item['title']['rendered']);
+                    if ($item_title === $search_term) {
+                        $match = true;
+                        break;
+                    }
                 }
             }
 
