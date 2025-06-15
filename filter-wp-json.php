@@ -1,7 +1,7 @@
 <?php
 
 // dealer code 리스트 접근 차단
-add_filter('rest_post_dispatch', function($result, $server, $request) {
+add_filter('rest_pre_dispatch', function($result, $server, $request) {
     // 대상: 쿠폰 CPT의 GET 요청
     if ($request->get_route() === '/wp/v2/dealer-code' && $request->get_method() === 'GET') {
         // search 파라미터가 없는 경우: 전체 리스트 요청 → 차단
