@@ -65,6 +65,7 @@ function check_dealer_code_via_rest_api() {
     $data = json_decode($body, true);
 
     if ( empty($data) || !is_array($data) ) {
+        $result = 'error';
         return $result;
     }
 
