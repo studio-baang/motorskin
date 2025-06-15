@@ -1,7 +1,7 @@
 <?php
 
 // dealer code 리스트 접근 차단
-add_filter('rest_post_dispatch', function($result, $server, $request) {
+add_filter('rest_pre_dispatch', function($result, $server, $request) {
     if ($request->get_route() === '/wp/v2/dealer-code' && $request->get_method() === 'GET') {
         if (!$request->get_param('search')) {
             return new WP_Error('rest_forbidden', '전체 쿠폰 리스트 접근은 허용되지 않습니다.', ['status' => 403]);
