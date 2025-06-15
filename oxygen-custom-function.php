@@ -56,8 +56,9 @@ add_action('oxygen_vsb_register_condition', 'register_custom_condition_dealer_co
 function register_custom_condition_dealer_code() {
     oxygen_vsb_register_condition(
         'Dealer Code is Valid', // 조건 이름
-        array('options' => array('true', 'false')), // 비교값
-        'check_dealer_code_via_rest_api', // 비교할 함수
-        'equal' // 비교 방식
+        array('options' => array('true', 'false'), 'custom' => false),
+        array('=='),
+        'check_dealer_code_via_rest_api',
+        'Other'
     );
 }
