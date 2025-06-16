@@ -2,6 +2,7 @@ import _ from "lodash";
 import { requestWpJson } from "../utils/wp-json";
 import { renderTypeButton } from "../components/contact-type-button";
 import { toggleActiveClass } from "../utils/toggle-button";
+import { renderReceipt } from "../components/contact-receipt";
 
 export class PorcsheDearerReceipt {
 	constructor() {
@@ -40,8 +41,6 @@ export class PorcsheDearerReceipt {
 	}
 
 	handlePackageTypeButton(e) {
-		console.log(e);
-
 		const button = e.currentTarget;
 		const selectedValue = button.dataset.content;
 
@@ -52,17 +51,23 @@ export class PorcsheDearerReceipt {
 
 		toggleActiveClass(this.packageTypeButtons, this.data.packageType, "contact-type-button--active");
 
-		this.renderReceipt();
+		this.redrawReceipt();
 	}
 
 	handleSelectBox(key) {
 		const value = this.inputNodes[key].value;
 		this.data[key] = value; // 내부 상태 업데이트
 
-		this.renderReceipt();
+		this.redrawReceipt();
 	}
 
-	renderReceipt() {
-		console.log(this.data);
+	redrawReceipt() {
+		const wrapper = document.getElementById("contact-receipt");
+		const element = renderReceipt({
+			modelName: this.data.model,
+			packageName: this.data.packageType,
+		});
+
+		wrapper.appendChild(element);
 	}
 }
