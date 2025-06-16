@@ -33,7 +33,9 @@ export class PorcsheDearerReceipt {
 		this.packageTypeButtons.forEach((el) => {
 			el.addEventListener("click", (e) => {
 				const currentTarget = e.currentTarget;
-				console.log(currentTarget);
+				const dataContent = currentTarget.dataset.content;
+
+				this.inputNodes.packageType.value = _.escape(dataContent);
 
 				this.runUpdatePipeline.bind(this);
 			});
@@ -43,8 +45,6 @@ export class PorcsheDearerReceipt {
 	observe(el) {
 		el.addEventListener("input", this.runUpdatePipeline.bind(this));
 	}
-
-	changePackageTypeData() {}
 
 	runUpdatePipeline() {
 		this.updateData();
