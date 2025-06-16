@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { requestWpJson } from "../utils/wp-json";
 import { renderTypeButton } from "../components/contact-type-button";
+import { toggleActiveClass } from "../utils/toggle-button";
 
 export class PorcsheDearerReceipt {
 	constructor() {
@@ -13,8 +14,10 @@ export class PorcsheDearerReceipt {
 		this.data = {
 			model: this.inputNodes.model.value,
 			packageType: this.inputNodes.packageType.value,
-			blackbox: this.inputNodes.black.value,
+			blackbox: this.inputNodes.blackbox.value,
 		};
+
+		this.packageTypeButtons = document.querySelectorAll(".contact-type-button");
 
 		this.init();
 	}
@@ -24,18 +27,36 @@ export class PorcsheDearerReceipt {
 
 		this.runUpdatePipeline();
 
-		this.observe(this.modelInput);
+		this.observe(this.inputNodes.model);
+		this.observe(this.inputNodes.blackbox);
+
+		this.packageTypeButtons.forEach((el) => {
+			el.addEventListener("click", (e) => {
+				const currentTarget = e.currentTarget;
+				console.log(currentTarget);
+
+				this.runUpdatePipeline.bind(this);
+			});
+		});
 	}
 
 	observe(el) {
 		el.addEventListener("input", this.runUpdatePipeline.bind(this));
 	}
 
+	changePackageTypeData() {}
+
 	runUpdatePipeline() {
 		this.updateData();
+
+		toggleActiveClass(this.packageTypeButtons, this.data.packageType, "contact-type-button__active");
 	}
 
 	updateData() {
-		this.data.model = this.modelInput.value;
+		this.data = {
+			model: this.inputNodes.model.value,
+			packageType: this.inputNodes.packageType.value,
+			blackbox: this.inputNodes.blackbox.value,
+		};
 	}
 }
