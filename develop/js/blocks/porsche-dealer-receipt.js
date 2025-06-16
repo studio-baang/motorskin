@@ -25,27 +25,31 @@ export class PorcsheDearerReceipt {
 	init() {
 		console.log(this.data);
 
-		this.updateSelectData();
+		this.handleSelectBox();
 
-		this.observe(this.inputNodes.model, this.data.model);
-		this.observe(this.inputNodes.blackbox, this.data.blackbox);
+		this.observe("model");
+		this.observe("blackbox");
 
 		this.packageTypeButtons.forEach((el) => {
-			el.addEventListener("click", this.updatePackageTypeButton.bind(this));
+			el.addEventListener("click", this.handlePackageTypeButton.bind(this));
 		});
 	}
 
 	observe(el, data) {
 		el.addEventListener("input", () => {
-			this.updateSelectData(el, data);
+			this.handleSelectBox(el, data);
 		});
 	}
 
-	updatePackageTypeButton(e) {
-		const currentTarget = e.currentTarget;
-		const dataContent = currentTarget.dataset.content;
+	handlePackageTypeButton(e) {
+		console.log(e);
 
-		this.inputNodes.packageType.value = _.escape(dataContent);
+		const button = e.currentTarget;
+		const selectedValue = button.dataset.content;
+
+		if (!selectedValue) return; // 안정성 체크
+
+		this.inputNodes.packageType.value = selectedValue;
 		this.data.packageType = this.inputNodes.packageType.value;
 
 		toggleActiveClass(this.packageTypeButtons, this.data.packageType.value, "contact-type-button--active");
@@ -53,8 +57,9 @@ export class PorcsheDearerReceipt {
 		renderReceipt();
 	}
 
-	updateSelectData(el, data) {
-		data = el.value;
+	handleSelectBox(key) {
+		const value = this.inputNodes[key].value;
+		this.data[key] = value; // 내부 상태 업데이트
 
 		renderReceipt();
 	}
