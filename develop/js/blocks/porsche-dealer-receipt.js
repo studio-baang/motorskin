@@ -37,7 +37,7 @@ export class PorcsheDearerReceipt {
 
 				this.inputNodes.packageType.value = _.escape(dataContent);
 
-				this.runUpdatePipeline.bind(this);
+				toggleActiveClass(this.packageTypeButtons, this.data.packageType.value, "contact-type-button__active");
 			});
 		});
 	}
@@ -48,8 +48,7 @@ export class PorcsheDearerReceipt {
 
 	runUpdatePipeline() {
 		this.updateData();
-
-		toggleActiveClass(this.packageTypeButtons, this.data.packageType, "contact-type-button__active");
+		toggleActiveClass(this.packageTypeButtons, this.data.packageType.value, "contact-type-button__active");
 	}
 
 	updateData() {
