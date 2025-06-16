@@ -11,6 +11,7 @@ export class PorcsheDearerReceipt {
 			packageType: document.querySelector('input[name="package-type"]'),
 			blackbox: document.querySelector('select[name="package-blackbox"]'),
 			totalPrice: document.querySelector('input[name="total-price"]'),
+			dealerCode: document.querySelector('input[name="code"]'),
 		};
 
 		this.price = [
@@ -23,6 +24,7 @@ export class PorcsheDearerReceipt {
 			model: this.inputNodes.model.value,
 			packageType: this.inputNodes.packageType.value,
 			blackbox: this.inputNodes.blackbox.value,
+			dealerCode: this.inputNodes.dealerCode.value,
 		};
 
 		this.totalPrice = this.findPrice();
@@ -108,7 +110,10 @@ export class PorcsheDearerReceipt {
 					content: "기본 포함",
 				},
 			],
-			this.totalPrice
+			this.totalPrice,
+			{
+				dealerCodeValue: this.data.dealerCode,
+			}
 		);
 
 		wrapper.appendChild(element);

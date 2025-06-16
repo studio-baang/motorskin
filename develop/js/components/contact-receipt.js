@@ -76,6 +76,19 @@ function renderQuotation(priceValue) {
 	return wrapper;
 }
 
+function renderDealerCode(codeValue) {
+	// render wrapper
+	const element = document.createElement("div");
+	element.classList.add("contact-receipt__dealer-code");
+	element.appendChild(renderSubIndex("딜러코드"));
+
+	const content = element.createElement("p");
+	content.textContent = codeValue;
+	element.appendChild(content);
+
+	return element;
+}
+
 /**
  *
  * @param {object} headObj
@@ -85,7 +98,7 @@ function renderQuotation(priceValue) {
  * @param {number} priceValue 최종 결과 값
  * @returns
  */
-export function renderReceipt(headObj, optionlist, priceValue) {
+export function renderReceipt(headObj, optionlist, priceValue, ...otherOption) {
 	const { modelName, packageName } = headObj;
 
 	const fragment = document.createDocumentFragment();
@@ -95,6 +108,10 @@ export function renderReceipt(headObj, optionlist, priceValue) {
 
 	// render Option
 	fragment.appendChild(renderOptionList(optionlist));
+
+	if (otherOption && otherOption.dealerCodeValue) {
+		fragment.appendChild(renderDealerCode(otherOption.dealerCodeValue));
+	}
 
 	// render quotation
 	fragment.appendChild(renderQuotation(priceValue));
