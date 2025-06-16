@@ -61,7 +61,7 @@ export class PorcsheDearerReceipt {
 		toggleActiveClass(this.packageTypeButtons, this.data.packageType, "contact-type-button--active");
 
 		// reduce total Price
-		this.totalPrice = findPrice();
+		this.totalPrice = this.findPrice();
 
 		this.redrawReceipt();
 	}
@@ -75,7 +75,6 @@ export class PorcsheDearerReceipt {
 
 	findPrice() {
 		const findPrice = this.price.find((p) => p.key == this.data.packageType);
-		console.log(findPrice);
 
 		return findPrice.value;
 	}

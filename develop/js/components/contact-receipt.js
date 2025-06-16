@@ -70,6 +70,8 @@ function renderQuotation(priceValue) {
 	const infoEl = document.createElement("span");
 	infoEl.textContent = "모든 패키지 금액은 부가가치세(VAT) 별도입니다.";
 	wrapper.appendChild(infoEl);
+
+	return wrapper;
 }
 
 /**
