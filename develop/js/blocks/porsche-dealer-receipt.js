@@ -18,23 +18,10 @@ export class PorcsheDearerReceipt {
 			blackbox: this.inputNodes.blackbox.value,
 		};
 
-		this.optionContents = [
-			{
-				title: "전체 PPF 시공",
-				content: "루프 제외 모든 도장면에 시공되는 품목입니다.",
-			},
-			{
-				title: "블랙박스",
-				content: this.data.blackbox,
-			},
-			{
-				title: "썬팅",
-				content: "후퍼옵틱 GK",
-			},
-			{
-				title: "하이패스",
-				content: "기본 포함",
-			},
+		this.price = [
+			{ key: "카바차 3.0 PPF", value: 5000000 },
+			{ key: "모터가드 PPF", value: 4500000 },
+			{ key: "글로벌 PPF", value: 3900000 },
 		];
 
 		this.packageTypeButtons = document.querySelectorAll(".contact-type-button");
@@ -85,6 +72,8 @@ export class PorcsheDearerReceipt {
 		// reset wrapper inner
 		wrapper.innerHTML = "";
 
+		const priceValue = this.price.find((p) => p.key == this.data.model).value;
+
 		const element = renderReceipt(
 			{
 				modelName: this.data.model,
@@ -107,7 +96,8 @@ export class PorcsheDearerReceipt {
 					title: "하이패스",
 					content: "기본 포함",
 				},
-			]
+			],
+			priceValue
 		);
 
 		wrapper.appendChild(element);
