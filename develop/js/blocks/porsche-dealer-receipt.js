@@ -62,6 +62,7 @@ export class PorcsheDearerReceipt {
 
 		// reduce total Price
 		this.totalPrice = this.findPrice();
+		this.inputNodes.totalPrice.value = this.totalPrice;
 
 		this.redrawReceipt();
 	}
