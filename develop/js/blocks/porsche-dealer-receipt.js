@@ -25,8 +25,6 @@ export class PorcsheDearerReceipt {
 	init() {
 		console.log(this.data);
 
-		this.handleSelectBox();
-
 		this.observe("model");
 		this.observe("blackbox");
 
@@ -35,9 +33,9 @@ export class PorcsheDearerReceipt {
 		});
 	}
 
-	observe(el, data) {
-		el.addEventListener("input", () => {
-			this.handleSelectBox(el, data);
+	observe(key) {
+		this.inputNodes[key].addEventListener("input", () => {
+			this.handleSelectBox(key);
 		});
 	}
 
