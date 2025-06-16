@@ -18,6 +18,25 @@ export class PorcsheDearerReceipt {
 			blackbox: this.inputNodes.blackbox.value,
 		};
 
+		this.optionContents = [
+			{
+				title: "전체 PPF 시공",
+				content: "루프 제외 모든 도장면에 시공되는 품목입니다.",
+			},
+			{
+				title: "블랙박스",
+				content: this.data.blackbox,
+			},
+			{
+				title: "썬팅",
+				content: "후퍼옵틱 GK",
+			},
+			{
+				title: "하이패스",
+				content: "기본 포함",
+			},
+		];
+
 		this.packageTypeButtons = document.querySelectorAll(".contact-type-button");
 
 		this.init();
@@ -63,10 +82,33 @@ export class PorcsheDearerReceipt {
 
 	redrawReceipt() {
 		const wrapper = document.getElementById("contact-receipt");
-		const element = renderReceipt({
-			modelName: this.data.model,
-			packageName: this.data.packageType,
-		});
+		// reset wrapper inner
+		wrapper.innerHTML = "";
+
+		const element = renderReceipt(
+			{
+				modelName: this.data.model,
+				packageName: this.data.packageType,
+			},
+			[
+				{
+					title: "전체 PPF 시공",
+					content: "루프 제외 모든 도장면에 시공되는 품목입니다.",
+				},
+				{
+					title: "블랙박스",
+					content: this.data.blackbox,
+				},
+				{
+					title: "썬팅",
+					content: "후퍼옵틱 GK",
+				},
+				{
+					title: "하이패스",
+					content: "기본 포함",
+				},
+			]
+		);
 
 		wrapper.appendChild(element);
 	}

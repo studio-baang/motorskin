@@ -36,12 +36,19 @@ function renderHead(modelName, packageName) {
 	return wrapper;
 }
 
-function renderOptionList() {
+function renderOptionList(optionlist) {
 	// render wrapper
 	const wrapper = document.createElement("div");
 	wrapper.classList.add("contact-receipt__container");
-
 	wrapper.appendChild(renderSubIndex("기본 사향"));
+
+	// render ul
+	const ul = document.createElement("ul");
+	ul.classList.add("contact-receipt__options");
+
+	optionlist.forEach((el) => {
+		ul.appendChild(renderOptionListItem(el.title, el.content));
+	});
 
 	return wrapper;
 }
@@ -63,17 +70,10 @@ export function renderReceipt(headObj, optionlist) {
 	// render head
 	element.appendChild(renderHead(modelName, packageName));
 
-	// element.innerHTML = `<div class="contact-receipt__head">
-	// 	<span class="contact-receipt__index">시공 미리보기</span>
-	// 	<h3 id="contact-receipt-title" class="contact-receipt__title">모델명</h3>
-	// 	<p id="contact-receipt-promotion"></p>
-	// </div>
-	// <div class="contact-receipt__container">
-	// 	<span class="contact-receipt__index">기본 사항</span>
-	// 	<ul class="contact-receipt__options" id="contact-receipt__options">
-	// 	</ul>
-	// </div>
-	// <div class="contact-receipt__quotation">
+	// render Option
+	element.appendChild(renderOptionList(optionlist));
+
+	// element.innerHTML = `<div class="contact-receipt__quotation">
 	// 	<span class="contact-receipt__index">예상 견적</span>
 	// 	<span class="contact-receipt__payment"><strong id="contact-receipt-amount">0</strong>원 ~</span>
 	// 	<span class="contact-receipt__info">모든 패키지 금액은 부가가치세(VAT) 별도입니다.</span>
