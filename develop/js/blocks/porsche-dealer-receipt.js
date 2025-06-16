@@ -10,12 +10,7 @@ export class PorcsheDearerReceipt {
 			model: document.querySelector('select[name="model"]'),
 			packageType: document.querySelector('input[name="package-type"]'),
 			blackbox: document.querySelector('select[name="package-blackbox"]'),
-		};
-
-		this.data = {
-			model: this.inputNodes.model.value,
-			packageType: this.inputNodes.packageType.value,
-			blackbox: this.inputNodes.blackbox.value,
+			totalPrice: document.querySelector('input[name="total-price"]'),
 		};
 
 		this.price = [
@@ -24,20 +19,28 @@ export class PorcsheDearerReceipt {
 			{ key: "글로벌 PPF", value: 3900000 },
 		];
 
+		this.data = {
+			model: this.inputNodes.model.value,
+			packageType: this.inputNodes.packageType.value,
+			blackbox: this.inputNodes.blackbox.value,
+		};
+
+		this.totalPrice = this.findPrice();
+
 		this.packageTypeButtons = document.querySelectorAll(".contact-type-button");
 
 		this.init();
 	}
 
 	init() {
-		console.log(this.data);
-
 		this.observe("model");
 		this.observe("blackbox");
 
 		this.packageTypeButtons.forEach((el) => {
 			el.addEventListener("click", this.handlePackageTypeButton.bind(this));
 		});
+
+		this.redrawReceipt();
 	}
 
 	observe(key) {
@@ -57,6 +60,9 @@ export class PorcsheDearerReceipt {
 
 		toggleActiveClass(this.packageTypeButtons, this.data.packageType, "contact-type-button--active");
 
+		// reduce total Price
+		this.totalPrice = findPrice();
+
 		this.redrawReceipt();
 	}
 
@@ -67,12 +73,15 @@ export class PorcsheDearerReceipt {
 		this.redrawReceipt();
 	}
 
+	findPrice() {
+		const findPrice = this.price.find((p) => p.key == this.data.model);
+		return findPrice.value;
+	}
+
 	redrawReceipt() {
 		const wrapper = document.getElementById("contact-receipt");
 		// reset wrapper inner
 		wrapper.innerHTML = "";
-
-		const priceValue = this.price.find((p) => p.key == this.data.model).value;
 
 		const element = renderReceipt(
 			{
@@ -97,7 +106,7 @@ export class PorcsheDearerReceipt {
 					content: "기본 포함",
 				},
 			],
-			priceValue
+			this.totalPrice
 		);
 
 		wrapper.appendChild(element);
