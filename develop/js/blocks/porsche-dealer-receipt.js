@@ -25,37 +25,41 @@ export class PorcsheDearerReceipt {
 	init() {
 		console.log(this.data);
 
-		this.runUpdatePipeline();
+		this.updateSelectData();
 
-		this.observe(this.inputNodes.model);
-		this.observe(this.inputNodes.blackbox);
+		this.observe(this.inputNodes.model, this.data.model);
+		this.observe(this.inputNodes.blackbox, this.data.blackbox);
 
 		this.packageTypeButtons.forEach((el) => {
-			el.addEventListener("click", (e) => {
-				const currentTarget = e.currentTarget;
-				const dataContent = currentTarget.dataset.content;
-
-				this.inputNodes.packageType.value = _.escape(dataContent);
-
-				toggleActiveClass(this.packageTypeButtons, this.data.packageType.value, "contact-type-button__active");
-			});
+			el.addEventListener("click", this.updatePackageTypeButton.bind(this));
 		});
 	}
 
-	observe(el) {
-		el.addEventListener("input", this.runUpdatePipeline.bind(this));
+	observe(el, data) {
+		el.addEventListener("input", () => {
+			this.updateSelectData(el, data);
+		});
 	}
 
-	runUpdatePipeline() {
-		this.updateData();
-		toggleActiveClass(this.packageTypeButtons, this.data.packageType.value, "contact-type-button__active");
+	updatePackageTypeButton(e) {
+		const currentTarget = e.currentTarget;
+		const dataContent = currentTarget.dataset.content;
+
+		this.inputNodes.packageType.value = _.escape(dataContent);
+		this.data.packageType = this.inputNodes.packageType.value;
+
+		toggleActiveClass(this.packageTypeButtons, this.data.packageType.value, "contact-type-button--active");
+
+		renderReceipt();
 	}
 
-	updateData() {
-		this.data = {
-			model: this.inputNodes.model.value,
-			packageType: this.inputNodes.packageType.value,
-			blackbox: this.inputNodes.blackbox.value,
-		};
+	updateSelectData(el, data) {
+		data = el.value;
+
+		renderReceipt();
+	}
+
+	renderReceipt() {
+		console.log(this.data);
 	}
 }
