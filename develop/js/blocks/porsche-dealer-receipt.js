@@ -50,16 +50,16 @@ export class PorcsheDearerReceipt {
 		this.inputNodes.packageType.value = selectedValue;
 		this.data.packageType = this.inputNodes.packageType.value;
 
-		toggleActiveClass(this.packageTypeButtons, this.data.packageType.value, "contact-type-button--active");
+		toggleActiveClass(this.packageTypeButtons, this.data.packageType, "contact-type-button--active");
 
-		renderReceipt();
+		this.renderReceipt();
 	}
 
 	handleSelectBox(key) {
 		const value = this.inputNodes[key].value;
 		this.data[key] = value; // 내부 상태 업데이트
 
-		renderReceipt();
+		this.renderReceipt();
 	}
 
 	renderReceipt() {
