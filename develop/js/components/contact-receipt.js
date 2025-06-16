@@ -1,5 +1,15 @@
-export function renderReceipt() {
+function renderOptionList(title, description) {
+	const element = document.createElement("li");
+	element.innerHTML = `<li class="contact-receipt__options-list">
+							<h5>${title}</h5>
+							<p>${description}</p>
+						</li>`;
+	return element;
+}
+
+export function renderReceipt(DOM, selectedOptions) {
 	const element = document.createEvent("div");
+
 	element.classList.add("contact-receipt");
 
 	element.innerHTML = `<div class="contact-receipt__head">
@@ -15,5 +25,8 @@ export function renderReceipt() {
 	<div class="contact-receipt__quotation">
 		<span class="contact-receipt__index">예상 견적</span>
 		<span class="contact-receipt__payment"><strong id="contact-receipt-amount">0</strong>원 ~</span>
+		<span class="contact-receipt__info">모든 패키지 금액은 부가가치세(VAT) 별도입니다.</span>
 	</div>`;
+
+	return element;
 }

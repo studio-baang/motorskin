@@ -194,6 +194,11 @@
 				font-size: 1.4em;
 			}
 		}
+		&__info {
+			display: block;
+			font-size: 0.75em;
+			margin: 4px 0;
+		}
 		&__diff {
 			display: none;
 			&.contact-receipt__diff--current {

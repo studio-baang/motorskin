@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { toggleActiveClass } from "../utils/toggle-button";
 
 export class panameraReceipt {
 	constructor() {
@@ -269,17 +270,9 @@ export class panameraReceipt {
 
 		// toggle class
 		this.toggleClassAsOptions();
-		this.toggleButton({
-			els: this.typeButtons,
-			input: this.typeInput,
-			activeClassName: this.typeActiveClassName,
-		});
+		toggleActiveClass(this.typeButtons, this.typeInput.value, this.typeActiveClassName);
 
-		this.toggleButton({
-			els: this.option01Buttons,
-			input: this.option01Input,
-			activeClassName: this.option01ActiveClassName,
-		});
+		toggleActiveClass(this.option01Buttons, this.option01Input.value, this.option01ActiveClassName);
 
 		// update html
 		this.updateReceiptTitleHTML();
@@ -288,16 +281,6 @@ export class panameraReceipt {
 
 		this.setInputsValue(this.totalPriceInput, this.price);
 		this.priceTag.innerHTML = this.price;
-	}
-
-	toggleButton({ els, input, activeClassName }) {
-		els.forEach((el) => {
-			el.classList.remove(activeClassName);
-			if (el.dataset.content == input.value) {
-				el.classList.add(activeClassName);
-			}
-		});
-		return false;
 	}
 
 	toggleClassAsOptions() {

@@ -29,6 +29,9 @@ class App {
 				packagesInit();
 			} else if (namespace == "contact") {
 				new Contact();
+			} else if (namespace == "dealer custum") {
+				const isDealerCustom = true;
+				new Contact(isDealerCustom);
 			} else if (namespace == "aftercare") {
 				aftercareParallax();
 			} else if (namespace == "franchises") {
