@@ -75,6 +75,8 @@ export class PorcsheDearerReceipt {
 
 	findPrice() {
 		const findPrice = this.price.find((p) => p.key == this.data.model);
+		console.log(findPrice);
+
 		return findPrice.value;
 	}
 
