@@ -12,7 +12,7 @@ export class DealerCode {
 		this.form.addEventListener("submit", function (e) {
 			e.preventDefault(); // 새로고침 막기
 
-			const formData = new FormData(form);
+			const formData = new FormData(this.form);
 			const params = new URLSearchParams(formData).toString();
 
 			const newUrl = `${window.location.pathname}?${params}`;
