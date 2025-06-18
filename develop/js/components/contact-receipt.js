@@ -98,7 +98,7 @@ function renderDealerCode(codeValue) {
  * @param {number} priceValue 최종 결과 값
  * @returns
  */
-export function renderReceipt(headObj, optionlist, priceValue, ...otherOption) {
+export function renderReceipt(headObj, optionlist, priceValue, otherOption) {
 	const { modelName, packageName } = headObj;
 
 	const fragment = document.createDocumentFragment();

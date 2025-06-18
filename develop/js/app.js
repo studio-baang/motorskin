@@ -9,6 +9,7 @@ import { setVh } from "./utils/set-vh";
 import { setServiceListAnim } from "./pages/home";
 import { Faq } from "./pages/automotive";
 import { introduceParallax } from "./pages/introduce";
+import { DealerCode } from "./pages/dealer-code";
 
 class App {
 	constructor() {
@@ -40,6 +41,8 @@ class App {
 				new Faq();
 			} else if (namespace == "motor skin") {
 				introduceParallax();
+			} else if (namespace == "dealer code") {
+				new DealerCode();
 			}
 		});
 	}

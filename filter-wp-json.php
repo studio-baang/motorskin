@@ -23,3 +23,19 @@ function filter_dealer_code_exact_title_match( $args, $request ) {
     return $args;
 }
 add_filter( 'rest_dealer-code_query', 'filter_dealer_code_exact_title_match', 10, 2 );
+
+add_filter( 'rest_pre_dispatch', function ( $result, $server, $request ) {
+    $route = $request->get_route();
+    $method = $request->get_method();
+
+    // 단일 포스트 접근인지 확인 (GET /wp/v2/dealer-code/{id})
+    if ( $method === 'GET' && preg_match( '#^/wp/v2/dealer-code/(\d+)$#', $route, $matches ) ) {
+        return new WP_Error(
+            'rest_forbidden',
+            __( '개별 포스트 접근은 허용되지 않습니다.', 'your-text-domain' ),
+            array( 'status' => 403 )
+        );
+    }
+
+    return $result;
+}, 10, 3 );
