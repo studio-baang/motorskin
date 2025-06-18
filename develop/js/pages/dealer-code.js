@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { requestWpJson } from "../utils/wp-json";
 
 export class DealerCode {
@@ -13,7 +14,7 @@ export class DealerCode {
 		const url = new URL(window.location.href);
 		const urlParams = url.searchParams;
 		const codeParam = urlParams.get("code");
-		this.drawSearchResult(codeParam);
+		this.drawSearchResult(_.escape(codeParam));
 	}
 
 	onSubmit() {
