@@ -82,7 +82,7 @@ function renderDealerCode(codeValue) {
 	element.classList.add("contact-receipt__dealer-code");
 	element.appendChild(renderSubIndex("딜러코드"));
 
-	const content = element.createElement("p");
+	const content = document.createElement("p");
 	content.textContent = codeValue;
 	element.appendChild(content);
 

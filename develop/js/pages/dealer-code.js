@@ -9,7 +9,7 @@ export class DealerCode {
 	onLoad() {}
 
 	onSubmit() {
-		form.addEventListener("submit", function (e) {
+		this.form.addEventListener("submit", function (e) {
 			e.preventDefault(); // 새로고침 막기
 
 			const formData = new FormData(form);
