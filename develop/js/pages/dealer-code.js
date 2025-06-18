@@ -4,7 +4,7 @@ import { requestWpJson } from "../utils/wp-json";
 export class DealerCode {
 	constructor() {
 		this.form = document.getElementById("form-search-code");
-		this.resultEl = document.getElementsByClassName("search-code__result");
+		this.resultEl = document.querySelector(".search-code__result");
 
 		this.onLoad();
 		this.onSubmit();
@@ -50,7 +50,7 @@ export class DealerCode {
 					titleKr: posts[0].acf.title_kr,
 					dealerCode: dealerCode,
 				};
-				this.renderCoupon(data);
+				this.resultEl.appendChid(this.renderCoupon(data));
 			} else {
 				this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
 			}
