@@ -50,7 +50,7 @@ export class DealerCode {
 					titleKr: posts[0].acf.title_kr,
 					dealerCode: dealerCode,
 				};
-				this.resultEl.appendChid(this.renderCoupon(data));
+				this.resultEl.appendChild(this.renderCoupon(data));
 			} else {
 				this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
 			}
@@ -59,10 +59,6 @@ export class DealerCode {
 		if (!searchCode) {
 			this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
 		}
-	}
-
-	filterGetData() {
-		return false;
 	}
 
 	splitDealerCode(inputData) {
