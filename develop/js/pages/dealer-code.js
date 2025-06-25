@@ -24,7 +24,7 @@ export class DealerCode {
 			const formData = new FormData(e.target);
 			const codeNumber = formData.get("code");
 
-			console.log(codeNumber);
+			this.drawSearchResult(_.escape(codeNumber));
 
 			const newUrl = `${window.location.pathname}?code=${codeNumber}`;
 			history.pushState(null, "", newUrl); // 또는 replaceState로 대체 가능
@@ -100,7 +100,7 @@ export class DealerCode {
 	    	</div>
 	    	<div class="dealer-coupon__info-wrapper">
 	    		<h4>Dealer Code</h4>
-	    		<span></span>
+	    		<span>${dealerCode}</span>
 	    	</div>
 	    </div>
 	    <a href="/porsche-dealer/dealer-form/?code=${dealerCode}" class="dealer-coupon__CTA">
