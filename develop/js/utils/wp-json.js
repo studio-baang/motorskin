@@ -17,10 +17,11 @@ export async function requestWpJson(url, returnFunc) {
 		if (posts.length > 0) {
 			returnFunc(posts);
 		} else {
-			console.log("No posts found for the given title in Custom Post Type.");
+			console.log("404");
 			return null;
 		}
 	} catch (error) {
 		console.error("Error fetching custom post:", error);
+		return null;
 	}
 }

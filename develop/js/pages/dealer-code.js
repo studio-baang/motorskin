@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _, { isNull } from "lodash";
 import { requestWpJson } from "../utils/wp-json";
 
 export class DealerCode {
@@ -44,7 +44,7 @@ export class DealerCode {
 
 		// search dealer code data
 		const searchCode = requestWpJson(`/porsche-dealer/wp-json/wp/v2/dealer-code?search=${splitDealerCode.codeName}`, (posts) => {
-			if (0 < dealerCode.codeNumber <= posts[0].acf.range) {
+			if (dealerCode.codeNumber > 0 && dealerCode.codeNumber <= posts[0].acf.range) {
 				const data = {
 					titleEn: posts[0].acf.title_en,
 					titleKr: posts[0].acf.title_kr,
@@ -56,7 +56,7 @@ export class DealerCode {
 			}
 		});
 
-		if (!searchCode) {
+		if (isNull(searchCode)) {
 			this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
 		}
 	}
