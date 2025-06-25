@@ -22,6 +22,5 @@ export async function requestWpJson(url, returnFunc) {
 		}
 	} catch (error) {
 		console.error("Error fetching custom post:", error);
-		return null;
 	}
 }
