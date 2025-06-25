@@ -100,10 +100,10 @@ export class DealerCode {
 	    	</div>
 	    	<div class="dealer-coupon__info-wrapper">
 	    		<h4>Dealer Code</h4>
-	    		<span>${dealerCode}</span>
+	    		<span></span>
 	    	</div>
 	    </div>
-	    <a href="<?php echo add_package_code_data($keyword)?>" class="dealer-coupon__CTA">
+	    <a href="/porsche-dealer/dealer-form/?code=${dealerCode}" class="dealer-coupon__CTA">
 	    	<span>딜러 패키지 적용하기</span>
 	    </a>`;
 
