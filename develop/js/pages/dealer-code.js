@@ -44,7 +44,8 @@ export class DealerCode {
 
 		// search dealer code data
 		const searchCode = requestWpJson(`/porsche-dealer/wp-json/wp/v2/dealer-code?search=${splitDealerCode.codeName}`, (posts) => {
-			if (dealerCode.codeNumber > 0 && dealerCode.codeNumber <= posts[0].acf.range) {
+			const rangeNum = Number(posts[0].acf.range);
+			if (dealerCode.codeNumber > 0 && dealerCode.codeNumber <= rangeNum) {
 				const data = {
 					titleEn: posts[0].acf.title_en,
 					titleKr: posts[0].acf.title_kr,
