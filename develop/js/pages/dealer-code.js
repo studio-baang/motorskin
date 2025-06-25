@@ -22,11 +22,11 @@ export class DealerCode {
 			e.preventDefault(); // 새로고침 막기
 
 			const formData = new FormData(this.form);
-			console.log(formData);
+			const codeNumber = formData.get("code");
 
-			const params = new URLSearchParams(formData).toString();
+			console.log(codeNumber);
 
-			const newUrl = `${window.location.pathname}?${params}`;
+			const newUrl = `${window.location.pathname}?code=${codeNumber}`;
 			history.pushState(null, "", newUrl); // 또는 replaceState로 대체 가능
 		});
 	}
