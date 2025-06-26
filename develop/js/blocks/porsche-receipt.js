@@ -53,10 +53,9 @@ export class PorcsheReceipt {
 
 	updateModelData() {
 		requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
-			this.carPost = posts.find((post) => post.title.rendered === this.data.model);
+			this.carPost = posts[0];
+			console.log(this.carPost);
 		});
-
-		console.log(this.carPost);
 	}
 
 	updatePackageOption() {
