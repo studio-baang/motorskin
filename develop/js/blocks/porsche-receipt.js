@@ -54,7 +54,6 @@ export class PorcsheReceipt {
 	updateModelData() {
 		requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
 			this.carPost = posts[0];
-			console.log(this.carPost);
 		});
 	}
 
@@ -63,14 +62,11 @@ export class PorcsheReceipt {
 			this.packageOption = posts.map((e) => ({
 				title: e.title.rendered,
 				classType: e.acf.package_class,
-				originPrice: () => {
-					if (this.carPost.acf.is_type_A) {
-						return e.acf.price.typeA;
-					}
-					e.acf.price.typeB;
+				price: {
+					typeA: e.acf.price.type_a,
+					typeB: e.acf.price.type_b,
 				},
 			}));
-			this.renderTypeButton();
 		});
 	}
 
@@ -80,13 +76,15 @@ export class PorcsheReceipt {
 		wrapper.innerHTML = "";
 
 		this.packageOption.forEach((content) => {
+			const originPrice = this.carPost.acf.is_type_a ? content.price.typeA : content.price.typeB;
+
 			wrapper.appendChild(
 				renderTypeButton(
 					{
 						title: content.title,
 						classType: content.classType,
-						originPrice: content.originPrice(),
-						discountPrice: content.originPrice() / 2,
+						originPrice: originPrice,
+						discountPrice: originPrice / 2,
 					},
 					false
 				)
