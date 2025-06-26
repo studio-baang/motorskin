@@ -63,8 +63,8 @@ export class PorcsheReceipt {
 				title: e.title.rendered,
 				classType: e.acf.package_class,
 				price: {
-					typeA: e.acf.price.type_a,
-					typeB: e.acf.price.type_b,
+					typeA: e.acf.type_a,
+					typeB: e.acf.type_b,
 				},
 			}));
 		});
