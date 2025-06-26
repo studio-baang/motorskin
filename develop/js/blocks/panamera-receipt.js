@@ -122,8 +122,8 @@ export class panameraReceipt {
 						price: 100000,
 					},
 					{
-						content: "블랙박스 선택 안함 (-500,000원)",
-						price: -500000,
+						content: "블랙박스 선택 안함 (-450,000원)",
+						price: -450000,
 					},
 				],
 			},
