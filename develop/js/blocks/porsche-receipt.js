@@ -62,12 +62,7 @@ export class PorcsheReceipt {
 			this.packageOption = posts.map((e) => ({
 				title: e.title.rendered,
 				classType: e.acf.package_class,
-				originPrice: () => {
-					if (this.carPost.acf.is_type_A) {
-						return e.acf.price.typeA;
-					}
-					e.acf.price.typeB;
-				},
+				originPrice: () => {},
 			}));
 			this.renderTypeButton();
 		});
@@ -84,8 +79,8 @@ export class PorcsheReceipt {
 					{
 						title: content.title,
 						classType: content.classType,
-						originPrice: content.originPrice,
-						discountPrice: content.originPrice / 2,
+						originPrice: content.originPrice(),
+						discountPrice: content.originPrice() / 2,
 					},
 					false
 				)
