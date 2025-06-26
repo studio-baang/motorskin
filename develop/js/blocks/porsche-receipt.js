@@ -62,7 +62,12 @@ export class PorcsheReceipt {
 			this.packageOption = posts.map((e) => ({
 				title: e.title.rendered,
 				classType: e.acf.package_class,
-				originPrice: () => {},
+				originPrice: () => {
+					if (this.carPost.acf.is_type_A) {
+						return e.acf.price.typeA;
+					}
+					e.acf.price.typeB;
+				},
 			}));
 			this.renderTypeButton();
 		});
