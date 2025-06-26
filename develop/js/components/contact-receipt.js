@@ -94,6 +94,7 @@ function renderDealerCode(codeValue) {
  * @param {object} headObj
  * @param {string} headObj.modelName 모델명
  * @param {string} headObj.packageName 패키지명
+ *
  * @param {Array} optionlist 옵션 리스트 배열
  * @param {number} priceValue 최종 결과 값
  * @returns

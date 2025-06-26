@@ -58,6 +58,8 @@ export class DealerCode {
 			}
 		});
 
+		console.log(searchCode);
+
 		if (isNull(searchCode)) {
 			this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
 		}

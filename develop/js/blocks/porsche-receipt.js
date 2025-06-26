@@ -22,14 +22,17 @@ export class PorcsheReceipt {
 			model: this.modelInput.value,
 		};
 
-		this.init();
-	}
+		this.carPost = null;
 
-	init() {
-		this.updatePackageOption();
-		this.runUpdatePipeline();
+		this.onLoad();
 
 		this.observe(this.modelInput);
+	}
+
+	onLoad() {
+		// json으로 모델과 관련된 정보를 수집
+		this.updatePackageOption();
+		this.runUpdatePipeline();
 	}
 
 	observe(el) {
@@ -38,7 +41,7 @@ export class PorcsheReceipt {
 
 	runUpdatePipeline() {
 		this.updateData();
-		this.updatePackageType();
+		this.updateModelData();
 		this.renderTypeButton();
 	}
 
@@ -48,7 +51,7 @@ export class PorcsheReceipt {
 
 	// 패키지 옵션 표기
 
-	updatePackageType() {
+	updateModelData() {
 		requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
 			this.carPost = posts.find((post) => post.title.rendered === this.data.model);
 		});
@@ -59,9 +62,11 @@ export class PorcsheReceipt {
 			this.packageOption = posts.map((e) => ({
 				title: e.title.rendered,
 				classType: e.acf.package_class,
-				price: {
-					typeA: e.acf.type_a,
-					typeB: e.acf.type_b,
+				originPrice: () => {
+					if (this.carPost.acf.is_type_A) {
+						return e.acf.price.typeA;
+					}
+					e.acf.price.typeB;
 				},
 			}));
 			this.renderTypeButton();
@@ -73,8 +78,18 @@ export class PorcsheReceipt {
 		// reset wrapper childe node
 		wrapper.innerHTML = "";
 
-		this.packageOption.forEach((data) => {
-			wrapper.appendChild(renderTypeButton(data));
+		this.packageOption.forEach((content) => {
+			wrapper.appendChild(
+				renderTypeButton(
+					{
+						title: content.title,
+						classType: content.classType,
+						originPrice: content.originPrice,
+						discountPrice: content.originPrice / 2,
+					},
+					false
+				)
+			);
 		});
 	}
 }
