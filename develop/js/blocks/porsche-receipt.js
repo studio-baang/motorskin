@@ -42,7 +42,6 @@ export class PorcsheReceipt {
 	runUpdatePipeline() {
 		this.updateData();
 		this.updateModelData();
-		this.renderTypeButton();
 	}
 
 	updateData() {
@@ -54,6 +53,7 @@ export class PorcsheReceipt {
 	updateModelData() {
 		requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
 			this.carPost = posts[0];
+			this.renderTypeButton();
 		});
 	}
 
