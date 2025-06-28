@@ -58,7 +58,7 @@ export class PorcsheDearerReceipt {
 
 		this.inputNodes.packageType.value = selectedValue;
 
-		toggleActiveClass(this.packageTypeButtons, this.packageType.value, "contact-type-button--active");
+		toggleActiveClass(this.packageTypeButtons, this.inputNodes.value("packageType"), "contact-type-button--active");
 
 		// reduce total Price
 		this.totalPrice = this.findPrice();
@@ -67,7 +67,7 @@ export class PorcsheDearerReceipt {
 		this.redrawReceipt();
 	}
 	findPrice() {
-		const findPrice = this.price.find((p) => p.key == this.packageType.value);
+		const findPrice = this.price.find((p) => p.key == this.inputNodes.value("packageType"));
 
 		return findPrice.value;
 	}
@@ -102,7 +102,7 @@ export class PorcsheDearerReceipt {
 			],
 			this.totalPrice,
 			{
-				dealerCodeValue: this.dealerCode.value,
+				dealerCodeValue: this.inputNodes.value("dealerCode"),
 			}
 		);
 
