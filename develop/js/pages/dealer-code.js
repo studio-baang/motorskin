@@ -46,12 +46,13 @@ export class DealerCode {
 		const searchCode = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/dealer-code?search=${splitDealerCode.codeName}`);
 
 		if (searchCode) {
-			const rangeNum = Number(posts[0].acf.range);
+			const searchCodeData = searchCode[0];
+			const rangeNum = Number(searchCodeData.acf.range);
 
 			if (splitDealerCode.codeNumber > 0 && splitDealerCode.codeNumber <= rangeNum) {
 				const data = {
-					titleEn: posts[0].acf.title_en,
-					titleKr: posts[0].acf.title_kr,
+					titleEn: searchCodeData.acf.title_en,
+					titleKr: searchCodeData.acf.title_kr,
 					dealerCode: dealerCode,
 				};
 				this.resultEl.appendChild(this.renderCoupon(data));
