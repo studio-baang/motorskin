@@ -1,5 +1,7 @@
 import _ from "lodash";
 import { requestWpJson } from "../utils/wp-json";
+
+import { renderReceipt } from "../components/contact-receipt";
 import { renderTypeButton } from "../components/contact-type-button";
 
 export class PorcsheReceipt {
@@ -84,5 +86,42 @@ export class PorcsheReceipt {
 				)
 			);
 		});
+	}
+
+	redrawReceipt() {
+		const wrapper = document.getElementById("contact-receipt");
+		// reset wrapper inner
+		wrapper.innerHTML = "";
+
+		const element = renderReceipt(
+			{
+				modelName: this.inputNodes.value("model"),
+				packageName: this.inputNodes.value("packageType"),
+			},
+			[
+				{
+					title: "전체 PPF 시공",
+					content: "루프 제외 모든 도장면에 시공되는 품목입니다.",
+				},
+				{
+					title: "블랙박스",
+					content: this.inputNodes.value("blackbox"),
+				},
+				{
+					title: "틴팅",
+					content: "후퍼옵틱 GK",
+				},
+				{
+					title: "하이패스",
+					content: "기본 포함",
+				},
+			],
+			this.totalPrice,
+			{
+				dealerCodeValue: this.inputNodes.value("dealerCode"),
+			}
+		);
+
+		wrapper.appendChild(element);
 	}
 }

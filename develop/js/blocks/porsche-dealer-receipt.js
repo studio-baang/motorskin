@@ -92,7 +92,7 @@ export class PorcsheDearerReceipt {
 					content: this.inputNodes.value("blackbox"),
 				},
 				{
-					title: "썬팅",
+					title: "틴팅",
 					content: "후퍼옵틱 GK",
 				},
 				{
