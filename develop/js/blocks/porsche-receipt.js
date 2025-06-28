@@ -19,17 +19,11 @@ export class PorcsheReceipt {
 			model: document.querySelector('select[name="model"]'),
 		};
 
-		this.modelInput = document.querySelector('select[name="model"]');
-
-		this.data = {
-			model: this.modelInput.value,
-		};
-
-		this.carPost = null;
+		this.carData = null;
 
 		this.onLoad();
 
-		this.observe(this.modelInput);
+		this.observe(this.inputNodes.model);
 	}
 
 	onLoad() {
@@ -49,9 +43,9 @@ export class PorcsheReceipt {
 	// 패키지 옵션 표기
 
 	async updateModelData() {
-		const posts = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.data.model)}`);
+		const posts = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.inputNodes.model.value)}`);
 		if (posts) {
-			this.carPost = posts[0];
+			this.carData = posts[0];
 		}
 		this.renderTypeButton();
 	}
@@ -76,7 +70,7 @@ export class PorcsheReceipt {
 		wrapper.innerHTML = "";
 
 		this.packageOption.forEach((content) => {
-			const originPrice = this.carPost.acf.is_type_a ? content.price.typeA : content.price.typeB;
+			const originPrice = this.carData.acf.is_type_a ? content.price.typeA : content.price.typeB;
 
 			wrapper.appendChild(
 				renderTypeButton(
