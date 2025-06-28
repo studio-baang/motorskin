@@ -15,6 +15,9 @@ export class PorcsheReceipt {
 		 *	}
 		 */
 		this.packageOption = [];
+		this.inputNodes = {
+			model: document.querySelector('select[name="model"]'),
+		};
 
 		this.modelInput = document.querySelector('select[name="model"]');
 
@@ -40,25 +43,22 @@ export class PorcsheReceipt {
 	}
 
 	runUpdatePipeline() {
-		this.updateData();
 		this.updateModelData();
-	}
-
-	updateData() {
-		this.data.model = this.modelInput.value;
 	}
 
 	// 패키지 옵션 표기
 
-	updateModelData() {
-		requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.data.model)}`, (posts) => {
+	async updateModelData() {
+		const posts = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.data.model)}`);
+		if (posts) {
 			this.carPost = posts[0];
-			this.renderTypeButton();
-		});
+		}
+		this.renderTypeButton();
 	}
 
-	updatePackageOption() {
-		requestWpJson("/porsche-dealer/wp-json/wp/v2/package-option", (posts) => {
+	async updatePackageOption() {
+		const posts = await requestWpJson("/porsche-dealer/wp-json/wp/v2/package-option");
+		if (posts) {
 			this.packageOption = posts.map((e) => ({
 				title: e.title.rendered,
 				classType: e.acf.package_class,
@@ -67,7 +67,7 @@ export class PorcsheReceipt {
 					typeB: e.acf.type_b,
 				},
 			}));
-		});
+		}
 	}
 
 	renderTypeButton() {

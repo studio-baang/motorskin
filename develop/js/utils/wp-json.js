@@ -1,4 +1,4 @@
-export async function requestWpJson(url, returnFunc) {
+export async function requestWpJson(url) {
 	try {
 		// REST API 엔드포인트 생성
 		const endpoint = url;
@@ -15,7 +15,7 @@ export async function requestWpJson(url, returnFunc) {
 
 		// 검색 결과 처리
 		if (posts.length > 0) {
-			returnFunc(posts);
+			return posts;
 		} else {
 			console.log("404");
 			return null;

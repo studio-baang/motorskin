@@ -12,6 +12,12 @@ export class PorcsheDearerReceipt {
 			blackbox: document.querySelector('select[name="package-blackbox"]'),
 			totalPrice: document.querySelector('input[name="total-price"]'),
 			dealerCode: document.querySelector('input[name="code"]'),
+			value(key) {
+				if (typeof key === "string") {
+					return this[key]?.value ?? null;
+				}
+				return false;
+			},
 		};
 
 		this.price = [
@@ -19,13 +25,6 @@ export class PorcsheDearerReceipt {
 			{ key: "모터가드 PPF", value: 4500000 },
 			{ key: "글로벌 PPF", value: 3900000 },
 		];
-
-		this.data = {
-			model: this.inputNodes.model.value,
-			packageType: this.inputNodes.packageType.value,
-			blackbox: this.inputNodes.blackbox.value,
-			dealerCode: this.inputNodes.dealerCode.value,
-		};
 
 		this.totalPrice = this.findPrice();
 
@@ -47,7 +46,7 @@ export class PorcsheDearerReceipt {
 
 	observe(key) {
 		this.inputNodes[key].addEventListener("input", () => {
-			this.handleSelectBox(key);
+			this.redrawReceipt();
 		});
 	}
 
@@ -58,9 +57,8 @@ export class PorcsheDearerReceipt {
 		if (!selectedValue) return; // 안정성 체크
 
 		this.inputNodes.packageType.value = selectedValue;
-		this.data.packageType = this.inputNodes.packageType.value;
 
-		toggleActiveClass(this.packageTypeButtons, this.data.packageType, "contact-type-button--active");
+		toggleActiveClass(this.packageTypeButtons, this.packageType.value, "contact-type-button--active");
 
 		// reduce total Price
 		this.totalPrice = this.findPrice();
@@ -68,16 +66,8 @@ export class PorcsheDearerReceipt {
 
 		this.redrawReceipt();
 	}
-
-	handleSelectBox(key) {
-		const value = this.inputNodes[key].value;
-		this.data[key] = value; // 내부 상태 업데이트
-
-		this.redrawReceipt();
-	}
-
 	findPrice() {
-		const findPrice = this.price.find((p) => p.key == this.data.packageType);
+		const findPrice = this.price.find((p) => p.key == this.packageType.value);
 
 		return findPrice.value;
 	}
@@ -89,8 +79,8 @@ export class PorcsheDearerReceipt {
 
 		const element = renderReceipt(
 			{
-				modelName: this.data.model,
-				packageName: this.data.packageType,
+				modelName: this.inputNodes.value("model"),
+				packageName: this.inputNodes.value("packageType"),
 			},
 			[
 				{
@@ -99,7 +89,7 @@ export class PorcsheDearerReceipt {
 				},
 				{
 					title: "블랙박스",
-					content: this.data.blackbox,
+					content: this.inputNodes.value("blackbox"),
 				},
 				{
 					title: "썬팅",
@@ -112,7 +102,7 @@ export class PorcsheDearerReceipt {
 			],
 			this.totalPrice,
 			{
-				dealerCodeValue: this.data.dealerCode,
+				dealerCodeValue: this.dealerCode.value,
 			}
 		);
 

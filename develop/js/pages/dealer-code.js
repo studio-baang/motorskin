@@ -31,7 +31,7 @@ export class DealerCode {
 		});
 	}
 
-	drawSearchResult(dealerCode) {
+	async drawSearchResult(dealerCode) {
 		// reset innerhtml
 		this.resultEl.innerHTML = "";
 
@@ -43,7 +43,9 @@ export class DealerCode {
 		const splitDealerCode = this.splitDealerCode(dealerCode);
 
 		// search dealer code data
-		const searchCode = requestWpJson(`/porsche-dealer/wp-json/wp/v2/dealer-code?search=${splitDealerCode.codeName}`, (posts) => {
+		const searchCode = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/dealer-code?search=${splitDealerCode.codeName}`);
+
+		if (searchCode) {
 			const rangeNum = Number(posts[0].acf.range);
 
 			if (splitDealerCode.codeNumber > 0 && splitDealerCode.codeNumber <= rangeNum) {
@@ -56,11 +58,7 @@ export class DealerCode {
 			} else {
 				this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
 			}
-		});
-
-		console.log(searchCode);
-
-		if (isNull(searchCode)) {
+		} else {
 			this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
 		}
 	}
