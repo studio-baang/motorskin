@@ -1,4 +1,6 @@
 import _ from "lodash";
+import tinting from "../data/tinting.json" assert { type: "json" };
+
 import { requestWpJson } from "../utils/wp-json";
 
 import { renderReceipt } from "../components/contact-receipt";
@@ -24,6 +26,8 @@ export class PorcsheReceipt {
 
 		this.packagePrice = 0;
 
+		this.tintingData = tinting;
+
 		this.typeButtons = [];
 
 		this.carData = null;
@@ -37,6 +41,7 @@ export class PorcsheReceipt {
 		// json으로 모델과 관련된 정보를 수집
 		await this.updatePackageOption();
 		this.runUpdatePipeline();
+		console.log(tinting);
 	}
 
 	observe(el) {
@@ -70,6 +75,8 @@ export class PorcsheReceipt {
 					typeA: e.acf.type_a,
 					typeB: e.acf.type_b,
 				},
+				blackbox: e.acf.blackbox,
+				tinting: e.acf.tinting,
 			}));
 		}
 	}
