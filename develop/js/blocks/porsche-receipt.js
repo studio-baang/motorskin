@@ -89,6 +89,7 @@ export class PorcsheReceipt {
 			this.typeButtons.push(typeButton);
 
 			wrapper.appendChild(typeButton.render());
+			this.clickTypeButtonsHandler();
 		});
 	}
 
