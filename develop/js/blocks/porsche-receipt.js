@@ -21,6 +21,8 @@ export class PorcsheReceipt {
 			model: document.querySelector('select[name="model"]'),
 		};
 
+		this.typeButtons = [];
+
 		this.carData = null;
 
 		this.onLoad();
@@ -71,19 +73,26 @@ export class PorcsheReceipt {
 		// reset wrapper childe node
 		wrapper.innerHTML = "";
 
+		// reset typeButtons array
+		this.typeButtons = [];
+
 		this.packageOption.forEach((content) => {
 			const originPrice = this.carData.acf.is_type_a ? content.price.typeA : content.price.typeB;
 
-			const typeButton = new TypeButton.render({
+			const typeButton = new TypeButton({
 				title: content.title,
 				classType: content.classType,
 				originPrice: originPrice,
 				discountPrice: originPrice / 2,
 			});
 
-			wrapper.appendChild(typeButton);
+			this.typeButtons.push(typeButton);
+
+			wrapper.appendChild(typeButton.render());
 		});
 	}
+
+	clickTypeButtonHandler() {}
 
 	redrawReceipt() {
 		const wrapper = document.getElementById("contact-receipt");

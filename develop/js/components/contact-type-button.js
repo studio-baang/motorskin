@@ -22,20 +22,11 @@ export class TypeButton {
 			discountPrice: content.discountPrice.toLocaleString("ko-KR"),
 		};
 
-		this.render();
-	}
+		this.element = document.createElement("div");
+		this.element.classList.add("contact-type-button");
+		this.element.dataset.content = this.content.title;
 
-	render = () => {
-		// 기본 설정
-		const element = document.createElement("div");
-		element.classList.add("contact-type-button");
-		element.dataset.content = this.content.title;
-
-		if (this.isActive) {
-			element.classList.add("contact-type-button--active");
-		}
-
-		element.innerHTML = `<div class="contact-type-button__wrapper">
+		this.element.innerHTML = `<div class="contact-type-button__wrapper">
 				<div class="contact-type-button__row">
 					<span style="margin-right: auto">${this.content.classType}</span>
 					<h5>${this.content.title}</h5>
@@ -46,6 +37,14 @@ export class TypeButton {
 				</div>
 			</div>`;
 
-		return element;
+		this.element.addEventListener("click", this.onClick.bind(this));
+	}
+
+	onClick = (e) => {
+		console.log(e);
+	};
+
+	render = () => {
+		return this.element;
 	};
 }
