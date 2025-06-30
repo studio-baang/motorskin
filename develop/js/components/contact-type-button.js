@@ -38,14 +38,6 @@ export class TypeButton {
 			</div>`;
 	}
 
-	toggleClass() {
-		if (this.isActive) {
-			this.element.classList.add("contact-type-button--active");
-		} else {
-			this.element.classList.remove("contact-type-button--active");
-		}
-	}
-
 	render = () => {
 		return this.element;
 	};

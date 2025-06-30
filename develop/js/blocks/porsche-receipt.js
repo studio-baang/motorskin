@@ -98,13 +98,13 @@ export class PorcsheReceipt {
 			typeButton.element.addEventListener("click", (e) => {
 				this.typeButtons.forEach((typeButton) => {
 					typeButton.isActive = false;
+					this.element.classList.remove("contact-type-button--active");
 				});
 
 				if (e.currentTarget === typeButton.element) {
 					typeButton.isActive = true;
+					this.element.classList.add("contact-type-button--active");
 				}
-
-				typeButton.toggleClass();
 			});
 		});
 	}
