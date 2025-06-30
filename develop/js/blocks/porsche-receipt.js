@@ -19,6 +19,7 @@ export class PorcsheReceipt {
 		this.packageOption = [];
 		this.inputNodes = {
 			model: document.querySelector('select[name="model"]'),
+			packageType: document.querySelector('input[name="package-type"]'),
 		};
 
 		this.typeButtons = [];
@@ -76,6 +77,8 @@ export class PorcsheReceipt {
 		// reset typeButtons array
 		this.typeButtons = [];
 
+		// reset package type
+
 		this.packageOption.forEach((content) => {
 			const originPrice = this.carData.acf.is_type_a ? content.price.typeA : content.price.typeB;
 
@@ -86,10 +89,15 @@ export class PorcsheReceipt {
 				discountPrice: originPrice / 2,
 			});
 
+			if (typeButton.content.title === this.packageOption[0].title) {
+				typeButton.onActiveState();
+				this.inputNodes.packageType.value = typeButton.content.title;
+			}
+
 			this.typeButtons.push(typeButton);
+			this.clickTypeButtonsHandler();
 
 			wrapper.appendChild(typeButton.render());
-			this.clickTypeButtonsHandler();
 		});
 	}
 
@@ -97,13 +105,14 @@ export class PorcsheReceipt {
 		this.typeButtons.forEach((typeButton) => {
 			typeButton.element.addEventListener("click", (e) => {
 				this.typeButtons.forEach((typeButton) => {
-					typeButton.isActive = false;
-					this.element.classList.remove("contact-type-button--active");
+					typeButton.offActiveState();
 				});
 
 				if (e.currentTarget === typeButton.element) {
-					typeButton.isActive = true;
-					this.element.classList.add("contact-type-button--active");
+					typeButton.onActiveState();
+					this.inputNodes.packageType.value = typeButton.content.title;
+
+					this.redrawReceipt();
 				}
 			});
 		});
@@ -116,8 +125,8 @@ export class PorcsheReceipt {
 
 		const element = renderReceipt(
 			{
-				modelName: this.inputNodes.value("model"),
-				packageName: this.inputNodes.value("packageType"),
+				modelName: this.inputNodes.model.value,
+				packageName: this.inputNodes.packageType.value,
 			},
 			[
 				{
@@ -126,7 +135,7 @@ export class PorcsheReceipt {
 				},
 				{
 					title: "블랙박스 + 하이패스",
-					content: this.inputNodes.value("blackbox"),
+					content: 'this.inputNodes.value("blackbox")',
 				},
 				{
 					title: "틴팅",
@@ -136,10 +145,7 @@ export class PorcsheReceipt {
 					title: "프리미엄 케어",
 				},
 			],
-			this.totalPrice,
-			{
-				dealerCodeValue: this.inputNodes.value("dealerCode"),
-			}
+			this.totalPrice
 		);
 
 		wrapper.appendChild(element);

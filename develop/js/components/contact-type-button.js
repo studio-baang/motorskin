@@ -16,6 +16,7 @@ export class TypeButton {
 		// 한화 원 단위로 콤마를 넣는 코드
 		this.content = content;
 		this.isActive = false;
+		this.activeClassName = "contact-type-button--active";
 
 		this.covertPriceLocal = {
 			originPrice: content.originPrice.toLocaleString("ko-KR"),
@@ -36,6 +37,16 @@ export class TypeButton {
 					<span class="contact-type-button__discount-price"> 할인가 : ${this.covertPriceLocal.discountPrice}원 </span>
 				</div>
 			</div>`;
+	}
+
+	onActiveState() {
+		this.isActive = true;
+		this.element.classList.add(this.activeClassName);
+	}
+
+	offActiveState() {
+		this.isActive = false;
+		this.element.classList.remove(this.activeClassName);
 	}
 
 	render = () => {
