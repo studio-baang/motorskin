@@ -100,6 +100,8 @@ export class PorcsheReceipt {
 				});
 				typeButton.isActive = true;
 				typeButton.toggleClass();
+
+				console.log(typeButton);
 			});
 		});
 	}
