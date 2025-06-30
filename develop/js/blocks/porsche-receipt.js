@@ -22,6 +22,8 @@ export class PorcsheReceipt {
 		this.inputNodes = {
 			model: document.querySelector('select[name="model"]'),
 			packageType: document.querySelector('input[name="package-type"]'),
+			blackbox: document.querySelector('input[name="blackbox"]'),
+			tinting: document.querySelector('input[name="tintting"]'),
 		};
 
 		this.packagePrice = 0;
@@ -29,6 +31,7 @@ export class PorcsheReceipt {
 		this.tintingData = tinting;
 
 		this.typeButtons = [];
+		this.filteredTintingData = [];
 
 		this.carData = null;
 
@@ -41,7 +44,6 @@ export class PorcsheReceipt {
 		// json으로 모델과 관련된 정보를 수집
 		await this.updatePackageOption();
 		this.runUpdatePipeline();
-		console.log(tinting);
 	}
 
 	observe(el) {
@@ -61,7 +63,12 @@ export class PorcsheReceipt {
 		}
 		this.renderTypeButton();
 
-		// receipt
+		// filter tinting data
+		this.filteredTintingData = this.filterAddonData(this.tinting);
+
+		console.log(this.filteredTintingData);
+
+		// draw receipt
 		this.redrawReceipt();
 	}
 
@@ -135,6 +142,11 @@ export class PorcsheReceipt {
 		this.packagePrice = price;
 	}
 
+	filterAddonData(data) {
+		const filteredArray = data.filter((item) => this.packageOption.includes(item.id));
+		return filteredArray;
+	}
+
 	redrawReceipt() {
 		const wrapper = document.getElementById("contact-receipt");
 		// reset wrapper inner
@@ -162,7 +174,7 @@ export class PorcsheReceipt {
 					title: "프리미엄 케어",
 				},
 			],
-			this.totalPrice
+			this.packagePrice
 		);
 
 		wrapper.appendChild(element);
