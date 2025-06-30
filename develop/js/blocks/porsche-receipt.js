@@ -22,6 +22,8 @@ export class PorcsheReceipt {
 			packageType: document.querySelector('input[name="package-type"]'),
 		};
 
+		this.packagePrice = 0;
+
 		this.typeButtons = [];
 
 		this.carData = null;
@@ -31,9 +33,9 @@ export class PorcsheReceipt {
 		this.observe(this.inputNodes.model);
 	}
 
-	onLoad() {
+	async onLoad() {
 		// json으로 모델과 관련된 정보를 수집
-		this.updatePackageOption();
+		await this.updatePackageOption();
 		this.runUpdatePipeline();
 	}
 
@@ -53,6 +55,9 @@ export class PorcsheReceipt {
 			this.carData = posts[0];
 		}
 		this.renderTypeButton();
+
+		// receipt
+		this.redrawReceipt();
 	}
 
 	async updatePackageOption() {
@@ -91,7 +96,7 @@ export class PorcsheReceipt {
 
 			if (typeButton.content.title === this.packageOption[0].title) {
 				typeButton.onActiveState();
-				this.inputNodes.packageType.value = typeButton.content.title;
+				this.updateTypeButtonData(typeButton.content.title, typeButton.content.discountPrice);
 			}
 
 			this.typeButtons.push(typeButton);
@@ -110,12 +115,17 @@ export class PorcsheReceipt {
 
 				if (e.currentTarget === typeButton.element) {
 					typeButton.onActiveState();
-					this.inputNodes.packageType.value = typeButton.content.title;
+					this.updateTypeButtonData(typeButton.content.title, typeButton.content.discountPrice);
 
 					this.redrawReceipt();
 				}
 			});
 		});
+	}
+
+	updateTypeButtonData(title, price) {
+		this.inputNodes.packageType.value = title;
+		this.packagePrice = price;
 	}
 
 	redrawReceipt() {
