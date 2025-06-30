@@ -36,13 +36,15 @@ export class TypeButton {
 					<span class="contact-type-button__discount-price"> 할인가 : ${this.covertPriceLocal.discountPrice}원 </span>
 				</div>
 			</div>`;
-
-		this.element.addEventListener("click", this.onClick.bind(this));
 	}
 
-	onClick = (e) => {
-		console.log(e);
-	};
+	toggleClass() {
+		if (this.isActive) {
+			this.element.classList.add("contact-type-button__active");
+		} else {
+			this.element.classList.remove("contact-type-button__active");
+		}
+	}
 
 	render = () => {
 		return this.element;

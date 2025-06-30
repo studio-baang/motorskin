@@ -92,7 +92,17 @@ export class PorcsheReceipt {
 		});
 	}
 
-	clickTypeButtonHandler() {}
+	clickTypeButtonsHandler() {
+		this.typeButtons.forEach((typeButton) => {
+			typeButton.element.addEventListener("click", (e) => {
+				this.typeButtons.forEach((typeButton) => {
+					typeButton.isActive = false;
+				});
+				typeButton.isActive = true;
+				typeButton.toggleClass();
+			});
+		});
+	}
 
 	redrawReceipt() {
 		const wrapper = document.getElementById("contact-receipt");
