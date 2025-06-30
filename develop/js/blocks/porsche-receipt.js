@@ -99,10 +99,12 @@ export class PorcsheReceipt {
 				this.typeButtons.forEach((typeButton) => {
 					typeButton.isActive = false;
 				});
-				typeButton.isActive = true;
-				typeButton.toggleClass();
 
-				console.log(typeButton);
+				if (e.currentTarget === typeButton.element) {
+					typeButton.isActive = true;
+				}
+
+				typeButton.toggleClass();
 			});
 		});
 	}

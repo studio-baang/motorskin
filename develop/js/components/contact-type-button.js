@@ -40,9 +40,9 @@ export class TypeButton {
 
 	toggleClass() {
 		if (this.isActive) {
-			this.element.classList.add("contact-type-button__active");
+			this.element.classList.add("contact-type-button--active");
 		} else {
-			this.element.classList.remove("contact-type-button__active");
+			this.element.classList.remove("contact-type-button--active");
 		}
 	}
 
