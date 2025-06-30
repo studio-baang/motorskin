@@ -63,11 +63,6 @@ export class PorcsheReceipt {
 		}
 		this.renderTypeButton();
 
-		// filter tinting data
-		this.filteredTintingData = this.filterAddonData(tintingJSON);
-
-		console.log(this.filteredTintingData);
-
 		// draw receipt
 		this.redrawReceipt();
 	}
@@ -114,15 +109,16 @@ export class PorcsheReceipt {
 			}
 
 			this.typeButtons.push(typeButton);
-			this.clickTypeButtonsHandler();
+			this.clickTypeButtonsHandler(content);
 
 			wrapper.appendChild(typeButton.render());
 		});
 	}
 
-	clickTypeButtonsHandler() {
+	clickTypeButtonsHandler(content) {
 		this.typeButtons.forEach((typeButton) => {
 			typeButton.element.addEventListener("click", (e) => {
+				// remove active button
 				this.typeButtons.forEach((typeButton) => {
 					typeButton.offActiveState();
 				});
@@ -130,6 +126,11 @@ export class PorcsheReceipt {
 				if (e.currentTarget === typeButton.element) {
 					typeButton.onActiveState();
 					this.updateTypeButtonData(typeButton.content.title, typeButton.content.discountPrice);
+
+					// filter tinting data
+					this.filteredTintingData = this.filterAddonData(tintingJSON, content.tinting);
+
+					console.log(this.filteredTintingData);
 
 					this.redrawReceipt();
 				}
@@ -142,8 +143,8 @@ export class PorcsheReceipt {
 		this.packagePrice = price;
 	}
 
-	filterAddonData(data) {
-		return data.filter((item) => this.packageOption.includes(item.id));
+	filterAddonData(originalData, contentData) {
+		return originalData.filter((item) => contentData.includes(item.id));
 	}
 
 	redrawReceipt() {
