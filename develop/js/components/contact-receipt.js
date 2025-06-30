@@ -1,8 +1,9 @@
 function renderOptionListItem(title, description) {
 	const element = document.createElement("li");
+
 	element.innerHTML = `<li class="contact-receipt__options-list">
-							<h5>${title}</h5>
-							<p>${description}</p>
+							<h5>${title ?? ""}</h5>
+							<p>${description ?? ""}</p>
 						</li>`;
 	return element;
 }

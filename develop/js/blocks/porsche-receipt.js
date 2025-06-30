@@ -2,7 +2,7 @@ import _ from "lodash";
 import { requestWpJson } from "../utils/wp-json";
 
 import { renderReceipt } from "../components/contact-receipt";
-import { renderTypeButton } from "../components/contact-type-button";
+import { TypeButton } from "../components/contact-type-button";
 
 export class PorcsheReceipt {
 	constructor() {
@@ -74,17 +74,14 @@ export class PorcsheReceipt {
 		this.packageOption.forEach((content) => {
 			const originPrice = this.carData.acf.is_type_a ? content.price.typeA : content.price.typeB;
 
-			wrapper.appendChild(
-				renderTypeButton(
-					{
-						title: content.title,
-						classType: content.classType,
-						originPrice: originPrice,
-						discountPrice: originPrice / 2,
-					},
-					false
-				)
-			);
+			const typeButton = new TypeButton.render({
+				title: content.title,
+				classType: content.classType,
+				originPrice: originPrice,
+				discountPrice: originPrice / 2,
+			});
+
+			wrapper.appendChild(typeButton);
 		});
 	}
 
@@ -104,7 +101,7 @@ export class PorcsheReceipt {
 					content: "루프 제외 모든 도장면에 시공되는 품목입니다.",
 				},
 				{
-					title: "블랙박스",
+					title: "블랙박스 + 하이패스",
 					content: this.inputNodes.value("blackbox"),
 				},
 				{
@@ -112,8 +109,7 @@ export class PorcsheReceipt {
 					content: "후퍼옵틱 GK",
 				},
 				{
-					title: "하이패스",
-					content: "기본 포함",
+					title: "프리미엄 케어",
 				},
 			],
 			this.totalPrice,
