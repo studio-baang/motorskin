@@ -1,5 +1,5 @@
 import _ from "lodash";
-import tinting from "../data/tinting.json" assert { type: "json" };
+import tintingJSON from "../data/tinting.json" assert { type: "json" };
 
 import { requestWpJson } from "../utils/wp-json";
 
@@ -28,7 +28,7 @@ export class PorcsheReceipt {
 
 		this.packagePrice = 0;
 
-		this.tintingData = tinting;
+		this.tintingData = tintingJSON;
 
 		this.typeButtons = [];
 		this.filteredTintingData = [];
@@ -64,7 +64,7 @@ export class PorcsheReceipt {
 		this.renderTypeButton();
 
 		// filter tinting data
-		this.filteredTintingData = this.filterAddonData(this.tinting);
+		this.filteredTintingData = this.filterAddonData(tintingJSON);
 
 		console.log(this.filteredTintingData);
 
@@ -143,8 +143,7 @@ export class PorcsheReceipt {
 	}
 
 	filterAddonData(data) {
-		const filteredArray = data.filter((item) => this.packageOption.includes(item.id));
-		return filteredArray;
+		return data.filter((item) => this.packageOption.includes(item.id));
 	}
 
 	redrawReceipt() {
