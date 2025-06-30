@@ -5,6 +5,7 @@ import { requestWpJson } from "../utils/wp-json";
 
 import { renderReceipt } from "../components/contact-receipt";
 import { TypeButton } from "../components/contact-type-button";
+import { TintingSelectBox } from "../components/contact-tinting";
 
 export class PorcsheReceipt {
 	constructor() {
@@ -130,8 +131,10 @@ export class PorcsheReceipt {
 					// filter tinting data
 					this.filteredTintingData = this.filterAddonData(tintingJSON, content.tinting);
 
-					console.log(tintingJSON, content.tinting);
-
+					const tintingwrapper = document.getElementById("porsche-form__tinting");
+					if (this.filteredTintingData.length > 1) {
+						tintingwrapper.appendChild(new TintingSelectBox(content.tinting).render());
+					}
 					this.redrawReceipt();
 				}
 			});
@@ -144,7 +147,7 @@ export class PorcsheReceipt {
 	}
 
 	filterAddonData(originalData, contentData) {
-		return originalData.filter((item) => contentData.includes(item.id));
+		return originalData.filter((item) => contentData.includes(Number(item.id)));
 	}
 
 	redrawReceipt() {
