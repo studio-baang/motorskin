@@ -130,7 +130,7 @@ export class PorcsheReceipt {
 					// filter tinting data
 					this.filteredTintingData = this.filterAddonData(tintingJSON, content.tinting);
 
-					console.log(this.filteredTintingData);
+					console.log(tintingJSON, content.tinting);
 
 					this.redrawReceipt();
 				}
