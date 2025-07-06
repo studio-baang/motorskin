@@ -6,6 +6,8 @@ export class TypeButton {
  		* @property {string} classType 패키지 유형(basic / premium)
  		* @property {number} originPrice 할인 전 가격 
  		* @property {number} discountPrice 최종가격
+ 		* @property {Array} blackbox 블랙박스 id array
+ 		* @property {Array} tinting 틴팅 id array
 			
  		* @param {typeButtonContent} content
 			

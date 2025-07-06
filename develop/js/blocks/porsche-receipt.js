@@ -102,21 +102,25 @@ export class PorcsheReceipt {
 				classType: content.classType,
 				originPrice: originPrice,
 				discountPrice: originPrice / 2,
+				blackbox: content.blackbox,
+				tinting: content.tinting,
 			});
 
+			// set default data at first load
 			if (typeButton.content.title === this.packageOption[0].title) {
 				typeButton.onActiveState();
-				this.updateTypeButtonData(typeButton.content.title, typeButton.content.discountPrice);
+				this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 			}
 
 			this.typeButtons.push(typeButton);
-			this.clickTypeButtonsHandler(content);
 
 			wrapper.appendChild(typeButton.render());
 		});
+
+		this.clickTypeButtonsHandler();
 	}
 
-	clickTypeButtonsHandler(content) {
+	clickTypeButtonsHandler() {
 		this.typeButtons.forEach((typeButton) => {
 			typeButton.element.addEventListener("click", (e) => {
 				// remove active button
@@ -126,15 +130,15 @@ export class PorcsheReceipt {
 
 				if (e.currentTarget === typeButton.element) {
 					typeButton.onActiveState();
-					this.updateTypeButtonData(typeButton.content.title, typeButton.content.discountPrice);
+					this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 
 					// filter tinting data
-					this.filteredTintingData = this.filterAddonData(tintingJSON, content.tinting);
+					this.filteredTintingData = this.filterAddonData(tintingJSON, typeButton.content.tinting);
 					console.log(this.filteredTintingData);
 
 					const tintingwrapper = document.getElementById("porsche-form__tinting");
 					if (this.filteredTintingData.length > 1) {
-						tintingwrapper.appendChild(new TintingSelectBox(content.tinting).render());
+						tintingwrapper.appendChild(new TintingSelectBox(typeButton.content.tinting).render());
 					}
 					this.redrawReceipt();
 				}
@@ -142,7 +146,7 @@ export class PorcsheReceipt {
 		});
 	}
 
-	updateTypeButtonData(title, price) {
+	updatePackageTypeData(title, price) {
 		this.inputNodes.packageType.value = title;
 		this.packagePrice = price;
 	}
