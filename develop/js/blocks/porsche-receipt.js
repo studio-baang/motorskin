@@ -134,7 +134,7 @@ export class PorcsheReceipt {
 
 					// filter tinting data
 					this.filteredTintingData = this.filterAddonData(tintingJSON, typeButton.content.tinting);
-					console.log(this.filteredTintingData);
+					console.log(tintingJSON, typeButton.content.tinting);
 
 					const tintingwrapper = document.getElementById("porsche-form__tinting");
 					if (this.filteredTintingData.length > 1) {
