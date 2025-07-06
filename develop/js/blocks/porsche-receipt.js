@@ -133,13 +133,15 @@ export class PorcsheReceipt {
 					this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 
 					// filter tinting data
-					this.filteredTintingData = this.filterAddonData(tintingJSON, typeButton.content.tinting);
-					console.log(tintingJSON, typeButton.content.tinting);
+					const filteredTintingData = this.filterAddonData(tintingJSON, typeButton.content.tinting);
+					console.log(filteredTintingData);
 
 					const tintingwrapper = document.getElementById("porsche-form__tinting");
-					if (this.filteredTintingData.length > 1) {
-						tintingwrapper.appendChild(new TintingSelectBox(typeButton.content.tinting).render());
+					if (filteredTintingData.length > 1) {
+						tintingwrapper.innerHTML = "";
+						tintingwrapper.appendChild(new TintingSelectBox(filteredTintingData).render());
 					}
+
 					this.redrawReceipt();
 				}
 			});

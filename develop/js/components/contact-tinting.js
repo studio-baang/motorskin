@@ -7,7 +7,7 @@ export class TintingSelectBox {
 
 		this.labelNode = document.createElement("strong");
 		this.labelNode.classList.add("contact-form__label");
-		this.labelNode.content = "틴팅 선택";
+		this.labelNode.innerText = "틴팅 선택";
 
 		this.selectNode = document.createElement("select");
 		this.selectNode.classList.add("wpcf7-select");
