@@ -152,7 +152,8 @@ export class PorcsheReceipt {
 	}
 
 	filterAddonData(originalData, contentData) {
-		return originalData.filter((item) => contentData.includes(Number(item.id)));
+		const numArray = contentData.map(Number);
+		return originalData.filter((item) => numArray.includes(item.id));
 	}
 
 	redrawReceipt() {
