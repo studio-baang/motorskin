@@ -1,4 +1,4 @@
-import { isNumber } from "lodash";
+import { contactLabelDom } from "./contact-form-label";
 
 export class AddonRadioBtn {
 	constructor(labelText, data) {
