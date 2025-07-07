@@ -1,11 +1,12 @@
 import _ from "lodash";
-import tintingJSON from "../data/tinting.json" assert { type: "json" };
+import tintingJSON from "/data/tinting.json" assert { type: "json" };
 
 import { requestWpJson } from "../utils/wp-json";
+import { filterAddonData } from "../utils/filter-addon-json";
 
 import { renderReceipt } from "../components/contact-receipt";
 import { TypeButton } from "../components/contact-type-button";
-import { TintingSelectBox } from "../components/contact-tinting";
+import { AddonSelectBox } from "../components/contact-select-addon";
 
 export class PorcsheReceipt {
 	constructor() {
@@ -110,6 +111,7 @@ export class PorcsheReceipt {
 			if (typeButton.content.title === this.packageOption[0].title) {
 				typeButton.onActiveState();
 				this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
+				this.renderTintingAddon(typeButton.content.tinting);
 			}
 
 			this.typeButtons.push(typeButton);
@@ -132,15 +134,7 @@ export class PorcsheReceipt {
 					typeButton.onActiveState();
 					this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 
-					// filter tinting data
-					const filteredTintingData = this.filterAddonData(tintingJSON, typeButton.content.tinting);
-					console.log(filteredTintingData);
-
-					const tintingwrapper = document.getElementById("porsche-form__tinting");
-					if (filteredTintingData.length > 1) {
-						tintingwrapper.innerHTML = "";
-						tintingwrapper.appendChild(new TintingSelectBox(filteredTintingData).render());
-					}
+					this.renderTintingAddon(typeButton.content.tinting);
 
 					this.redrawReceipt();
 				}
@@ -148,14 +142,22 @@ export class PorcsheReceipt {
 		});
 	}
 
+	renderTintingAddon(packageTintingArr) {
+		// filter tinting data
+		const filteredTintingData = filterAddonData(tintingJSON, packageTintingArr);
+
+		const tintingwrapper = document.getElementById("porsche-form__tinting");
+		tintingwrapper.innerHTML = "";
+		if (filteredTintingData.length > 1) {
+			tintingwrapper.appendChild(new AddonSelectBox(filteredTintingData, "틴팅 선택").render());
+		} else {
+			this.inputNodes.blackbox.value = filteredTintingData[0].title;
+		}
+	}
+
 	updatePackageTypeData(title, price) {
 		this.inputNodes.packageType.value = title;
 		this.packagePrice = price;
-	}
-
-	filterAddonData(originalData, contentData) {
-		const numArray = contentData.map(Number);
-		return originalData.filter((item) => numArray.includes(item.id));
 	}
 
 	redrawReceipt() {

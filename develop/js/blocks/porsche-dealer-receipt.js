@@ -1,23 +1,23 @@
 import _ from "lodash";
+
+import blackboxJSON from "/data/blackbox.json" assert { type: "json" };
+
 import { requestWpJson } from "../utils/wp-json";
-import { renderTypeButton } from "../components/contact-type-button";
 import { toggleActiveClass } from "../utils/toggle-button";
+import { filterAddonData } from "../utils/filter-addon-json";
+
+import { renderTypeButton } from "../components/contact-type-button";
 import { renderReceipt } from "../components/contact-receipt";
+import { AddonSelectBox } from "../components/contact-select-addon";
 
 export class PorcsheDearerReceipt {
 	constructor() {
 		this.inputNodes = {
 			model: document.querySelector('select[name="model"]'),
 			packageType: document.querySelector('input[name="package-type"]'),
-			blackbox: document.querySelector('select[name="package-blackbox"]'),
+			blackbox: document.querySelector('input[name="blackbox"]'),
 			totalPrice: document.querySelector('input[name="total-price"]'),
 			dealerCode: document.querySelector('input[name="code"]'),
-			value(key) {
-				if (typeof key === "string") {
-					return this[key]?.value ?? null;
-				}
-				return false;
-			},
 		};
 
 		this.price = [
@@ -25,6 +25,12 @@ export class PorcsheDearerReceipt {
 			{ key: "모터가드 PPF", value: 4500000 },
 			{ key: "글로벌 PPF", value: 3900000 },
 		];
+
+		this.exceptBlackboxData = {
+			id: -1,
+			title: "블랙박스 선택 안함 (-200,000원)",
+			price: -200000,
+		};
 
 		this.totalPrice = this.findPrice();
 
@@ -66,9 +72,24 @@ export class PorcsheDearerReceipt {
 
 		this.redrawReceipt();
 	}
+
+	renderBlackboxSelect() {
+		// filter tinting data
+		const filteredArr = filterAddonData(blackboxJSON, [2, 3]);
+		filteredArr.push(this.exceptBlackboxData);
+
+		const blackboxWrapper = document.getElementById("porsche-form__blackbox");
+
+		blackboxWrapper.innerHTML = "";
+		if (filteredArr.length > 1) {
+			blackboxWrapper.appendChild(new AddonSelectBox(filteredArr, "블랙박스 + 하이패스").render());
+		} else {
+			this.inputNodes.blackbox.value = filteredArr[0].title;
+		}
+	}
+
 	findPrice() {
 		const findPrice = this.price.find((p) => p.key == this.inputNodes.value("packageType"));
-
 		return findPrice.value;
 	}
 
@@ -89,15 +110,11 @@ export class PorcsheDearerReceipt {
 				},
 				{
 					title: "블랙박스",
-					content: this.inputNodes.value("blackbox"),
+					content: this.inputNodes.blackbox.value,
 				},
 				{
 					title: "틴팅",
 					content: "후퍼옵틱 GK",
-				},
-				{
-					title: "하이패스",
-					content: "기본 포함",
 				},
 			],
 			this.totalPrice,
