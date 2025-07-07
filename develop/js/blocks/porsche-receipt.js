@@ -149,7 +149,8 @@ export class PorcsheReceipt {
 		const tintingwrapper = document.getElementById("porsche-form__tinting");
 		tintingwrapper.innerHTML = "";
 		if (filteredTintingData.length > 1) {
-			tintingwrapper.appendChild(new AddonSelectBox(filteredTintingData, "틴팅 선택", this.inputNodes.tinting).render());
+			const tintingSelectBox = new AddonSelectBox("틴팅 선택", filteredTintingData);
+			tintingwrapper.appendChild(tintingSelectBox.render());
 		} else {
 			this.inputNodes.tinting.value = filteredTintingData[0].title;
 		}

@@ -84,7 +84,7 @@ export class PorcsheDearerReceipt {
 		this.inputNodes.blackbox.value = filterBlackboxArr[0].title;
 
 		if (filterBlackboxArr.length > 1) {
-			const blackboxSelectbox = new AddonSelectBox(filterBlackboxArr, "블랙박스 + 하이패스");
+			const blackboxSelectbox = new AddonSelectBox("블랙박스 + 하이패스", filterBlackboxArr);
 			const selectNode = blackboxSelectbox.selectNode;
 
 			blackboxSelectbox.selectNode.addEventListener("input", (e) => {

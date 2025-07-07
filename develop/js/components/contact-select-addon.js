@@ -1,14 +1,14 @@
+import { contactLabelDom } from "./contact-form-label";
+
 export class AddonSelectBox {
 	/** 2개 이상 tintign 옵션이 있을 경우 select box를 렌더링합니다.
-	 * @param {Array} data 표시할 옵션 array
-	 * @param {string} title 에드온 제목 */
+	 * @param {string} title 에드온 제목
+	 * @param {Array} data 표시할 옵션 array */
 
-	constructor(data, title) {
+	constructor(title, data) {
 		this.fragment = document.createDocumentFragment();
 
-		this.labelNode = document.createElement("strong");
-		this.labelNode.classList.add("contact-form__label");
-		this.labelNode.innerText = title;
+		this.labelNode = contactLabelDom(title);
 
 		this.selectNode = document.createElement("select");
 		this.selectNode.classList.add("wpcf7-select");
