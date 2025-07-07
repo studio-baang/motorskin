@@ -1,3 +1,5 @@
+import { isNumber } from "lodash";
+
 export class AddonRadioBtn {
 	constructor(labelText, data) {
 		this.buttons = [];
@@ -11,11 +13,23 @@ export class AddonRadioBtn {
 
 		if (data) {
 			data.forEach((element) => {
+				let content = element.value;
+				// 추가 금액이 있을 시 옵션에 추가
+				if (element.price !== 0) {
+					content += " (";
+					if (element.price > 0) {
+						content += "+";
+					} else {
+						content += "-";
+					}
+					content += element.price.toLocaleString("ko-KR");
+					content += ")";
+				}
+
 				this.button = document.createElement("div");
 				this.button.classList.add("contact-option-button");
-				this.button.dataset.value = element.content;
-				this.button.dataset.price = element.price;
-				this.button.innerText = element.content;
+				this.button.dataset.value = element.value;
+				this.button.innerText = content;
 
 				this.buttons.push(this.button);
 				this.wrapper.appendChild(this.button);
@@ -24,18 +38,6 @@ export class AddonRadioBtn {
 
 		this.figment.appendChild(this.labelNode);
 		this.figment.appendChild(this.wrapper);
-	}
-
-	onClickHandler() {
-		this.buttons.forEach((button) => {
-			button.addEventListener("click", (e) => {
-				this.buttons.forEach((allButton) => {
-					allButton.classList.remove("contact-option-button--active");
-				});
-
-				e.classList.add("contact-option-button--active");
-			});
-		});
 	}
 
 	render() {

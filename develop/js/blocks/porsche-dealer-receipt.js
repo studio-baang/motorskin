@@ -9,6 +9,7 @@ import { filterAddonData } from "../utils/filter-addon-json";
 import { renderTypeButton } from "../components/contact-type-button";
 import { renderReceipt } from "../components/contact-receipt";
 import { AddonSelectBox } from "../components/contact-select-addon";
+import { AddonRadioBtn } from "../components/contact-radio-addon";
 
 export class PorcsheDearerReceipt {
 	constructor() {
@@ -32,6 +33,17 @@ export class PorcsheDearerReceipt {
 			price: -200000,
 		};
 
+		this.addOnArr = [
+			{
+				value: "선택 안함",
+				price: 0,
+			},
+			{
+				value: "스포지 디자인 패키지 / 에이프론 추가",
+				price: 500000,
+			},
+		];
+
 		this.blackboxPrice = 0;
 		this.addOnPrice = 0;
 		this.totalPrice = this.findPrice();
@@ -49,6 +61,7 @@ export class PorcsheDearerReceipt {
 		});
 
 		this.renderBlackboxSelect();
+		this.renderAddonButtons();
 
 		this.redrawReceipt();
 	}
@@ -102,6 +115,23 @@ export class PorcsheDearerReceipt {
 			});
 			blackboxWrapper.appendChild(blackboxSelectbox.render());
 		}
+	}
+
+	renderAddonButtons() {
+		const wrapper = document.getElementById("porsche-form__addon");
+		const addonButton = new AddonRadioBtn("추가 옵션", this.addOnArr);
+
+		addonButton.buttons.forEach((button) => {
+			button.addEventListener("click", (e) => {
+				addonButton.buttons.forEach((allButton) => {
+					allButton.classList.remove("contact-option-button--active");
+				});
+
+				e.classList.add("contact-option-button--active");
+			});
+		});
+
+		wrapper.appendChild(addonButton.render());
 	}
 
 	reduceTotalPrice() {
