@@ -91,7 +91,7 @@ export class PorcsheDearerReceipt {
 	}
 
 	findPrice() {
-		const findPrice = this.price.find((p) => p.key == this.inputNodes.value("packageType"));
+		const findPrice = this.price.find((p) => p.key == this.inputNodes.packageType.value);
 		return findPrice.value;
 	}
 
@@ -102,8 +102,8 @@ export class PorcsheDearerReceipt {
 
 		const element = renderReceipt(
 			{
-				modelName: this.inputNodes.value("model"),
-				packageName: this.inputNodes.value("packageType"),
+				modelName: this.inputNodes.model.value,
+				packageName: this.inputNodes.packageType.value,
 			},
 			[
 				{
@@ -121,7 +121,7 @@ export class PorcsheDearerReceipt {
 			],
 			this.totalPrice,
 			{
-				dealerCodeValue: this.inputNodes.value("dealerCode"),
+				dealerCodeValue: this.inputNodes.dealerCode.value,
 			}
 		);
 
