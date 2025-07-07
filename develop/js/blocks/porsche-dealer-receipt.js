@@ -41,11 +41,12 @@ export class PorcsheDearerReceipt {
 
 	init() {
 		this.observe("model");
-		this.observe("blackbox");
 
 		this.packageTypeButtons.forEach((el) => {
 			el.addEventListener("click", this.handlePackageTypeButton.bind(this));
 		});
+
+		this.renderBlackboxSelect();
 
 		this.redrawReceipt();
 	}
@@ -79,6 +80,7 @@ export class PorcsheDearerReceipt {
 		filteredArr.push(this.exceptBlackboxData);
 
 		const blackboxWrapper = document.getElementById("porsche-form__blackbox");
+		blackboxWrapper.classList.add("contact-form__input-wrapper");
 
 		blackboxWrapper.innerHTML = "";
 		if (filteredArr.length > 1) {
