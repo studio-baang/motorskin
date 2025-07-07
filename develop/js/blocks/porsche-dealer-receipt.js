@@ -32,6 +32,8 @@ export class PorcsheDearerReceipt {
 			price: -200000,
 		};
 
+		this.blackboxPrice = 0;
+		this.addOnPrice = 0;
 		this.totalPrice = this.findPrice();
 
 		this.packageTypeButtons = document.querySelectorAll(".contact-type-button");
@@ -67,32 +69,46 @@ export class PorcsheDearerReceipt {
 
 		toggleActiveClass(this.packageTypeButtons, this.inputNodes.packageType.value, "contact-type-button--active");
 
-		// reduce total Price
-		this.totalPrice = this.findPrice();
-		this.inputNodes.totalPrice.value = this.totalPrice;
-
 		this.redrawReceipt();
 	}
 
 	renderBlackboxSelect() {
-		// filter tinting data
-		const filteredArr = filterAddonData(blackboxJSON, [2, 3]);
-		filteredArr.push(this.exceptBlackboxData);
+		// filter data
+		const filterBlackboxArr = filterAddonData(blackboxJSON, [2, 3]);
+		filterBlackboxArr.push(this.exceptBlackboxData);
 
 		const blackboxWrapper = document.getElementById("porsche-form__blackbox");
 		blackboxWrapper.classList.add("contact-form__input-wrapper");
 
 		blackboxWrapper.innerHTML = "";
-		if (filteredArr.length > 1) {
-			const blackboxSelectbox = new AddonSelectBox(filteredArr, "블랙박스 + 하이패스");
+		this.inputNodes.blackbox.value = filterBlackboxArr[0].title;
+
+		if (filterBlackboxArr.length > 1) {
+			const blackboxSelectbox = new AddonSelectBox(filterBlackboxArr, "블랙박스 + 하이패스");
+			const selectNode = blackboxSelectbox.selectNode;
+
 			blackboxSelectbox.selectNode.addEventListener("input", (e) => {
 				this.inputNodes.blackbox.value = e.target.value;
+
+				// calc total price
+				const findSelectedArr = filterBlackboxArr.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
+				if (findSelectedArr != 0) {
+					this.blackboxPrice = findSelectedArr.price;
+				} else {
+					this.blackboxPrice = 0;
+				}
+
 				this.redrawReceipt();
 			});
 			blackboxWrapper.appendChild(blackboxSelectbox.render());
-		} else {
-			this.inputNodes.blackbox.value = filteredArr[0].title;
 		}
+	}
+
+	reduceTotalPrice() {
+		// reduce total Price
+		this.totalPrice = this.findPrice() + this.blackboxPrice + this.addOnPrice;
+		this.inputNodes.totalPrice.value = this.totalPrice;
+		return this.totalPrice;
 	}
 
 	findPrice() {
@@ -124,7 +140,7 @@ export class PorcsheDearerReceipt {
 					content: "후퍼옵틱 GK",
 				},
 			],
-			this.totalPrice,
+			this.reduceTotalPrice(),
 			{
 				dealerCodeValue: this.inputNodes.dealerCode.value,
 			}
