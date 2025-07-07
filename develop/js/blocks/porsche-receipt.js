@@ -149,9 +149,9 @@ export class PorcsheReceipt {
 		const tintingwrapper = document.getElementById("porsche-form__tinting");
 		tintingwrapper.innerHTML = "";
 		if (filteredTintingData.length > 1) {
-			tintingwrapper.appendChild(new AddonSelectBox(filteredTintingData, "틴팅 선택").render());
+			tintingwrapper.appendChild(new AddonSelectBox(filteredTintingData, "틴팅 선택", this.inputNodes.tinting).render());
 		} else {
-			this.inputNodes.blackbox.value = filteredTintingData[0].title;
+			this.inputNodes.tinting.value = filteredTintingData[0].title;
 		}
 	}
 
@@ -177,11 +177,11 @@ export class PorcsheReceipt {
 				},
 				{
 					title: "블랙박스 + 하이패스",
-					content: 'this.inputNodes.value("blackbox")',
+					content: this.inputNodes.blackbox.value,
 				},
 				{
 					title: "틴팅",
-					content: "후퍼옵틱 GK",
+					content: this.inputNodes.tinting.value,
 				},
 				{
 					title: "프리미엄 케어",

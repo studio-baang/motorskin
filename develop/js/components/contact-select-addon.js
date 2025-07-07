@@ -3,7 +3,7 @@ export class AddonSelectBox {
 	 * @param {Array} data 표시할 옵션 array
 	 * @param {string} title 에드온 제목 */
 
-	constructor(data, title) {
+	constructor(data, title, inputNode) {
 		this.fragment = document.createDocumentFragment();
 
 		this.labelNode = document.createElement("strong");
@@ -18,7 +18,7 @@ export class AddonSelectBox {
 		});
 
 		this.selectNode.addEventListener("input", (e) => {
-			console.log(e.target);
+			inputNode.value = e.target.value;
 		});
 
 		this.fragment.appendChild(this.labelNode);

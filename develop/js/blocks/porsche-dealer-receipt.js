@@ -65,7 +65,7 @@ export class PorcsheDearerReceipt {
 
 		this.inputNodes.packageType.value = selectedValue;
 
-		toggleActiveClass(this.packageTypeButtons, this.inputNodes.value("packageType"), "contact-type-button--active");
+		toggleActiveClass(this.packageTypeButtons, this.inputNodes.packageType.value, "contact-type-button--active");
 
 		// reduce total Price
 		this.totalPrice = this.findPrice();
@@ -84,7 +84,7 @@ export class PorcsheDearerReceipt {
 
 		blackboxWrapper.innerHTML = "";
 		if (filteredArr.length > 1) {
-			blackboxWrapper.appendChild(new AddonSelectBox(filteredArr, "블랙박스 + 하이패스").render());
+			blackboxWrapper.appendChild(new AddonSelectBox(filteredArr, "블랙박스 + 하이패스", this.inputNodes.blackbox).render());
 		} else {
 			this.inputNodes.blackbox.value = filteredArr[0].title;
 		}
