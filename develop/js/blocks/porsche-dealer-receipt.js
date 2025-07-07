@@ -84,9 +84,9 @@ export class PorcsheDearerReceipt {
 
 		blackboxWrapper.innerHTML = "";
 		if (filteredArr.length > 1) {
-			const blackboxSelectbox = new AddonSelectBox(filteredArr, "블랙박스 + 하이패스", this.inputNodes.blackbox);
+			const blackboxSelectbox = new AddonSelectBox(filteredArr, "블랙박스 + 하이패스");
 			blackboxSelectbox.selectNode.addEventListener("input", (e) => {
-				inputNode.value = e.target.value;
+				this.inputNodes.blackbox.value = e.target.value;
 				this.redrawReceipt();
 			});
 			blackboxWrapper.appendChild(blackboxSelectbox.render());
