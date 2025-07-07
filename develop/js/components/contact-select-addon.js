@@ -19,9 +19,6 @@ export class AddonSelectBox {
 
 		this.selectNode.addEventListener("input", (e) => {
 			inputNode.value = e.target.value;
-			if (onchange) {
-				onchange();
-			}
 		});
 
 		this.fragment.appendChild(this.labelNode);
