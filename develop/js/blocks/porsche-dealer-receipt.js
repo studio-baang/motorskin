@@ -17,6 +17,7 @@ export class PorcsheDearerReceipt {
 			model: document.querySelector('select[name="model"]'),
 			packageType: document.querySelector('input[name="package-type"]'),
 			blackbox: document.querySelector('input[name="blackbox"]'),
+			addon: document.querySelector('input[name="addon"]'),
 			totalPrice: document.querySelector('input[name="total-price"]'),
 			dealerCode: document.querySelector('input[name="code"]'),
 		};
@@ -39,7 +40,7 @@ export class PorcsheDearerReceipt {
 				price: 0,
 			},
 			{
-				value: "스포지 디자인 패키지 / 에이프론 추가",
+				value: "스포츠 디자인 패키지 / 에이프론 추가",
 				price: 500000,
 			},
 		];
@@ -102,13 +103,11 @@ export class PorcsheDearerReceipt {
 
 			blackboxSelectbox.selectNode.addEventListener("input", (e) => {
 				this.inputNodes.blackbox.value = e.target.value;
-
+				this.blackboxPrice = 0;
 				// calc total price
 				const findSelectedArr = filterBlackboxArr.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
 				if (findSelectedArr != 0) {
 					this.blackboxPrice = findSelectedArr.price;
-				} else {
-					this.blackboxPrice = 0;
 				}
 
 				this.redrawReceipt();
@@ -123,11 +122,23 @@ export class PorcsheDearerReceipt {
 
 		addonButton.buttons.forEach((button) => {
 			button.addEventListener("click", (e) => {
+				const target = e.currentTarget;
+				const findSelectedArr = this.addOnArr.find((arr) => arr.value == target.dataset.value);
+
+				// toggle active class
 				addonButton.buttons.forEach((allButton) => {
 					allButton.classList.remove("contact-option-button--active");
 				});
+				target.classList.add("contact-option-button--active");
 
-				e.currentTarget.classList.add("contact-option-button--active");
+				// calc addon price
+				this.addOnPrice = 0;
+				if (findSelectedArr != 0) {
+					this.addOnPrice = findSelectedArr.price;
+				}
+				this.inputNodes.addon.value = this.addOnPrice;
+
+				this.redrawReceipt();
 			});
 		});
 
@@ -168,6 +179,10 @@ export class PorcsheDearerReceipt {
 				{
 					title: "틴팅",
 					content: "후퍼옵틱 GK",
+				},
+				{
+					title: "추가 옵션",
+					content: this.inputNodes.addon.value,
 				},
 			],
 			this.reduceTotalPrice(),

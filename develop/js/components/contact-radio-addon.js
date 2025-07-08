@@ -12,7 +12,7 @@ export class AddonRadioBtn {
 		this.wrapper.classList.add("contact-option-button-wrapper");
 
 		if (data) {
-			data.forEach((element) => {
+			data.forEach((element, index) => {
 				let content = element.value;
 				// 추가 금액이 있을 시 옵션에 추가
 				if (element.price !== 0) {
@@ -23,13 +23,17 @@ export class AddonRadioBtn {
 						content += "-";
 					}
 					content += element.price.toLocaleString("ko-KR");
-					content += ")";
+					content += "원)";
 				}
 
 				this.button = document.createElement("div");
 				this.button.classList.add("contact-option-button");
 				this.button.dataset.value = element.value;
 				this.button.innerText = content;
+
+				if (index == 0) {
+					this.button.classList.add("contact-option-button--active");
+				}
 
 				this.buttons.push(this.button);
 				this.wrapper.appendChild(this.button);
