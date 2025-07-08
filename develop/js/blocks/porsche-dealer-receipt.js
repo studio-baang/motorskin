@@ -95,13 +95,15 @@ export class PorcsheDearerReceipt {
 		blackboxWrapper.classList.add("contact-form__input-wrapper");
 
 		blackboxWrapper.innerHTML = "";
+
+		// 초기값 설정
 		this.inputNodes.blackbox.value = filterBlackboxArr[0].title;
 
 		if (filterBlackboxArr.length > 1) {
 			const blackboxSelectbox = new AddonSelectBox("블랙박스 + 하이패스", filterBlackboxArr);
 			const selectNode = blackboxSelectbox.selectNode;
 
-			blackboxSelectbox.selectNode.addEventListener("input", (e) => {
+			selectNode.addEventListener("input", (e) => {
 				this.inputNodes.blackbox.value = e.target.value;
 				this.blackboxPrice = 0;
 				// calc total price
@@ -119,6 +121,9 @@ export class PorcsheDearerReceipt {
 	renderAddonButtons() {
 		const wrapper = document.getElementById("porsche-form__addon");
 		const addonButton = new AddonRadioBtn("추가 옵션", this.addOnArr);
+
+		// 초기값 설정
+		this.inputNodes.addon.value = this.addOnArr[0].value;
 
 		addonButton.buttons.forEach((button) => {
 			button.addEventListener("click", (e) => {

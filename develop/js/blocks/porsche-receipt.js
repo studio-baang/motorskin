@@ -28,6 +28,7 @@ export class PorcsheReceipt {
 			tinting: document.querySelector('input[name="tintting"]'),
 		};
 
+		this.tintingPrice = 0;
 		this.packagePrice = 0;
 
 		this.tintingData = tintingJSON;
@@ -147,9 +148,25 @@ export class PorcsheReceipt {
 		const filteredTintingData = filterAddonData(tintingJSON, packageTintingArr);
 
 		const tintingwrapper = document.getElementById("porsche-form__tinting");
+		tintingwrapper.classList.add("contact-form__input-wrapper");
 		tintingwrapper.innerHTML = "";
+
 		if (filteredTintingData.length > 1) {
 			const tintingSelectBox = new AddonSelectBox("틴팅 선택", filteredTintingData);
+			const selectNode = tintingSelectBox.selectNode;
+
+			selectNode.addEventListener("input", (e) => {
+				this.inputNodes.tinting.value = e.target.value;
+				this.tintingPrice = 0;
+				// calc total price
+				const findSelectedArr = filteredTintingData.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
+				if (findSelectedArr != 0) {
+					this.blackboxPrice = findSelectedArr.price;
+				}
+
+				this.redrawReceipt();
+			});
+
 			tintingwrapper.appendChild(tintingSelectBox.render());
 		} else {
 			this.inputNodes.tinting.value = filteredTintingData[0].title;
