@@ -136,7 +136,7 @@ export class PorcsheDearerReceipt {
 				if (findSelectedArr != 0) {
 					this.addOnPrice = findSelectedArr.price;
 				}
-				this.inputNodes.addon.value = this.addOnPrice;
+				this.inputNodes.addon.value = target.innerHTML;
 
 				this.redrawReceipt();
 			});

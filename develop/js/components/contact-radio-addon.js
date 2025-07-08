@@ -1,4 +1,5 @@
 import { contactLabelDom } from "./contact-form-label";
+import { createAddonContent } from "../utils/create-addon-content";
 
 export class AddonRadioBtn {
 	constructor(labelText, data) {
@@ -13,18 +14,7 @@ export class AddonRadioBtn {
 
 		if (data) {
 			data.forEach((element, index) => {
-				let content = element.value;
-				// 추가 금액이 있을 시 옵션에 추가
-				if (element.price !== 0) {
-					content += " (";
-					if (element.price > 0) {
-						content += "+";
-					} else {
-						content += "-";
-					}
-					content += element.price.toLocaleString("ko-KR");
-					content += "원)";
-				}
+				const content = createAddonContent(element.value, element.price);
 
 				this.button = document.createElement("div");
 				this.button.classList.add("contact-option-button");
