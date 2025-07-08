@@ -157,7 +157,7 @@ export class PorcsheReceipt {
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
 
-		console.log(data);
+		console.log(inputnode);
 
 		inputnode.value = data[0].title;
 		if (data.length > 1) {
