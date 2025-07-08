@@ -116,19 +116,18 @@ export class PorcsheReceipt {
 			if (typeButton.content.title === this.packageOption[0].title) {
 				typeButton.onActiveState();
 				this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
-				this.renderSelectAddon(typeButton.content.tinting);
+
+				const filterTintingData = filterAddonData(tintingJSON, this.typeButtons[0].content.tinting);
+				this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
+
+				const filterBlackboxData = filterAddonData(blackboxJSON, this.typeButtons[0].content.blackbox);
+				this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
 			}
 
 			this.typeButtons.push(typeButton);
 
 			wrapper.appendChild(typeButton.render());
 		});
-
-		const filterTintingData = filterAddonData(tintingJSON, this.typeButtons[0].content.tinting);
-		this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
-
-		const filterBlackboxData = filterAddonData(blackboxJSON, this.typeButtons[0].content.blackbox);
-		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
 
 		this.clickTypeButtonsHandler();
 	}
@@ -146,10 +145,10 @@ export class PorcsheReceipt {
 					this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 
 					const filterTintingData = filterAddonData(tintingJSON, typeButton.content.tinting);
-					this.renderSelectAddon("틴팅 선택", "#porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
+					this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
 
 					const filterBlackboxData = filterAddonData(blackboxJSON, typeButton.content.blackbox);
-					this.renderSelectAddon("블랙박스 + 하이패스", "#porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
+					this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
 
 					this.redrawReceipt();
 				}
@@ -161,8 +160,8 @@ export class PorcsheReceipt {
 		// filter tinting data
 		const filteredTintingData = data;
 		const hiddenInput = inputnode;
+		const wrapper = document.getElementById(wrapperID);
 
-		const wrapper = document.querySelector(wrapperID);
 		console.log(wrapper);
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
