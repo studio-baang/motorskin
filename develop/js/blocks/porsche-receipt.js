@@ -27,6 +27,7 @@ export class PorcsheReceipt {
 			packageType: document.querySelector('input[name="package-type"]'),
 			blackbox: document.querySelector('input[name="blackbox"]'),
 			tinting: document.querySelector('input[name="tinting"]'),
+			totalPrice: document.querySelector('input[name="total-price"]'),
 		};
 
 		this.packagePrice = 0;
