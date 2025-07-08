@@ -477,7 +477,7 @@
 		font-weight: 400;
 		text-transform: uppercase;
 		font-style: italic;
-		font-size: 8em;
+		font-size: min(8em, 12vw);
 		line-height: 1;
 		color: $black;
 		strong {
@@ -491,11 +491,12 @@
 	&__title {
 		font-weight: 700;
 		font-size: 3em;
-		line-height: 2;
+		line-height: 1.3;
 		color: $black;
 	}
 	&__summary {
 		font-size: 1.5em;
+		line-height: 1.5;
 		color: $black;
 	}
 	&__desc {

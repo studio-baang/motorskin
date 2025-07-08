@@ -1,5 +1,6 @@
 import _ from "lodash";
 import tintingJSON from "/data/tinting.json" assert { type: "json" };
+import blackboxJSON from "/data/blackbox.json" assert { type: "json" };
 
 import { requestWpJson } from "../utils/wp-json";
 import { filterAddonData } from "../utils/filter-addon-json";
@@ -28,8 +29,11 @@ export class PorcsheReceipt {
 			tinting: document.querySelector('input[name="tintting"]'),
 		};
 
-		this.tintingPrice = 0;
 		this.packagePrice = 0;
+		this.tintingPrice = 0;
+		this.blackboxPrice = 0;
+		this.addOnPrice = 0;
+		this.totalPrice = this.findPrice();
 
 		this.tintingData = tintingJSON;
 
@@ -112,7 +116,7 @@ export class PorcsheReceipt {
 			if (typeButton.content.title === this.packageOption[0].title) {
 				typeButton.onActiveState();
 				this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
-				this.renderTintingAddon(typeButton.content.tinting);
+				this.renderSelectAddon(typeButton.content.tinting);
 			}
 
 			this.typeButtons.push(typeButton);
@@ -135,7 +139,11 @@ export class PorcsheReceipt {
 					typeButton.onActiveState();
 					this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 
-					this.renderTintingAddon(typeButton.content.tinting);
+					const filterTintingData = filterAddonData(tintingJSON, typeButton.content.tinting);
+					this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
+
+					const filterBlackboxData = filterAddonData(tintingJSON, typeButton.content.tinting);
+					this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
 
 					this.redrawReceipt();
 				}
@@ -143,34 +151,47 @@ export class PorcsheReceipt {
 		});
 	}
 
-	renderTintingAddon(packageTintingArr) {
+	renderSelectAddon(title, wrapperID, data, inputnode, price) {
 		// filter tinting data
-		const filteredTintingData = filterAddonData(tintingJSON, packageTintingArr);
+		const filteredTintingData = data;
+		const hiddenInput = inputnode;
+		const calcPrice = price;
 
-		const tintingwrapper = document.getElementById("porsche-form__tinting");
-		tintingwrapper.classList.add("contact-form__input-wrapper");
-		tintingwrapper.innerHTML = "";
+		const wrapper = document.getElementById(wrapperID);
+		wrapper.classList.add("contact-form__input-wrapper");
+		wrapper.innerHTML = "";
 
+		hiddenInput.value = filteredTintingData[0].title;
 		if (filteredTintingData.length > 1) {
-			const tintingSelectBox = new AddonSelectBox("틴팅 선택", filteredTintingData);
+			const tintingSelectBox = new AddonSelectBox(title, filteredTintingData);
 			const selectNode = tintingSelectBox.selectNode;
 
 			selectNode.addEventListener("input", (e) => {
-				this.inputNodes.tinting.value = e.target.value;
-				this.tintingPrice = 0;
+				hiddenInput.value = e.target.value;
+				calcPrice = 0;
 				// calc total price
 				const findSelectedArr = filteredTintingData.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
 				if (findSelectedArr != 0) {
-					this.blackboxPrice = findSelectedArr.price;
+					calcPrice = findSelectedArr.price;
 				}
 
 				this.redrawReceipt();
 			});
 
-			tintingwrapper.appendChild(tintingSelectBox.render());
-		} else {
-			this.inputNodes.tinting.value = filteredTintingData[0].title;
+			wrapper.appendChild(tintingSelectBox.render());
 		}
+	}
+
+	findPrice() {
+		const findPrice = this.price.find((p) => p.key == this.inputNodes.packageType.value);
+		return findPrice.value;
+	}
+
+	reduceTotalPrice() {
+		// reduce total Price
+		this.totalPrice = this.findPrice() + this.tintingPrice + this.blackboxPrice + this.addOnPrice;
+		this.inputNodes.totalPrice.value = this.totalPrice;
+		return this.totalPrice;
 	}
 
 	updatePackageTypeData(title, price) {
@@ -205,7 +226,7 @@ export class PorcsheReceipt {
 					title: "프리미엄 케어",
 				},
 			],
-			this.packagePrice
+			this.reduceTotalPrice()
 		);
 
 		wrapper.appendChild(element);
