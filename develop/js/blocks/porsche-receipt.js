@@ -153,20 +153,18 @@ export class PorcsheReceipt {
 	renderSelectAddon(title, wrapperID, data, inputnode, price) {
 		// filter tinting data
 		const filteredTintingData = data;
-		const hiddenInput = inputnode;
 		const wrapper = document.getElementById(wrapperID);
 
-		console.log(wrapper);
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
 
-		hiddenInput.value = filteredTintingData[0].title;
+		inputnode.value = filteredTintingData[0].title;
 		if (filteredTintingData.length > 1) {
 			const tintingSelectBox = new AddonSelectBox(title, filteredTintingData);
 			const selectNode = tintingSelectBox.selectNode;
 
 			selectNode.addEventListener("input", (e) => {
-				hiddenInput.value = e.target.value;
+				inputnode.value = e.target.value;
 				price = 0;
 				// calc total price
 				const findSelectedArr = filteredTintingData.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
