@@ -142,7 +142,7 @@ export class PorcsheReceipt {
 					const filterTintingData = filterAddonData(tintingJSON, typeButton.content.tinting);
 					this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
 
-					const filterBlackboxData = filterAddonData(tintingJSON, typeButton.content.tinting);
+					const filterBlackboxData = filterAddonData(tintingJSON, typeButton.content.blackbox);
 					this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
 
 					this.redrawReceipt();
@@ -155,7 +155,6 @@ export class PorcsheReceipt {
 		// filter tinting data
 		const filteredTintingData = data;
 		const hiddenInput = inputnode;
-		const calcPrice = price;
 
 		const wrapper = document.getElementById(wrapperID);
 		wrapper.classList.add("contact-form__input-wrapper");
@@ -168,11 +167,11 @@ export class PorcsheReceipt {
 
 			selectNode.addEventListener("input", (e) => {
 				hiddenInput.value = e.target.value;
-				calcPrice = 0;
+				price = 0;
 				// calc total price
 				const findSelectedArr = filteredTintingData.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
 				if (findSelectedArr != 0) {
-					calcPrice = findSelectedArr.price;
+					price = findSelectedArr.price;
 				}
 
 				this.redrawReceipt();
