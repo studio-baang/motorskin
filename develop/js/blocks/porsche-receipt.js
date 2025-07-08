@@ -33,7 +33,7 @@ export class PorcsheReceipt {
 		this.tintingPrice = 0;
 		this.blackboxPrice = 0;
 		this.addOnPrice = 0;
-		this.totalPrice = this.findPrice();
+		this.totalPrice = 0;
 
 		this.tintingData = tintingJSON;
 
@@ -182,14 +182,9 @@ export class PorcsheReceipt {
 		}
 	}
 
-	findPrice() {
-		const findPrice = this.price.find((p) => p.key == this.inputNodes.packageType.value);
-		return findPrice.value;
-	}
-
 	reduceTotalPrice() {
 		// reduce total Price
-		this.totalPrice = this.findPrice() + this.tintingPrice + this.blackboxPrice + this.addOnPrice;
+		this.totalPrice = this.packagePrice + this.tintingPrice + this.blackboxPrice + this.addOnPrice;
 		this.inputNodes.totalPrice.value = this.totalPrice;
 		return this.totalPrice;
 	}
