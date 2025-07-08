@@ -152,22 +152,21 @@ export class PorcsheReceipt {
 
 	renderSelectAddon(title, wrapperID, data, inputnode, price) {
 		// filter tinting data
-		const filteredTintingData = data;
 		const wrapper = document.getElementById(wrapperID);
 
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
 
-		inputnode.value = filteredTintingData[0].title;
-		if (filteredTintingData.length > 1) {
-			const tintingSelectBox = new AddonSelectBox(title, filteredTintingData);
-			const selectNode = tintingSelectBox.selectNode;
+		inputnode.value = data[0].title;
+		if (data.length > 1) {
+			const selectBox = new AddonSelectBox(title, data);
+			const selectNode = selectBox.selectNode;
 
 			selectNode.addEventListener("input", (e) => {
 				inputnode.value = e.target.value;
 				price = 0;
 				// calc total price
-				const findSelectedArr = filteredTintingData.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
+				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
 				if (findSelectedArr != 0) {
 					price = findSelectedArr.price;
 				}
@@ -175,7 +174,7 @@ export class PorcsheReceipt {
 				this.redrawReceipt();
 			});
 
-			wrapper.appendChild(tintingSelectBox.render());
+			wrapper.appendChild(selectBox.render());
 		}
 	}
 
