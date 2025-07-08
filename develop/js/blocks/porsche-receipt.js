@@ -146,10 +146,10 @@ export class PorcsheReceipt {
 					this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 
 					const filterTintingData = filterAddonData(tintingJSON, typeButton.content.tinting);
-					this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
+					this.renderSelectAddon("틴팅 선택", "#porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
 
 					const filterBlackboxData = filterAddonData(blackboxJSON, typeButton.content.blackbox);
-					this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
+					this.renderSelectAddon("블랙박스 + 하이패스", "#porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
 
 					this.redrawReceipt();
 				}
@@ -162,7 +162,7 @@ export class PorcsheReceipt {
 		const filteredTintingData = data;
 		const hiddenInput = inputnode;
 
-		const wrapper = document.getElementById(wrapperID);
+		const wrapper = document.querySelector(wrapperID);
 		console.log(wrapper);
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
