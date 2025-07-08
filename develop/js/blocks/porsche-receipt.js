@@ -117,11 +117,8 @@ export class PorcsheReceipt {
 				typeButton.onActiveState();
 				this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 
-				const filterTintingData = filterAddonData(tintingJSON, this.typeButtons[0].content.tinting);
-				this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
-
-				const filterBlackboxData = filterAddonData(blackboxJSON, this.typeButtons[0].content.blackbox);
-				this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
+				this.renderTintingSelectBox(typeButton.content.tinting);
+				this.renderBlackboxSelectBox(typeButton.content.blackbox);
 			}
 
 			this.typeButtons.push(typeButton);
@@ -144,11 +141,8 @@ export class PorcsheReceipt {
 					typeButton.onActiveState();
 					this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 
-					const filterTintingData = filterAddonData(tintingJSON, typeButton.content.tinting);
-					this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
-
-					const filterBlackboxData = filterAddonData(blackboxJSON, typeButton.content.blackbox);
-					this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
+					this.renderTintingSelectBox(typeButton.content.tinting);
+					this.renderBlackboxSelectBox(typeButton.content.blackbox);
 
 					this.redrawReceipt();
 				}
@@ -185,6 +179,16 @@ export class PorcsheReceipt {
 
 			wrapper.appendChild(tintingSelectBox.render());
 		}
+	}
+
+	renderTintingSelectBox(data) {
+		const filterTintingData = filterAddonData(tintingJSON, data);
+		this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
+	}
+
+	renderBlackboxSelectBox(data) {
+		const filterBlackboxData = filterAddonData(blackboxJSON, data);
+		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
 	}
 
 	reduceTotalPrice() {
