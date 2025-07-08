@@ -127,7 +127,7 @@ export class PorcsheDearerReceipt {
 					allButton.classList.remove("contact-option-button--active");
 				});
 
-				e.classList.add("contact-option-button--active");
+				e.currentTarget.classList.add("contact-option-button--active");
 			});
 		});
 
