@@ -78,7 +78,7 @@ export class PorcsheReceipt {
 		this.renderTypeButton();
 
 		// draw receipt
-		this.redrawReceipt();
+		this.updateReceipt();
 	}
 
 	async updatePackageOption() {
@@ -142,7 +142,7 @@ export class PorcsheReceipt {
 
 				if (e.currentTarget === typeButton.element) {
 					this.runUpdatePipeline(typeButton);
-					this.redrawReceipt();
+					this.updateReceipt();
 				}
 			});
 		});
@@ -176,7 +176,7 @@ export class PorcsheReceipt {
 				if (findSelectedArr.length !== 0) {
 					this.priceNum[priceName] = findSelectedArr.price;
 				}
-				this.redrawReceipt();
+				this.updateReceipt();
 			});
 
 			wrapper.appendChild(selectBox.render());
@@ -222,7 +222,7 @@ export class PorcsheReceipt {
 				}
 				this.inputNodes.extra.value = target.innerHTML;
 
-				this.redrawReceipt();
+				this.updateReceipt();
 			});
 		});
 
@@ -241,7 +241,7 @@ export class PorcsheReceipt {
 		this.priceNum.package = price;
 	}
 
-	redrawReceipt() {
+	updateReceipt() {
 		const wrapper = document.getElementById("contact-receipt");
 		// reset wrapper inner
 		wrapper.innerHTML = "";

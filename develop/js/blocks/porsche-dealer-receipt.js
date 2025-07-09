@@ -64,12 +64,12 @@ export class PorcsheDearerReceipt {
 		this.renderBlackboxSelect();
 		this.renderAddonButtons();
 
-		this.redrawReceipt();
+		this.updateReceipt();
 	}
 
 	observe(key) {
 		this.inputNodes[key].addEventListener("input", () => {
-			this.redrawReceipt();
+			this.updateReceipt();
 		});
 	}
 
@@ -83,7 +83,7 @@ export class PorcsheDearerReceipt {
 
 		toggleActiveClass(this.packageTypeButtons, this.inputNodes.packageType.value, "contact-type-button--active");
 
-		this.redrawReceipt();
+		this.updateReceipt();
 	}
 
 	renderBlackboxSelect() {
@@ -111,7 +111,7 @@ export class PorcsheDearerReceipt {
 					this.blackboxPrice = findSelectedArr.price;
 				}
 
-				this.redrawReceipt();
+				this.updateReceipt();
 			});
 			blackboxWrapper.appendChild(blackboxSelectbox.render());
 		}
@@ -142,7 +142,7 @@ export class PorcsheDearerReceipt {
 				}
 				this.inputNodes.addon.value = target.innerHTML;
 
-				this.redrawReceipt();
+				this.updateReceipt();
 			});
 		});
 
@@ -161,7 +161,7 @@ export class PorcsheDearerReceipt {
 		return findPrice.value;
 	}
 
-	redrawReceipt() {
+	updateReceipt() {
 		const wrapper = document.getElementById("contact-receipt");
 		// reset wrapper inner
 		wrapper.innerHTML = "";

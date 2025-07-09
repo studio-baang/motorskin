@@ -14,9 +14,7 @@ export class AddonSelectBox {
 		this.selectNode = document.createElement("select");
 		this.selectNode.classList.add("wpcf7-select");
 		data.forEach((element) => {
-			const content = createAddonContent(element.title, element.price);
-
-			const option = new Option(content, element.title);
+			const option = new Option(element.title);
 			this.selectNode.appendChild(option);
 		});
 		this.selectNode.selectedIndex = 0;
