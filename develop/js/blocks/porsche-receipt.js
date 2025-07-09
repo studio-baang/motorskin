@@ -9,6 +9,7 @@ import { filterAddonData } from "../utils/filter-addon-json";
 import { renderReceipt } from "../components/contact-receipt";
 import { TypeButton } from "../components/contact-type-button";
 import { AddonSelectBox } from "../components/contact-select-addon";
+import { AddonRadioBtn } from "../components/contact-radio-addon";
 
 export class PorcsheReceipt {
 	constructor() {
