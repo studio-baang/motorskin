@@ -142,6 +142,7 @@ export class PorcsheReceipt {
 
 				if (e.currentTarget === typeButton.element) {
 					this.runUpdatePipeline(typeButton);
+					this.redrawReceipt();
 				}
 			});
 		});
@@ -231,7 +232,6 @@ export class PorcsheReceipt {
 	reduceTotalPrice() {
 		// reduce total Price
 		this.priceNum.total = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.extra;
-		console.log(this.priceNum);
 		this.inputNodes.totalPrice.value = this.priceNum.total;
 		return this.priceNum.total;
 	}
