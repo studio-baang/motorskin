@@ -30,11 +30,13 @@ export class PorcsheReceipt {
 			totalPrice: document.querySelector('input[name="total-price"]'),
 		};
 
-		this.packagePrice = 0;
-		this.tintingPrice = 0;
-		this.blackboxPrice = 0;
-		this.addOnPrice = 0;
-		this.totalPrice = 0;
+		this.priceNum = {
+			package: 0,
+			tinting: 0,
+			blackbox: 0,
+			addon: 0,
+			total: 0,
+		};
 
 		this.tintingData = tintingJSON;
 
@@ -151,7 +153,7 @@ export class PorcsheReceipt {
 		});
 	}
 
-	renderSelectAddon(title, wrapperID, data, inputnode) {
+	renderSelectAddon(title, wrapperID, data, inputnode, priceName) {
 		// filter tinting data
 		const wrapper = document.getElementById(wrapperID);
 		let addonPrice = 0;
@@ -160,54 +162,54 @@ export class PorcsheReceipt {
 		wrapper.innerHTML = "";
 
 		inputnode.value = data[0].title;
+		this.priceNum[priceName] = data[0].price;
+
 		if (data.length > 1) {
 			const selectBox = new AddonSelectBox(title, data);
 			const selectNode = selectBox.selectNode;
 
+			// calc total price
+			this.priceNum[priceName] = 0;
+			const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].value);
+			if (findSelectedArr.length > 0) {
+				this.priceNum[priceName] = findSelectedArr.price;
+			}
 			selectNode.addEventListener("input", (e) => {
-				inputnode.value = e.target.value;
-				addonPrice = 0;
 				// calc total price
+				inputnode.value = e.target.value;
+
+				this.priceNum[priceName] = 0;
 				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].value);
 				if (findSelectedArr.length > 0) {
-					addonPrice = findSelectedArr.price;
+					this.priceNum[priceName] = findSelectedArr.price;
 				}
-
-				if (title === "틴팅 선택") {
-					this.tintingPrice = addonPrice;
-				} else {
-					this.blackboxPrice = addonPrice;
-				}
-
 				this.redrawReceipt();
 			});
 
 			wrapper.appendChild(selectBox.render());
 		}
-
-		return addonPrice;
 	}
 
 	renderTintingSelectBox(data) {
 		const filterTintingData = filterAddonData(tintingJSON, data);
-		this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting);
+		this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, "tinting");
 	}
 
 	renderBlackboxSelectBox(data) {
 		const filterBlackboxData = filterAddonData(blackboxJSON, data);
-		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox);
+		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, "blackbox");
 	}
 
 	reduceTotalPrice() {
 		// reduce total Price
-		this.totalPrice = this.packagePrice + this.tintingPrice + this.blackboxPrice + this.addOnPrice;
-		this.inputNodes.totalPrice.value = this.totalPrice;
-		return this.totalPrice;
+		this.priceNum.total = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.addon;
+		this.inputNodes.totalPrice.value = this.priceNum.total;
+		return this.priceNum.total;
 	}
 
 	updatePackageTypeData(title, price) {
 		this.inputNodes.packageType.value = title;
-		this.packagePrice = price;
+		this.priceNum.package = price;
 	}
 
 	redrawReceipt() {
