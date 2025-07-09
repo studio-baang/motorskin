@@ -151,14 +151,13 @@ export class PorcsheReceipt {
 		});
 	}
 
-	renderSelectAddon(title, wrapperID, data, inputnode, price) {
+	renderSelectAddon(title, wrapperID, data, inputnode) {
 		// filter tinting data
 		const wrapper = document.getElementById(wrapperID);
+		let addonPrice = 0;
 
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
-
-		console.log(inputnode);
 
 		inputnode.value = data[0].title;
 		if (data.length > 1) {
@@ -167,11 +166,11 @@ export class PorcsheReceipt {
 
 			selectNode.addEventListener("input", (e) => {
 				inputnode.value = e.target.value;
-				price = 0;
+				addonPrice = 0;
 				// calc total price
 				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
 				if (findSelectedArr != 0) {
-					price = findSelectedArr.price;
+					addonPrice = findSelectedArr.price;
 				}
 
 				this.redrawReceipt();
@@ -179,16 +178,18 @@ export class PorcsheReceipt {
 
 			wrapper.appendChild(selectBox.render());
 		}
+
+		return addonPrice;
 	}
 
 	renderTintingSelectBox(data) {
 		const filterTintingData = filterAddonData(tintingJSON, data);
-		this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, this.tintingPrice);
+		this.tintingPrice = this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting);
 	}
 
 	renderBlackboxSelectBox(data) {
 		const filterBlackboxData = filterAddonData(blackboxJSON, data);
-		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, this.blackboxPrice);
+		this.blackboxPrice = this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox);
 	}
 
 	reduceTotalPrice() {
