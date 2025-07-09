@@ -169,6 +169,8 @@ export class PorcsheReceipt {
 				addonPrice = 0;
 				// calc total price
 				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].value);
+
+				console.log(findSelectedArr, e.target.options[e.target.selectedIndex].value);
 				if (findSelectedArr != 0) {
 					addonPrice = findSelectedArr.price;
 				}
@@ -185,6 +187,7 @@ export class PorcsheReceipt {
 	renderTintingSelectBox(data) {
 		const filterTintingData = filterAddonData(tintingJSON, data);
 		this.tintingPrice = this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting);
+		console.log(this.tintingPrice);
 	}
 
 	renderBlackboxSelectBox(data) {
