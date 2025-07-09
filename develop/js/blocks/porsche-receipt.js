@@ -168,7 +168,7 @@ export class PorcsheReceipt {
 				inputnode.value = e.target.value;
 				addonPrice = 0;
 				// calc total price
-				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
+				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].value);
 				if (findSelectedArr != 0) {
 					addonPrice = findSelectedArr.price;
 				}
