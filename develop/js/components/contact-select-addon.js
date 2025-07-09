@@ -16,7 +16,7 @@ export class AddonSelectBox {
 		data.forEach((element) => {
 			const content = createAddonContent(element.title, element.price);
 
-			const option = new Option(element.title, element.title);
+			const option = new Option(content, element.title);
 			this.selectNode.appendChild(option);
 		});
 		this.selectNode.selectedIndex = 0;
