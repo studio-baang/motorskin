@@ -170,7 +170,7 @@ export class PorcsheReceipt {
 			// calc total price
 			this.priceNum[priceName] = 0;
 			const findSelectedArr = data.find((arr) => arr.title == selectNode.options[selectNode.selectedIndex].value);
-			if (findSelectedArr.length > 0) {
+			if (findSelectedArr.length !== 0) {
 				this.priceNum[priceName] = findSelectedArr.price;
 			}
 			selectNode.addEventListener("input", (e) => {
@@ -179,7 +179,8 @@ export class PorcsheReceipt {
 
 				this.priceNum[priceName] = 0;
 				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].value);
-				if (findSelectedArr.length > 0) {
+				console.log(findSelectedArr);
+				if (findSelectedArr.length !== 0) {
 					this.priceNum[priceName] = findSelectedArr.price;
 					console.log(this.priceNum[priceName]);
 				}
