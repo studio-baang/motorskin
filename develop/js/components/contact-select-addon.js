@@ -1,4 +1,5 @@
 import { contactLabelDom } from "./contact-form-label";
+import { createAddonContent } from "../utils/create-addon-content";
 
 export class AddonSelectBox {
 	/** 2개 이상 tintign 옵션이 있을 경우 select box를 렌더링합니다.
@@ -13,6 +14,8 @@ export class AddonSelectBox {
 		this.selectNode = document.createElement("select");
 		this.selectNode.classList.add("wpcf7-select");
 		data.forEach((element) => {
+			const content = createAddonContent(element.title, element.price);
+
 			const option = new Option(element.title, element.title);
 			this.selectNode.appendChild(option);
 		});
