@@ -162,7 +162,6 @@ export class PorcsheReceipt {
 		wrapper.innerHTML = "";
 
 		inputnode.value = data[0].title;
-		this.priceNum[priceName] = data[0].price;
 
 		if (data.length > 1) {
 			const selectBox = new AddonSelectBox(title, data);
@@ -182,6 +181,7 @@ export class PorcsheReceipt {
 				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].value);
 				if (findSelectedArr.length > 0) {
 					this.priceNum[priceName] = findSelectedArr.price;
+					console.log(this.priceNum[priceName]);
 				}
 				this.redrawReceipt();
 			});
