@@ -203,6 +203,7 @@ export class PorcsheReceipt {
 	reduceTotalPrice() {
 		// reduce total Price
 		this.priceNum.total = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.addon;
+		console.log(this.priceNum);
 		this.inputNodes.totalPrice.value = this.priceNum.total;
 		return this.priceNum.total;
 	}
