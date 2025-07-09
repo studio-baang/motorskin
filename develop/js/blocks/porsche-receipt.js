@@ -173,6 +173,12 @@ export class PorcsheReceipt {
 					addonPrice = findSelectedArr.price;
 				}
 
+				if (title === "틴팅 선택") {
+					this.tintingPrice = addonPrice;
+				} else {
+					this.blackboxPrice = addonPrice;
+				}
+
 				this.redrawReceipt();
 			});
 
@@ -184,12 +190,12 @@ export class PorcsheReceipt {
 
 	renderTintingSelectBox(data) {
 		const filterTintingData = filterAddonData(tintingJSON, data);
-		this.tintingPrice = this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting);
+		this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting);
 	}
 
 	renderBlackboxSelectBox(data) {
 		const filterBlackboxData = filterAddonData(blackboxJSON, data);
-		this.blackboxPrice = this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox);
+		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox);
 	}
 
 	reduceTotalPrice() {
