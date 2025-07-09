@@ -1,6 +1,7 @@
 import _ from "lodash";
 import tintingJSON from "/data/tinting.json" assert { type: "json" };
 import blackboxJSON from "/data/blackbox.json" assert { type: "json" };
+import extraJSON from "/data/addon-extra.json" assert { type: "json" };
 
 import { requestWpJson } from "../utils/wp-json";
 import { filterAddonData } from "../utils/filter-addon-json";
@@ -28,13 +29,14 @@ export class PorcsheReceipt {
 			blackbox: document.querySelector('input[name="blackbox"]'),
 			tinting: document.querySelector('input[name="tinting"]'),
 			totalPrice: document.querySelector('input[name="total-price"]'),
+			extra: document.querySelector('input[name="extra"]'),
 		};
 
 		this.priceNum = {
 			package: 0,
 			tinting: 0,
 			blackbox: 0,
-			addon: 0,
+			extra: 0,
 			total: 0,
 		};
 
@@ -47,21 +49,22 @@ export class PorcsheReceipt {
 
 		this.onLoad();
 
-		this.observe(this.inputNodes.model);
+		this.inputNodes.model.addEventListener("input", this.updateModelData.bind(this));
 	}
 
 	async onLoad() {
 		// json으로 모델과 관련된 정보를 수집
 		await this.updatePackageOption();
-		this.runUpdatePipeline();
-	}
-
-	observe(el) {
-		el.addEventListener("input", this.runUpdatePipeline.bind(this));
-	}
-
-	runUpdatePipeline() {
 		this.updateModelData();
+	}
+
+	runUpdatePipeline(typeButton) {
+		typeButton.onActiveState();
+		this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
+
+		this.renderTintingSelectBox(typeButton.content.tinting);
+		this.renderBlackboxSelectBox(typeButton.content.blackbox);
+		this.renderAddonButtons();
 	}
 
 	// 패키지 옵션 표기
@@ -117,11 +120,7 @@ export class PorcsheReceipt {
 
 			// set default data at first load
 			if (typeButton.content.title === this.packageOption[0].title) {
-				typeButton.onActiveState();
-				this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
-
-				this.renderTintingSelectBox(typeButton.content.tinting);
-				this.renderBlackboxSelectBox(typeButton.content.blackbox);
+				this.runUpdatePipeline(typeButton);
 			}
 
 			this.typeButtons.push(typeButton);
@@ -141,13 +140,7 @@ export class PorcsheReceipt {
 				});
 
 				if (e.currentTarget === typeButton.element) {
-					typeButton.onActiveState();
-					this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
-
-					this.renderTintingSelectBox(typeButton.content.tinting);
-					this.renderBlackboxSelectBox(typeButton.content.blackbox);
-
-					this.redrawReceipt();
+					this.runUpdatePipeline(typeButton);
 				}
 			});
 		});
@@ -156,19 +149,18 @@ export class PorcsheReceipt {
 	renderSelectAddon(title, wrapperID, data, inputnode, priceName) {
 		// filter tinting data
 		const wrapper = document.getElementById(wrapperID);
-		let addonPrice = 0;
 
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
 
 		inputnode.value = data[0].title;
+		this.priceNum[priceName] = 0;
 
 		if (data.length > 1) {
 			const selectBox = new AddonSelectBox(title, data);
 			const selectNode = selectBox.selectNode;
 
 			// calc total price
-			this.priceNum[priceName] = 0;
 			const findSelectedArr = data.find((arr) => arr.title == selectNode.options[selectNode.selectedIndex].value);
 			if (findSelectedArr.length !== 0) {
 				this.priceNum[priceName] = findSelectedArr.price;
@@ -176,13 +168,11 @@ export class PorcsheReceipt {
 			selectNode.addEventListener("input", (e) => {
 				// calc total price
 				inputnode.value = e.target.value;
-
 				this.priceNum[priceName] = 0;
+
 				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].value);
-				console.log(findSelectedArr);
 				if (findSelectedArr.length !== 0) {
 					this.priceNum[priceName] = findSelectedArr.price;
-					console.log(this.priceNum[priceName]);
 				}
 				this.redrawReceipt();
 			});
@@ -201,9 +191,43 @@ export class PorcsheReceipt {
 		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, "blackbox");
 	}
 
+	renderAddonButtons() {
+		const wrapper = document.getElementById("porsche-form__extra");
+		const filterData = filterAddonData(extraJSON, this.carData.acf.extra);
+
+		const addonButton = new AddonRadioBtn("추가 옵션", filterData);
+
+		// 초기값 설정
+		this.inputNodes.extra.value = filterData[0].title;
+
+		addonButton.buttons.forEach((button) => {
+			button.addEventListener("click", (e) => {
+				const target = e.currentTarget;
+				const findSelectedArr = filterData.find((arr) => arr.title == target.dataset.value);
+
+				// toggle active class
+				addonButton.buttons.forEach((allButton) => {
+					allButton.classList.remove("contact-option-button--active");
+				});
+				target.classList.add("contact-option-button--active");
+
+				// calc addon price
+				this.priceNum.extra = 0;
+				if (findSelectedArr != 0) {
+					this.priceNum.extra = findSelectedArr.price;
+				}
+				this.inputNodes.extra.value = target.innerHTML;
+
+				this.redrawReceipt();
+			});
+		});
+
+		wrapper.appendChild(addonButton.render());
+	}
+
 	reduceTotalPrice() {
 		// reduce total Price
-		this.priceNum.total = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.addon;
+		this.priceNum.total = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.extra;
 		console.log(this.priceNum);
 		this.inputNodes.totalPrice.value = this.priceNum.total;
 		return this.priceNum.total;

@@ -36,11 +36,11 @@ export class PorcsheDearerReceipt {
 
 		this.addOnArr = [
 			{
-				value: "선택 안함",
+				title: "선택 안함",
 				price: 0,
 			},
 			{
-				value: "스포츠 디자인 패키지 / 에이프론 추가",
+				title: "스포츠 디자인 패키지 / 에이프론 추가",
 				price: 500000,
 			},
 		];
@@ -88,8 +88,7 @@ export class PorcsheDearerReceipt {
 
 	renderBlackboxSelect() {
 		// filter data
-		const filterBlackboxArr = filterAddonData(blackboxJSON, [2, 3]);
-		filterBlackboxArr.push(this.exceptBlackboxData);
+		const filterBlackboxArr = filterAddonData(blackboxJSON, [2, 3, 4]);
 
 		const blackboxWrapper = document.getElementById("porsche-form__blackbox");
 		blackboxWrapper.classList.add("contact-form__input-wrapper");
@@ -123,12 +122,12 @@ export class PorcsheDearerReceipt {
 		const addonButton = new AddonRadioBtn("추가 옵션", this.addOnArr);
 
 		// 초기값 설정
-		this.inputNodes.addon.value = this.addOnArr[0].value;
+		this.inputNodes.addon.value = this.addOnArr[0].title;
 
 		addonButton.buttons.forEach((button) => {
 			button.addEventListener("click", (e) => {
 				const target = e.currentTarget;
-				const findSelectedArr = this.addOnArr.find((arr) => arr.value == target.dataset.value);
+				const findSelectedArr = this.addOnArr.find((arr) => arr.title == target.dataset.value);
 
 				// toggle active class
 				addonButton.buttons.forEach((allButton) => {

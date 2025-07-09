@@ -14,12 +14,10 @@ export class AddonRadioBtn {
 
 		if (data) {
 			data.forEach((element, index) => {
-				const content = createAddonContent(element.value, element.price);
-
 				this.button = document.createElement("div");
 				this.button.classList.add("contact-option-button");
-				this.button.dataset.value = element.value;
-				this.button.innerText = content;
+				this.button.dataset.value = element.title;
+				this.button.innerText = element.title;
 
 				if (index == 0) {
 					this.button.classList.add("contact-option-button--active");
