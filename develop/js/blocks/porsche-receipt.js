@@ -199,6 +199,8 @@ export class PorcsheReceipt {
 		const addonButton = new AddonRadioBtn("추가 옵션", filterData);
 
 		// 초기값 설정
+		wrapper.classList.add("contact-form__input-wrapper");
+		wrapper.innerHTML = "";
 		this.inputNodes.extra.value = filterData[0].title;
 
 		addonButton.buttons.forEach((button) => {
@@ -214,7 +216,7 @@ export class PorcsheReceipt {
 
 				// calc addon price
 				this.priceNum.extra = 0;
-				if (findSelectedArr != 0) {
+				if (findSelectedArr.length !== 0) {
 					this.priceNum.extra = findSelectedArr.price;
 				}
 				this.inputNodes.extra.value = target.innerHTML;
@@ -255,6 +257,9 @@ export class PorcsheReceipt {
 					content: "루프 제외 모든 도장면에 시공되는 품목입니다.",
 				},
 				{
+					title: "프리미엄 케어",
+				},
+				{
 					title: "블랙박스 + 하이패스",
 					content: this.inputNodes.blackbox.value,
 				},
@@ -263,7 +268,8 @@ export class PorcsheReceipt {
 					content: this.inputNodes.tinting.value,
 				},
 				{
-					title: "프리미엄 케어",
+					title: "추가 옵션",
+					content: this.inputNodes.extra.value,
 				},
 			],
 			this.reduceTotalPrice()
