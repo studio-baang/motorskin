@@ -8,9 +8,9 @@ export function createFranchisesMap() {
 			marker: null,
 		},
 		{
-			title: "부산 카바차",
-			address: "부산시 영도구 태종로 789",
-			latLng: new kakao.maps.LatLng(35.065965, 129.081499),
+			title: "창원 카바차",
+			address: "경남 창원시 진해구 덕산로 6",
+			latLng: new kakao.maps.LatLng(35.146914, 128.70057),
 			marker: null,
 		},
 		{
