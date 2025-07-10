@@ -159,6 +159,8 @@ export class PorcsheReceipt {
 		this.priceNum[priceName] = 0;
 
 		if (data.length > 1) {
+			wrapper.style.display = "inherit";
+
 			const selectBox = new AddonSelectBox(title, data);
 			const selectNode = selectBox.selectNode;
 
@@ -180,6 +182,8 @@ export class PorcsheReceipt {
 			});
 
 			wrapper.appendChild(selectBox.render());
+		} else {
+			wrapper.style.display = "none";
 		}
 	}
 
@@ -202,7 +206,9 @@ export class PorcsheReceipt {
 		// 초기값 설정
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
+
 		this.inputNodes.extra.value = filterData[0].title;
+		this.priceNum.extra = 0;
 
 		addonButton.buttons.forEach((button) => {
 			button.addEventListener("click", (e) => {
