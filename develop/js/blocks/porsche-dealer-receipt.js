@@ -28,6 +28,10 @@ export class PorcsheDearerReceipt {
 		// 	{ key: "글로벌 PPF", value: 3900000 },
 		// ];
 
+		// this.blackboxPrice = 0;
+		// this.addOnPrice = 0;
+		// this.totalPrice = this.findPrice();
+
 		this.exceptBlackboxData = {
 			id: -1,
 			title: "블랙박스 선택 안함 (-200,000원)",
@@ -44,10 +48,6 @@ export class PorcsheDearerReceipt {
 				price: 500000,
 			},
 		];
-
-		this.blackboxPrice = 0;
-		this.addOnPrice = 0;
-		this.totalPrice = this.findPrice();
 
 		this.packageTypeButtons = document.querySelectorAll(".contact-type-button");
 
@@ -115,12 +115,11 @@ export class PorcsheDearerReceipt {
 
 			selectNode.addEventListener("input", (e) => {
 				this.inputNodes.blackbox.value = e.target.value;
-				this.blackboxPrice = 0;
-				// calc total price
-				const findSelectedArr = filterBlackboxArr.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
-				if (findSelectedArr != 0) {
-					this.blackboxPrice = findSelectedArr.price;
-				}
+				// // calc total price
+				// const findSelectedArr = filterBlackboxArr.find((arr) => arr.title == e.target.options[e.target.selectedIndex].text);
+				// if (findSelectedArr != 0) {
+				// 	this.blackboxPrice = findSelectedArr.price;
+				// }
 
 				this.updateReceipt();
 			});
