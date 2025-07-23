@@ -22,11 +22,11 @@ export class PorcsheDearerReceipt {
 			dealerCode: document.querySelector('input[name="code"]'),
 		};
 
-		this.price = [
-			{ key: "카바차 3.0 PPF", value: 5000000 },
-			{ key: "모터가드 PPF", value: 4500000 },
-			{ key: "글로벌 PPF", value: 3900000 },
-		];
+		// this.price = [
+		// 	{ key: "카바차 3.0 PPF", value: 5000000 },
+		// 	{ key: "모터가드 PPF", value: 4500000 },
+		// 	{ key: "글로벌 PPF", value: 3900000 },
+		// ];
 
 		this.exceptBlackboxData = {
 			id: -1,
@@ -52,6 +52,17 @@ export class PorcsheDearerReceipt {
 		this.packageTypeButtons = document.querySelectorAll(".contact-type-button");
 
 		this.init();
+
+		document.addEventListener(
+			"wpcf7submit",
+			function (event) {
+				const formData = new FormData(contactForm);
+				const objData = {};
+				formData.forEach((value, key) => (objData[key] = value));
+				console.log(formData);
+			},
+			false
+		);
 	}
 
 	init() {
@@ -149,13 +160,6 @@ export class PorcsheDearerReceipt {
 		wrapper.appendChild(addonButton.render());
 	}
 
-	reduceTotalPrice() {
-		// reduce total Price
-		this.totalPrice = this.findPrice() + this.blackboxPrice + this.addOnPrice;
-		this.inputNodes.totalPrice.value = this.totalPrice;
-		return this.totalPrice;
-	}
-
 	findPrice() {
 		const findPrice = this.price.find((p) => p.key == this.inputNodes.packageType.value);
 		return findPrice.value;
@@ -189,7 +193,7 @@ export class PorcsheDearerReceipt {
 					content: this.inputNodes.addon.value,
 				},
 			],
-			this.reduceTotalPrice(),
+			false,
 			{
 				dealerCodeValue: this.inputNodes.dealerCode.value,
 			}

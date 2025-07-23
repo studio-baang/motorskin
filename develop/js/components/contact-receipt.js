@@ -116,7 +116,9 @@ export function renderReceipt(headObj, optionlist, priceValue, otherOption) {
 	}
 
 	// render quotation
-	fragment.appendChild(renderQuotation(priceValue));
+	if (priceValue) {
+		fragment.appendChild(renderQuotation(priceValue));
+	}
 
 	return fragment;
 }

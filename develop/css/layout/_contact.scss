@@ -52,6 +52,11 @@
 				text-align: center;
 				gap: 10px;
 			}
+			&--grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1rem;
+			}
 		}
 		&__2cols {
 			@include flex($direction: row, $gap: $pc-layout-gap);
@@ -238,6 +243,9 @@
 			border: 1px solid #e62367;
 			background: #ffffff;
 			filter: drop-shadow(0px 0px 2px #e6236799);
+		}
+		&--no-margin {
+			margin: 0;
 		}
 		&__wrapper {
 			display: flex;
