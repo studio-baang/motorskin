@@ -61,7 +61,7 @@ export class PorcsheDearerReceipt {
 				const formData = new FormData(this.contactForm);
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
-				console.log(formData);
+				console.log(objData);
 			},
 			false
 		);
