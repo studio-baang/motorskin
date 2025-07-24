@@ -13,6 +13,8 @@ import { AddonRadioBtn } from "../components/contact-radio-addon";
 
 export class PorcsheDearerReceipt {
 	constructor() {
+		this.contactForm = document.querySelector(".wpcf7-form");
+
 		this.inputNodes = {
 			model: document.querySelector('select[name="model"]'),
 			packageType: document.querySelector('input[name="package-type"]'),
@@ -56,7 +58,7 @@ export class PorcsheDearerReceipt {
 		document.addEventListener(
 			"wpcf7submit",
 			function (event) {
-				const formData = new FormData(contactForm);
+				const formData = new FormData(this.contactForm);
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
 				console.log(formData);
