@@ -6,9 +6,6 @@ export async function requestWpJson(url) {
 		// Fetch API로 요청
 		const response = await fetch(endpoint);
 
-		console.log("Status:", response.status);
-		console.log("Headers:", [...response.headers.entries()]);
-
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}

@@ -62,7 +62,10 @@ export class PorcsheDearerReceipt {
 				searchDealerCode(
 					this.inputNodes.dealerCode.value,
 					(data) => {
-						objData[googleSheetID] = data.googleSheetID;
+						if (data.googleSheetID) {
+							objData[googleSheetID] = data.googleSheetID;
+						}
+
 						console.log(data);
 					},
 					() => {
