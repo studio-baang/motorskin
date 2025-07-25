@@ -60,7 +60,7 @@ add_filter('rest_pre_dispatch', function ($response, $server, $request) {
         if (!$is_internal_ip && !$is_valid_request) {
             return new WP_Error(
                 'rest_forbidden',
-                '이 API는 내부 서버에서만 접근 가능합니다.',
+                '이 API는 내부 서버에서만 접근 가능합니다.' + $remote_ip + '$internal_flag = ' + $internal_flag,
                 ['status' => 403]
             );
         }
