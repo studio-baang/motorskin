@@ -64,27 +64,26 @@ export class PorcsheDearerReceipt {
 					async (data) => {
 						if (data.googleSheetID) {
 							objData["googleSheetID"] = data.googleSheetID;
-							console.log(objData);
-							// try {
-							// 	const response = await fetch(
-							// 		"https://script.google.com/macros/s/AKfycbwY83XCc7ZUEL0QzVFhSlemz5RMwsrtxjYObor5r4u5kpK8mjg2jmAH0u7ulkTKVi2f/exec",
-							// 		{
-							// 			method: "POST",
-							// 			headers: { "Content-Type": "text/plain" },
-							// 			body: JSON.stringify(objData),
-							// 			redirect: "follow",
-							// 		}
-							// 	);
-							// 	const text = await response.text();
-							// 	if (text === "success") {
-							// 		e.target.reset();
-							// 		alert("문의가 전송되었습니다. 빠른 시일 내에 연락드리겠습니다.");
-							// 	} else {
-							// 		alert("문의 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
-							// 	}
-							// } catch (error) {
-							// 	alert("문의 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
-							// }
+							try {
+								const response = await fetch(
+									"https://script.google.com/macros/s/AKfycbwY83XCc7ZUEL0QzVFhSlemz5RMwsrtxjYObor5r4u5kpK8mjg2jmAH0u7ulkTKVi2f/exec",
+									{
+										method: "POST",
+										headers: { "Content-Type": "text/plain" },
+										body: JSON.stringify(objData),
+										redirect: "follow",
+									}
+								);
+								const text = await response.text();
+								if (text === "success") {
+									e.target.reset();
+									alert("문의가 전송되었습니다. 빠른 시일 내에 연락드리겠습니다.");
+								} else {
+									alert("문의 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
+								}
+							} catch (error) {
+								alert("문의 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
+							}
 						}
 					},
 					() => {
