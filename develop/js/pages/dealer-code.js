@@ -1,6 +1,4 @@
-import _, { isNull } from "lodash";
-import { requestWpJson } from "../utils/wp-json";
-import { splitDealerCode } from "../utils/split-dealer-code";
+import { escape } from "lodash";
 
 export class DealerCode {
 	constructor() {
@@ -15,7 +13,7 @@ export class DealerCode {
 		const url = new URL(window.location.href);
 		const urlParams = url.searchParams;
 		const codeParam = urlParams.get("code");
-		this.drawSearchResult(_.escape(codeParam));
+		this.drawSearchResult(escape(codeParam));
 	}
 
 	onSubmit() {
@@ -23,46 +21,30 @@ export class DealerCode {
 			e.preventDefault(); // 새로고침 막기
 
 			const formData = new FormData(e.target);
-			const codeNumber = formData.get("code");
+			let dealerCode = formData.get("code");
+			dealerCode = escape(dealerCode);
 
-			this.drawSearchResult(_.escape(codeNumber));
+			// reset innerhtml
+			this.resultEl.innerHTML = "";
 
-			const newUrl = `${window.location.pathname}?code=${codeNumber}`;
+			if (!dealerCode) {
+				this.resultEl.innerHTML = "코드를 입력해 주세요.";
+				return false;
+			}
+
+			searchDealerCode(
+				dealerCode,
+				(data) => {
+					this.resultEl.appendChild(this.renderCoupon(data));
+				},
+				() => {
+					this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
+				}
+			);
+
+			const newUrl = `${window.location.pathname}?code=${dealerCode}`;
 			history.pushState(null, "", newUrl); // 또는 replaceState로 대체 가능
 		});
-	}
-
-	async drawSearchResult(dealerCode) {
-		// reset innerhtml
-		this.resultEl.innerHTML = "";
-
-		if (!dealerCode) {
-			this.resultEl.innerHTML = "코드를 입력해 주세요.";
-			return false;
-		}
-
-		const dealerCodeData = splitDealerCode(dealerCode);
-
-		// search dealer code data
-		const searchCode = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/dealer-code?aW50ZXJuYWw=true&search=${dealerCodeData.codeName}`);
-
-		if (searchCode) {
-			const searchCodeData = searchCode[0];
-			const rangeNum = Number(searchCodeData.acf.range);
-
-			if (dealerCodeData.codeNumber > 0 && dealerCodeData.codeNumber <= rangeNum) {
-				const data = {
-					titleEn: searchCodeData.acf.title_en,
-					titleKr: searchCodeData.acf.title_kr,
-					dealerCode: dealerCode,
-				};
-				this.resultEl.appendChild(this.renderCoupon(data));
-			} else {
-				this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
-			}
-		} else {
-			this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
-		}
 	}
 
 	/**

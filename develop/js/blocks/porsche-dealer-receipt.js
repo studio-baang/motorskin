@@ -5,9 +5,8 @@ import blackboxJSON from "/data/blackbox.json" assert { type: "json" };
 import { requestWpJson } from "../utils/wp-json";
 import { toggleActiveClass } from "../utils/toggle-button";
 import { filterAddonData } from "../utils/filter-addon-json";
-import { splitDealerCode } from "../utils/split-dealer-code";
+import { searchDealerCode } from "../utils/search-dealer-code";
 
-import { renderTypeButton } from "../components/contact-type-button";
 import { renderReceipt } from "../components/contact-receipt";
 import { AddonSelectBox } from "../components/contact-select-addon";
 import { AddonRadioBtn } from "../components/contact-radio-addon";
@@ -61,10 +60,10 @@ export class PorcsheDearerReceipt {
 				const formData = new FormData(formEl);
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
-				console.log(objData);
-				this.drawSearchResult(
+				searchDealerCode(
 					this.inputNodes.dealerCode.value,
 					(data) => {
+						objData[googleSheetID] = data.googleSheetID;
 						console.log(data);
 					},
 					() => {
@@ -168,32 +167,6 @@ export class PorcsheDearerReceipt {
 		});
 
 		wrapper.appendChild(addonButton.render());
-	}
-
-	async drawSearchResult(dealerCode, callbackFn, errorFn) {
-		const dealerCodeData = splitDealerCode(dealerCode);
-
-		// search dealer code data
-		const searchCode = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/dealer-code?aW50ZXJuYWw=true&search=${dealerCodeData.codeName}`);
-
-		if (searchCode) {
-			const searchCodeData = searchCode[0];
-			const rangeNum = Number(searchCodeData.acf.range);
-
-			if (dealerCodeData.codeNumber > 0 && dealerCodeData.codeNumber <= rangeNum) {
-				const data = {
-					titleEn: searchCodeData.acf.title_en,
-					titleKr: searchCodeData.acf.title_kr,
-					googleSheetID: searchCodeData.acf.google_sheet_id,
-					dealerCode: dealerCode,
-				};
-				callbackFn(data);
-			} else {
-				errorFn();
-			}
-		} else {
-			errorFn();
-		}
 	}
 
 	updateReceipt() {
