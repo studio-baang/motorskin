@@ -1,4 +1,17 @@
 <?php
+add_filter('rest_pre_serve_request', function ($served, $result, $request, $server) {
+    header("Access-Control-Allow-Origin: https://motorskin.co.kr");
+    header("Access-Control-Allow-Headers: X-Internal-Request, Content-Type");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
+    // Preflight OPTIONS 요청이라면 응답을 여기서 종료
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        status_header(200);
+        exit;
+    }
+
+    return $served;
+}, 10, 4);
 function filter_dealer_code_exact_title_match( $args, $request ) {
     // 검색어가 없으면 결과를 반환하지 않음
     if ( empty( $request['search'] ) ) {
