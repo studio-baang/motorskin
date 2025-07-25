@@ -1,5 +1,7 @@
 import { escape } from "lodash";
 
+import { searchDealerCode } from "../utils/search-dealer-code";
+
 export class DealerCode {
 	constructor() {
 		this.form = document.getElementById("form-search-code");
