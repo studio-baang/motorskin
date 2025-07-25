@@ -171,14 +171,6 @@ export class PorcsheDearerReceipt {
 	}
 
 	async drawSearchResult(dealerCode, callbackFn, errorFn) {
-		// reset innerhtml
-		this.resultEl.innerHTML = "";
-
-		if (!dealerCode) {
-			this.resultEl.innerHTML = "코드를 입력해 주세요.";
-			return false;
-		}
-
 		const dealerCodeData = splitDealerCode(dealerCode);
 
 		// search dealer code data
