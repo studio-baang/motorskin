@@ -1,3 +1,5 @@
+import { requestWpJson } from "./wp-json";
+
 function splitDealerCode(inputData) {
 	const len = inputData.length;
 

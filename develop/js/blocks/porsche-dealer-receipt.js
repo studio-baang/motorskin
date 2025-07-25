@@ -2,7 +2,6 @@ import _ from "lodash";
 
 import blackboxJSON from "/data/blackbox.json" assert { type: "json" };
 
-import { requestWpJson } from "../utils/wp-json";
 import { toggleActiveClass } from "../utils/toggle-button";
 import { filterAddonData } from "../utils/filter-addon-json";
 import { searchDealerCode } from "../utils/search-dealer-code";
