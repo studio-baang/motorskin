@@ -10,6 +10,9 @@ export async function requestWpJson(url) {
 			},
 		});
 
+		console.log("Status:", response.status);
+		console.log("Headers:", [...response.headers.entries()]);
+
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
