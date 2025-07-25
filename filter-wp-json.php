@@ -46,7 +46,7 @@ add_filter('rest_pre_dispatch', function ($response, $server, $request) {
     $method = $request->get_method();
 
     // 내부용으로 만든 엔드포인트만 필터링
-    if (preg_match( '#^/wp/v2/dealer-code/(\d+)$#', $route, $matches )) {
+    if (strpos($route, '/wp/v2/dealer-code') !== false) {
         $remote_ip = $_SERVER['REMOTE_ADDR'];
         $headers = getallheaders();
         $internal_flag = isset($headers['X-Internal-Request']) ? $headers['X-Internal-Request'] : '';
