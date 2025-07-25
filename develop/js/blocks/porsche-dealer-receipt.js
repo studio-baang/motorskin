@@ -55,13 +55,22 @@ export class PorcsheDearerReceipt {
 		this.init();
 
 		document.addEventListener(
-			"wpcf7mailsent",
+			"wpcf7submit",
 			(event) => {
 				const formEl = document.querySelector(".wpcf7-form");
 				const formData = new FormData(formEl);
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
 				console.log(objData);
+				this.drawSearchResult(
+					this.inputNodes.dealerCode.value,
+					(data) => {
+						console.log(data);
+					},
+					() => {
+						return false;
+					}
+				);
 			},
 			false
 		);
@@ -161,9 +170,38 @@ export class PorcsheDearerReceipt {
 		wrapper.appendChild(addonButton.render());
 	}
 
-	findPrice() {
-		const findPrice = this.price.find((p) => p.key == this.inputNodes.packageType.value);
-		return findPrice.value;
+	async drawSearchResult(dealerCode, callbackFn, errorFn) {
+		// reset innerhtml
+		this.resultEl.innerHTML = "";
+
+		if (!dealerCode) {
+			this.resultEl.innerHTML = "코드를 입력해 주세요.";
+			return false;
+		}
+
+		const dealerCodeData = splitDealerCode(dealerCode);
+
+		// search dealer code data
+		const searchCode = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/dealer-code?aW50ZXJuYWw=true&search=${dealerCodeData.codeName}`);
+
+		if (searchCode) {
+			const searchCodeData = searchCode[0];
+			const rangeNum = Number(searchCodeData.acf.range);
+
+			if (dealerCodeData.codeNumber > 0 && dealerCodeData.codeNumber <= rangeNum) {
+				const data = {
+					titleEn: searchCodeData.acf.title_en,
+					titleKr: searchCodeData.acf.title_kr,
+					googleSheetID: searchCodeData.acf.google_sheet_id,
+					dealerCode: dealerCode,
+				};
+				callbackFn(data);
+			} else {
+				errorFn();
+			}
+		} else {
+			errorFn();
+		}
 	}
 
 	updateReceipt() {

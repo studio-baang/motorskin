@@ -53,7 +53,7 @@ function check_dealer_code_via_rest_api() {
     $keyword = sanitize_text_field($_GET['code']);
     list($code, $numbering) = splitDealerCode($keyword);
 
-    $url = get_site_url() . '/wp-json/wp/v2/dealer-code?search=' . rawurlencode($code);
+    $url = get_site_url() . '/wp-json/wp/v2/dealer-code?aW50ZXJuYWw=true&search=' . rawurlencode($code);
 
     $response = wp_remote_get($url);
 
