@@ -12,8 +12,11 @@ export class DealerCode {
 	onLoad() {
 		const url = new URL(window.location.href);
 		const urlParams = url.searchParams;
-		const codeParam = urlParams.get("code");
-		this.drawSearchResult(escape(codeParam));
+
+		let dealerCode = urlParams.get("code");
+		dealerCode = escape(dealerCode);
+
+		this.drawDealerSearchRecult(dealerCode);
 	}
 
 	onSubmit() {
@@ -22,29 +25,34 @@ export class DealerCode {
 
 			const formData = new FormData(e.target);
 			let dealerCode = formData.get("code");
-			dealerCode = escape(dealerCode);
 
-			// reset innerhtml
-			this.resultEl.innerHTML = "";
-
-			if (!dealerCode) {
-				this.resultEl.innerHTML = "코드를 입력해 주세요.";
-				return false;
-			}
-
-			searchDealerCode(
-				dealerCode,
-				(data) => {
-					this.resultEl.appendChild(this.renderCoupon(data));
-				},
-				() => {
-					this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
-				}
-			);
+			this.drawDealerSearchRecult(dealerCode);
 
 			const newUrl = `${window.location.pathname}?code=${dealerCode}`;
 			history.pushState(null, "", newUrl); // 또는 replaceState로 대체 가능
 		});
+	}
+
+	drawDealerSearchRecult(dealerCode) {
+		const escapeDealerCode = escape(dealerCode);
+
+		// reset innerhtml
+		this.resultEl.innerHTML = "";
+
+		if (!escapeDealerCode) {
+			this.resultEl.innerHTML = "코드를 입력해 주세요.";
+			return false;
+		}
+
+		searchDealerCode(
+			escapeDealerCode,
+			(data) => {
+				this.resultEl.appendChild(this.renderCoupon(data));
+			},
+			() => {
+				this.resultEl.innerHTML = "코드를 찾을 수 없습니다.";
+			}
+		);
 	}
 
 	/**
