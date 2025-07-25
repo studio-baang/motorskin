@@ -4,7 +4,11 @@ export async function requestWpJson(url) {
 		const endpoint = url;
 
 		// Fetch API로 요청
-		const response = await fetch(endpoint);
+		const response = await fetch(endpoint, {
+			headers: {
+				"X-Internal-Request": "true",
+			},
+		});
 
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);

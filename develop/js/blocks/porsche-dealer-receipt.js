@@ -5,6 +5,7 @@ import blackboxJSON from "/data/blackbox.json" assert { type: "json" };
 import { requestWpJson } from "../utils/wp-json";
 import { toggleActiveClass } from "../utils/toggle-button";
 import { filterAddonData } from "../utils/filter-addon-json";
+import { splitDealerCode } from "../utils/split-dealer-code";
 
 import { renderTypeButton } from "../components/contact-type-button";
 import { renderReceipt } from "../components/contact-receipt";

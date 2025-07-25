@@ -39,3 +39,32 @@ add_filter( 'rest_pre_dispatch', function ( $result, $server, $request ) {
 
     return $result;
 }, 10, 3 );
+
+
+add_filter('rest_pre_dispatch', function ($response, $server, $request) {
+     $route = $request->get_route();
+    $method = $request->get_method();
+
+    // 내부용으로 만든 엔드포인트만 필터링
+    if (preg_match( '#^/wp/v2/dealer-code/(\d+)$#', $route, $matches )) {
+        $remote_ip = $_SERVER['REMOTE_ADDR'];
+        $headers = getallheaders();
+        $internal_flag = isset($headers['X-Internal-Request']) ? $headers['X-Internal-Request'] : '';
+
+        // 조건 1: 내부 IP 또는 로컬호스트
+        $is_internal_ip = in_array($remote_ip, ['127.0.0.1', '::1', '192.168.0.0/16']);
+
+        // 조건 2: 커스텀 헤더를 통한 확인
+        $is_valid_request = ($internal_flag === 'true');
+
+        if (!$is_internal_ip && !$is_valid_request) {
+            return new WP_Error(
+                'rest_forbidden',
+                '이 API는 내부 서버에서만 접근 가능합니다.',
+                ['status' => 403]
+            );
+        }
+    }
+
+    return $response;
+}, 10, 3);
