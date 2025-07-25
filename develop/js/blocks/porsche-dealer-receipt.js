@@ -62,18 +62,15 @@ export class PorcsheDearerReceipt {
 				searchDealerCode(
 					this.inputNodes.dealerCode.value,
 					async (data) => {
-						if (data.googleSheetID) {
+						if (data.googleSheetID && data.googleSheetScriptCode) {
 							objData["googleSheetID"] = data.googleSheetID;
 							try {
-								const response = await fetch(
-									"https://script.google.com/macros/s/AKfycbwY83XCc7ZUEL0QzVFhSlemz5RMwsrtxjYObor5r4u5kpK8mjg2jmAH0u7ulkTKVi2f/exec",
-									{
-										method: "POST",
-										headers: { "Content-Type": "text/plain" },
-										body: JSON.stringify(objData),
-										redirect: "follow",
-									}
-								);
+								const response = await fetch(`https://script.google.com/macros/s/${data.googleSheetScriptCode}/exec`, {
+									method: "POST",
+									headers: { "Content-Type": "text/plain" },
+									body: JSON.stringify(objData),
+									redirect: "follow",
+								});
 								const text = await response.text();
 								if (text === "success") {
 									console.log("문의가 전송되었습니다.");

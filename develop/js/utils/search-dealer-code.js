@@ -33,6 +33,7 @@ export async function searchDealerCode(dealerCode, callbackFn, errorFn) {
 				titleEn: searchCodeData.acf.title_en,
 				titleKr: searchCodeData.acf.title_kr,
 				googleSheetID: searchCodeData.acf.google_sheet_id,
+				googleSheetScriptCode: searchCodeData.acf.google_sheet_script_code,
 				dealerCode: dealerCode,
 			};
 			callbackFn(data);
