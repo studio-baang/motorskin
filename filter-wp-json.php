@@ -57,6 +57,10 @@ add_filter('rest_pre_dispatch', function ($response, $server, $request) {
         // 조건 2: 커스텀 헤더를 통한 확인
         $is_valid_request = ($internal_flag === 'true');
 
+                // 로그 찍기 (워드프레스 디버그 로그 사용)
+        error_log("Incoming IP: " . $remote_ip);
+        error_log("Incoming Headers: " . print_r($headers, true));
+
         if (!$is_internal_ip && !$is_valid_request) {
             return new WP_Error(
                 'rest_forbidden',
