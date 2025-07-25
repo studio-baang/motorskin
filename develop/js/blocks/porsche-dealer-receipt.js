@@ -76,12 +76,12 @@ export class PorcsheDearerReceipt {
 								);
 								const text = await response.text();
 								if (text === "success") {
-									alert("문의가 전송되었습니다. 빠른 시일 내에 연락드리겠습니다.");
+									console.log("문의가 전송되었습니다.");
 								} else {
-									alert("문의 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
+									console.error("문의 전송에 실패했습니다.");
 								}
 							} catch (error) {
-								alert("문의 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
+								console.error("문의 전송에 실패했습니다.");
 							}
 						}
 					},
