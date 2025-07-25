@@ -39,22 +39,18 @@ add_filter( 'rest_dealer-code_query', 'filter_dealer_code_exact_title_match', 10
 
 
 add_filter('rest_pre_dispatch', function ($response, $server, $request) {
-     $route = $request->get_route();
-    $method = $request->get_method();
+    $route = $request->get_route();
 
     // 내부용으로 만든 엔드포인트만 필터링
     if (strpos($route, '/wp/v2/dealer-code') !== false) {
-        $remote_ip = $_SERVER['REMOTE_ADDR'];
-        $headers = getallheaders();
-        $internal_flag = isset($headers['X-Internal-Request']) ? $headers['X-Internal-Request'] : '';
 
-        // 조건 1: 커스텀 헤더를 통한 확인
-        $is_valid_request = ($internal_flag === 'true');
+        // internal parameter 확인
+        $internal_flag = $request->get_param('aW50ZXJuYWw');
 
-        if (!$is_valid_request) {
+        if ($internal_flag !== "true") {
             return new WP_Error(
                 'rest_forbidden',
-                '이 API는 내부 서버에서만 접근 가능합니다.',
+                '이 API는 내부 서버에서만 접근 가능합니다.'.$internal_flag.$is_internal_ip,
                 ['status' => 403]
             );
         }
