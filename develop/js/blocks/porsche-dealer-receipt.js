@@ -53,7 +53,7 @@ export class PorcsheDearerReceipt {
 		this.init();
 
 		document.addEventListener(
-			"wpcf7submit",
+			"wpcf7mailsent",
 			(event) => {
 				const formEl = document.querySelector(".wpcf7-form");
 				const formData = new FormData(formEl);
