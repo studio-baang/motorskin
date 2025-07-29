@@ -112,6 +112,7 @@ export class PorcsheReceipt {
 				price: item.acf.price ?? 0,
 			};
 		});
+		console.log(data);
 		return data;
 	}
 
