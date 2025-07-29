@@ -1,10 +1,9 @@
 import _ from "lodash";
 
-import blackboxJSON from "/data/blackbox.json" assert { type: "json" };
-
 import { toggleActiveClass } from "../utils/toggle-button";
 import { filterAddonData } from "../utils/filter-addon-json";
 import { searchDealerCode } from "../utils/search-dealer-code";
+import { getTaxonomyData } from "../utils/get-taxonomy-data";
 
 import { renderReceipt } from "../components/contact-receipt";
 import { AddonSelectBox } from "../components/contact-select-addon";
@@ -21,32 +20,8 @@ export class PorcsheDearerReceipt {
 			dealerCode: document.querySelector('input[name="code"]'),
 		};
 
-		// this.price = [
-		// 	{ key: "카바차 3.0 PPF", value: 5000000 },
-		// 	{ key: "모터가드 PPF", value: 4500000 },
-		// 	{ key: "글로벌 PPF", value: 3900000 },
-		// ];
-
-		// this.blackboxPrice = 0;
-		// this.addOnPrice = 0;
-		// this.totalPrice = this.findPrice();
-
-		this.exceptBlackboxData = {
-			id: -1,
-			title: "블랙박스 선택 안함 (-200,000원)",
-			price: -200000,
-		};
-
-		this.addOnArr = [
-			{
-				title: "선택 안함",
-				price: 0,
-			},
-			{
-				title: "스포츠 디자인 패키지 / 에이프론 추가",
-				price: 500000,
-			},
-		];
+		this.blackboxData = [];
+		this.upgradeData = [];
 
 		this.packageTypeButtons = document.querySelectorAll(".contact-type-button");
 
@@ -91,7 +66,10 @@ export class PorcsheDearerReceipt {
 		);
 	}
 
-	init() {
+	async init() {
+		this.blackboxData = await getTaxonomyData("blackbox");
+		this.upgradeData = await getTaxonomyData("upgrade");
+
 		this.observe("model");
 
 		this.packageTypeButtons.forEach((el) => {
@@ -125,7 +103,7 @@ export class PorcsheDearerReceipt {
 
 	renderBlackboxSelect() {
 		// filter data
-		const filterBlackboxArr = filterAddonData(blackboxJSON, [2, 3, 4]);
+		const filterBlackboxArr = filterAddonData(this.blackboxData, [21, 22, 23]);
 
 		const blackboxWrapper = document.getElementById("porsche-form__blackbox");
 		blackboxWrapper.classList.add("contact-form__input-wrapper");
@@ -155,15 +133,17 @@ export class PorcsheDearerReceipt {
 
 	renderAddonButtons() {
 		const wrapper = document.getElementById("porsche-form__addon");
-		const addonButton = new AddonRadioBtn("추가 옵션", this.addOnArr);
+
+		const filterUpgradeArr = filterAddonData(this.upgradeData, [25, 26]);
+		const addonButton = new AddonRadioBtn("추가 옵션", filterUpgradeArr);
 
 		// 초기값 설정
-		this.inputNodes.addon.value = this.addOnArr[0].title;
+		this.inputNodes.addon.value = filterUpgradeArr[0].title;
 
 		addonButton.buttons.forEach((button) => {
 			button.addEventListener("click", (e) => {
 				const target = e.currentTarget;
-				const findSelectedArr = this.addOnArr.find((arr) => arr.title == target.dataset.value);
+				const findSelectedArr = filterUpgradeArr.find((arr) => arr.title == target.dataset.value);
 
 				// toggle active class
 				addonButton.buttons.forEach((allButton) => {

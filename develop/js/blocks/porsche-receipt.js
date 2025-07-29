@@ -1,7 +1,4 @@
 import _ from "lodash";
-import tintingJSON from "/data/tinting.json" assert { type: "json" };
-import blackboxJSON from "/data/blackbox.json" assert { type: "json" };
-import extraJSON from "/data/addon-extra.json" assert { type: "json" };
 
 import { requestWpJson } from "../utils/wp-json";
 import { filterAddonData } from "../utils/filter-addon-json";
@@ -10,6 +7,7 @@ import { renderReceipt } from "../components/contact-receipt";
 import { TypeButton } from "../components/contact-type-button";
 import { AddonSelectBox } from "../components/contact-select-addon";
 import { AddonRadioBtn } from "../components/contact-radio-addon";
+import { getTaxonomyData } from "../utils/get-taxonomy-data";
 
 export class PorcsheReceipt {
 	constructor() {
@@ -30,14 +28,14 @@ export class PorcsheReceipt {
 			blackbox: document.querySelector('input[name="blackbox"]'),
 			tinting: document.querySelector('input[name="tinting"]'),
 			totalPrice: document.querySelector('input[name="total-price"]'),
-			extra: document.querySelector('input[name="extra"]'),
+			upgrade: document.querySelector('input[name="extra"]'),
 		};
 
 		this.priceNum = {
 			package: 0,
 			tinting: 0,
 			blackbox: 0,
-			extra: 0,
+			upgrade: 0,
 			total: 0,
 		};
 
@@ -57,9 +55,9 @@ export class PorcsheReceipt {
 
 	async onLoad() {
 		// json으로 모델과 관련된 정보를 수집
-		this.tintingData = await this.getTaxonomyData("tinting");
-		this.blackboxData = await this.getTaxonomyData("blackbox");
-		this.upgradeData = await this.getTaxonomyData("upgrade");
+		this.tintingData = await getTaxonomyData("tinting");
+		this.blackboxData = await getTaxonomyData("blackbox");
+		this.upgradeData = await getTaxonomyData("upgrade");
 
 		await this.getPackageOption();
 		await this.updateModelData();
@@ -108,20 +106,6 @@ export class PorcsheReceipt {
 				tinting: e.tinting,
 			}));
 		}
-	}
-
-	async getTaxonomyData(addonName) {
-		const originData = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/${addonName}`);
-		const data = originData.map((item) => {
-			return {
-				id: item.id,
-				title: item.name,
-				description: item.description,
-				price: item.acf.price ?? 0,
-			};
-		});
-		console.log(data);
-		return data;
 	}
 
 	renderTypeButton() {
@@ -239,8 +223,8 @@ export class PorcsheReceipt {
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
 
-		this.inputNodes.extra.value = filterData[0].title;
-		this.priceNum.extra = 0;
+		this.inputNodes.upgrade.value = filterData[0].title;
+		this.priceNum.upgrade = 0;
 
 		addonButton.buttons.forEach((button) => {
 			button.addEventListener("click", (e) => {
@@ -254,11 +238,11 @@ export class PorcsheReceipt {
 				target.classList.add("contact-option-button--active");
 
 				// calc addon price
-				this.priceNum.extra = 0;
+				this.priceNum.upgrade = 0;
 				if (findSelectedArr.length !== 0) {
-					this.priceNum.extra = findSelectedArr.price;
+					this.priceNum.upgrade = findSelectedArr.price;
 				}
-				this.inputNodes.extra.value = target.innerHTML;
+				this.inputNodes.upgrade.value = target.innerHTML;
 
 				this.updateReceipt();
 			});
@@ -269,7 +253,7 @@ export class PorcsheReceipt {
 
 	reduceTotalPrice() {
 		// reduce total Price
-		this.priceNum.total = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.extra;
+		this.priceNum.total = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.upgrade;
 		this.inputNodes.totalPrice.value = this.priceNum.total;
 		return this.priceNum.total;
 	}
@@ -307,7 +291,7 @@ export class PorcsheReceipt {
 				},
 				{
 					title: "추가 옵션",
-					content: this.inputNodes.extra.value,
+					content: this.inputNodes.upgrade.value,
 				},
 			],
 			this.reduceTotalPrice()
