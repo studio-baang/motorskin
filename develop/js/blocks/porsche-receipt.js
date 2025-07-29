@@ -57,11 +57,12 @@ export class PorcsheReceipt {
 
 	async onLoad() {
 		// json으로 모델과 관련된 정보를 수집
-		await this.getPackageOption();
-		await this.updateModelData();
 		this.tintingData = await this.getTaxonomyData("tinting");
 		this.blackboxData = await this.getTaxonomyData("blackbox");
 		this.upgradeData = await this.getTaxonomyData("upgrade");
+
+		await this.getPackageOption();
+		await this.updateModelData();
 	}
 
 	runUpdatePipeline(typeButton) {
@@ -213,6 +214,11 @@ export class PorcsheReceipt {
 
 	renderBlackboxSelectBox(data) {
 		const filterBlackboxData = filterAddonData(this.blackboxData, data);
+		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, "blackbox");
+	}
+
+	renderAddonSelectBox(data) {
+		const filterBlackboxData = filterAddonData(originData, data);
 		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, "blackbox");
 	}
 
