@@ -41,7 +41,9 @@ export class PorcsheReceipt {
 			total: 0,
 		};
 
-		this.tintingData = tintingJSON;
+		this.tintingData = [];
+		this.blackboxData = [];
+		this.upgradeData = [];
 
 		this.typeButtons = [];
 		this.filteredTintingData = [];
@@ -55,8 +57,11 @@ export class PorcsheReceipt {
 
 	async onLoad() {
 		// json으로 모델과 관련된 정보를 수집
-		await this.updatePackageOption();
-		this.updateModelData();
+		await this.getPackageOption();
+		await this.updateModelData();
+		this.tintingData = await this.getTaxonomyData("tinting");
+		this.blackboxData = await this.getTaxonomyData("blackbox");
+		this.upgradeData = await this.getTaxonomyData("upgrade");
 	}
 
 	runUpdatePipeline(typeButton) {
@@ -81,7 +86,7 @@ export class PorcsheReceipt {
 		this.updateReceipt();
 	}
 
-	async updatePackageOption() {
+	async getPackageOption() {
 		const posts = await requestWpJson("/porsche-dealer/wp-json/wp/v2/package-option");
 		if (posts) {
 			this.packageOption = posts.map((e) => ({
@@ -95,6 +100,19 @@ export class PorcsheReceipt {
 				tinting: e.acf.tinting,
 			}));
 		}
+	}
+
+	async getTaxonomyData(addonName) {
+		const originData = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/${addonName}`);
+		const data = originData.map((item) => {
+			return {
+				id: item.id,
+				title: item.name,
+				description: item.description,
+				price: item.acf.price ?? 0,
+			};
+		});
+		return data;
 	}
 
 	renderTypeButton() {
@@ -188,18 +206,18 @@ export class PorcsheReceipt {
 	}
 
 	renderTintingSelectBox(data) {
-		const filterTintingData = filterAddonData(tintingJSON, data);
+		const filterTintingData = filterAddonData(this.tintingData, data);
 		this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, "tinting");
 	}
 
 	renderBlackboxSelectBox(data) {
-		const filterBlackboxData = filterAddonData(blackboxJSON, data);
+		const filterBlackboxData = filterAddonData(this.blackboxData, data);
 		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, "blackbox");
 	}
 
 	renderAddonButtons() {
 		const wrapper = document.getElementById("porsche-form__extra");
-		const filterData = filterAddonData(extraJSON, this.carData.acf.extra);
+		const filterData = filterAddonData(this.upgradeData, this.carData.upgrade);
 
 		const addonButton = new AddonRadioBtn("추가 옵션", filterData);
 
