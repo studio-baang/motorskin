@@ -69,8 +69,15 @@ export class PorcsheReceipt {
 		typeButton.onActiveState();
 		this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
 
-		this.renderTintingSelectBox(typeButton.content.tinting);
-		this.renderBlackboxSelectBox(typeButton.content.blackbox);
+		this.renderAddonSelectBox(this.tintingData, typeButton.content.tinting, "틴팅 선택", "porsche-form__tinting", this.inputNodes.tinting, "tinting");
+		this.renderAddonSelectBox(
+			this.blackboxData,
+			typeButton.content.blackbox,
+			"블랙박스 + 하이패스",
+			"porsche-form__blackbox",
+			this.inputNodes.blackbox,
+			"blackbox"
+		);
 		this.renderAddonButtons();
 	}
 
@@ -97,8 +104,8 @@ export class PorcsheReceipt {
 					typeA: e.acf.type_a,
 					typeB: e.acf.type_b,
 				},
-				blackbox: e.acf.blackbox,
-				tinting: e.acf.tinting,
+				blackbox: e.blackbox,
+				tinting: e.tinting,
 			}));
 		}
 	}
@@ -217,9 +224,9 @@ export class PorcsheReceipt {
 		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, "blackbox");
 	}
 
-	renderAddonSelectBox(data) {
-		const filterBlackboxData = filterAddonData(originData, data);
-		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, "blackbox");
+	renderAddonSelectBox(originData, filteredID, title, wrapperID, inputnode, priceName) {
+		const filterData = filterAddonData(originData, filteredID);
+		this.renderSelectAddon(title, wrapperID, filterData, inputnode, priceName);
 	}
 
 	renderAddonButtons() {
