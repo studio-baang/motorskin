@@ -1,5 +1,4 @@
 import { contactLabelDom } from "./contact-form-label";
-import { createAddonContent } from "../utils/create-addon-content";
 
 export class AddonRadioBtn {
 	constructor(labelText, data) {

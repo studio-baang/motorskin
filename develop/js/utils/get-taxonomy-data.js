@@ -6,7 +6,7 @@ export async function getTaxonomyData(addonName) {
 		return {
 			id: item.id,
 			title: item.name,
-			description: item.description,
+			description: item.description == "" ? null : item.description,
 			price: item.acf.price ?? 0,
 		};
 	});

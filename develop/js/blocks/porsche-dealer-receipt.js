@@ -25,8 +25,29 @@ export class PorcsheDearerReceipt {
 
 		this.packageTypeButtons = document.querySelectorAll(".contact-type-button");
 
-		this.init();
+		this.onLoad();
+		this.addSubmitEventListener();
+	}
 
+	async onLoad() {
+		this.blackboxData = await getTaxonomyData("blackbox");
+		this.upgradeData = await getTaxonomyData("upgrade");
+
+		this.inputNodes.model.addEventListener("input", () => {
+			this.updateReceipt();
+		});
+
+		this.packageTypeButtons.forEach((el) => {
+			el.addEventListener("click", this.handlePackageTypeButton.bind(this));
+		});
+
+		this.renderBlackboxSelect();
+		this.renderAddonButtons();
+
+		this.updateReceipt();
+	}
+
+	addSubmitEventListener() {
 		document.addEventListener(
 			"wpcf7mailsent",
 			(event) => {
@@ -64,28 +85,6 @@ export class PorcsheDearerReceipt {
 			},
 			false
 		);
-	}
-
-	async init() {
-		this.blackboxData = await getTaxonomyData("blackbox");
-		this.upgradeData = await getTaxonomyData("upgrade");
-
-		this.observe("model");
-
-		this.packageTypeButtons.forEach((el) => {
-			el.addEventListener("click", this.handlePackageTypeButton.bind(this));
-		});
-
-		this.renderBlackboxSelect();
-		this.renderAddonButtons();
-
-		this.updateReceipt();
-	}
-
-	observe(key) {
-		this.inputNodes[key].addEventListener("input", () => {
-			this.updateReceipt();
-		});
 	}
 
 	handlePackageTypeButton(e) {
@@ -133,6 +132,7 @@ export class PorcsheDearerReceipt {
 
 	renderAddonButtons() {
 		const wrapper = document.getElementById("porsche-form__addon");
+		wrapper.classList.add("contact-form__input-wrapper");
 
 		const filterUpgradeArr = filterAddonData(this.upgradeData, [25, 26]);
 		const addonButton = new AddonRadioBtn("추가 옵션", filterUpgradeArr);

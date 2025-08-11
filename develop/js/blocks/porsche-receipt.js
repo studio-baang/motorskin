@@ -11,16 +11,6 @@ import { getTaxonomyData } from "../utils/get-taxonomy-data";
 
 export class PorcsheReceipt {
 	constructor() {
-		/**
-		 * 	{
-		 *  	title: string,
-		 * 		class: string,
-		 * 		price: {
-		 * 			typeA : number,
-		 * 			typeB : number
-		 * 		}
-		 *	}
-		 */
 		this.packageOption = [];
 		this.inputNodes = {
 			model: document.querySelector('select[name="model"]'),
@@ -49,8 +39,6 @@ export class PorcsheReceipt {
 		this.carData = null;
 
 		this.onLoad();
-
-		this.inputNodes.model.addEventListener("input", this.updateModelData.bind(this));
 	}
 
 	async onLoad() {
@@ -58,6 +46,8 @@ export class PorcsheReceipt {
 		this.tintingData = await getTaxonomyData("tinting");
 		this.blackboxData = await getTaxonomyData("blackbox");
 		this.upgradeData = await getTaxonomyData("upgrade");
+
+		this.inputNodes.model.addEventListener("input", this.updateModelData.bind(this));
 
 		await this.getPackageOption();
 		await this.updateModelData();
