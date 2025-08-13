@@ -11,9 +11,10 @@ import { getTaxonomyData } from "../utils/get-taxonomy-data";
 
 export class PorcsheReceipt {
 	constructor() {
-		this.packageOption = [];
+		this.brandNewPackageOptionData = [];
 		this.inputNodes = {
 			model: document.querySelector('select[name="model"]'),
+			package: document.querySelector('input[name="package"]'),
 			packageType: document.querySelector('input[name="package-type"]'),
 			blackbox: document.querySelector('input[name="blackbox"]'),
 			tinting: document.querySelector('input[name="tinting"]'),
@@ -32,11 +33,12 @@ export class PorcsheReceipt {
 		this.tintingData = [];
 		this.blackboxData = [];
 		this.upgradeData = [];
+		this.brandNewPackageOptionData = [];
+		this.dealerPackageOptionData = [];
+		this.carData = [];
 
 		this.typeButtons = [];
 		this.filteredTintingData = [];
-
-		this.carData = null;
 
 		this.onLoad();
 	}
@@ -46,11 +48,15 @@ export class PorcsheReceipt {
 		this.tintingData = await getTaxonomyData("tinting");
 		this.blackboxData = await getTaxonomyData("blackbox");
 		this.upgradeData = await getTaxonomyData("upgrade");
+		this.brandNewPackageOptionData = await this.getBrandNewPackageOption();
+		this.dealerPackageOptionData = await this.getDealerPackageOption();
+		this.carData = await this.updateModelData();
 
-		this.inputNodes.model.addEventListener("input", this.updateModelData.bind(this));
-
-		await this.getPackageOption();
-		await this.updateModelData();
+		this.inputNodes.model.addEventListener("input", async () => {
+			this.carData = await this.updateModelData();
+			this.refreshTypeButton();
+		});
+		this.refreshTypeButton();
 	}
 
 	runUpdatePipeline(typeButton) {
@@ -69,23 +75,22 @@ export class PorcsheReceipt {
 		this.renderAddonButtons();
 	}
 
-	// 패키지 옵션 표기
+	refreshTypeButton() {
+		this.renderTypeButton();
+		this.updateReceipt();
+	}
 
 	async updateModelData() {
 		const posts = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.inputNodes.model.value)}`);
 		if (posts) {
-			this.carData = posts[0];
+			return posts[0];
 		}
-		this.renderTypeButton();
-
-		// draw receipt
-		this.updateReceipt();
 	}
 
-	async getPackageOption() {
+	async getBrandNewPackageOption() {
 		const posts = await requestWpJson("/porsche-dealer/wp-json/wp/v2/package-option");
 		if (posts) {
-			this.packageOption = posts.map((e) => ({
+			return posts.map((e) => ({
 				title: e.title.rendered,
 				classType: e.acf.package_class,
 				price: {
@@ -96,6 +101,21 @@ export class PorcsheReceipt {
 				tinting: e.tinting,
 			}));
 		}
+		return false;
+	}
+
+	async getDealerPackageOption() {
+		const posts = await requestWpJson("/porsche-dealer/wp-json/wp/v2/dealer-package");
+		if (posts) {
+			return posts.map((e) => ({
+				title: e.title.rendered,
+				prices: {
+					origin: e.acf.origin_price,
+					discount: e.acf.discount_price,
+				},
+			}));
+		}
+		return false;
 	}
 
 	renderTypeButton() {
@@ -108,7 +128,7 @@ export class PorcsheReceipt {
 
 		// reset package type
 
-		this.packageOption.forEach((content) => {
+		this.brandNewPackageOptionData.forEach((content) => {
 			const originPrice = this.carData.acf.is_type_a ? content.price.typeA : content.price.typeB;
 
 			const typeButton = new TypeButton({
@@ -121,7 +141,7 @@ export class PorcsheReceipt {
 			});
 
 			// set default data at first load
-			if (typeButton.content.title === this.packageOption[0].title) {
+			if (typeButton.content.title === this.brandNewPackageOptionData[0].title) {
 				this.runUpdatePipeline(typeButton);
 			}
 
