@@ -285,6 +285,11 @@
 	}
 }
 
+.contact-form-customize {
+	margin: 0 auto;
+	@include flex($direction: column, $gap: 3em $pc-layout-gap);
+}
+
 .agreement-modal {
 	@include flex($align: center, $justify: center);
 	position: fixed;

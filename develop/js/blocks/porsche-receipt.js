@@ -10,35 +10,57 @@ import { AddonRadioBtn } from "../components/contact-radio-addon";
 import { getTaxonomyData } from "../utils/get-taxonomy-data";
 
 export class PorcsheReceipt {
+	inputNodes = {
+		model: document.querySelector('select[name="model"]'),
+		package: document.querySelector('input[name="package"]'),
+		packageType: document.querySelector('input[name="package-type"]'),
+		blackbox: document.querySelector('input[name="blackbox"]'),
+		tinting: document.querySelector('input[name="tinting"]'),
+		totalPrice: document.querySelector('input[name="total-price"]'),
+		upgrade: document.querySelector('input[name="extra"]'),
+	};
+
+	customizeDom = document.querySelector(".contact-form-customize");
+
+	priceNum = {
+		package: 0,
+		tinting: 0,
+		blackbox: 0,
+		upgrade: 0,
+	};
+
+	priceNumObj = [
+		{
+			name: package,
+			value: 0,
+		},
+		{
+			name: tinting,
+			value: 0,
+		},
+		{
+			name: blackbox,
+			value: 0,
+		},
+		{
+			name: upgrade,
+			value: 0,
+		},
+	];
+
+	tintingData = [];
+	blackboxData = [];
+	upgradeData = [];
+	brandNewPackageOptionData = [];
+	dealerPackageOptionData = [];
+	carData = [];
+
+	typeButtons = [];
 	constructor() {
-		this.brandNewPackageOptionData = [];
-		this.inputNodes = {
-			model: document.querySelector('select[name="model"]'),
-			package: document.querySelector('input[name="package"]'),
-			packageType: document.querySelector('input[name="package-type"]'),
-			blackbox: document.querySelector('input[name="blackbox"]'),
-			tinting: document.querySelector('input[name="tinting"]'),
-			totalPrice: document.querySelector('input[name="total-price"]'),
-			upgrade: document.querySelector('input[name="extra"]'),
-		};
-
-		this.priceNum = {
-			package: 0,
-			tinting: 0,
-			blackbox: 0,
-			upgrade: 0,
-			total: 0,
-		};
-
-		this.tintingData = [];
-		this.blackboxData = [];
-		this.upgradeData = [];
-		this.brandNewPackageOptionData = [];
-		this.dealerPackageOptionData = [];
-		this.carData = [];
-
-		this.typeButtons = [];
-		this.filteredTintingData = [];
+		this.receiptDom = this.renderWrapperDom("contact-receipt");
+		this.typeButtonWrapperDom = this.renderWrapperDom("porsche-form__type-button-wrapper");
+		this.tintingWrapperDom = this.renderWrapperDom("porsche-form__tinting");
+		this.blackboxWrapperDom = this.renderWrapperDom("porsche-form__blackbox");
 
 		this.onLoad();
 	}
@@ -78,6 +100,14 @@ export class PorcsheReceipt {
 	refreshTypeButton() {
 		this.renderTypeButton();
 		this.updateReceipt();
+	}
+
+	renderWrapperDom(className) {
+		const div = document.createElement("div");
+		if (className) {
+			div.classList.add(className);
+		}
+		return div;
 	}
 
 	async updateModelData() {
@@ -261,11 +291,13 @@ export class PorcsheReceipt {
 		wrapper.appendChild(addonButton.render());
 	}
 
+	renderCustomize() {}
+
 	reduceTotalPrice() {
 		// reduce total Price
-		this.priceNum.total = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.upgrade;
-		this.inputNodes.totalPrice.value = this.priceNum.total;
-		return this.priceNum.total;
+		const totalPrice = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.upgrade;
+		this.inputNodes.totalPrice.value = totalPrice;
+		return totalPrice;
 	}
 
 	updatePackageTypeData(title, price) {
@@ -274,9 +306,12 @@ export class PorcsheReceipt {
 	}
 
 	updateReceipt() {
-		const wrapper = document.getElementById("contact-receipt");
+		const receiptDom = this.receiptDom;
+		const totalPrice = this.reduceTotalPrice();
+
 		// reset wrapper inner
-		wrapper.innerHTML = "";
+		receiptDom.innerHTML = "";
+		this.inputNodes.totalPrice.value = totalPrice;
 
 		const element = renderReceipt(
 			{
@@ -284,6 +319,10 @@ export class PorcsheReceipt {
 				packageName: this.inputNodes.packageType.value,
 			},
 			[
+				{
+					title: "패키지명",
+					content: this.inputNodes.packageType.value,
+				},
 				{
 					title: "전체 PPF 시공",
 					content: "루프 제외 모든 도장면에 시공되는 품목입니다.",
@@ -304,9 +343,13 @@ export class PorcsheReceipt {
 					content: this.inputNodes.upgrade.value,
 				},
 			],
-			this.reduceTotalPrice()
+			totalPrice
 		);
 
-		wrapper.appendChild(element);
+		receiptDom.appendChild(element);
 	}
 }
+
+class BrandNewPackageReceipt {}
+
+class DealerPacakgeReceipt {}
