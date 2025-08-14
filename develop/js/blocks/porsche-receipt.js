@@ -10,18 +10,6 @@ import { AddonRadioBtn } from "../components/contact-radio-addon";
 import { getTaxonomyData } from "../utils/get-taxonomy-data";
 
 export class PorcsheReceipt {
-	inputNodes = {
-		model: document.querySelector('select[name="model"]'),
-		package: document.querySelector('input[name="package"]'),
-		packageType: document.querySelector('input[name="package-type"]'),
-		blackbox: document.querySelector('input[name="blackbox"]'),
-		tinting: document.querySelector('input[name="tinting"]'),
-		totalPrice: document.querySelector('input[name="total-price"]'),
-		upgrade: document.querySelector('input[name="extra"]'),
-	};
-
-	customizeDom = document.querySelector(".contact-form-customize");
-
 	priceNum = {
 		package: 0,
 		tinting: 0,
@@ -29,21 +17,21 @@ export class PorcsheReceipt {
 		upgrade: 0,
 	};
 
-	priceNumObj = [
+	optionPrice = [
 		{
-			name: package,
+			name: "package",
 			value: 0,
 		},
 		{
-			name: tinting,
+			name: "tinting",
 			value: 0,
 		},
 		{
-			name: blackbox,
+			name: "blackbox",
 			value: 0,
 		},
 		{
-			name: upgrade,
+			name: "upgrade",
 			value: 0,
 		},
 	];
@@ -57,10 +45,24 @@ export class PorcsheReceipt {
 
 	typeButtons = [];
 	constructor() {
-		this.receiptDom = this.renderWrapperDom("contact-receipt");
-		this.typeButtonWrapperDom = this.renderWrapperDom("porsche-form__type-button-wrapper");
-		this.tintingWrapperDom = this.renderWrapperDom("porsche-form__tinting");
-		this.blackboxWrapperDom = this.renderWrapperDom("porsche-form__blackbox");
+		this.inputNodes = {
+			model: document.querySelector('select[name="model"]'),
+			package: document.querySelector('input[name="package"]'),
+			packageType: document.querySelector('input[name="package-type"]'),
+			blackbox: document.querySelector('input[name="blackbox"]'),
+			tinting: document.querySelector('input[name="tinting"]'),
+			totalPrice: document.querySelector('input[name="total-price"]'),
+			upgrade: document.querySelector('input[name="extra"]'),
+		};
+
+		this.wrappers = {
+			recepit: this.renderWrapperDom("contact-receipt"),
+			typeButton: this.renderWrapperDom("porsche-form__type-button-wrapper"),
+			tinting: this.renderWrapperDom("porsche-form__tinting"),
+			blackbox: this.renderWrapperDom("porsche-form__blackbox"),
+		};
+
+		this.customizeDom = document.querySelector(".contact-form-customize");
 
 		this.onLoad();
 	}
@@ -148,6 +150,13 @@ export class PorcsheReceipt {
 		return false;
 	}
 
+	findPriceObjectByName(name) {
+		const target = this.optionPrice.find((item) => item.name === name);
+		if (target) {
+			return target;
+		}
+	}
+
 	renderTypeButton() {
 		const wrapper = document.getElementById("porsche-form__type-button-wrapper");
 		// reset wrapper childe node
@@ -199,15 +208,32 @@ export class PorcsheReceipt {
 		});
 	}
 
-	renderSelectAddon(title, wrapperID, data, inputnode, priceName) {
+	renderTintingSelectBox(data) {
+		const filterTintingData = filterAddonData(this.tintingData, data);
+		this.renderSelectAddon("틴팅 선택", this.tintingWrapperDom, filterTintingData, this.inputNodes.tinting, "tinting");
+	}
+
+	renderBlackboxSelectBox(data) {
+		const filterBlackboxData = filterAddonData(this.blackboxData, data);
+		this.renderSelectAddon("블랙박스 + 하이패스", this.blackboxWrapperDom, filterBlackboxData, this.inputNodes.blackbox, "blackbox");
+	}
+
+	renderAddonSelectBox(originData, filteredID, title, wrapper, inputnode, priceName) {
+		const filterData = filterAddonData(originData, filteredID);
+		this.renderSelectAddon(title, wrapper, filterData, inputnode, priceName);
+	}
+
+	renderSelectAddon(title, wrapper, data, inputnode, priceName) {
 		// filter tinting data
-		const wrapper = document.getElementById(wrapperID);
+		const wrapper = document.getElementById(wrapper);
+		const priceObj = this.findPriceObjectByName(priceName);
 
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
 
 		inputnode.value = data[0].title;
-		this.priceNum[priceName] = 0;
+
+		priceObj.value = 0;
 
 		if (data.length > 1) {
 			wrapper.style.display = "inherit";
@@ -215,19 +241,19 @@ export class PorcsheReceipt {
 			const selectBox = new AddonSelectBox(title, data);
 			const selectNode = selectBox.selectNode;
 
-			// calc total price
+			// calc price
 			const findSelectedArr = data.find((arr) => arr.title == selectNode.options[selectNode.selectedIndex].value);
 			if (findSelectedArr.length !== 0) {
-				this.priceNum[priceName] = findSelectedArr.price;
+				priceObj.value = findSelectedArr.price;
 			}
 			selectNode.addEventListener("input", (e) => {
 				// calc total price
 				inputnode.value = e.target.value;
-				this.priceNum[priceName] = 0;
+				priceObj.value = 0;
 
 				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].value);
 				if (findSelectedArr.length !== 0) {
-					this.priceNum[priceName] = findSelectedArr.price;
+					priceObj.value = findSelectedArr.price;
 				}
 				this.updateReceipt();
 			});
@@ -238,33 +264,19 @@ export class PorcsheReceipt {
 		}
 	}
 
-	renderTintingSelectBox(data) {
-		const filterTintingData = filterAddonData(this.tintingData, data);
-		this.renderSelectAddon("틴팅 선택", "porsche-form__tinting", filterTintingData, this.inputNodes.tinting, "tinting");
-	}
-
-	renderBlackboxSelectBox(data) {
-		const filterBlackboxData = filterAddonData(this.blackboxData, data);
-		this.renderSelectAddon("블랙박스 + 하이패스", "porsche-form__blackbox", filterBlackboxData, this.inputNodes.blackbox, "blackbox");
-	}
-
-	renderAddonSelectBox(originData, filteredID, title, wrapperID, inputnode, priceName) {
-		const filterData = filterAddonData(originData, filteredID);
-		this.renderSelectAddon(title, wrapperID, filterData, inputnode, priceName);
-	}
-
 	renderAddonButtons() {
 		const wrapper = document.getElementById("porsche-form__extra");
 		const filterData = filterAddonData(this.upgradeData, this.carData.upgrade);
-
 		const addonButton = new AddonRadioBtn("추가 옵션", filterData);
+		const priceObj = this.findPriceObjectByName("upgrade");
 
 		// 초기값 설정
 		wrapper.classList.add("contact-form__input-wrapper");
 		wrapper.innerHTML = "";
 
 		this.inputNodes.upgrade.value = filterData[0].title;
-		this.priceNum.upgrade = 0;
+
+		priceObj.value = 0;
 
 		addonButton.buttons.forEach((button) => {
 			button.addEventListener("click", (e) => {
@@ -278,9 +290,9 @@ export class PorcsheReceipt {
 				target.classList.add("contact-option-button--active");
 
 				// calc addon price
-				this.priceNum.upgrade = 0;
+				priceObj.value = 0;
 				if (findSelectedArr.length !== 0) {
-					this.priceNum.upgrade = findSelectedArr.price;
+					priceObj.value = findSelectedArr.price;
 				}
 				this.inputNodes.upgrade.value = target.innerHTML;
 
@@ -295,18 +307,23 @@ export class PorcsheReceipt {
 
 	reduceTotalPrice() {
 		// reduce total Price
-		const totalPrice = this.priceNum.package + this.priceNum.tinting + this.priceNum.blackbox + this.priceNum.upgrade;
+		let totalPrice = 0;
+		totalPrice = this.optionPrice.forEach((item) => {
+			totalPrice += item.value;
+		});
 		this.inputNodes.totalPrice.value = totalPrice;
 		return totalPrice;
 	}
 
 	updatePackageTypeData(title, price) {
+		const priceObj = this.findPriceObjectByName("package");
+
 		this.inputNodes.packageType.value = title;
-		this.priceNum.package = price;
+		priceObj.value = price;
 	}
 
 	updateReceipt() {
-		const receiptDom = this.receiptDom;
+		const receiptDom = this.wrappers.recepit;
 		const totalPrice = this.reduceTotalPrice();
 
 		// reset wrapper inner
