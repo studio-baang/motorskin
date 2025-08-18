@@ -10,12 +10,25 @@ import { AddonRadioBtn } from "../components/contact-radio-addon";
 import { getTaxonomyData } from "../utils/get-taxonomy-data";
 import { contactLabelDOM } from "../components/contact-form-label";
 
-class PorscheTypeButtonWrappperDOM {
+class Figment {
+	constructor(prop) {
+		this.figment = document.createDocumentFragment();
+
+		if (prop.labelText) {
+			this.figment.appendChild(contactLabelDOM(prop.labelText));
+		}
+	}
+
+	render() {
+		return this.figment;
+	}
+}
+
+class TypeButtonWrappperDOM extends Figment {
 	typeButtons = [];
 
-	constructor(prop) {
-		this.wrapper = document.createDocumentFragment();
-		this.wrapper.appendChild(contactLabelDOM("패키지 선택"));
+	constructor() {
+		super("패키지 선택");
 		this.contentDOM = document.createElement("div");
 		this.handleClick = this.handleClickFn.bind(this);
 	}
@@ -48,6 +61,34 @@ class PorscheTypeButtonWrappperDOM {
 
 		// 참조 제거
 		this.typeButtons = [];
+	}
+}
+
+class PackageButtonDOM extends Figment {
+	constructor({ buttonContentArray }) {
+		super();
+
+		buttonContentArray.forEach((buttonContent) => {
+			this.figment.appendChild(this.createButton(buttonContent.title, buttonContent.content));
+		});
+	}
+
+	createButton(title, content) {
+		const buttonDOM = document.createElement("div");
+		buttonDOM.classList.add("package-price-card");
+		buttonDOM.classList.add("package-price-card--contact-form");
+
+		const titleDOM = document.createElement("span");
+		titleDOM.classList.add("package-price-card__title");
+		titleDOM.innerHTML = title;
+
+		const contentDOM = document.createElement("span");
+		contentDOM.innerHTML = content;
+
+		buttonDOM.appendChild(titleDOM);
+		buttonDOM.appendChild(contentDOM);
+
+		return buttonDOM;
 	}
 }
 
@@ -97,14 +138,23 @@ export class PorcsheReceipt {
 		};
 
 		this.wrappers = {
-			receipt: this.renderWrapperDom("contact-receipt"),
-			typeButton: this.renderWrapperDom("porsche-form__type-button"),
-			tinting: this.renderWrapperDom("porsche-form__tinting"),
-			blackbox: this.renderWrapperDom("porsche-form__blackbox"),
+			receipt: this.createWrapperDom("contact-receipt"),
+			typeButton: this.createWrapperDom("porsche-form__type-button"),
+			tinting: this.createWrapperDom("porsche-form__tinting"),
+			blackbox: this.createWrapperDom("porsche-form__blackbox"),
 		};
 
 		this.customizeDom = document.querySelector(".contact-form-customize");
 
+		const packageButtonWrapperDOM = this.create2ColsWrapper();
+		packageButtonWrapperDOM.appendChild(
+			new PackageButtonDOM({
+				buttonContentArray: [
+					{ title: "모터스킨 PPF 신차 패키지", content: "필요한 모든 것을 담은 신차 패키지<br/>취향에 맞게 당신만의 패키지를 구성하세요." },
+					{ title: "딜러 3종 패키지", content: "전체 PPF + 프리미엄 케어 + 딜러 3종 + 신차검수까지<br/>최대 50% 할인 혜탹" },
+				],
+			}).render();
+		);
 		// this.onLoad();
 	}
 
@@ -121,12 +171,16 @@ export class PorcsheReceipt {
 		// this.refreshTypeButton();
 	}
 
-	renderWrapperDom(className) {
+	createWrapperDom(className) {
 		const div = document.createElement("div");
 		if (className) {
 			div.classList.add(className);
 		}
 		return div;
+	}
+
+	create2ColsWrapper() {
+		return createWrapperDom("contact-form__2cols");
 	}
 
 	modelClickHandler() {
