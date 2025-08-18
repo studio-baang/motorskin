@@ -40,8 +40,8 @@ class TypeButtonDOM extends ContactButtonDOM {
 
 	init() {
 		super.init();
-		this.dom.dataset.content = this.content.title;
-		this.dom.innerHTML = `<div class="contact-type-button__wrapper">
+		this.DOM.dataset.content = this.content.title;
+		this.DOM.innerHTML = `<div class="contact-type-button__wrapper">
 				<div class="contact-type-button__row">
 					<span style="margin-right: auto">${this.content.classType}</span>
 					<h5>${this.content.title}</h5>
@@ -105,7 +105,7 @@ class PackageButtonDOM extends ContactButtonDOM {
 
 	init() {
 		super.init();
-		this.dom.appendChild(this.childNode());
+		this.DOM.appendChild(this.childNode());
 	}
 
 	childNode() {
@@ -134,7 +134,7 @@ class PackageButtonWrapper extends Wrapper {
 
 	renderButtuns() {
 		this.buttonArray.forEach((buttonContent) => {
-			const btnObj = new PackageButtonDOM(buttonContent.title, buttonContent.content);
+			const btnObj = new PackageButtonDOM({ title: buttonContent.title, content: buttonContent.content });
 			const domEL = btnObj.render();
 			domEL.addEventListener("click", this.handleClick);
 			buttonContent.obj = btnObj;
