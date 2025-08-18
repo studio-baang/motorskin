@@ -153,7 +153,7 @@ export class PorcsheReceipt {
 					{ title: "모터스킨 PPF 신차 패키지", content: "필요한 모든 것을 담은 신차 패키지<br/>취향에 맞게 당신만의 패키지를 구성하세요." },
 					{ title: "딜러 3종 패키지", content: "전체 PPF + 프리미엄 케어 + 딜러 3종 + 신차검수까지<br/>최대 50% 할인 혜탹" },
 				],
-			}).render();
+			}).render()
 		);
 		// this.onLoad();
 	}
