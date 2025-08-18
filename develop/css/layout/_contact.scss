@@ -287,7 +287,12 @@
 
 .contact-form-customize {
 	margin: 0 auto;
-	@include flex($direction: column, $gap: 3em $pc-layout-gap);
+	& > div {
+		margin-bottom: 3em;
+	}
+	& > div:last-child {
+		margin-bottom: 0;
+	}
 }
 
 .agreement-modal {

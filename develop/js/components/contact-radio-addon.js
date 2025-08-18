@@ -1,4 +1,4 @@
-import { contactLabelDom } from "./contact-form-label";
+import { contactLabelDOM } from "./contact-form-label";
 
 export class AddonRadioBtn {
 	constructor(labelText, data) {
@@ -6,7 +6,7 @@ export class AddonRadioBtn {
 
 		this.figment = document.createDocumentFragment();
 
-		this.labelNode = contactLabelDom(labelText);
+		this.labelNode = contactLabelDOM(labelText);
 
 		this.wrapper = document.createElement("div");
 		this.wrapper.classList.add("contact-option-button-wrapper");

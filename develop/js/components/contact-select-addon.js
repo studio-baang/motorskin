@@ -1,4 +1,4 @@
-import { contactLabelDom } from "./contact-form-label";
+import { contactLabelDOM } from "./contact-form-label";
 import { createAddonContent } from "../utils/create-addon-content";
 
 export class AddonSelectBox {
@@ -9,7 +9,7 @@ export class AddonSelectBox {
 	constructor(title, data) {
 		this.fragment = document.createDocumentFragment();
 
-		this.labelNode = contactLabelDom(title);
+		this.labelNode = contactLabelDOM(title);
 
 		this.selectNode = document.createElement("select");
 		this.selectNode.classList.add("wpcf7-select");
