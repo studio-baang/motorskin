@@ -10,25 +10,31 @@ import { AddonRadioBtn } from "../components/contact-radio-addon";
 import { getTaxonomyData } from "../utils/get-taxonomy-data";
 import { contactLabelDOM } from "../components/contact-form-label";
 
-class Figment {
-	constructor(prop) {
-		this.figment = document.createDocumentFragment();
+class Wrapper {
+	constructor({ className, labelText }) {
+		this.wrapper = document.createElement("div");
 
-		if (prop.labelText) {
-			this.figment.appendChild(contactLabelDOM(prop.labelText));
+		if (className) {
+			this.wrapper.classList.add(className);
+		}
+
+		if (labelText) {
+			this.wrapper.appendChild(contactLabelDOM(labelText));
 		}
 	}
 
 	render() {
-		return this.figment;
+		return this.wrapper;
 	}
 }
 
-class TypeButtonWrappperDOM extends Figment {
+class TypeButtonWrappperDOM extends Wrapper {
 	typeButtons = [];
 
 	constructor() {
-		super("패키지 선택");
+		super({
+			labelText: "패키지 선택",
+		});
 		this.contentDOM = document.createElement("div");
 		this.handleClick = this.handleClickFn.bind(this);
 	}
@@ -64,12 +70,12 @@ class TypeButtonWrappperDOM extends Figment {
 	}
 }
 
-class PackageButtonDOM extends Figment {
-	constructor({ buttonContentArray }) {
-		super();
+class PackageButtonDOM extends Wrapper {
+	constructor({ className, buttonContentArray }) {
+		super({ className });
 
 		buttonContentArray.forEach((buttonContent) => {
-			this.figment.appendChild(this.createButton(buttonContent.title, buttonContent.content));
+			this.wrapper.appendChild(this.createButton(buttonContent.title, buttonContent.content));
 		});
 	}
 
@@ -146,9 +152,9 @@ export class PorcsheReceipt {
 
 		this.customizeDom = document.querySelector(".contact-form-customize");
 
-		const packageButtonWrapperDOM = this.create2ColsWrapper();
-		packageButtonWrapperDOM.appendChild(
+		this.customizeDom.appendChild(
 			new PackageButtonDOM({
+				className: "contact-form__2cols",
 				buttonContentArray: [
 					{ title: "모터스킨 PPF 신차 패키지", content: "필요한 모든 것을 담은 신차 패키지<br/>취향에 맞게 당신만의 패키지를 구성하세요." },
 					{ title: "딜러 3종 패키지", content: "전체 PPF + 프리미엄 케어 + 딜러 3종 + 신차검수까지<br/>최대 50% 할인 혜탹" },
@@ -177,10 +183,6 @@ export class PorcsheReceipt {
 			div.classList.add(className);
 		}
 		return div;
-	}
-
-	create2ColsWrapper() {
-		return createWrapperDom("contact-form__2cols");
 	}
 
 	modelClickHandler() {
