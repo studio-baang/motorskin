@@ -1,14 +1,14 @@
-import _ from "lodash";
+import _, { extend } from "lodash";
 
 import { requestWpJson } from "../utils/wp-json";
 import { filterAddonData } from "../utils/filter-addon-json";
 
 import { renderReceipt } from "../components/contact-receipt";
-import { TypeButton } from "../components/contact-type-button";
 import { AddonSelectBox } from "../components/contact-select-addon";
 import { AddonRadioBtn } from "../components/contact-radio-addon";
 import { getTaxonomyData } from "../utils/get-taxonomy-data";
 import { contactLabelDOM } from "../components/contact-form-label";
+import { ContactButtonDOM } from "../components/contact=button";
 
 class Wrapper {
 	constructor({ className, labelText }) {
@@ -28,38 +28,64 @@ class Wrapper {
 	}
 }
 
+class TypeButtonDOM extends ContactButtonDOM {
+	constructor(content) {
+		super();
+		this.content = content;
+		this.covertPriceLocal = {
+			originPrice: content.originPrice.toLocaleString("ko-KR"),
+			discountPrice: content.discountPrice.toLocaleString("ko-KR"),
+		};
+	}
+
+	init() {
+		super.init();
+		this.dom.dataset.content = this.content.title;
+		this.dom.innerHTML = `<div class="contact-type-button__wrapper">
+				<div class="contact-type-button__row">
+					<span style="margin-right: auto">${this.content.classType}</span>
+					<h5>${this.content.title}</h5>
+				</div>
+				<div class="contact-type-button__row">
+					<span class="contact-type-button__origin-price"> 정상가 : ${this.covertPriceLocal.originPrice}원 </span>
+					<span class="contact-type-button__discount-price"> 할인가 : ${this.covertPriceLocal.discountPrice}원 </span>
+				</div>
+			</div>`;
+	}
+}
+
 class TypeButtonWrappperDOM extends Wrapper {
 	typeButtons = [];
 
-	constructor() {
+	constructor({ onButtonActive }) {
 		super({
 			labelText: "패키지 선택",
 		});
+		this.onButtonActive = onButtonActive ?? false;
 		this.contentDOM = document.createElement("div");
 		this.handleClick = this.handleClickFn.bind(this);
 	}
 
-	createTypeButtons(data) {
+	setTypeButtons(data) {
 		data.forEach((content) => {
 			const typeButton = new TypeButton(content);
 			this.typeButtons.push(typeButton);
-			typeButton.element.addEventListener("click", this.handleClickFn);
+			typeButton.element.addEventListener("click", this.handleClick);
 		});
 	}
 
 	handleClickFn(e) {
 		this.typeButtons.forEach((btn) => btn.offActiveState());
 		const clickedBtn = this.typeButtons.find((btn) => btn.element === e.currentTarget);
-		if (clickedBtn) {
-			this.runUpdatePipeline(clickedBtn);
-			this.updateReceipt();
+		if (clickedBtn && this.onButtonActive) {
+			this.onButtonActive();
 		}
 	}
 
 	resetTypeButtons() {
 		// 리스너 해제
 		this.typeButtons.forEach((typeButton) => {
-			typeButton.element.removeEventListener("click", this.handleClickFn);
+			typeButton.element.removeEventListener("click", this.handleClick);
 		});
 
 		// DOM 제거
@@ -70,31 +96,71 @@ class TypeButtonWrappperDOM extends Wrapper {
 	}
 }
 
-class PackageButtonDOM extends Wrapper {
-	constructor({ className, buttonContentArray }) {
-		super({ className });
-
-		buttonContentArray.forEach((buttonContent) => {
-			this.wrapper.appendChild(this.createButton(buttonContent.title, buttonContent.content));
-		});
+class PackageButtonDOM extends ContactButtonDOM {
+	constructor({ title, content }) {
+		super({ className: "contact-type-button--bigger" });
+		this.title = title;
+		this.content = content;
 	}
 
-	createButton(title, content) {
-		const buttonDOM = document.createElement("div");
-		buttonDOM.classList.add("package-price-card");
-		buttonDOM.classList.add("package-price-card--contact-form");
+	init() {
+		super.init();
+		this.dom.appendChild(this.childNode());
+	}
+
+	childNode() {
+		const figment = document.createDocumentFragment();
 
 		const titleDOM = document.createElement("span");
 		titleDOM.classList.add("package-price-card__title");
-		titleDOM.innerHTML = title;
+		titleDOM.innerHTML = this.title;
 
-		const contentDOM = document.createElement("span");
-		contentDOM.innerHTML = content;
+		const contentDOM = document.createElement("p");
+		contentDOM.innerHTML = this.content;
 
-		buttonDOM.appendChild(titleDOM);
-		buttonDOM.appendChild(contentDOM);
+		figment.appendChild(titleDOM);
+		figment.appendChild(contentDOM);
 
-		return buttonDOM;
+		return figment;
+	}
+}
+
+class PackageButtonWrapper extends Wrapper {
+	constructor({ className, buttonContentArray }) {
+		super({ className });
+		this.buttonArray = buttonContentArray;
+		this.handleClick = this.handleClickFn.bind(this);
+	}
+
+	renderButtuns() {
+		this.buttonArray.forEach((buttonContent) => {
+			const btnObj = new PackageButtonDOM(buttonContent.title, buttonContent.content);
+			const domEL = btnObj.render();
+			domEL.addEventListener("click", this.handleClick);
+			buttonContent.obj = btnObj;
+			this.wrapper.appendChild(domEL);
+		});
+	}
+
+	handleClickFn(e) {
+		this.buttonArray.forEach((el) => el.offButtonActive());
+
+		const clickedBtn = this.buttonArray.find((btn) => btn.obj === e.currentTarget);
+		if (clickedBtn) {
+			console.log("click Evnet Sucess", clickedBtn);
+		}
+	}
+
+	resetButtons() {
+		// 리스너 해제
+		this.buttonArray.forEach((btn) => {
+			btn.obj.removeEventListener("click", this.handleClick);
+		});
+
+		this.wrapper.innerHTML = "";
+
+		// 참조 제거
+		this.buttonArray = buttonContentArray;
 	}
 }
 
@@ -153,7 +219,7 @@ export class PorcsheReceipt {
 		this.customizeDom = document.querySelector(".contact-form-customize");
 
 		this.customizeDom.appendChild(
-			new PackageButtonDOM({
+			new PackageButtonWrapper({
 				className: "contact-form__2cols",
 				buttonContentArray: [
 					{ title: "모터스킨 PPF 신차 패키지", content: "필요한 모든 것을 담은 신차 패키지<br/>취향에 맞게 당신만의 패키지를 구성하세요." },
