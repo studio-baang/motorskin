@@ -99,24 +99,23 @@ class TypeButtonWrappperDOM extends Wrapper {
 class PackageButtonDOM extends ContactButtonDOM {
 	constructor({ title, content }) {
 		super({ className: ["contact-type-button--bigger"] });
-		this.title = title;
-		this.content = content;
+		this.init(title, content);
 	}
 
-	init() {
+	init(title, content) {
 		super.init();
-		this.DOM.appendChild(this.childNode());
+		this.DOM.appendChild(this.childNode(title, content));
 	}
 
-	childNode() {
+	childNode(title, content) {
 		const figment = document.createDocumentFragment();
 
 		const titleDOM = document.createElement("span");
 		titleDOM.classList.add("package-price-card__title");
-		titleDOM.innerHTML = this.title;
+		titleDOM.innerHTML = title;
 
 		const contentDOM = document.createElement("p");
-		contentDOM.innerHTML = this.content;
+		contentDOM.innerHTML = content;
 
 		figment.appendChild(titleDOM);
 		figment.appendChild(contentDOM);

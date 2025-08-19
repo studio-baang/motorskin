@@ -4,7 +4,6 @@ export class ContactButtonDOM {
 		this.isActive = false;
 		this.className = ["contact-type-button", ...className];
 		this.activeClassName = activeClassName;
-		this.init();
 	}
 	init() {
 		this.className.forEach((n) => {
