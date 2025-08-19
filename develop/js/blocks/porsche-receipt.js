@@ -98,7 +98,7 @@ class TypeButtonWrappperDOM extends Wrapper {
 
 class PackageButtonDOM extends ContactButtonDOM {
 	constructor({ title, content }) {
-		super({ className: "contact-type-button--bigger" });
+		super({ className: ["contact-type-button--bigger"] });
 		this.title = title;
 		this.content = content;
 	}
@@ -136,6 +136,7 @@ class PackageButtonWrapper extends Wrapper {
 
 	init() {
 		this.buttonArray.forEach((button) => {
+			console.log(button);
 			const btnObj = new PackageButtonDOM({ title: button.title, content: button.content });
 			const domEL = btnObj.render();
 
