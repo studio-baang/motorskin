@@ -130,12 +130,15 @@ class PackageButtonWrapper extends Wrapper {
 		super({ className });
 		this.buttonArray = buttonContentArray;
 		this.handleClick = this.handleClickFn.bind(this);
+
+		this.init();
 	}
 
-	renderButtuns() {
+	init() {
 		this.buttonArray.forEach((buttonContent) => {
 			const btnObj = new PackageButtonDOM({ title: buttonContent.title, content: buttonContent.content });
 			const domEL = btnObj.render();
+
 			domEL.addEventListener("click", this.handleClick);
 			buttonContent.obj = btnObj;
 			this.wrapper.appendChild(domEL);
