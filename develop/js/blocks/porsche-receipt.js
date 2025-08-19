@@ -147,7 +147,6 @@ class PackageButtonWrapper extends Wrapper {
 
 	handleClickFn(e) {
 		this.buttonArray.forEach((el) => el.obj.offButtonActive());
-		console.log(btn.obj.DOM === e.currentTarget, btn.obj.DOM);
 		const clickedBtn = this.buttonArray.find((btn) => btn.obj.DOM === e.currentTarget);
 		if (clickedBtn) {
 			console.log("click Evnet Sucess", clickedBtn);
