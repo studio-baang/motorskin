@@ -135,20 +135,20 @@ class PackageButtonWrapper extends Wrapper {
 	}
 
 	init() {
-		this.buttonArray.forEach((buttonContent) => {
-			const btnObj = new PackageButtonDOM({ title: buttonContent.title, content: buttonContent.content });
+		this.buttonArray.forEach((button) => {
+			const btnObj = new PackageButtonDOM({ title: button.title, content: button.content });
 			const domEL = btnObj.render();
 
 			domEL.addEventListener("click", this.handleClick);
-			buttonContent.obj = btnObj;
+			button.obj = btnObj;
 			this.wrapper.appendChild(domEL);
 		});
 	}
 
 	handleClickFn(e) {
-		this.buttonArray.forEach((el) => el.offButtonActive());
-
-		const clickedBtn = this.buttonArray.find((btn) => btn.obj === e.currentTarget);
+		this.buttonArray.forEach((el) => el.obj.offButtonActive());
+		console.log(btn.obj.DOM === e.currentTarget, btn.obj.DOM);
+		const clickedBtn = this.buttonArray.find((btn) => btn.obj.DOM === e.currentTarget);
 		if (clickedBtn) {
 			console.log("click Evnet Sucess", clickedBtn);
 		}

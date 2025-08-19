@@ -12,7 +12,7 @@ export class ContactButtonDOM {
 		});
 	}
 
-	offButtonActive() {
+	onButtonActive() {
 		this.isActive = true;
 		this.DOM.classList.add(this.activeClassName);
 	}
