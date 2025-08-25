@@ -17,7 +17,7 @@ import { renderLoadingIcon } from "../components/loading-icon";
 import { Wrapper } from "../components/contact-customize/wrapper";
 import { AddonButtonDOM, PackageButtonDOM, TypeButtonDOM } from "../components/contact-customize/package-button";
 
-const SITENAME = "";
+const SITENAME = "/porsche-dealer";
 const DEALERPACKAGENAME = "dealer-package";
 const BRANDNEWPACKAGENAME = "package-option";
 const WPJSON = "wp-json/wp/v2";
