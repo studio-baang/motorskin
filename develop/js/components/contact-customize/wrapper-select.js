@@ -1,8 +1,6 @@
-import { Wrapper } from "./wrapper";
-
-export class SelectWrapper extends Wrapper {
-	constructor({ labelText, update = false, onClick = false }) {
-		super({ labelText });
+export class SelectWrapper {
+	constructor({ update = false, onClick = false }) {
+		this.DOM = document.createDocumentFragment();
 		this.updateFn = update;
 		this.onClick = onClick;
 		this.handleClick = this.handleClickFn.bind(this);
@@ -13,13 +11,11 @@ export class SelectWrapper extends Wrapper {
 
 	createItem() {
 		if (this.data && this.data.length > 1) {
-			console.count(this.labelText);
 			this.data.forEach((element) => {
 				const optionContent = element.description ?? element.title;
 				const option = new Option(optionContent);
 				this.selectDOM.appendChild(option);
 			});
-
 			// set selected Index
 			this.selectDOM.selectedIndex = 0;
 
@@ -27,7 +23,6 @@ export class SelectWrapper extends Wrapper {
 				this.updateFn(this.selectDOM.value, this.data[0].price);
 			}
 			this.selectDOM.addEventListener("input", this.handleClick);
-
 			this.DOM.appendChild(this.selectDOM);
 		} else {
 			if (this.updateFn) {
@@ -35,6 +30,10 @@ export class SelectWrapper extends Wrapper {
 			}
 			this.DOM.innerHTML = "";
 		}
+	}
+
+	render() {
+		return this.DOM;
 	}
 
 	handleClickFn() {
@@ -48,7 +47,8 @@ export class SelectWrapper extends Wrapper {
 	}
 
 	removeItem() {
-		this.DOM.innerHTML = "";
+		this.DOM = document.createDocumentFragment();
+		this.selectDOM.innerHTML = "";
 		this.selectDOM.removeEventListener("input", this.handleClick);
 	}
 
