@@ -5,7 +5,8 @@
 	"scripts": {
 		"build:css": "parcel build develop/css/custom.scss --dist-dir ./dist/css --no-cache",
 		"build:js": "parcel build develop/js/app.js --dist-dir ./dist/js --no-cache",
-		"build": "yarn run build:css && yarn run build:js"
+		"build": "yarn run build:css && yarn run build:js",
+		"watch": "parcel watch develop/js/app.js develop/css/custom.scss --dist-dir ./dist --no-cache"
 	},
 	"dependencies": {
 		"autoprefixer": "^10.4.20",

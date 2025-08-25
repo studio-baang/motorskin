@@ -1,179 +1,26 @@
 import _, { extend } from "lodash";
 
-import { requestWpJson } from "../utils/wp-json";
-import { filterAddonData } from "../utils/filter-addon-json";
+import { requestWpJson, WpJson } from "../utils/wp-json";
+import { filterAddonDataFn } from "../utils/filter-addon-json";
 
 import { renderReceipt } from "../components/contact-receipt";
-import { AddonSelectBox } from "../components/contact-select-addon";
 import { AddonRadioBtn } from "../components/contact-radio-addon";
-import { getTaxonomyData } from "../utils/get-taxonomy-data";
-import { contactLabelDOM } from "../components/contact-form-label";
-import { ContactButtonDOM } from "../components/contact=button";
+import { filterTaxonomyData } from "../utils/get-taxonomy-data";
 
-class Wrapper {
-	constructor({ className, labelText }) {
-		this.wrapper = document.createElement("div");
+// import { TypeButtonWrapper } from "../components/contact-customize/wrapper-type-button";
+import { PackageButtonWrapper, UpgradeButtonWrapper, TypeButtonWrapper } from "../components/contact-customize/wrapper-button";
+import { SelectWrapper } from "../components/contact-customize/wrapper-select";
 
-		if (className) {
-			this.wrapper.classList.add(className);
-		}
+import { checkDealerCode, splitDealerCode } from "../utils/search-dealer-code";
+import { renderLoadingIcon } from "../components/loading-icon";
+import { Wrapper } from "../components/contact-customize/wrapper";
 
-		if (labelText) {
-			this.wrapper.appendChild(contactLabelDOM(labelText));
-		}
-	}
-
-	render() {
-		return this.wrapper;
-	}
-}
-
-class TypeButtonDOM extends ContactButtonDOM {
-	constructor(content) {
-		super();
-		this.content = content;
-		this.covertPriceLocal = {
-			originPrice: content.originPrice.toLocaleString("ko-KR"),
-			discountPrice: content.discountPrice.toLocaleString("ko-KR"),
-		};
-	}
-
-	init() {
-		super.init();
-		this.DOM.dataset.content = this.content.title;
-		this.DOM.innerHTML = `<div class="contact-type-button__wrapper">
-				<div class="contact-type-button__row">
-					<span style="margin-right: auto">${this.content.classType}</span>
-					<h5>${this.content.title}</h5>
-				</div>
-				<div class="contact-type-button__row">
-					<span class="contact-type-button__origin-price"> 정상가 : ${this.covertPriceLocal.originPrice}원 </span>
-					<span class="contact-type-button__discount-price"> 할인가 : ${this.covertPriceLocal.discountPrice}원 </span>
-				</div>
-			</div>`;
-	}
-}
-
-class TypeButtonWrappperDOM extends Wrapper {
-	typeButtons = [];
-
-	constructor({ onButtonActive }) {
-		super({
-			labelText: "패키지 선택",
-		});
-		this.onButtonActive = onButtonActive ?? false;
-		this.contentDOM = document.createElement("div");
-		this.handleClick = this.handleClickFn.bind(this);
-	}
-
-	setTypeButtons(data) {
-		data.forEach((content) => {
-			const typeButton = new TypeButton(content);
-			this.typeButtons.push(typeButton);
-			typeButton.element.addEventListener("click", this.handleClick);
-		});
-	}
-
-	handleClickFn(e) {
-		this.typeButtons.forEach((btn) => btn.offActiveState());
-		const clickedBtn = this.typeButtons.find((btn) => btn.element === e.currentTarget);
-		if (clickedBtn && this.onButtonActive) {
-			this.onButtonActive();
-		}
-	}
-
-	resetTypeButtons() {
-		// 리스너 해제
-		this.typeButtons.forEach((typeButton) => {
-			typeButton.element.removeEventListener("click", this.handleClick);
-		});
-
-		// DOM 제거
-		this.contentDOM.innerHTML = "";
-
-		// 참조 제거
-		this.typeButtons = [];
-	}
-}
-
-class PackageButtonDOM extends ContactButtonDOM {
-	constructor({ title, content }) {
-		super({ className: ["contact-type-button--bigger"] });
-		this.init(title, content);
-	}
-
-	init(title, content) {
-		super.init();
-		this.DOM.appendChild(this.childNode(title, content));
-	}
-
-	childNode(title, content) {
-		const figment = document.createDocumentFragment();
-
-		const titleDOM = document.createElement("span");
-		titleDOM.classList.add("package-price-card__title");
-		titleDOM.innerHTML = title;
-
-		const contentDOM = document.createElement("p");
-		contentDOM.innerHTML = content;
-
-		figment.appendChild(titleDOM);
-		figment.appendChild(contentDOM);
-
-		return figment;
-	}
-}
-
-class PackageButtonWrapper extends Wrapper {
-	constructor({ className, buttonContentArray }) {
-		super({ className });
-		this.buttonArray = buttonContentArray;
-		this.handleClick = this.handleClickFn.bind(this);
-
-		this.init();
-	}
-
-	init() {
-		this.buttonArray.forEach((button) => {
-			console.log(button);
-			const btnObj = new PackageButtonDOM({ title: button.title, content: button.content });
-			const domEL = btnObj.render();
-
-			domEL.addEventListener("click", this.handleClick);
-			button.obj = btnObj;
-			this.wrapper.appendChild(domEL);
-		});
-	}
-
-	handleClickFn(e) {
-		this.buttonArray.forEach((el) => el.obj.offButtonActive());
-		const clickedBtn = this.buttonArray.find((btn) => btn.obj.DOM === e.currentTarget);
-		if (clickedBtn) {
-			console.log("click Evnet Sucess", clickedBtn);
-		}
-	}
-
-	resetButtons() {
-		// 리스너 해제
-		this.buttonArray.forEach((btn) => {
-			btn.obj.removeEventListener("click", this.handleClick);
-		});
-
-		this.wrapper.innerHTML = "";
-
-		// 참조 제거
-		this.buttonArray = buttonContentArray;
-	}
-}
+const SITENAME = "";
+const DEALERPACKAGENAME = "dealer-package";
+const BRANDNEWPACKAGENAME = "package-option";
+const WPJSON = "wp-json/wp/v2";
 
 export class PorcsheReceipt {
-	priceNum = {
-		package: 0,
-		tinting: 0,
-		blackbox: 0,
-		upgrade: 0,
-	};
-
 	optionPrice = [
 		{
 			name: "package",
@@ -193,12 +40,52 @@ export class PorcsheReceipt {
 		},
 	];
 
-	tintingData = [];
-	blackboxData = [];
-	upgradeData = [];
-	brandNewPackageOptionData = [];
-	dealerPackageOptionData = [];
-	carData = [];
+	// render 순서
+	wrapper = [
+		{
+			key: "package",
+			node: false,
+		},
+		{
+			key: "type button",
+			node: false,
+		},
+		{
+			key: "tinting",
+			node: false,
+		},
+		{
+			key: "blackbox",
+			node: false,
+		},
+		{
+			key: "upgrade",
+			node: false,
+		},
+		{
+			key: "receipt",
+			node: false,
+		},
+	];
+
+	jsonData = {
+		tinting: [],
+		blackbox: [],
+		upgrade: [],
+		brandNewPackage: [],
+		dealerPackage: [],
+		car: [],
+		brandNewPackageInfo: {},
+		dealerPackageInfo: {},
+	};
+
+	activeTypeButton = {
+		tinting: null,
+		blackbox: null,
+		json: null,
+	};
+
+	isDealerCodeActive = false;
 
 	constructor() {
 		this.inputNodes = {
@@ -209,89 +96,39 @@ export class PorcsheReceipt {
 			tinting: document.querySelector('input[name="tinting"]'),
 			totalPrice: document.querySelector('input[name="total-price"]'),
 			upgrade: document.querySelector('input[name="extra"]'),
-		};
-
-		this.wrappers = {
-			receipt: this.createWrapperDom("contact-receipt"),
-			typeButton: this.createWrapperDom("porsche-form__type-button"),
-			tinting: this.createWrapperDom("porsche-form__tinting"),
-			blackbox: this.createWrapperDom("porsche-form__blackbox"),
+			dealerCode: document.querySelector('input[name="code"]'),
 		};
 
 		this.customizeDom = document.querySelector(".contact-form-customize");
 
-		this.customizeDom.appendChild(
-			new PackageButtonWrapper({
-				className: "contact-form__2cols",
-				buttonContentArray: [
-					{ title: "모터스킨 PPF 신차 패키지", content: "필요한 모든 것을 담은 신차 패키지<br/>취향에 맞게 당신만의 패키지를 구성하세요." },
-					{ title: "딜러 3종 패키지", content: "전체 PPF + 프리미엄 케어 + 딜러 3종 + 신차검수까지<br/>최대 50% 할인 혜탹" },
-				],
-			}).render()
-		);
-		// this.onLoad();
+		this.init();
 	}
 
-	async onLoad() {
+	async init() {
+		const loadingDOM = renderLoadingIcon();
+		this.customizeDom.appendChild(loadingDOM);
+
+		const dealerCodeObj = splitDealerCode(this.inputNodes.dealerCode.value);
+
+		this.fetchWpJSON = new WpJson(SITENAME, WPJSON);
+		this.fetchWpJSON.createRequest("tinting", "/tinting");
+		this.fetchWpJSON.createRequest("blackbox", "/blackbox");
+		this.fetchWpJSON.createRequest("upgrade", "/upgrade");
+		this.fetchWpJSON.createRequest("car", "/car?per_page=100");
+		this.fetchWpJSON.createRequest("brand new package Info", `/types/${BRANDNEWPACKAGENAME}`);
+		this.fetchWpJSON.createRequest("dealer package Info", `/types/${DEALERPACKAGENAME}`);
+		this.fetchWpJSON.createRequest("brand new package", `/${BRANDNEWPACKAGENAME}`);
+		this.fetchWpJSON.createRequest("dealer package", `/${DEALERPACKAGENAME}`);
+		this.fetchWpJSON.createRequest("dealer code", `/dealer-code?aW50ZXJuYWw=true&search=${dealerCodeObj.codeName}`);
+
+		await this.fetchWpJSON.requestData();
+
 		// json으로 모델과 관련된 정보를 수집
-		this.tintingData = await getTaxonomyData("tinting");
-		this.blackboxData = await getTaxonomyData("blackbox");
-		this.upgradeData = await getTaxonomyData("upgrade");
-		this.brandNewPackageOptionData = await this.getBrandNewPackageOption();
-		this.dealerPackageOptionData = await this.getDealerPackageOption();
-		this.carData = await this.updateModelData();
-
-		// this.modelClickHandler();
-		// this.refreshTypeButton();
-	}
-
-	createWrapperDom(className) {
-		const div = document.createElement("div");
-		if (className) {
-			div.classList.add(className);
-		}
-		return div;
-	}
-
-	modelClickHandler() {
-		this.inputNodes.model.addEventListener("input", async () => {
-			this.carData = await this.updateModelData();
-			this.refreshTypeButton();
-		});
-	}
-
-	runUpdatePipeline(typeButton) {
-		typeButton.onActiveState();
-		this.updatePackageTypeData(typeButton.content.title, typeButton.content.discountPrice);
-
-		this.renderAddonSelectBox(this.tintingData, typeButton.content.tinting, "틴팅 선택", this.wrappers.tinting, this.inputNodes.tinting, "tinting");
-		this.renderAddonSelectBox(
-			this.blackboxData,
-			typeButton.content.blackbox,
-			"블랙박스 + 하이패스",
-			this.wrappers.blackbox,
-			this.inputNodes.blackbox,
-			"blackbox"
-		);
-		this.renderAddonButtons();
-	}
-
-	refreshTypeButton() {
-		this.renderTypeButton();
-		this.updateReceipt();
-	}
-
-	async updateModelData() {
-		const posts = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/car?search=${encodeURIComponent(this.inputNodes.model.value)}`);
-		if (posts) {
-			return posts[0];
-		}
-	}
-
-	async getBrandNewPackageOption() {
-		const posts = await requestWpJson("/porsche-dealer/wp-json/wp/v2/package-option");
-		if (posts) {
-			return posts.map((e) => ({
+		this.jsonData = {
+			tinting: filterTaxonomyData(this.fetchWpJSON.findData("tinting")),
+			blackbox: filterTaxonomyData(this.fetchWpJSON.findData("blackbox")),
+			upgrade: filterTaxonomyData(this.fetchWpJSON.findData("upgrade")),
+			brandNewPackage: this.fetchWpJSON.findData("brand new package").map((e) => ({
 				title: e.title.rendered,
 				classType: e.acf.package_class,
 				price: {
@@ -300,174 +137,267 @@ export class PorcsheReceipt {
 				},
 				blackbox: e.blackbox,
 				tinting: e.tinting,
-			}));
-		}
-		return false;
-	}
-
-	async getDealerPackageOption() {
-		const posts = await requestWpJson("/porsche-dealer/wp-json/wp/v2/dealer-package");
-		if (posts) {
-			return posts.map((e) => ({
+			})),
+			dealerPackage: this.fetchWpJSON.findData("dealer package").map((e) => ({
 				title: e.title.rendered,
 				prices: {
 					origin: e.acf.origin_price,
 					discount: e.acf.discount_price,
 				},
-			}));
+			})),
+			dealerCode: this.fetchWpJSON.findData("dealer code"),
+			car: this.fetchWpJSON.findData("car").find((r) => this.inputNodes.model.value === r.title.rendered),
+			brandNewPackageInfo: this.filterPacakgeInfo(this.fetchWpJSON.findData("brand new package Info")),
+			dealerPackageInfo: this.filterPacakgeInfo(this.fetchWpJSON.findData("dealer package Info")),
+		};
+
+		// 딜러코드 활성화 여부 확인
+		this.isDealerCodeActive = checkDealerCode(this.inputNodes.dealerCode.value, this.jsonData.dealerCode);
+
+		// loadnig DOM 제거
+		this.customizeDom.removeChild(loadingDOM);
+
+		// type button wrapper 선언
+		this.findWrapper("type button").node = new Wrapper();
+
+		// 딜러코드 유효시 패키지 버튼 활성화
+		if (this.isDealerCodeActive) {
+			const acf = this.jsonData.dealerCode.acf;
+			this.dealerCodeObj = {
+				titleEn: acf.title_en,
+				titleKr: acf.title_kr,
+				googleSheetID: acf.google_sheet_id,
+				googleSheetScriptCode: acf.google_sheet_script_code,
+				dealerCode: this.inputNodes.dealerCode.value,
+			};
+
+			this.findWrapper("package").node = new PackageButtonWrapper({
+				className: "contact-form__2cols",
+				buttonContentArray: [
+					{ title: this.jsonData.brandNewPackageInfo.title, content: this.jsonData.brandNewPackageInfo.description },
+					{ title: this.jsonData.dealerPackageInfo.title, content: this.jsonData.dealerPackageInfo.description },
+				],
+				update: (target) => {
+					this.inputNodes.package.value = target.dataset.content;
+					this.updateTypeButton();
+				},
+				onClick: () => {
+					this.refresh();
+				},
+			});
+
+			this.findWrapper("package").node.update();
+		} else {
+			this.inputNodes.package.value = this.jsonData.brandNewPackageInfo.title;
+			this.updateTypeButton();
+		}
+
+		// 틴팅 wrapper 선언
+		this.findWrapper("tinting").node = new SelectWrapper({
+			labelText: "틴팅",
+			update: (value, price) => {
+				this.inputNodes.tinting.value = value;
+				this.updatePrice("tinting", price);
+			},
+			onClick: () => {
+				this.refresh();
+			},
+		});
+
+		// 블랙박스 wrapper 선언
+		this.findWrapper("blackbox").node = new SelectWrapper({
+			labelText: "블랙박스",
+			update: (value, price) => {
+				this.inputNodes.blackbox.value = value;
+				this.updatePrice("blackbox", price);
+			},
+			onClick: () => {
+				this.refresh();
+			},
+		});
+
+		// 스포츠 디자인 wrapper 선언
+		this.findWrapper("upgrade").node = new UpgradeButtonWrapper({
+			labelText: "스포츠 디자인 추가",
+			className: "contact-form__2cols",
+			buttonContentArray: filterAddonDataFn({ data: this.jsonData["upgrade"], idArr: this.jsonData.car.upgrade }),
+			update: (target) => {
+				this.inputNodes.upgrade.value = target.dataset.content;
+			},
+			onClick: () => {
+				this.refresh();
+			},
+		});
+
+		// 시공 미리보기 wrapper 선언
+		this.findWrapper("receipt").node = new Wrapper({
+			className: ["contact-form__input-wrapper", "contact-receipt"],
+		});
+
+		//
+		this.refresh();
+
+		// 모델명 input 이벤트 리스너 생성
+		this.modelClickHandler();
+	}
+
+	// 시공 미리보기 창을 input node에 맞게 업데이트하고,
+	// active된 wrapper을 화면에 그립니다.
+	refresh() {
+		this.updateReceipt();
+		this.redrawCustomzieDOM();
+	}
+
+	findWrapper(key) {
+		return this.wrapper.find((e) => e.key == key);
+	}
+
+	updatePrice(name, value) {
+		this.optionPrice.find((e) => e.name == name).value = Number(value);
+	}
+
+	updatePackageType(target) {
+		this.inputNodes.packageType.value = target.dataset.content;
+		this.updatePrice("package", target.dataset.price);
+	}
+
+	updateActiveTypeButton() {
+		this.activeTypeButton.json = this.jsonData.brandNewPackage.find((e) => e.title == this.inputNodes.packageType.value);
+		this.activeTypeButton.tinting = this.filterTypeButtonAddonData("tinting");
+		this.activeTypeButton.blackbox = this.filterTypeButtonAddonData("blackbox");
+	}
+
+	filterTypeButtonAddonData(keyword) {
+		return filterAddonDataFn({ data: this.jsonData[keyword], idArr: this.activeTypeButton.json[keyword] });
+	}
+
+	modelClickHandler() {
+		this.inputNodes.model.addEventListener("input", async () => {
+			this.jsonData.car = this.fetchWpJSON.findData("car").find((r) => this.inputNodes.model.value == r.title.rendered);
+
+			this.updateTypeButton();
+			this.refresh();
+		});
+	}
+
+	// customize form 업데이트 관련
+	updateTypeButton() {
+		const typeButtonWrapper = this.findWrapper("type button");
+		// 신차 패키지
+		if (this.inputNodes.package.value == this.jsonData.brandNewPackageInfo.title) {
+			const isTypeA = this.jsonData.car.acf.is_type_a;
+			typeButtonWrapper.node.update(
+				this.jsonData.brandNewPackage.map((r) => ({
+					title: r.title,
+					classType: r.classType,
+					originPrice: isTypeA ? r.price.typeA / 2 : r.price.typeB / 2,
+					discountPrice: isTypeA ? r.price.typeA : r.price.typeB,
+				}))
+			);
+		} else {
+			typeButtonWrapper.node.update(
+				this.jsonData.dealerPackage.map((r) => ({
+					title: r.title,
+					originPrice: r.prices.origin,
+					discountPrice: r.prices.discount,
+				}))
+			);
+		}
+	}
+
+	updateUpgradeButton() {
+		this.findWrapper("upgrade").node.update(filterAddonDataFn({ data: this.jsonData["upgrade"], idArr: this.jsonData.car.upgrade }));
+	}
+
+	redrawCustomzieDOM() {
+		this.customizeDom.innerHTML = "";
+		const activeWrappers = this.wrapper.filter((e) => e.node);
+		activeWrappers.forEach((e) => {
+			if (e.node.DOM.hasChildNodes()) {
+				e.node.appendTo(this.customizeDom);
+			}
+		});
+	}
+
+	filterPacakgeInfo(data) {
+		if (data) {
+			return {
+				title: data.name,
+				description: data.description,
+			};
 		}
 		return false;
 	}
-
-	findPriceObjectByName(name) {
-		const target = this.optionPrice.find((item) => item.name === name);
-		if (target) {
-			return target;
-		}
-	}
-
-	renderAddonSelectBox(originData, filteredID, title, wrapper, inputnode, priceName) {
-		const filterData = filterAddonData(originData, filteredID);
-		this.renderSelectAddon(title, wrapper, filterData, inputnode, priceName);
-	}
-
-	renderSelectAddon(title, wrapperID, data, inputnode, priceName) {
-		// filter tinting data
-		const wrapper = document.getElementById(wrapperID);
-		const priceObj = this.findPriceObjectByName(priceName);
-
-		wrapper.classList.add("contact-form__input-wrapper");
-		wrapper.innerHTML = "";
-
-		inputnode.value = data[0].title;
-
-		priceObj.value = 0;
-
-		if (data.length > 1) {
-			wrapper.style.display = "inherit";
-
-			const selectBox = new AddonSelectBox(title, data);
-			const selectNode = selectBox.selectNode;
-
-			// calc price
-			const findSelectedArr = data.find((arr) => arr.title == selectNode.options[selectNode.selectedIndex].value);
-			if (findSelectedArr) {
-				priceObj.value = findSelectedArr.price;
-			}
-			selectNode.addEventListener("input", (e) => {
-				// calc total price
-				inputnode.value = e.target.value;
-				priceObj.value = 0;
-
-				const findSelectedArr = data.find((arr) => arr.title == e.target.options[e.target.selectedIndex].value);
-				if (findSelectedArr) {
-					priceObj.value = findSelectedArr.price;
-				}
-				this.updateReceipt();
-			});
-			wrapper.appendChild(selectBox.render());
-		} else {
-			wrapper.style.display = "none";
-		}
-	}
-
-	renderAddonButtons() {
-		const wrapper = document.getElementById("porsche-form__extra");
-		const filterData = filterAddonData(this.upgradeData, this.carData.upgrade);
-		const addonButton = new AddonRadioBtn("추가 옵션", filterData);
-		const priceObj = this.findPriceObjectByName("upgrade");
-
-		// 초기값 설정
-		wrapper.classList.add("contact-form__input-wrapper");
-		wrapper.innerHTML = "";
-
-		this.inputNodes.upgrade.value = filterData[0].title;
-
-		priceObj.value = 0;
-
-		addonButton.buttons.forEach((button) => {
-			button.addEventListener("click", (e) => {
-				const target = e.currentTarget;
-				const findSelectedArr = filterData.find((arr) => arr.title == target.dataset.value);
-
-				// toggle active class
-				addonButton.buttons.forEach((allButton) => {
-					allButton.classList.remove("contact-option-button--active");
-				});
-				target.classList.add("contact-option-button--active");
-
-				// calc addon price
-				priceObj.value = 0;
-				if (findSelectedArr) {
-					priceObj.value = findSelectedArr.price;
-				}
-				this.inputNodes.upgrade.value = target.innerHTML;
-
-				this.updateReceipt();
-			});
-		});
-
-		wrapper.appendChild(addonButton.render());
-	}
-
-	renderCustomize() {}
 
 	reduceTotalPrice() {
 		return this.optionPrice.reduce((sum, item) => sum + item.value, 0);
 	}
 
-	updatePackageTypeData(title, price) {
-		const priceObj = this.findPriceObjectByName("package");
-
-		this.inputNodes.packageType.value = title;
-		priceObj.value = price;
-	}
-
 	updateReceipt() {
-		const receiptDom = this.wrappers.receipt;
+		const receiptDom = this.findWrapper("receipt").node.DOM;
 		const totalPrice = this.reduceTotalPrice();
+
+		receiptDom.classList.add("contact-receipt");
 
 		// reset wrapper inner
 		receiptDom.innerHTML = "";
 		this.inputNodes.totalPrice.value = totalPrice;
 
+		const optionArr = [];
+
+		if (this.inputNodes.packageType.value) {
+			optionArr.push({
+				title: "패키지명",
+				content: this.inputNodes.packageType.value,
+			});
+		}
+
+		optionArr.push({
+			title: "전체 PPF 시공",
+			content: "루프 제외 모든 도장면에 시공되는 품목입니다.",
+		});
+
+		if (this.inputNodes.tinting.value) {
+			optionArr.push({
+				title: "틴팅",
+				content: this.inputNodes.tinting.value,
+			});
+		}
+
+		if (this.inputNodes.blackbox.value) {
+			optionArr.push({
+				title: "블랙박스 + 하이패스",
+				content: this.inputNodes.blackbox.value,
+			});
+		}
+
+		if (this.inputNodes.upgrade.value) {
+			optionArr.push({
+				title: "추가 옵션",
+				content: this.inputNodes.upgrade.value,
+			});
+		}
+
+		optionArr.push({
+			title: "프리미엄 케어",
+		});
+
+		if (this.isDealerCodeActive) {
+			optionArr.push({
+				title: "담당 지점",
+				content: this.dealerCodeObj.titleKr,
+			});
+		}
+
 		const element = renderReceipt(
 			{
 				modelName: this.inputNodes.model.value,
-				packageName: this.inputNodes.packageType.value,
+				packageName: this.inputNodes.package.value,
 			},
-			[
-				{
-					title: "패키지명",
-					content: this.inputNodes.packageType.value,
-				},
-				{
-					title: "전체 PPF 시공",
-					content: "루프 제외 모든 도장면에 시공되는 품목입니다.",
-				},
-				{
-					title: "프리미엄 케어",
-				},
-				{
-					title: "블랙박스 + 하이패스",
-					content: this.inputNodes.blackbox.value,
-				},
-				{
-					title: "틴팅",
-					content: this.inputNodes.tinting.value,
-				},
-				{
-					title: "추가 옵션",
-					content: this.inputNodes.upgrade.value,
-				},
-			],
+			optionArr,
 			totalPrice
 		);
 
 		receiptDom.appendChild(element);
 	}
 }
-
-class BrandNewPackageReceipt {}
-
-class DealerPacakgeReceipt {}

@@ -229,7 +229,7 @@
 		padding: 1em;
 		border: 1px solid #525252;
 		border-radius: 0.5em;
-		margin: 1em 0;
+		margin: 0.5em 0;
 		opacity: 1;
 		transition: opacity 0.15s;
 		&:hover {
@@ -246,6 +246,13 @@
 		}
 		&--no-margin {
 			margin: 0;
+		}
+		&__title {
+			color: #141414;
+			font-size: min(1.5em, 4vw);
+			font-weight: 700;
+			line-height: 1.25;
+			margin-bottom: 0.5rem;
 		}
 		&__wrapper {
 			display: flex;
@@ -286,7 +293,6 @@
 }
 
 .contact-form-customize {
-	margin: 0 auto;
 	& > div {
 		margin-bottom: 3em;
 	}

@@ -1,6 +1,6 @@
 import { requestWpJson } from "./wp-json";
 
-function splitDealerCode(inputData) {
+export function splitDealerCode(inputData) {
 	const len = inputData.length;
 
 	if (len < 2) {
@@ -18,13 +18,27 @@ function splitDealerCode(inputData) {
 	};
 }
 
+export function checkDealerCode(dealerCode, data) {
+	const dealerCodeObj = splitDealerCode(dealerCode);
+	if (data.length <= 0) {
+		return false;
+	}
+	const acf = data.acf;
+	const rangeNum = Number(acf.range);
+	if (dealerCodeObj.codeNumber > 0 && dealerCodeObj.codeNumber <= rangeNum) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 export async function searchDealerCode(dealerCode, callbackFn, errorFn) {
 	const dealerCodeData = splitDealerCode(dealerCode);
 
 	// search dealer code data
 	const searchCode = await requestWpJson(`/porsche-dealer/wp-json/wp/v2/dealer-code?aW50ZXJuYWw=true&search=${dealerCodeData.codeName}`);
 
-	if (searchCode) {
+	if (searchCode && searchCode.length > 0) {
 		const searchCodeData = searchCode[0];
 		const rangeNum = Number(searchCodeData.acf.range);
 

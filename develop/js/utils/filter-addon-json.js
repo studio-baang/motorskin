@@ -1,4 +1,4 @@
-export function filterAddonData(originalData, contentData) {
-	const numArray = contentData.map(Number);
-	return originalData.filter((item) => numArray.includes(item.id));
+export function filterAddonDataFn({ data, idArr }) {
+	const numArray = idArr.map(Number);
+	return data.filter((item) => numArray.includes(item.id));
 }

@@ -1,9 +1,9 @@
 import _ from "lodash";
 
 import { toggleActiveClass } from "../utils/toggle-button";
-import { filterAddonData } from "../utils/filter-addon-json";
+import { filterAddonDataFn } from "../utils/filter-addon-json";
 import { searchDealerCode } from "../utils/search-dealer-code";
-import { getTaxonomyData } from "../utils/get-taxonomy-data";
+import { filterTaxonomyData } from "../utils/get-taxonomy-data";
 
 import { renderReceipt } from "../components/contact-receipt";
 import { AddonSelectBox } from "../components/contact-select-addon";
@@ -30,8 +30,8 @@ export class PorcsheDearerReceipt {
 	}
 
 	async onLoad() {
-		this.blackboxData = await getTaxonomyData("blackbox");
-		this.upgradeData = await getTaxonomyData("upgrade");
+		this.blackboxData = await filterTaxonomyData("blackbox");
+		this.upgradeData = await filterTaxonomyData("upgrade");
 
 		this.inputNodes.model.addEventListener("input", () => {
 			this.updateReceipt();
@@ -102,7 +102,7 @@ export class PorcsheDearerReceipt {
 
 	renderBlackboxSelect() {
 		// filter data
-		const filterBlackboxArr = filterAddonData(this.blackboxData, [21, 22, 23]);
+		const filterBlackboxArr = filterAddonDataFn(this.blackboxData, [21, 22, 23]);
 
 		const blackboxWrapper = document.getElementById("porsche-form__blackbox");
 		blackboxWrapper.classList.add("contact-form__input-wrapper");
@@ -134,7 +134,7 @@ export class PorcsheDearerReceipt {
 		const wrapper = document.getElementById("porsche-form__addon");
 		wrapper.classList.add("contact-form__input-wrapper");
 
-		const filterUpgradeArr = filterAddonData(this.upgradeData, [25, 26]);
+		const filterUpgradeArr = filterAddonDataFn(this.upgradeData, [25, 26]);
 		const addonButton = new AddonRadioBtn("추가 옵션", filterUpgradeArr);
 
 		// 초기값 설정
