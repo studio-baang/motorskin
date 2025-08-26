@@ -66,7 +66,6 @@ export function createFranchisesMap() {
 			const targetLatLng = mouseEvent.latLng;
 			for (let i = 0; i < points.length; i++) {
 				const element = points[i];
-				console.log(element.latLng, targetLatLng);
 			}
 		});
 

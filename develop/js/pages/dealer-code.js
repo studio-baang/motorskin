@@ -81,7 +81,7 @@ export class DealerCode {
 	    		<span>${dealerCode}</span>
 	    	</div>
 	    </div>
-	    <a href="/porsche-dealer/dealer-form/?code=${dealerCode}" class="dealer-coupon__CTA">
+	    <a href="/porsche-dealer/contact/?code=${dealerCode}" class="dealer-coupon__CTA">
 	    	<span>딜러 패키지 적용하기</span>
 	    </a>`;
 
