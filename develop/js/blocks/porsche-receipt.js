@@ -186,10 +186,13 @@ export class PorcsheReceipt {
 
 			this.findWrapper("package").wrapper = new Wrapper();
 
-			container.package.update([
-				{ title: this.jsonData.brandNewPackageInfo.title, content: this.jsonData.brandNewPackageInfo.description },
-				{ title: this.jsonData.dealerPackageInfo.title, content: this.jsonData.dealerPackageInfo.description },
-			]);
+			container.package.update(
+				[
+					{ title: this.jsonData.brandNewPackageInfo.title, content: this.jsonData.brandNewPackageInfo.description },
+					{ title: this.jsonData.dealerPackageInfo.title, content: this.jsonData.dealerPackageInfo.description },
+				],
+				1
+			);
 			this.findWrapper("package").wrapper.update(container.package.render());
 		} else {
 			this.inputNodes.package.value = this.jsonData.brandNewPackageInfo.title;
@@ -268,7 +271,7 @@ export class PorcsheReceipt {
 				const formData = new FormData(formEl);
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
-				if (!this.isBrandnewPackage()) {
+				if (!this.isBrandnewPackage() && this.isDealerCodeActive) {
 					const data = this.jsonData.dealerCode.acf;
 					async () => {
 						if (data["google_sheet_id"] && data["google_sheet_script_code"]) {
