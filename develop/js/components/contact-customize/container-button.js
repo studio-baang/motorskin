@@ -2,9 +2,8 @@ export class ButtonContainer {
 	constructor({ className = false, item = false, update = false, onClick = false }) {
 		this.buttonArray = [];
 		this.itemClass = item;
-
+		this.indexNum = 0;
 		this.className = className;
-
 		this.handleClick = this.handleClickFn.bind(this);
 		this.updateFn = update;
 		this.onClickFn = onClick;
@@ -19,8 +18,11 @@ export class ButtonContainer {
 		}
 	}
 
-	update(data) {
+	update(data, index) {
 		this.data = data;
+		if (index) {
+			this.indexNum = index;
+		}
 		this.removeItem();
 		this.createItem();
 	}
@@ -55,7 +57,7 @@ export class ButtonContainer {
 			this.buttonArray.push(btn);
 		});
 		this.buttonArray.forEach((e, i) => {
-			if (i == 0) {
+			if (i == this.indexNum) {
 				e.onButtonActive();
 				if (this.updateFn) {
 					e.update(this.updateFn);

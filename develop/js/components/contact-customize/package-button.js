@@ -129,18 +129,24 @@ export class PackageButtonDOM extends ContactButtonDOM {
 }
 
 export class AddonButtonDOM extends ContactButtonDOM {
-	constructor({ title }) {
+	constructor(content) {
 		super({
 			className: ["contact-option-button"],
 			activeClassName: "contact-option-button--active",
 		});
+		this.data = {
+			title: content.title,
+			description: content.description,
+			price: content.price,
+		};
 
-		this.init(title);
+		this.init();
 	}
 
-	init(title) {
+	init() {
 		super.init();
-		this.DOM.dataset.content = title;
-		this.DOM.innerText = title;
+		this.DOM.dataset.content = this.data.title;
+		this.DOM.dataset.price = this.data.price;
+		this.DOM.innerText = this.data.description ?? this.data.title;
 	}
 }

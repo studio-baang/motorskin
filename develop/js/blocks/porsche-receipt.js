@@ -13,7 +13,7 @@ import { renderLoadingIcon } from "../components/loading-icon";
 import { Wrapper } from "../components/contact-customize/wrapper";
 import { AddonButtonDOM, PackageButtonDOM, TypeButtonDOM } from "../components/contact-customize/package-button";
 
-const SITENAME = "/porsche-dealer";
+const SITENAME = window.location.hostname == "localhost" ? "" : "/porsche-dealer";
 const DEALERPACKAGENAME = "dealer-package";
 const BRANDNEWPACKAGENAME = "package-option";
 const WPJSON = "wp-json/wp/v2";
@@ -208,7 +208,7 @@ export class PorcsheReceipt {
 				this.updatePrice("packageType", value);
 			},
 			onClick: () => {
-				this.refreshAddon();
+				this.refreshAddon(true);
 				this.redraw();
 			},
 		});
@@ -320,7 +320,7 @@ export class PorcsheReceipt {
 		});
 	}
 
-	refreshAddon() {
+	refreshAddon(ignoreRadio) {
 		const filterArr = this.wrapperArr.filter((e) => e.itemType == "selectbox" || e.itemType == "radio");
 
 		const reFreshFn = (wrapper) => {
@@ -338,7 +338,6 @@ export class PorcsheReceipt {
 			}
 
 			let findID = wrapper.itemType == "selectbox" ? json.brandNewPackage.find((e) => e.title == this.activeItem.packageType) : json.car;
-			console.log(title, findID);
 			return filterTypeButtonAddonData(title, findID);
 		};
 
@@ -353,7 +352,7 @@ export class PorcsheReceipt {
 					this.findWrapper(wrapper.key).wrapper.DOM.innerHTML = "";
 				}
 			}
-			if (wrapper.itemType == "radio") {
+			if (wrapper.itemType == "radio" && !ignoreRadio) {
 				reFreshFn(wrapper);
 			}
 		});
@@ -407,7 +406,6 @@ export class PorcsheReceipt {
 		this.customizeDom.innerHTML = "";
 		const activeWrappers = this.wrapperArr.filter((e) => e.wrapper);
 		activeWrappers.forEach((e) => {
-			console.log(e.wrapper);
 			if (e.wrapper.DOM.hasChildNodes()) {
 				if (!e.wrapper.DOM.lastChild.classList.contains("contact-form__label")) {
 					e.wrapper.appendTo(this.customizeDom);
