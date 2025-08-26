@@ -1,13 +1,22 @@
 export class ButtonContainer {
-	constructor({ item = false, update = false, onClick = false }) {
-		this.fragment = document.createDocumentFragment();
-
+	constructor({ className = false, item = false, update = false, onClick = false }) {
 		this.buttonArray = [];
 		this.itemClass = item;
+
+		this.className = className;
 
 		this.handleClick = this.handleClickFn.bind(this);
 		this.updateFn = update;
 		this.onClickFn = onClick;
+
+		this.init();
+	}
+
+	init() {
+		this.container = document.createElement("div");
+		if (this.className) {
+			this.container.classList.add(this.className);
+		}
 	}
 
 	update(data) {
@@ -33,8 +42,8 @@ export class ButtonContainer {
 			btn.DOM.removeEventListener("click", this.handleClick);
 		});
 
-		// DOM 제거
-		this.fragment = document.createDocumentFragment();
+		// 컨테이너 초기화
+		this.init();
 
 		// 참조 제거
 		this.buttonArray = [];
@@ -53,11 +62,11 @@ export class ButtonContainer {
 				}
 			}
 			e.DOM.addEventListener("click", this.handleClick);
-			this.fragment.appendChild(e.DOM);
+			this.container.appendChild(e.DOM);
 		});
 	}
 
 	render() {
-		return this.fragment;
+		return this.container;
 	}
 }

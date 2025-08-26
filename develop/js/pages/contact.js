@@ -6,7 +6,6 @@ import { checkSiteName } from "../utils/filter-site-by-name";
 import { BimmerReceipt } from "../blocks/bimmer-receipt";
 import { panameraReceipt } from "../blocks/panamera-receipt";
 import { PorcsheReceipt } from "../blocks/porsche-receipt";
-import { PorcsheDearerReceipt } from "../blocks/porsche-dealer-receipt";
 
 class Contact {
 	constructor(isDealer) {
@@ -57,13 +56,9 @@ class Contact {
 		if (checkSiteName("panamera")) {
 			new panameraReceipt();
 		}
-		if (checkSiteName("porsche") && !this.isDealerCustomPage) {
+		if (checkSiteName("porsche")) {
 			// 포르쉐 일반 contact 페이지
 			new PorcsheReceipt();
-		}
-		if (checkSiteName("porsche") && this.isDealerCustomPage) {
-			// 포르쉐 dealer 전용 contact 페이지
-			new PorcsheDearerReceipt();
 		}
 	}
 

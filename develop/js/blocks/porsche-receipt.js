@@ -1,18 +1,14 @@
-import _, { extend } from "lodash";
-
-import { requestWpJson, WpJson } from "../utils/wp-json";
+import { WpJson } from "../utils/wp-json";
 import { filterAddonDataFn } from "../utils/filter-addon-json";
 
 import { renderReceipt } from "../components/contact-receipt";
-import { AddonRadioBtn } from "../components/contact-radio-addon";
 
 import { filterTaxonomyData } from "../utils/get-taxonomy-data";
 
-// import { TypeButtonWrapper } from "../components/contact-customize/wrapper-type-button";
 import { ButtonContainer } from "../components/contact-customize/container-button";
 import { SelectWrapper } from "../components/contact-customize/wrapper-select";
 
-import { checkDealerCode, splitDealerCode } from "../utils/search-dealer-code";
+import { checkDealerCode, searchDealerCode, splitDealerCode } from "../utils/search-dealer-code";
 import { renderLoadingIcon } from "../components/loading-icon";
 import { Wrapper } from "../components/contact-customize/wrapper";
 import { AddonButtonDOM, PackageButtonDOM, TypeButtonDOM } from "../components/contact-customize/package-button";
@@ -28,16 +24,17 @@ export class PorcsheReceipt {
 		{
 			key: "package",
 			wrapper: false,
-			value: 0,
 		},
 		{
-			key: "typeButton",
+			key: "packageType",
 			wrapper: false,
+			value: 0,
 		},
 		{
 			key: "tinting",
 			label: "틴팅",
 			itemType: "selectbox",
+			itemClass: SelectWrapper,
 			wrapper: false,
 			value: 0,
 		},
@@ -45,12 +42,18 @@ export class PorcsheReceipt {
 			key: "blackbox",
 			label: "블랙박스 + 하이패스",
 			itemType: "selectbox",
+			itemClass: SelectWrapper,
+			update: (value, price) => {
+				this.inputNodes[key].value = value;
+				this.updatePrice(key, price);
+			},
 			wrapper: false,
 			value: 0,
 		},
 		{
 			key: "upgrade",
 			label: "추가옵션",
+			itemType: "radio",
 			wrapper: false,
 			value: 0,
 		},
@@ -73,7 +76,7 @@ export class PorcsheReceipt {
 
 	container = {};
 
-	activeItem = {};
+	activeItem = { packageType: null };
 
 	isDealerCodeActive = false;
 
@@ -169,20 +172,19 @@ export class PorcsheReceipt {
 			};
 
 			container.package = new ButtonContainer({
+				className: "contact-form__2cols",
 				item: PackageButtonDOM,
 				update: (target) => {
 					this.inputNodes.package.value = target.dataset.content;
 				},
 				onClick: () => {
 					this.refreshTypeButton();
-					this.refreshSelectbox();
+					this.refreshAddon();
 					this.redraw();
 				},
 			});
 
-			this.findWrapper("package").wrapper = new Wrapper({
-				className: ["contact-form__2cols"],
-			});
+			this.findWrapper("package").wrapper = new Wrapper();
 
 			container.package.update([
 				{ title: this.jsonData.brandNewPackageInfo.title, content: this.jsonData.brandNewPackageInfo.description },
@@ -196,22 +198,45 @@ export class PorcsheReceipt {
 		// type button wrapper 선언
 		this.container.typeButton = new ButtonContainer({
 			item: TypeButtonDOM,
+			className: "contact-form__input-wrapper",
 			update: (target) => {
 				const content = target.dataset.content;
 				const value = target.dataset.price;
 
 				this.inputNodes.packageType.value = content;
-				this.activeItem.typeButton = content;
-				this.updatePrice("package", value);
+				this.activeItem.packageType = content;
+				this.updatePrice("packageType", value);
 			},
 			onClick: () => {
-				this.refreshSelectbox();
+				this.refreshAddon();
 				this.redraw();
 			},
 		});
-		this.findWrapper("typeButton").wrapper = new Wrapper();
+		this.findWrapper("packageType").wrapper = new Wrapper({
+			labelText: "패키지 선택",
+		});
 
 		this.createSelectbox();
+
+		// 스포츠 디자인 버튼 선언
+		this.container.upgrade = new ButtonContainer({
+			item: AddonButtonDOM,
+			className: ["contact-form__2cols"],
+			update: (target) => {
+				const content = target.dataset.content;
+				const value = target.dataset.price;
+
+				this.inputNodes.upgrade.value = content;
+				this.activeItem.upgrade = content;
+				this.updatePrice("upgrade", value);
+			},
+			onClick: () => {
+				this.redraw();
+			},
+		});
+		this.findWrapper("upgrade").wrapper = new Wrapper({
+			labelText: this.findWrapper("upgrade").label,
+		});
 
 		// 시공 미리보기 wrapper 선언
 		this.findWrapper("receipt").wrapper = new Wrapper({
@@ -219,11 +244,13 @@ export class PorcsheReceipt {
 		});
 
 		this.refreshTypeButton();
-		this.refreshSelectbox();
+		this.refreshAddon();
 		this.redraw();
 
 		// 모델명 input 이벤트 리스너 생성
 		this.modelClickHandler();
+
+		this.addSubmitEventListener();
 	}
 
 	// 시공 미리보기 창을 input node에 맞게 업데이트하고,
@@ -231,6 +258,44 @@ export class PorcsheReceipt {
 	redraw() {
 		this.updateReceipt();
 		this.redrawCustomzieDOM();
+	}
+
+	addSubmitEventListener() {
+		document.addEventListener(
+			"wpcf7mailsent",
+			() => {
+				const formEl = document.querySelector(".wpcf7-form");
+				const formData = new FormData(formEl);
+				const objData = {};
+				formData.forEach((value, key) => (objData[key] = value));
+				if (!this.isBrandnewPackage()) {
+					const data = this.jsonData.dealerCode.acf;
+					async () => {
+						if (data["google_sheet_id"] && data["google_sheet_script_code"]) {
+							objData["googleSheetID"] = data["google_sheet_id"];
+							try {
+								const response = await fetch(`https://script.google.com/macros/s/${data.googleSheetScriptCode}/exec`, {
+									method: "POST",
+									headers: { "Content-Type": "text/plain" },
+									body: JSON.stringify(objData),
+									redirect: "follow",
+								});
+								const text = await response.text();
+
+								if (text === "success") {
+									console.log("문의가 전송되었습니다.");
+								} else {
+									console.error("문의 전송에 실패했습니다. - 처리 과정 중 에러");
+								}
+							} catch (error) {
+								console.error("문의 전송에 실패했습니다. - 전송 중 에러");
+							}
+						}
+					};
+				}
+			},
+			false
+		);
 	}
 
 	createSelectbox() {
@@ -251,43 +316,51 @@ export class PorcsheReceipt {
 			});
 		};
 		filterArr.forEach((e) => {
-			createFn(e.key, e.label);
+			createFn(e.key, e.label, e.update);
 		});
 	}
 
-	refreshSelectbox() {
-		const filterArr = this.wrapperArr.filter((e) => e.itemType == "selectbox");
-		const reFreshFn = (titleStr) => {
-			const container = this.container[titleStr];
-			container.update(this.updateActiveItem(titleStr));
-			this.findWrapper(titleStr).wrapper.update(container.render());
+	refreshAddon() {
+		const filterArr = this.wrapperArr.filter((e) => e.itemType == "selectbox" || e.itemType == "radio");
+
+		const reFreshFn = (wrapper) => {
+			const title = wrapper.key;
+			const container = this.container[title];
+			container.update(updateActiveItem(wrapper));
+			this.findWrapper(title).wrapper.update(container.render());
 		};
-		filterArr.forEach((e) => {
-			if (this.isBrandnewPackage()) {
-				reFreshFn(e.key);
-			} else {
-				// 애드온 관련 데이터 리셋
-				this.inputNodes[e.key].value = "";
-				this.updatePrice(e.key, 0);
-				this.findWrapper(e.key).wrapper.update();
+
+		const updateActiveItem = (wrapper) => {
+			const title = wrapper.key;
+			const json = this.jsonData;
+			function filterTypeButtonAddonData(keyword, findID) {
+				return filterAddonDataFn({ data: json[keyword], idArr: findID[keyword] });
+			}
+
+			let findID = wrapper.itemType == "selectbox" ? json.brandNewPackage.find((e) => e.title == this.activeItem.packageType) : json.car;
+			console.log(title, findID);
+			return filterTypeButtonAddonData(title, findID);
+		};
+
+		filterArr.forEach((wrapper) => {
+			if (wrapper.itemType == "selectbox") {
+				if (this.isBrandnewPackage()) {
+					reFreshFn(wrapper);
+				} else {
+					// 애드온 관련 데이터 리셋
+					this.inputNodes[wrapper.key].value = "";
+					this.updatePrice(wrapper.key, 0);
+					this.findWrapper(wrapper.key).wrapper.DOM.innerHTML = "";
+				}
+			}
+			if (wrapper.itemType == "radio") {
+				reFreshFn(wrapper);
 			}
 		});
 	}
 
 	isBrandnewPackage() {
 		return this.inputNodes.package.value == this.jsonData.brandNewPackageInfo.title;
-	}
-
-	updateActiveItem(titleStr) {
-		const title = titleStr;
-		const json = this.jsonData;
-
-		function filterTypeButtonAddonData(keyword) {
-			return filterAddonDataFn({ data: json[keyword], idArr: findID[keyword] });
-		}
-
-		const findID = json.brandNewPackage.find((e) => e.title == this.activeItem.typeButton);
-		return filterTypeButtonAddonData(title);
 	}
 
 	// customize form 업데이트 관련
@@ -313,7 +386,7 @@ export class PorcsheReceipt {
 				}))
 			);
 		}
-		this.findWrapper("typeButton").wrapper.update(container.render());
+		this.findWrapper("packageType").wrapper.update(container.render());
 	}
 
 	findWrapper(key) {
@@ -325,7 +398,7 @@ export class PorcsheReceipt {
 		this.inputNodes.model.addEventListener("input", async () => {
 			this.jsonData.car = this.fetchWpJSON.findData("car").find((r) => this.inputNodes.model.value == r.title.rendered);
 			this.refreshTypeButton();
-			this.refreshSelectbox();
+			this.refreshAddon();
 			this.redraw();
 		});
 	}
@@ -334,8 +407,11 @@ export class PorcsheReceipt {
 		this.customizeDom.innerHTML = "";
 		const activeWrappers = this.wrapperArr.filter((e) => e.wrapper);
 		activeWrappers.forEach((e) => {
-			if (e.wrapper.DOM.childElementCount > 1) {
-				e.wrapper.appendTo(this.customizeDom);
+			console.log(e.wrapper);
+			if (e.wrapper.DOM.hasChildNodes()) {
+				if (!e.wrapper.DOM.lastChild.classList.contains("contact-form__label")) {
+					e.wrapper.appendTo(this.customizeDom);
+				}
 			}
 		});
 	}
@@ -358,7 +434,6 @@ export class PorcsheReceipt {
 		const optionArr = [];
 
 		const addonArr = this.wrapperArr.filter((e) => e.label);
-		console.log(addonArr);
 
 		if (this.inputNodes.packageType.value) {
 			optionArr.push({
@@ -386,16 +461,14 @@ export class PorcsheReceipt {
 				title: "블랙박스, 하이패스, 틴팅",
 				content: "딜러가 지원합니다.",
 			});
-		}
 
-		optionArr.push({
-			title: "프리미엄 케어",
-		});
-
-		if (this.isDealerCodeActive) {
 			optionArr.push({
 				title: "담당 지점",
 				content: this.dealerCodeObj.titleKr,
+			});
+		} else {
+			optionArr.push({
+				title: "프리미엄 케어",
 			});
 		}
 
