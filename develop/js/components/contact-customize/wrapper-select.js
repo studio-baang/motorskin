@@ -10,7 +10,6 @@ export class SelectWrapper {
 	}
 
 	createItem() {
-		console.log(this.data);
 		if (this.data.length > 1) {
 			this.data.forEach((element) => {
 				const optionContent = element.description ?? element.title;

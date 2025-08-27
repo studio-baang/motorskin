@@ -18,6 +18,25 @@ const DEALERPACKAGENAME = "dealer-package";
 const BRANDNEWPACKAGENAME = "package-option";
 const WPJSON = "wp-json/wp/v2";
 
+class AddonGuideWrapper extends Wrapper {
+	constructor() {
+		super({
+			labelText: "블랙박스, 하이패스, 틴팅",
+		});
+
+		this.init();
+	}
+
+	init() {
+		const guideText = document.createElement("p");
+		guideText.style.fontWeight = "700";
+		guideText.style.textAlign = "center";
+		guideText.innerText = "블랙박스, 하이패스, 틴팅은 딜러가 지원합니다.";
+
+		this.DOM.appendChild(guideText);
+	}
+}
+
 export class PorcsheReceipt {
 	// render 순서
 	wrapperArr = [
@@ -45,6 +64,11 @@ export class PorcsheReceipt {
 			itemClass: SelectWrapper,
 			wrapper: false,
 			value: 0,
+		},
+		{
+			key: "addonGuide",
+			itemClass: AddonGuideWrapper,
+			wrapper: false,
 		},
 		{
 			key: "upgrade",
@@ -88,12 +112,6 @@ export class PorcsheReceipt {
 			dealerCode: document.querySelector('input[name="code"]'),
 		};
 
-		this.addonGuide = new Wrapper({
-			labelText: "블랙박스, 하이패스, 틴팅",
-		});
-		const guideText = document.createElement("p");
-		guideText.innerText = "딜러가 지원합니다.";
-		this.addonGuide.DOM.appendChild(guideText);
 		this.customizeDom = document.querySelector(".contact-form-customize");
 
 		this.init();
@@ -154,7 +172,6 @@ export class PorcsheReceipt {
 			dealerPackageInfo: filterPacakgeInfo(this.fetchWpJSON.findData("dealer package Info")),
 		};
 
-		console.log(this.jsonData);
 		// 딜러코드 활성화 여부 확인
 		this.isDealerCodeActive = checkDealerCode(this.inputNodes.dealerCode.value, this.jsonData.dealerCode);
 
@@ -222,6 +239,7 @@ export class PorcsheReceipt {
 			labelText: "패키지 선택",
 		});
 
+		// 블랙박스, 틴팅 선언
 		this.createSelectbox();
 
 		// 스포츠 디자인 버튼 선언
@@ -351,11 +369,14 @@ export class PorcsheReceipt {
 			if (wrapper.itemType == "selectbox") {
 				if (this.isBrandnewPackage()) {
 					reFreshFn(wrapper);
+					this.findWrapper("addonGuide").wrapper = false;
 				} else {
 					// 애드온 관련 데이터 리셋
 					this.inputNodes[wrapper.key].value = "";
 					this.updatePrice(wrapper.key, 0);
 					this.findWrapper(wrapper.key).wrapper.DOM.innerHTML = "";
+
+					this.findWrapper("addonGuide").wrapper = new AddonGuideWrapper();
 				}
 			}
 			if (wrapper.itemType == "radio" && !ignoreRadio) {
