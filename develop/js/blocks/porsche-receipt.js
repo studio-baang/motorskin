@@ -43,10 +43,6 @@ export class PorcsheReceipt {
 			label: "블랙박스 + 하이패스",
 			itemType: "selectbox",
 			itemClass: SelectWrapper,
-			update: (value, price) => {
-				this.inputNodes[key].value = value;
-				this.updatePrice(key, price);
-			},
 			wrapper: false,
 			value: 0,
 		},
