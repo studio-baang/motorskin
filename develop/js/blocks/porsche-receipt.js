@@ -114,9 +114,9 @@ export class PorcsheReceipt {
 
 		// 데이터 수집 시작
 		this.fetchWpJSON = new WpJson(SITENAME, WPJSON);
-		this.fetchWpJSON.createRequest("tinting", "/tinting");
-		this.fetchWpJSON.createRequest("blackbox", "/blackbox");
-		this.fetchWpJSON.createRequest("upgrade", "/upgrade");
+		this.fetchWpJSON.createRequest("tinting", "/tinting?per_page=100");
+		this.fetchWpJSON.createRequest("blackbox", "/blackbox?per_page=100");
+		this.fetchWpJSON.createRequest("upgrade", "/upgrade?per_page=100");
 		this.fetchWpJSON.createRequest("car", "/car?per_page=100");
 		this.fetchWpJSON.createRequest("brand new package Info", `/types/${BRANDNEWPACKAGENAME}`);
 		this.fetchWpJSON.createRequest("dealer package Info", `/types/${DEALERPACKAGENAME}`);
