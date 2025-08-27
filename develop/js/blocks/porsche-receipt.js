@@ -88,6 +88,12 @@ export class PorcsheReceipt {
 			dealerCode: document.querySelector('input[name="code"]'),
 		};
 
+		this.addonGuide = new Wrapper({
+			labelText: "블랙박스, 하이패스, 틴팅",
+		});
+		const guideText = document.createElement("p");
+		guideText.innerText = "딜러가 지원합니다.";
+		this.addonGuide.DOM.appendChild(guideText);
 		this.customizeDom = document.querySelector(".contact-form-customize");
 
 		this.init();
@@ -148,6 +154,7 @@ export class PorcsheReceipt {
 			dealerPackageInfo: filterPacakgeInfo(this.fetchWpJSON.findData("dealer package Info")),
 		};
 
+		console.log(this.jsonData);
 		// 딜러코드 활성화 여부 확인
 		this.isDealerCodeActive = checkDealerCode(this.inputNodes.dealerCode.value, this.jsonData.dealerCode);
 
