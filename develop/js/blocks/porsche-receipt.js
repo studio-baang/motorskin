@@ -274,7 +274,7 @@ export class PorcsheReceipt {
 		// 모델명 input 이벤트 리스너 생성
 		this.modelClickHandler();
 
-		console.log(this.jsonData.dealerCode.acf);
+		// submit 이벤트 등록
 		this.addSubmitEventListener();
 	}
 
@@ -293,12 +293,13 @@ export class PorcsheReceipt {
 				const formData = new FormData(formEl);
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
-				console.log(this.jsonData.dealerCode.acf);
 				if (!this.isBrandnewPackage() && this.isDealerCodeActive) {
+					console.log("딜러 코드 활성화 여부 확인");
 					const data = this.jsonData.dealerCode.acf;
-					console.log("테스트");
 					async () => {
 						if (data["google_sheet_id"] && data["google_sheet_script_code"]) {
+							console.log("구글 폼 전송 코드 실행");
+							console.log(objData);
 							objData["googleSheetID"] = data["google_sheet_id"];
 							try {
 								const response = await fetch(`https://script.google.com/macros/s/${data.googleSheetScriptCode}/exec`, {
