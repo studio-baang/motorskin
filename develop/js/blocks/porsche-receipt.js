@@ -294,15 +294,14 @@ export class PorcsheReceipt {
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
 				if (!this.isBrandnewPackage() && this.isDealerCodeActive) {
-					console.log("딜러 코드 활성화 여부 확인");
 					const data = this.jsonData.dealerCode.acf;
-					async () => {
-						if (data["google_sheet_id"] && data["google_sheet_script_code"]) {
-							console.log("구글 폼 전송 코드 실행");
-							console.log(objData);
-							objData["googleSheetID"] = data["google_sheet_id"];
+					const googleSheetID = data["google_sheet_id"] ?? false;
+					const googleScriptID = data["google_sheet_script_code"] ?? false;
+					(async () => {
+						if (googleSheetID && googleScriptID) {
+							objData["googleSheetID"] = googleSheetID;
 							try {
-								const response = await fetch(`https://script.google.com/macros/s/${data.googleSheetScriptCode}/exec`, {
+								const response = await fetch(`https://script.google.com/macros/s/${googleScriptID}/exec`, {
 									method: "POST",
 									headers: { "Content-Type": "text/plain" },
 									body: JSON.stringify(objData),
@@ -319,7 +318,7 @@ export class PorcsheReceipt {
 								console.error("문의 전송에 실패했습니다. - 전송 중 에러");
 							}
 						}
-					};
+					})();
 				}
 			},
 			false
