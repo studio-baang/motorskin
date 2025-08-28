@@ -274,6 +274,7 @@ export class PorcsheReceipt {
 		// 모델명 input 이벤트 리스너 생성
 		this.modelClickHandler();
 
+		console.log(this.jsonData.dealerCode.acf);
 		this.addSubmitEventListener();
 	}
 
