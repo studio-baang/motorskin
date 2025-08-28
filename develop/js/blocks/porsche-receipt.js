@@ -292,8 +292,10 @@ export class PorcsheReceipt {
 				const formData = new FormData(formEl);
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
+				console.log(this.jsonData.dealerCode.acf);
 				if (!this.isBrandnewPackage() && this.isDealerCodeActive) {
 					const data = this.jsonData.dealerCode.acf;
+					console.log("테스트");
 					async () => {
 						if (data["google_sheet_id"] && data["google_sheet_script_code"]) {
 							objData["googleSheetID"] = data["google_sheet_id"];
