@@ -30,9 +30,6 @@ class App {
 				packagesInit();
 			} else if (namespace == "contact") {
 				new Contact();
-			} else if (namespace == "dealer custom") {
-				const isDealerCustom = true;
-				new Contact(isDealerCustom);
 			} else if (namespace == "aftercare") {
 				aftercareParallax();
 			} else if (namespace == "franchises") {
@@ -41,7 +38,7 @@ class App {
 				new Faq();
 			} else if (namespace == "motor skin") {
 				introduceParallax();
-			} else if (namespace == "dealer code") {
+			} else if (namespace == "admin code") {
 				new DealerCode();
 			}
 		});
