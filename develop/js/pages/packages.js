@@ -2,7 +2,7 @@ import Swiper from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/swiper.min.css";
-import { isSiteBimmer, isSitePanamera } from "../utils/filter-site-by-name";
+import { checkSiteName } from "../utils/filter-site-by-name";
 
 class PackageSwiper {
 	constructor() {
