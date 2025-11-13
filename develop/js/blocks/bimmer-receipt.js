@@ -78,6 +78,23 @@ export class BimmerReceipt {
 				this.observe(target);
 			}
 		}
+
+		// submit 이벤트 등록
+		this.addSubmitEventListener();
+	}
+
+	addSubmitEventListener() {
+		document.addEventListener(
+			"wpcf7mailsent",
+			async () => {
+				const formEl = document.querySelector(".wpcf7-form");
+				const formData = new FormData(formEl);
+				const objData = {};
+				formData.forEach((value, key) => (objData[key] = value));
+				console.log(objData);
+			},
+			false
+		);
 	}
 
 	observe(el) {

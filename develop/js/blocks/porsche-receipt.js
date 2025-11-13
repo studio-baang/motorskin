@@ -12,6 +12,7 @@ import { checkDealerCode, searchDealerCode, splitDealerCode } from "../utils/sea
 import { renderLoadingIcon } from "../components/loading-icon";
 import { Wrapper } from "../components/contact-customize/wrapper";
 import { AddonButtonDOM, PackageButtonDOM, TypeButtonDOM } from "../components/contact-customize/package-button";
+import { sendToGoogleSheet } from "../utils/sendToGoogleSheet";
 
 const SITENAME = window.location.hostname == "localhost" ? "" : "/porsche-dealer";
 const DEALERPACKAGENAME = "dealer-package";
@@ -288,7 +289,7 @@ export class PorcsheReceipt {
 	addSubmitEventListener() {
 		document.addEventListener(
 			"wpcf7mailsent",
-			() => {
+			async () => {
 				const formEl = document.querySelector(".wpcf7-form");
 				const formData = new FormData(formEl);
 				const objData = {};
@@ -297,28 +298,13 @@ export class PorcsheReceipt {
 					const data = this.jsonData.dealerCode.acf;
 					const googleSheetID = data["google_sheet_id"] ?? false;
 					const googleScriptID = data["google_sheet_script_code"] ?? false;
-					(async () => {
-						if (googleSheetID && googleScriptID) {
-							objData["googleSheetID"] = googleSheetID;
-							try {
-								const response = await fetch(`https://script.google.com/macros/s/${googleScriptID}/exec`, {
-									method: "POST",
-									headers: { "Content-Type": "text/plain" },
-									body: JSON.stringify(objData),
-									redirect: "follow",
-								});
-								const text = await response.text();
-
-								if (text === "success") {
-									console.log("문의가 전송되었습니다.");
-								} else {
-									console.error("문의 전송에 실패했습니다. - 처리 과정 중 에러");
-								}
-							} catch (error) {
-								console.error("문의 전송에 실패했습니다. - 전송 중 에러");
-							}
-						}
-					})();
+					if (googleSheetID && googleScriptID) {
+						objData["googleSheetID"] = googleSheetID;
+						await sendToGoogleSheet({
+							googleScriptID: googleScriptID,
+							data: objData,
+						});
+					}
 				}
 			},
 			false
