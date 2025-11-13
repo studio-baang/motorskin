@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { getSiteName } from "../utils/filter-site-by-name";
+import { sendToGoogleSheet } from "../utils/sendToGoogleSheet";
 
 export class BimmerReceipt {
 	constructor() {
@@ -91,7 +92,10 @@ export class BimmerReceipt {
 				const formData = new FormData(formEl);
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
-				console.log(objData);
+				await sendToGoogleSheet({
+					googleScriptID: "AKfycbxar_W8Ima1k5l_kEQ-q-drAyawcUwRzeKmCPwyyQJvG_vdyGHRqlPGihaU6zTWTrEmpw",
+					data: objData,
+				});
 			},
 			false
 		);
