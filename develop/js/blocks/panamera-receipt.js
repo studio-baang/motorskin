@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { toggleActiveClass } from "../utils/toggle-button";
+import { sendToGoogleSheet } from "../utils/sendToGoogleSheet";
 
 export class panameraReceipt {
 	constructor() {
@@ -229,6 +230,9 @@ export class panameraReceipt {
 				this.observe(item.blackboxInputEl);
 			}
 		});
+
+		// 구글 폼 연동
+		this.addSubmitEventListener();
 	}
 
 	observe(el) {
@@ -407,6 +411,23 @@ export class panameraReceipt {
 			return false;
 		}
 		el.value = filterValue;
+	}
+
+	addSubmitEventListener() {
+		document.addEventListener(
+			"wpcf7mailsent",
+			async () => {
+				const formEl = document.querySelector(".wpcf7-form");
+				const formData = new FormData(formEl);
+				const objData = {};
+				formData.forEach((value, key) => (objData[key] = value));
+				await sendToGoogleSheet({
+					googleScriptID: "AKfycbz4kwrb5vl5jROja8dh5aGygKl1aIoTJubVWjx8vFN-rCBk24AH5E7asP1p-C3Sb5Ya",
+					data: objData,
+				});
+			},
+			false
+		);
 	}
 
 	// form 제출 시 선택한 패키지를 제외한 값을 제거

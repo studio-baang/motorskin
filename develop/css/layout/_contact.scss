@@ -19,7 +19,7 @@
 	& > .ct-section-inner-wrap {
 		@include flex($align: stretch);
 		max-width: 100%;
-		min-height: 100vh;
+		min-height: 100svh;
 		@include media-tablet {
 			flex-direction: column;
 		}

@@ -93,7 +93,7 @@ export class BimmerReceipt {
 				const objData = {};
 				formData.forEach((value, key) => (objData[key] = value));
 				await sendToGoogleSheet({
-					googleScriptID: "AKfycbxar_W8Ima1k5l_kEQ-q-drAyawcUwRzeKmCPwyyQJvG_vdyGHRqlPGihaU6zTWTrEmpw",
+					googleScriptID: "AKfycbyfhSZImrIdDaDz75v3-xnqaurMPXOCm36D0gdvKUybaRp6sg6x1SWES8ReG2sFJqnz",
 					data: objData,
 				});
 			},
