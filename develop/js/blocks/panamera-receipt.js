@@ -206,6 +206,9 @@ export class panameraReceipt {
 		if (this.receipt) {
 			this.setEvents();
 		}
+
+		// 구글 폼 연동
+		this.addSubmitEventListener();
 	}
 
 	setEvents() {
@@ -230,9 +233,6 @@ export class panameraReceipt {
 				this.observe(item.blackboxInputEl);
 			}
 		});
-
-		// 구글 폼 연동
-		this.addSubmitEventListener();
 	}
 
 	observe(el) {
