@@ -1,6 +1,6 @@
 import Swiper from "swiper";
 import "swiper/swiper.min.css";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import { debounce } from "lodash";
 import { ServiceList } from "../blocks/serviceList";
 
@@ -73,7 +73,10 @@ class homeSlide {
 		});
 
 		new Swiper(homeSlider, {
-			modules: [Pagination],
+			modules: [Pagination, Autoplay],
+			autoplay: {
+				delay: 2000,
+			},
 			pagination: {
 				el: ".home-slider-pagination",
 				clickable: true,
