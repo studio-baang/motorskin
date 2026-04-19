@@ -6,7 +6,7 @@ import { smoothScroll } from "./utils/smooth-scroll";
 import { createFranchisesMap } from "./pages/franchises";
 import { debounce } from "lodash";
 import { setVh } from "./utils/set-vh";
-import { setServiceListAnim } from "./pages/home";
+import { Home } from "./pages/home";
 import { Faq } from "./pages/automotive";
 import { introduceParallax } from "./pages/introduce";
 import { DealerCode } from "./pages/dealer-code";
@@ -25,7 +25,7 @@ class App {
 			const main = document.querySelector("main");
 			const namespace = main.dataset.namespace.toLowerCase() || null;
 			if (namespace == "home") {
-				setServiceListAnim();
+				new Home();
 			} else if (namespace == "packages") {
 				packagesInit();
 			} else if (namespace == "contact") {

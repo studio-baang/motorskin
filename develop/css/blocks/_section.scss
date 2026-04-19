@@ -25,6 +25,13 @@
 			padding-bottom: 0;
 		}
 	}
+	&--full-size {
+		&.ct-section > .ct-section-inner-wrap {
+			width: 100vw;
+			margin: 0;
+			padding: 0;
+		}
+	}
 	&--cols-10 {
 		&.ct-section > .ct-section-inner-wrap {
 			@include calc-column-width(10);
