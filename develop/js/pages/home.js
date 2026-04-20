@@ -75,7 +75,7 @@ class homeSlide {
 		new Swiper(homeSlider, {
 			modules: [Pagination, Autoplay],
 			autoplay: {
-				delay: 2000,
+				delay: 4000,
 			},
 			pagination: {
 				el: ".home-slider-pagination",
