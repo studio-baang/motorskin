@@ -76,6 +76,7 @@ class homeSlide {
 			modules: [Pagination, Autoplay],
 			autoplay: {
 				delay: 4000,
+				disableOnInteraction: false,
 			},
 			pagination: {
 				el: ".home-slider-pagination",

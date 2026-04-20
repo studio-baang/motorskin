@@ -106,6 +106,12 @@
 		&:hover {
 			padding-bottom: 3rem;
 		}
+		&:not(.gnb__item--has-child) {
+			height: 3.5rem;
+			&:hover {
+				padding-bottom: 0;
+			}
+		}
 		&--has-child {
 			&:hover {
 				@include media-tablet {
