@@ -4,6 +4,9 @@ import { Pagination, Autoplay } from "swiper/modules";
 import { debounce } from "lodash";
 import { ServiceList } from "../blocks/serviceList";
 
+import { checkSiteName } from "../utils/filter-site-by-name";
+import { ContactForm } from "../blocks/contact-form";
+
 const homeSlider = document.querySelector(".home-slider");
 
 export class Home {
@@ -17,6 +20,9 @@ export class Home {
 		this.setServiceListAnim();
 		if (this.hasSlider) {
 			new homeSlide();
+		}
+		if (checkSiteName("motorskin")) {
+			new ContactForm();
 		}
 	}
 

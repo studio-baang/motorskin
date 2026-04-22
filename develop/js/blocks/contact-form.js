@@ -82,5 +82,3 @@ export class ContactForm {
 		}
 	}
 }
-
-export default Contact;
