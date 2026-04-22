@@ -1,6 +1,6 @@
 import Swiper from "swiper";
 import "swiper/swiper.min.css";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination, Autoplay, Controller, Thumbs } from "swiper/modules";
 import { debounce } from "lodash";
 import { ServiceList } from "../blocks/serviceList";
 
@@ -73,24 +73,52 @@ class homeSlide {
 
 	init() {
 		const slides = homeSlider.querySelectorAll(".swiper-slide");
-		const bulletContent = [];
+		const bulletContents = [];
 		slides.forEach((e) => {
-			bulletContent.push(e.querySelector(".ct-headline").innerText);
+			bulletContents.push(e.querySelector(".ct-headline").innerText);
+		});
+		const paginationSlider = document.querySelector(".home-slider-pagination");
+		const paginaionWrapper = paginationSlider.querySelector(".swiper-wrapper");
+		bulletContents.forEach((content, index) => {
+			const dom = document.createElement("div");
+
+			dom.classList.add("swiper-slide");
+			dom.innerHTML = `<span class="home-slider-pagination__content">${bulletContents[index]}</span>`;
+			paginaionWrapper.appendChild(dom);
 		});
 
-		new Swiper(homeSlider, {
-			modules: [Pagination, Autoplay],
+		const thumbSwiper = new Swiper(paginationSlider, {
+			modules: [Thumbs],
+			slideToClickedSlide: true,
+			slidesPerView: "auto",
+			centeredSlides: true,
+			centerInsufficientSlides: true,
+			watchOverflow: false,
+			breakpoints: {
+				800: {
+					centeredSlides: false,
+					centerInsufficientSlides: false,
+					grabCursor: false,
+				},
+			},
+		});
+
+		const mainSwiper = new Swiper(homeSlider, {
+			modules: [Autoplay, Thumbs],
 			autoplay: {
 				delay: 4000,
 				disableOnInteraction: false,
 			},
-			pagination: {
-				el: ".home-slider-pagination",
-				clickable: true,
-				renderBullet: function (index, className) {
-					return '<span class="' + className + '"><span class="home-slider-pagination__content">' + bulletContent[index] + "</span></span>";
-				},
+			thumbs: {
+				swiper: thumbSwiper,
 			},
 		});
+
+		const handleResize = () => {
+			thumbSwiper.update();
+			mainSwiper.update();
+		};
+
+		window.addEventListener("resize", debounce(handleResize, 150));
 	}
 }

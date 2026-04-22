@@ -95,26 +95,29 @@
 		}
 		&-pagination {
 			@include flex($justify: center);
-			width: 100%;
+			width: auto;
+			max-width: 100vw;
 			padding: 0.5rem 0;
-			.swiper-pagination-bullet {
+			&__content {
+				padding: 0 1.5rem;
+			}
+			.swiper-wrapper.ct-div-block {
+				flex-direction: row;
+			}
+			.swiper-slide {
+				width: auto;
 				font-weight: 700;
 				font-size: 1.25em;
 				opacity: 0.5;
-				.home-slider-pagination__content {
-					padding: 0 1.5rem;
-				}
-
 				&:after {
 					display: block;
 					width: 100%;
-					padding: 0 0.5rem;
 					height: 1px;
 					margin-top: 1rem;
 					background-color: #333333;
 					content: "";
 				}
-				&-active {
+				&-thumb-active {
 					opacity: 1;
 					&:after {
 						height: 3px;
