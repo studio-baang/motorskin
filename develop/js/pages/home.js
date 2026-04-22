@@ -91,7 +91,6 @@ class homeSlide {
 			modules: [Thumbs],
 			slideToClickedSlide: true,
 			slidesPerView: "auto",
-			centeredSlides: true,
 			centerInsufficientSlides: true,
 			watchOverflow: false,
 			breakpoints: {
