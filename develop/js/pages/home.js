@@ -96,8 +96,6 @@ class homeSlide {
 			watchOverflow: false,
 			breakpoints: {
 				800: {
-					centeredSlides: true,
-					centerInsufficientSlides: false,
 					grabCursor: false,
 				},
 			},
