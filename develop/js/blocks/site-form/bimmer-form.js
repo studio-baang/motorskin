@@ -1,8 +1,8 @@
 import _ from "lodash";
-import { getSiteName } from "../utils/filter-site-by-name";
-import { sendToGoogleSheet } from "../utils/sendToGoogleSheet";
+import { getSiteName } from "../../utils/filter-site-by-name";
+import { sendToGoogleSheet } from "../../utils/sendToGoogleSheet";
 
-export class BimmerReceipt {
+export class BimmerForm {
 	constructor() {
 		this.sitename = getSiteName();
 
@@ -97,7 +97,7 @@ export class BimmerReceipt {
 					data: objData,
 				});
 			},
-			false
+			false,
 		);
 	}
 

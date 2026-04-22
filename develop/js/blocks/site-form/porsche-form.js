@@ -1,18 +1,18 @@
-import { WpJson } from "../utils/wp-json";
-import { filterAddonDataFn } from "../utils/filter-addon-json";
+import { WpJson } from "../../utils/wp-json";
+import { filterAddonDataFn } from "../../utils/filter-addon-json";
 
-import { renderReceipt } from "../components/contact-receipt";
+import { renderReceipt } from "../../components/contact-receipt";
 
-import { filterTaxonomyData } from "../utils/get-taxonomy-data";
+import { filterTaxonomyData } from "../../utils/get-taxonomy-data";
 
-import { ButtonContainer } from "../components/contact-customize/container-button";
-import { SelectWrapper } from "../components/contact-customize/wrapper-select";
+import { ButtonContainer } from "../../components/contact-customize/container-button";
+import { SelectWrapper } from "../../components/contact-customize/wrapper-select";
 
-import { checkDealerCode, searchDealerCode, splitDealerCode } from "../utils/search-dealer-code";
-import { renderLoadingIcon } from "../components/loading-icon";
-import { Wrapper } from "../components/contact-customize/wrapper";
-import { AddonButtonDOM, PackageButtonDOM, TypeButtonDOM } from "../components/contact-customize/package-button";
-import { sendToGoogleSheet } from "../utils/sendToGoogleSheet";
+import { checkDealerCode, searchDealerCode, splitDealerCode } from "../../utils/search-dealer-code";
+import { renderLoadingIcon } from "../../components/loading-icon";
+import { Wrapper } from "../../components/contact-customize/wrapper";
+import { AddonButtonDOM, PackageButtonDOM, TypeButtonDOM } from "../../components/contact-customize/package-button";
+import { sendToGoogleSheet } from "../../utils/sendToGoogleSheet";
 
 const SITENAME = window.location.hostname == "localhost" ? "" : "/porsche-dealer";
 const DEALERPACKAGENAME = "dealer-package";
@@ -38,7 +38,7 @@ class AddonGuideWrapper extends Wrapper {
 	}
 }
 
-export class PorcsheReceipt {
+export class PorcsheForm {
 	// render 순서
 	wrapperArr = [
 		{
@@ -212,7 +212,7 @@ export class PorcsheReceipt {
 					{ title: this.jsonData.brandNewPackageInfo.title, content: this.jsonData.brandNewPackageInfo.description },
 					{ title: this.jsonData.dealerPackageInfo.title, content: this.jsonData.dealerPackageInfo.description },
 				],
-				1
+				1,
 			);
 			this.findWrapper("package").wrapper.update(container.package.render());
 		} else {
@@ -307,7 +307,7 @@ export class PorcsheReceipt {
 					}
 				}
 			},
-			false
+			false,
 		);
 	}
 
@@ -390,7 +390,7 @@ export class PorcsheReceipt {
 					classType: r.classType,
 					originPrice: isTypeA ? r.price.typeA : r.price.typeB,
 					discountPrice: isTypeA ? r.price.typeA / 2 : r.price.typeB / 2,
-				}))
+				})),
 			);
 		} else {
 			container.update(
@@ -398,7 +398,7 @@ export class PorcsheReceipt {
 					title: r.title,
 					originPrice: r.prices.origin,
 					discountPrice: r.prices.discount,
-				}))
+				})),
 			);
 		}
 		this.findWrapper("packageType").wrapper.update(container.render());
@@ -492,7 +492,7 @@ export class PorcsheReceipt {
 				packageName: this.inputNodes.package.value,
 			},
 			optionArr,
-			totalPrice
+			totalPrice,
 		);
 
 		receiptDom.appendChild(element);

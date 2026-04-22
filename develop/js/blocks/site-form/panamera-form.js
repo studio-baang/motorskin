@@ -1,8 +1,8 @@
 import _ from "lodash";
-import { toggleActiveClass } from "../utils/toggle-button";
-import { sendToGoogleSheet } from "../utils/sendToGoogleSheet";
+import { toggleActiveClass } from "../../utils/toggle-button";
+import { sendToGoogleSheet } from "../../utils/sendToGoogleSheet";
 
-export class panameraReceipt {
+export class PanameraForm {
 	constructor() {
 		this.form = document.querySelector(".wpcf7-form");
 		this.receipt = document.querySelector(".contact-receipt");
@@ -426,7 +426,7 @@ export class panameraReceipt {
 					data: objData,
 				});
 			},
-			false
+			false,
 		);
 	}
 
