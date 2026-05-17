@@ -10,6 +10,7 @@ import { Home } from "./pages/home";
 import { Faq } from "./pages/automotive";
 import { introduceParallax } from "./pages/introduce";
 import { DealerCode } from "./pages/dealer-code";
+import { QuickMenu } from "./blocks/quick-menu";
 
 class App {
 	constructor() {
@@ -21,9 +22,18 @@ class App {
 	}
 
 	init() {
+		function initQuickMenuInstances() {
+			document.querySelectorAll("[data-quick-menu]").forEach((menu) => {
+				new QuickMenu(menu);
+			});
+		}
+
 		document.addEventListener("DOMContentLoaded", () => {
 			const main = document.querySelector("main");
 			const namespace = main.dataset.namespace.toLowerCase() || null;
+
+			initQuickMenuInstances();
+
 			if (namespace == "home") {
 				new Home();
 			} else if (namespace == "packages") {
